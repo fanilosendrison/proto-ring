@@ -1,0 +1,1 @@
+`proto-ring` is the canonical shared governance substrate currently used by `Turnlock` and `Ruu``. It contains only governance rules and mechanisms already required by those repositories. It does not attempt to specify the complete future `Ring` product.
