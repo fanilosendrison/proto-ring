@@ -32,27 +32,9 @@ this profile as mutable repository state.
 Proto-Ring Engineering is the authority for durable proto-ring work existence,
 classification, scheduling priority, and workflow state.
 
-It is not authority for Ring product semantics, Ring normative derivation,
-Turnlock product semantics, Ruu product semantics, consumer decision history,
-consumer formal or qualification evidence, or semantic choices that belong to
-another product authority.
-
-Ring's normative product authority is external to this repository.
-
-It is maintained in:
-
-```text
-fanilosendrison/ring
-```
-
-with the normative Ring specification at:
-
-```text
-docs/specification/ring-spec.md
-```
-
-Proto-ring MUST NOT reproduce that specification as an independent normative
-source.
+It is not authority for Turnlock product semantics, Ruu product semantics,
+consumer decision history, consumer formal or qualification evidence, or
+semantic choices that belong to another consumer authority.
 
 Proto-ring is an empirical bootstrap and factorization repository.
 
@@ -63,7 +45,7 @@ The current proto-ring repository boundary is:
 
 1. `docs/bootstrap/turnlock-extraction-audit.md` is non-normative historical
    bootstrap analysis. It preserves extraction reasoning but creates no
-   consumer or Ring authority.
+   consumer authority.
 2. Explicitly accepted authority in each consumer repository remains
    authoritative for that consumer.
 3. Turnlock ADR-050 authorizes external shared governance implementation while
@@ -77,17 +59,13 @@ The current proto-ring repository boundary is:
    contract or mechanism and the required consumer preservation, conformance,
    or intentional-strengthening obligations are satisfied.
 7. GitHub Issues and this Project govern proto-ring work. They do not themselves
-   establish proto-ring contract semantics, Ring semantics, or consumer product
-   semantics.
-8. Ring Product Intent and Ring normative derivation occur in
-   `fanilosendrison/ring`, not in proto-ring.
+   establish consumer product semantics.
 
-Do not infer Ring semantics from proto-ring candidate designs, extracted
-mechanisms, repository structure, Issues, Project state, or implementation
-convenience.
+Do not infer new shared governance merely from repository structure, Issues,
+Project state, implementation convenience, or speculative future use.
 
-A later comparison between independently derived Ring requirements and
-proto-ring mechanisms does not make proto-ring authoritative for Ring.
+Until concrete consumer evidence justifies a consumer-independent concern, keep
+it outside proto-ring.
 
 ## Workflow-status mapping
 
@@ -351,11 +329,6 @@ This section governs proto-ring's defining consumer-derived factorization work.
 Consumer-derived factorization establishes proto-ring contracts and mechanisms
 for their accepted proto-ring scope.
 
-It does not establish Ring product semantics.
-
-Ring Product Intent and Ring normative derivation are owned independently by
-`fanilosendrison/ring`.
-
 Proto-ring factorization MUST NOT treat any consumer as a privileged reference
 implementation.
 
@@ -398,12 +371,6 @@ Do not strengthen a consumer merely to make extraction aesthetically uniform.
 
 Within consumer-derived factorization, do not invent speculative governance
 unsupported by a concrete demonstrated need.
-
-Ring semantics are outside this factorization discipline.
-
-A later independently derived Ring requirement may select, adapt, or reject a
-proto-ring mechanism as a candidate realization. That later comparison does not
-retroactively make proto-ring normative for Ring.
 
 Consumer-specific authority, validation membership, ordering, bindings,
 profiles, product semantics, qualification claims, evidence, provenance,
