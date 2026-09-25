@@ -1,19 +1,41 @@
 # proto-ring
 
-`proto-ring` is the specification and bootstrap repository for Ring.
+`proto-ring` is the bootstrap and factorization repository for generic
+software-repository governance mechanisms empirically demonstrated by consumer
+repositories such as Turnlock and Ruu.
 
-The current normative Ring Product Intent lives at:
+Its work follows the empirical direction:
 
-[docs/specification/ring-product-intent.md — Section 0](docs/specification/ring-product-intent.md#0-product-intent--governing-product-outcome)
+```text
+observe concrete consumer governance
+→ compare strengths, constraints, evidence, and failure modes
+→ derive the strongest justified consumer-independent contract
+→ implement the shared contract or mechanism in proto-ring
+→ validate it independently
+→ adopt it back into consumers without weakening their guarantees
+```
 
-The current proto-ring implementation also contains shared governance contracts
-and mechanisms already extracted from concrete needs demonstrated by Turnlock
-and Ruu.
+`proto-ring` is not Ring's product-specification repository.
 
-Those existing artifacts retain the authority already established for their
-current scope. They are bootstrap evidence and accepted realizations, not a
-complete derivation of the Ring Product Intent.
+It does not define Ring Product Intent, Ring requirements, Ring invariants, Ring
+architecture, or Ring product semantics.
 
-No lower-level Ring requirement, invariant, architecture, canonical IR
-structure, DSL syntax, schema, file layout, or additional implementation
-mechanism is established merely by the Product Intent or by this README.
+The normative Ring product is maintained independently in:
+
+`fanilosendrison/ring`
+
+with its normative specification at:
+
+`docs/specification/ring-spec.md`
+
+Mechanisms developed in `proto-ring` may later be compared against
+independently derived Ring requirements as candidate realizations.
+
+Their existence in `proto-ring` does not make them normative Ring premises.
+
+The historical extraction analysis lives at:
+
+[docs/bootstrap/turnlock-extraction-audit.md](docs/bootstrap/turnlock-extraction-audit.md)
+
+Existing proto-ring contracts and mechanisms retain the authority already
+established for their own stated scope.
