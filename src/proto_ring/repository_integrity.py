@@ -34,6 +34,37 @@ __all__ = [
 
 _STATE_FORMAT = b"proto-ring:repository-integrity:state:v1"
 
+_GIT_INTERNAL_ENV_REMOVE = frozenset(
+    {
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+        "GIT_CONFIG",
+        "GIT_CONFIG_PARAMETERS",
+        "GIT_CONFIG_COUNT",
+        "GIT_CONFIG_GLOBAL",
+        "GIT_CONFIG_SYSTEM",
+        "GIT_CONFIG_NOSYSTEM",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_DIR",
+        "GIT_WORK_TREE",
+        "GIT_IMPLICIT_WORK_TREE",
+        "GIT_GRAFT_FILE",
+        "GIT_INDEX_FILE",
+        "GIT_NO_REPLACE_OBJECTS",
+        "GIT_REPLACE_REF_BASE",
+        "GIT_PREFIX",
+        "GIT_SHALLOW_FILE",
+        "GIT_COMMON_DIR",
+        "GIT_NAMESPACE",
+        "GIT_CEILING_DIRECTORIES",
+        "GIT_DISCOVERY_ACROSS_FILESYSTEM",
+    }
+)
+
+_GIT_CONFIG_INDEXED_PREFIXES = (
+    "GIT_CONFIG_KEY_",
+    "GIT_CONFIG_VALUE_",
+)
+
 
 class ObligationStatus(str, Enum):
     SATISFIED = "SATISFIED"
@@ -112,9 +143,22 @@ def _stat_guard(st: os.stat_result) -> tuple[int, int, int, int]:
     return (st.st_mode, st.st_size, st.st_mtime_ns, st.st_ctime_ns)
 
 
+def _internal_git_environment() -> dict[str, str]:
+    environment = dict(os.environ)
+
+    for key in tuple(environment):
+        if key in _GIT_INTERNAL_ENV_REMOVE or key.startswith(
+            _GIT_CONFIG_INDEXED_PREFIXES
+        ):
+            del environment[key]
+
+    return environment
+
+
 def _run_git(root: Path, args: list[str]) -> subprocess.CompletedProcess[bytes]:
     return subprocess.run(
         ["git", "-C", os.fspath(root), *args],
+        env=_internal_git_environment(),
         capture_output=True,
         check=False,
     )
@@ -357,7 +401,6 @@ def _execute_obligation(
             list(obligation.argv),
             cwd=os.fspath(root),
             env=dict(env),
-            capture_output=True,
             check=False,
         )
     except (OSError, ValueError, IndexError) as error:
