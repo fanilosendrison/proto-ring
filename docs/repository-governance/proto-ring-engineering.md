@@ -33,29 +33,53 @@ Proto-Ring Engineering is the authority for durable proto-ring work existence,
 classification, scheduling priority, and workflow state.
 
 It is not authority for Turnlock product semantics, Ruu product semantics,
-consumer decision history, consumer formal or qualification evidence, or the
-Product Intent of any future Ring product.
+consumer decision history, consumer formal or qualification evidence, or
+semantic choices that belong to another product authority.
+
+The normative Ring product-level root is:
+
+```text
+docs/specification/ring-product-intent.md — Section 0
+```
+
+That Product Intent establishes Ring's governing product outcome and authority
+boundary.
+
+It does not, merely by existing, establish lower-level requirements,
+invariants, architectural implications, canonical IR structure, DSL syntax,
+schema, file layout, formal model, or implementation mechanisms.
 
 The current proto-ring repository boundary is:
 
-1. `docs/bootstrap/turnlock-extraction-audit.md` is non-normative historical
+1. `docs/specification/ring-product-intent.md` Section 0 is normative for the
+   current Ring product direction.
+2. `docs/bootstrap/turnlock-extraction-audit.md` is non-normative historical
    bootstrap analysis. It preserves extraction reasoning but creates no
    consumer authority.
-2. Explicitly accepted authority in each consumer repository remains authoritative
-   for that consumer.
-3. Turnlock ADR-050 authorizes external shared governance implementation while
+3. Explicitly accepted authority in each consumer repository remains
+   authoritative for that consumer.
+4. Turnlock ADR-050 authorizes external shared governance implementation while
    retaining Turnlock repository authority.
-4. Ruu ADR-083 authorizes external shared governance implementation while
+5. Ruu ADR-083 authorizes external shared governance implementation while
    retaining Ruu repository authority.
-5. Shared governance becomes proto-ring-owned only after an explicit repository
-   change establishes a consumer-independent contract or mechanism derived from
-   demonstrated consumer needs and the required consumer preservation,
-   conformance, or intentional-strengthening obligations are satisfied.
-6. GitHub Issues and this Project govern work. They do not themselves establish
-   shared governance semantics or consumer product semantics.
+6. Existing shared governance already accepted into proto-ring retains the
+   authority established for its current scope.
+7. Future Ring semantics may become normative only through valid derivation
+   from accepted Ring premises or through an explicit decision by the authority
+   entitled to make an unresolved Ring choice.
+8. Consumer-derived shared governance becomes proto-ring-owned only after an
+   explicit repository change establishes the applicable consumer-independent
+   contract or mechanism and the required consumer preservation, conformance,
+   or intentional-strengthening obligations are satisfied.
+9. GitHub Issues and this Project govern work. They do not themselves establish
+   Ring semantics or consumer product semantics.
 
-Do not infer a complete future Ring Product Intent from the current proto-ring
-repository or this Project.
+Do not infer lower-level Ring semantics merely from candidate designs,
+bootstrap mechanisms, repository structure, Issues, Project state, or
+implementation convenience.
+
+Until a lower-level statement is validly derived or explicitly established by
+the appropriate authority, keep it non-normative.
 
 ## Workflow-status mapping
 
@@ -85,9 +109,10 @@ but it does not alter dependencies, authority, or accepted semantics.
 
 Proto-Ring Engineering MUST NOT define a `Phase` field.
 
-The current proto-ring extraction program is a dependency-ordered migration of
-already demonstrated governance mechanisms. Migration ordering belongs in native
-Issue dependencies, not in an artificial lifecycle-phase taxonomy.
+The current proto-ring program contains dependency-ordered bootstrap extraction
+work and may later contain work validly derived from the Ring Product Intent.
+Work ordering belongs in native Issue dependencies, not in an artificial
+lifecycle-phase taxonomy.
 
 Do not encode `Bootstrap`, `Extraction`, `Adoption`, `Migration`,
 `Consolidation`, or similar process stages as Project phases.
@@ -159,12 +184,12 @@ Use exactly:
 Definitions:
 
 * `P0`: work whose delay currently blocks meaningful progress on the active
-  extraction critical path or whose omission would permit an integrity breach
-  in the extraction mechanism.
-* `P1`: work required by the current extraction program but whose delay does not
+  proto-ring critical path or whose omission would permit an integrity breach
+  in an established proto-ring mechanism.
+* `P1`: work required by the current proto-ring program but whose delay does not
   currently block all meaningful progress.
-* `P2`: important retained downstream extraction or governance work that is not
-  on the current critical path.
+* `P2`: important retained downstream Ring, extraction, adoption, or governance
+  work that is not on the current critical path.
 * `P3`: useful retained work that can safely wait without meaningful current
   scheduling cost.
 
@@ -190,7 +215,7 @@ Re-evaluate all open Project Issues after any of these events:
 1. creation of a durable Issue;
 2. Issue completion, closure, or reopening;
 3. creation or removal of a native dependency;
-4. an extraction result that changes which downstream adoption work is
+4. an accepted proto-ring result that changes which downstream work is
    executable;
 5. an accepted authority change in proto-ring, Turnlock, or Ruu that changes an
    extraction prerequisite or integrity boundary;
@@ -204,7 +229,7 @@ For each priority pass:
 1. read canonical live Issue state, Project fields, and native dependencies;
 2. read the current proto-ring governance profile and the exact consumer
    authority relevant to affected work;
-3. identify the current extraction critical path;
+3. identify the current proto-ring critical path;
 4. assign `P0`, then `P1`, then `P2`, then `P3` according to the definitions
    above;
 5. mutate only Project `Priority` fields whose value changes;
@@ -291,10 +316,11 @@ Do not create Phase-specific views.
 
 ## Issue requirements
 
-Every normal proto-ring extraction Issue MUST state:
+Every normal proto-ring Issue MUST state:
 
-* the concrete extraction or adoption outcome;
-* the source mechanism or contract being factored;
+* the concrete normative, extraction, adoption, or implementation outcome;
+* the accepted normative authority or concrete source mechanism that justifies
+  the work;
 * the authority boundary that must remain unchanged;
 * exact repository surfaces allowed to change;
 * preservation, equivalence, intentional-strengthening, or conformance
@@ -310,6 +336,18 @@ An Issue may identify stable semantic prerequisites without restating their live
 relationship state.
 
 ## Factorization discipline
+
+This section governs consumer-derived factorization work.
+
+Consumer-derived factorization is an important bootstrap and reuse path, but it
+is not the exclusive possible source of future Ring semantics.
+
+A future Ring requirement may also be established through valid derivation from
+the normative Ring Product Intent or through an explicit decision by the
+authority entitled to resolve a Ring choice.
+
+Until such a derivation or decision exists, do not treat a candidate Ring
+requirement as established.
 
 Proto-ring factorization MUST NOT treat any consumer as a privileged reference
 implementation.
@@ -351,13 +389,21 @@ identical.
 
 Do not strengthen a consumer merely to make extraction aesthetically uniform.
 
-Do not invent speculative governance unsupported by a concrete demonstrated
-need.
+Within consumer-derived factorization, do not invent speculative governance
+unsupported by a concrete demonstrated need.
+
+This restriction does not prohibit future Ring semantics that are validly
+derived from the normative Ring Product Intent or explicitly established by the
+appropriate Ring authority.
 
 Consumer-specific authority, validation membership, ordering, bindings,
 profiles, product semantics, qualification claims, evidence, provenance,
-generated artifacts, and historical snapshots remain consumer-owned unless an
-explicit later authority change says otherwise.
+generated artifacts, and historical snapshots remain consumer-owned unless a
+valid Ring normative derivation, an explicit Ring authority decision, or an
+applicable consumer authority change establishes otherwise.
+
+The fact that a property is consumer-local today does not by itself establish
+that the property must remain consumer-local permanently.
 
 A consumer adoption proof therefore need not always be exact behavioral parity.
 
