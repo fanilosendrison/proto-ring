@@ -17,7 +17,7 @@ fanilosendrison/ruu
 proto-ring authority at derivation
 fanilosendrison/proto-ring
 b183bed5e04b93fa5c9c337af9f0830fe75c9537
-````
+```
 
 These identities record derivation provenance.
 
@@ -34,12 +34,12 @@ Repository Integrity is a current-state coherence property.
 
 It is not:
 
-* product-semantic authority;
-* qualification of behavioral or product claims;
-* formal verification;
-* historical evidence replay;
-* proof that a repository is correct in every possible sense;
-* synonymous with a clean Git worktree.
+- product-semantic authority;
+- qualification of behavioral or product claims;
+- formal verification;
+- historical evidence replay;
+- proof that a repository is correct in every possible sense;
+- synonymous with a clean Git worktree.
 
 A consumer owns what Repository Integrity requires.
 
@@ -86,14 +86,14 @@ Each consumer owns one canonical Repository Integrity profile.
 
 That profile owns:
 
-* mandatory validation membership;
-* validation ordering where ordering is meaningful;
-* validation prerequisites where they exist;
-* repository-specific paths and bindings;
-* required generated or validated projections;
-* repository-specific environment/toolchain requirements;
-* repository-specific preserved-artifact custody requirements;
-* any consumer-specific cleanliness requirement.
+- mandatory validation membership;
+- validation ordering where ordering is meaningful;
+- validation prerequisites where they exist;
+- repository-specific paths and bindings;
+- required generated or validated projections;
+- repository-specific environment/toolchain requirements;
+- repository-specific preserved-artifact custody requirements;
+- any consumer-specific cleanliness requirement.
 
 Neither `proto-ring` nor another consumer may infer, add, remove, reorder, or
 redefine these facts.
@@ -170,11 +170,11 @@ The contract does not require one universal state-identity mechanism.
 
 A consumer may use, for example:
 
-* direct evaluation of the current state;
-* Git object identity;
-* a content-sensitive transient fingerprint;
-* a committed content manifest;
-* another mechanism that establishes the required exact-state binding.
+- direct evaluation of the current state;
+- Git object identity;
+- a content-sensitive transient fingerprint;
+- a committed content manifest;
+- another mechanism that establishes the required exact-state binding.
 
 ## Evaluation purity
 
@@ -231,12 +231,12 @@ Repository Integrity does not prescribe one projection-validation mechanism.
 
 Consumers may use:
 
-* pure comparison;
-* deterministic re-derivation in isolation;
-* content hashes;
-* schema validation;
-* consumer-specific validators;
-* another mechanism that establishes currentness without weakening this
+- pure comparison;
+- deterministic re-derivation in isolation;
+- content hashes;
+- schema validation;
+- consumer-specific validators;
+- another mechanism that establishes currentness without weakening this
   contract.
 
 The complete generic ownership and projection taxonomy may be governed by a
@@ -252,10 +252,10 @@ requirement.
 
 Ruu demonstrates that exhaustive content manifests are a strong mechanism for:
 
-* content-sensitive state binding;
-* active-file discovery;
-* missing or unexpected artifact detection;
-* projection-currentness enforcement.
+- content-sensitive state binding;
+- active-file discovery;
+- missing or unexpected artifact detection;
+- projection-currentness enforcement.
 
 Turnlock demonstrates that Repository Integrity can exist without requiring a
 persisted whole-repository manifest.
@@ -276,16 +276,16 @@ execution strategy.
 
 A consumer or shared runtime MAY:
 
-* continue after independent failures and aggregate diagnostics;
-* stop after a failure when later obligations cannot or should not execute;
-* model explicit validation prerequisites.
+- continue after independent failures and aggregate diagnostics;
+- stop after a failure when later obligations cannot or should not execute;
+- model explicit validation prerequisites.
 
 However:
 
-* an observed failure MUST NOT be suppressed;
-* an unevaluated mandatory obligation MUST NOT be represented as satisfied;
-* execution ordering declared by the consumer MUST be preserved;
-* execution strategy MUST NOT change the meaning of the consumer-owned
+- an observed failure MUST NOT be suppressed;
+- an unevaluated mandatory obligation MUST NOT be represented as satisfied;
+- execution ordering declared by the consumer MUST be preserved;
+- execution strategy MUST NOT change the meaning of the consumer-owned
   obligation set.
 
 Failure aggregation is therefore an admissible reusable capability, but not
@@ -300,13 +300,13 @@ Historical evidence has two distinct relationships to Repository Integrity.
 When a consumer declares that historical artifacts must remain preserved,
 Repository Integrity MAY include current-state obligations such as:
 
-* required artifact presence;
-* exact content hash;
-* immutability or non-writability requirements;
-* lineage consistency;
-* registration completeness;
-* path/provenance consistency;
-* separation between retained and current evidence classes.
+- required artifact presence;
+- exact content hash;
+- immutability or non-writability requirements;
+- lineage consistency;
+- registration completeness;
+- path/provenance consistency;
+- separation between retained and current evidence classes.
 
 These are current repository-coherence obligations.
 
@@ -317,11 +317,11 @@ original claim.
 
 Activities such as:
 
-* replaying a historical executable;
-* reproducing a historical result;
-* validating a behavioral claim;
-* establishing semantic correspondence;
-* formal or state-space verification;
+- replaying a historical executable;
+- reproducing a historical result;
+- validating a behavioral claim;
+- establishing semantic correspondence;
+- formal or state-space verification;
 
 belong to Qualification, formal assurance, or another consumer-specific evidence
 system.
@@ -372,23 +372,23 @@ The canonical proto-ring contract owns the generic semantics above.
 
 Each consumer continues to own:
 
-* validation membership;
-* validation ordering;
-* validation prerequisites;
-* canonical repository facts;
-* repository paths;
-* generated artifacts;
-* projection bindings;
-* product semantics;
-* accepted decisions;
-* formal-assurance policy;
-* qualification claims;
-* qualification evidence;
-* historical snapshots;
-* concrete manifests;
-* lineage and provenance data;
-* toolchain requirements;
-* repository-specific output and CLI contracts.
+- validation membership;
+- validation ordering;
+- validation prerequisites;
+- canonical repository facts;
+- repository paths;
+- generated artifacts;
+- projection bindings;
+- product semantics;
+- accepted decisions;
+- formal-assurance policy;
+- qualification claims;
+- qualification evidence;
+- historical snapshots;
+- concrete manifests;
+- lineage and provenance data;
+- toolchain requirements;
+- repository-specific output and CLI contracts.
 
 Shared Repository Integrity implementation consumes these consumer-owned facts.
 
@@ -422,15 +422,15 @@ without treating either as the reference implementation.
 
 Turnlock demonstrates:
 
-* one canonical repository-validation membership and ordering;
-* explicit repository-integrity evaluation;
-* consumer-owned membership separated from generic execution mechanics;
-* fail-closed step failures;
-* failure aggregation;
-* relative purity checking;
-* support for pre-existing dirty state;
-* generated projections produced outside diagnostic validation;
-* a distinction between repository integrity and deeper formal-assurance
+- one canonical repository-validation membership and ordering;
+- explicit repository-integrity evaluation;
+- consumer-owned membership separated from generic execution mechanics;
+- fail-closed step failures;
+- failure aggregation;
+- relative purity checking;
+- support for pre-existing dirty state;
+- generated projections produced outside diagnostic validation;
+- a distinction between repository integrity and deeper formal-assurance
   evidence.
 
 These support the generic requirements for canonical consumer-owned membership,
@@ -448,14 +448,14 @@ pre-existing-dirty-state behavior.
 
 Ruu demonstrates:
 
-* deterministic generated-artifact freshness;
-* exhaustive active-file registration through a content manifest;
-* content-sensitive SHA-256 state authentication;
-* explicit retained/current evidence separation;
-* immutable historical snapshot custody;
-* lineage and provenance integrity;
-* fail-closed unsupported or unavailable replay prerequisites;
-* deterministic qualification replay distinct from mere artifact presence.
+- deterministic generated-artifact freshness;
+- exhaustive active-file registration through a content manifest;
+- content-sensitive SHA-256 state authentication;
+- explicit retained/current evidence separation;
+- immutable historical snapshot custody;
+- lineage and provenance integrity;
+- fail-closed unsupported or unavailable replay prerequisites;
+- deterministic qualification replay distinct from mere artifact presence.
 
 These support the generic requirements for exact-state binding, projection
 currentness, fail-closed undetermined states, and the distinction between
