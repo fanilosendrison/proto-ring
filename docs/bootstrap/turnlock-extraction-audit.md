@@ -20,8 +20,8 @@ currently suitable for shared ownership by `proto-ring`.
 It is an observational extraction map derived from the concrete governance of
 Turnlock at the exact source revision above.
 
-It is not a specification of Ring, not a Product Intent for Ring or proto-ring,
-and not normative authority for Turnlock, Ruu, or any future Ring product.
+It is observational bootstrap analysis, not Product Intent and not normative
+authority for Turnlock, Ruu, or any other consumer.
 
 Its immediate purpose is to preserve the reasoning required to factor already
 demonstrated shared governance before Turnlock and Ruu continue to evolve
@@ -982,15 +982,15 @@ The current recommended extraction sequence is:
 ```
 
 The sequence is provisional implementation planning derived from the audited
-state. It is not a specification of the future Ring product.
+state. It establishes no product semantics beyond the accepted proto-ring
+contracts produced by later work.
 
 ## Non-decisions
 
 This audit intentionally does not decide:
 
-* the Product Intent of Ring;
-* the complete scope of Ring;
-* whether proto-ring eventually becomes Ring;
+* any unrelated product intent;
+* any unrelated product scope;
 * a universal repository-governance model;
 * a universal proto-ring profile format;
 * whether the existing external shared agent skills move into proto-ring;
@@ -1027,4 +1027,4 @@ consumers adopt the new pinned proto-ring version
 
 This document records the initial extraction evidence for that process.
 
-It does not constitute the specification of Ring.
+It does not constitute a product specification.
