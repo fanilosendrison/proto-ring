@@ -47,9 +47,10 @@ The current proto-ring repository boundary is:
    retaining Turnlock repository authority.
 4. Ruu ADR-083 authorizes external shared governance implementation while
    retaining Ruu repository authority.
-5. A mechanism becomes proto-ring-owned only after an explicit extraction
-   change establishes it in this repository and the required consumer parity
-   obligations are satisfied.
+5. Shared governance becomes proto-ring-owned only after an explicit repository
+   change establishes a consumer-independent contract or mechanism derived from
+   demonstrated consumer needs and the required consumer preservation,
+   conformance, or intentional-strengthening obligations are satisfied.
 6. GitHub Issues and this Project govern work. They do not themselves establish
    shared governance semantics or consumer product semantics.
 
@@ -296,7 +297,8 @@ Every normal proto-ring extraction Issue MUST state:
 * the source mechanism or contract being factored;
 * the authority boundary that must remain unchanged;
 * exact repository surfaces allowed to change;
-* parity or conformance obligations;
+* preservation, equivalence, intentional-strengthening, or conformance
+  obligations as applicable;
 * mechanically checkable acceptance criteria;
 * explicit non-goals where scope expansion would otherwise be plausible.
 
@@ -307,27 +309,70 @@ Dependencies belong only in native GitHub relationships.
 An Issue may identify stable semantic prerequisites without restating their live
 relationship state.
 
-## Extraction discipline
+## Factorization discipline
 
-Every shared implementation extraction follows this invariant:
+Proto-ring factorization MUST NOT treat any consumer as a privileged reference
+implementation.
+
+Shared governance is also NOT limited to behavior that is already identical
+across consumers.
+
+Every shared-governance factorization follows this sequence:
 
 ```text
-identify proven generic mechanism
-→ implement it in proto-ring
-→ validate proto-ring
-→ pin an immutable proto-ring identity in the consumer
-→ prove parity while the existing consumer implementation still exists
-→ switch the consumer to the shared mechanism
-→ remove duplicated generic implementation
-→ revalidate the complete consumer repository
+observe concrete governance in multiple consumers
+→ compare their strengths, constraints, evidence, and failure modes
+→ derive the strongest justified consumer-independent contract
+→ preserve every demonstrated consumer guarantee unless an explicit
+  strengthening intentionally supersedes it
+→ implement the generic contract or mechanism in proto-ring
+→ validate proto-ring independently
+→ pin an immutable proto-ring identity in each consumer
+→ bind the shared mechanism through consumer-owned authority and configuration
+→ prove preservation, equivalence, or intentional strengthening as applicable
+→ remove only the local duplication that has actually become shared
+→ revalidate the complete affected consumer
+````
+
+"The strongest justified contract" means the strongest contract supported by
+demonstrated consumer needs and evidence. It does not mean the strongest
+contract that can be imagined.
+
+A difference between consumers is evidence to analyze. It is not automatically
+generic and it is not automatically local.
+
+When one consumer demonstrates a stronger governance property than another,
+proto-ring MUST determine whether that property is consumer-independent and
+justified for the other consumer before either extracting it or leaving it
+local.
+
+Do not weaken a demonstrated guarantee merely to make implementations look
+identical.
+
+Do not strengthen a consumer merely to make extraction aesthetically uniform.
+
+Do not invent speculative governance unsupported by a concrete demonstrated
+need.
+
+Consumer-specific authority, validation membership, ordering, bindings,
+profiles, product semantics, qualification claims, evidence, provenance,
+generated artifacts, and historical snapshots remain consumer-owned unless an
+explicit later authority change says otherwise.
+
+A consumer adoption proof therefore need not always be exact behavioral parity.
+
+The required proof may be:
+
+```text
+exact equivalence
+OR
+preservation of an existing guarantee
+OR
+an explicitly justified strengthening
 ```
 
-Do not remove local implementation merely because a shared replacement exists.
-
-Do not consume mutable proto-ring state such as an unpinned `main`.
-
-Consumer-specific authority, bindings, profiles, evidence, generated artifacts,
-and product semantics remain in the consumer repository.
+but weakening an existing demonstrated guarantee is never an acceptable
+factorization result.
 
 ## Findings and scope expansion
 
@@ -367,6 +412,7 @@ An Issue reaches `Done` only when:
 * all repository changes it owns are committed;
 * required validation passes;
 * required generated artifacts are current;
-* required consumer parity evidence exists for consumer-adoption work;
+* required consumer preservation, conformance, or intentional-strengthening
+  evidence exists for consumer-adoption work;
 * no current Issue body or repository document manually mirrors mutable live
   Project state introduced by the work.
