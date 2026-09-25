@@ -54,6 +54,21 @@ class RepositoryFixtureTestCase(unittest.TestCase):
             )
         return completed
 
+    def git_in(
+        self, repository: Path, *args: str
+    ) -> subprocess.CompletedProcess[str]:
+        completed = subprocess.run(
+            ["git", "-C", os.fspath(repository), *args],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if completed.returncode != 0:
+            raise AssertionError(
+                f"git {' '.join(args)} failed: {completed.stderr.strip()}"
+            )
+        return completed
+
     def write(self, relative: str, content: str) -> Path:
         path = self.repo / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -751,6 +766,175 @@ class RepositoryFixtureTestCase(unittest.TestCase):
         self.assertEqual(ObligationStatus.SATISFIED, obligation.status)
         self.assertEqual(0, obligation.returncode)
         self.assertIsNone(obligation.detail)
+
+    # ── Correction: consumer output and internal Git isolation ──────────
+
+    def external_script(self, inner_code: str) -> str:
+        return (
+            "import os\n"
+            "import sys\n"
+            "from pathlib import Path\n"
+            "from proto_ring.repository_integrity import (\n"
+            "    CommandObligation,\n"
+            "    IntegrityProfile,\n"
+            "    IntegrityVerdict,\n"
+            "    evaluate,\n"
+            ")\n"
+            f"obligation = CommandObligation('probe', (sys.executable, '-c', {inner_code!r}))\n"
+            "result = evaluate(\n"
+            f"    Path({os.fspath(self.repo)!r}),\n"
+            "    IntegrityProfile((obligation,)),\n"
+            "    env=dict(os.environ),\n"
+            ")\n"
+            "sys.exit(0 if result.verdict == IntegrityVerdict.PASS else 91)\n"
+        )
+
+    def test_consumer_command_stdout_is_inherited_by_caller(self) -> None:
+        script = self.external_script(
+            "print('RI-STDOUT-SENTINEL', flush=True)"
+        )
+
+        completed = subprocess.run(
+            [sys.executable, "-c", script],
+            capture_output=True,
+            text=True,
+            env=dict(os.environ),
+            check=False,
+        )
+
+        self.assertEqual(0, completed.returncode)
+        self.assertIn("RI-STDOUT-SENTINEL", completed.stdout)
+
+    def test_consumer_command_stderr_is_inherited_by_caller(self) -> None:
+        script = self.external_script(
+            "import sys\n"
+            "print('RI-STDERR-SENTINEL', file=sys.stderr, flush=True)"
+        )
+
+        completed = subprocess.run(
+            [sys.executable, "-c", script],
+            capture_output=True,
+            text=True,
+            env=dict(os.environ),
+            check=False,
+        )
+
+        self.assertEqual(0, completed.returncode)
+        self.assertIn("RI-STDERR-SENTINEL", completed.stderr)
+
+    def test_ambient_git_index_file_cannot_redirect_state_capture(self) -> None:
+        empty_profile = IntegrityProfile(())
+
+        control = evaluate(
+            self.repo,
+            empty_profile,
+            env=self.environment(),
+        )
+        self.assertEqual(IntegrityVerdict.PASS, control.verdict)
+        self.assertIsNotNone(control.baseline_state_identity)
+
+        alternate_index = self.root / "ambient-alternate-index"
+        self.assertFalse(alternate_index.exists())
+
+        with mock.patch.dict(
+            os.environ,
+            {"GIT_INDEX_FILE": os.fspath(alternate_index)},
+        ):
+            polluted = evaluate(
+                self.repo,
+                empty_profile,
+                env=self.environment(),
+            )
+
+        self.assertEqual(IntegrityVerdict.PASS, polluted.verdict)
+        self.assertEqual(
+            control.baseline_state_identity,
+            polluted.baseline_state_identity,
+        )
+        self.assertEqual(
+            polluted.baseline_state_identity,
+            polluted.final_state_identity,
+        )
+
+    def test_ambient_git_dir_and_work_tree_cannot_redirect_explicit_repository(
+        self,
+    ) -> None:
+        empty_profile = IntegrityProfile(())
+
+        control = evaluate(
+            self.repo,
+            empty_profile,
+            env=self.environment(),
+        )
+        self.assertEqual(IntegrityVerdict.PASS, control.verdict)
+
+        other_repo = self.root / "other-repo"
+        other_repo.mkdir()
+        self.git_in(other_repo, "init", "-q")
+        self.git_in(other_repo, "config", "user.name", "Proto Ring Other Test")
+        self.git_in(
+            other_repo,
+            "config",
+            "user.email",
+            "proto-ring-other@example.invalid",
+        )
+        self.git_in(other_repo, "config", "commit.gpgsign", "false")
+        (other_repo / "other.txt").write_text("other\n", encoding="utf-8")
+        self.git_in(other_repo, "add", "-A")
+        self.git_in(other_repo, "commit", "-q", "-m", "other")
+
+        with mock.patch.dict(
+            os.environ,
+            {
+                "GIT_DIR": os.fspath(other_repo / ".git"),
+                "GIT_WORK_TREE": os.fspath(other_repo),
+            },
+        ):
+            polluted = evaluate(
+                self.repo,
+                empty_profile,
+                env=self.environment(),
+            )
+
+        self.assertEqual(IntegrityVerdict.PASS, polluted.verdict)
+        self.assertEqual(
+            control.baseline_state_identity,
+            polluted.baseline_state_identity,
+        )
+        self.assertEqual(
+            polluted.baseline_state_identity,
+            polluted.final_state_identity,
+        )
+
+    def test_consumer_git_environment_is_preserved_exactly(self) -> None:
+        consumer_index = self.root / "consumer-owned-index"
+
+        explicit_env = self.environment()
+        explicit_env["GIT_INDEX_FILE"] = os.fspath(consumer_index)
+        explicit_env["RI_CONSUMER_ENV_SENTINEL"] = "present"
+
+        command = self.python(
+            "import os\n"
+            "import sys\n"
+            f"expected_index = {os.fspath(consumer_index)!r}\n"
+            "ok = (\n"
+            "    os.environ.get('GIT_INDEX_FILE') == expected_index\n"
+            "    and os.environ.get('RI_CONSUMER_ENV_SENTINEL') == 'present'\n"
+            ")\n"
+            "sys.exit(0 if ok else 73)\n"
+        )
+
+        result = self.run_integrity(
+            [CommandObligation("consumer-env", command)],
+            env=explicit_env,
+        )
+
+        self.assertEqual(IntegrityVerdict.PASS, result.verdict)
+        self.assertEqual(
+            ObligationStatus.SATISFIED,
+            result.obligations[0].status,
+        )
+        self.assertEqual(0, result.obligations[0].returncode)
 
 
 if __name__ == "__main__":
