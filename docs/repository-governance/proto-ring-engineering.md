@@ -197,8 +197,8 @@ Definitions:
   in an established proto-ring mechanism.
 * `P1`: work required by the current proto-ring program but whose delay does not
   currently block all meaningful progress.
-* `P2`: important retained downstream Ring, extraction, adoption, or governance
-  work that is not on the current critical path.
+* `P2`: important retained downstream extraction, adoption, or governance work
+  that is not on the current critical path.
 * `P3`: useful retained work that can safely wait without meaningful current
   scheduling cost.
 
