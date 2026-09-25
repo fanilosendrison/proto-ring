@@ -179,7 +179,48 @@ Existing accepted proto-ring contracts retain the authority already established
 for their current scope unless and until a later valid normative change
 supersedes them.
 
-## 0.10 Non-goals
+## 0.10 Ring must be able to govern its own evolution
+
+Ring's governed-software substrate must be applicable to Ring itself.
+
+Once Ring capabilities are sufficiently established to govern the knowledge and
+mechanical obligations relevant to Ring's own evolution, subsequent Ring
+evolution must be capable of proceeding under that governed substrate rather
+than requiring a permanently separate governance system reserved for Ring.
+
+Ring's self-governance must preserve the same distinction between governing
+knowledge, authority, verification obligations, and evidence that applies when
+Ring governs another software product.
+
+Self-governance does not grant Ring authority over its own Product Intent or
+other product-level meaning whose authority remains external to Ring.
+
+Ring MUST NOT treat any of the following as sufficient evidence merely because
+they originate from Ring itself:
+
+```text
+Ring's own assertion of correctness
+Ring's own implementation
+Ring's own validator output
+Ring-owned evidence whose trust depends only on the claim being established
+```
+
+Applicable evidence may therefore depend on independently established
+mechanisms, prior accepted state, external verification, or other roots of trust
+whose authority and actual scope remain explicit.
+
+Ring must be able to represent and govern such evidence without converting its
+ownership of the governed representation into authority over the truth of the
+claim.
+
+This Product Intent requires Ring's governance model to be capable of governing
+Ring itself.
+
+It does not prescribe the bootstrap mechanism by which the first sufficiently
+self-governing Ring state is reached, the versioning model used during that
+bootstrap, or the concrete mechanisms by which self-governance is realized.
+
+## 0.11 Non-goals
 
 Ring does not, merely by virtue of this Product Intent:
 
@@ -196,10 +237,16 @@ Ring does not, merely by virtue of this Product Intent:
   baseline;
 * transfer consumer product-semantic authority to Ring merely because shared
   representation or verification mechanisms are used;
+* treat Ring's ability to govern its own evolution as authority to choose or
+  change its own Product Intent;
+* treat Ring's own assertion, implementation, or validator output as sufficient
+  proof merely because it originates from Ring;
+* require a particular bootstrap, versioning, self-hosting, or root-of-trust
+  mechanism for Ring;
 * define the implementation of a future Ring merely by naming the product
   properties above.
 
-## 0.11 Concise statement
+## 0.12 Concise statement
 
 ```text
 Ring gives governed software knowledge
@@ -211,5 +258,13 @@ and verification substrate by which
 that knowledge remains addressable,
 traceable, checkable, and replayable.
 
-It does not decide what the software must mean.
+The same governed substrate must be
+applicable to Ring's own evolution.
+
+Self-governance does not give Ring
+authority over its own Product Intent
+and does not make self-assertion
+sufficient evidence of correctness.
+
+Ring does not decide what the software must mean.
 ```
