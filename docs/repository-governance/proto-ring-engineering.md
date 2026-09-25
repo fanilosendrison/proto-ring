@@ -174,7 +174,7 @@ Priority never overrides:
 
 * native dependencies;
 * consumer authority;
-* parity obligations;
+* preservation, equivalence, intentional-strengthening, or conformance obligations;
 * validation requirements;
 * immutable pinning requirements;
 * repository-specific evidence boundaries.
