@@ -4,25 +4,38 @@
 software-repository governance mechanisms empirically demonstrated by consumer
 repositories such as Turnlock and Ruu.
 
-Its work follows this direction:
+Its current bootstrap direction is:
 
 ```text
-observe concrete consumer governance
-→ compare strengths, constraints, evidence, and failure modes
-→ derive the strongest justified consumer-independent contract
-→ implement the shared contract or mechanism in proto-ring
+observe Turnlock governance
+→ identify the maximum consumer-independent extraction candidate
+→ confront the candidate with Ruu and other concrete consumers
+→ narrow false generalizations
+→ strengthen with better consumer-independent guarantees
+→ establish the proto-ring contract or mechanism
 → validate it independently
 → adopt it back into consumers without weakening their guarantees
 ```
 
-`proto-ring` does not invent governance speculatively.
+Turnlock is the primary extraction source for this bootstrap direction. That
+makes it the starting point for maximum justified extraction, not automatic
+proto-ring authority or an unquestioned reference implementation. A Turnlock
+governance property is an extraction candidate when analysis establishes that it
+is consumer-independent repository methodology rather than Turnlock product
+semantics, authority, local configuration, history, topology, or another
+consumer-local concern.
 
-A shared contract or mechanism belongs here only when concrete consumer
-experience justifies a consumer-independent concern.
+Ruu is the principal current confrontation consumer. It can falsify a proposed
+generalization, expose a missing distinction, demonstrate a stronger
+generic guarantee, or contribute another consumer-independent property that
+Turnlock does not demonstrate. Ruu's absence of an equivalent mechanism is not
+evidence against extracting a justified Turnlock candidate.
 
-Differences between consumers are evidence to analyze rather than reasons to
-select one consumer as the reference implementation or to reduce the result to
-a lowest common denominator.
+`proto-ring` does not invent governance speculatively. It does not copy Turnlock
+blindly, and it is not derived as `Turnlock ∩ Ruu`. Common implementation is
+evidence for factorization, not a prerequisite. The result is the strongest
+justified consumer-independent governance, while consumer authority and
+consumer-specific behavior remain with their respective consumers.
 
 The historical extraction analysis lives at:
 
