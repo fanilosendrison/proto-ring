@@ -2,6 +2,15 @@
 
 Status: non-normative bootstrap analysis
 
+This historical audit preserves its original observations, classifications,
+provenance, and provisional planning. Its extraction-method assumptions are
+superseded by the current normative Factorization discipline in
+`docs/repository-governance/proto-ring-engineering.md`: Turnlock is the primary
+extraction source, Ruu is a confrontation and strengthening consumer, and
+absence of an equivalent Ruu mechanism does not block a justified extraction.
+This clarification does not make the audit normative authority or rewrite its
+historical evidence.
+
 Source repository: `fanilosendrison/turnlock-rust`
 
 Source branch: `main`
