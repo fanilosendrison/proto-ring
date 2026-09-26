@@ -327,50 +327,134 @@ relationship state.
 This section governs proto-ring's defining consumer-derived factorization work.
 
 Consumer-derived factorization establishes proto-ring contracts and mechanisms
-for their accepted proto-ring scope.
-
-Proto-ring factorization MUST NOT treat any consumer as a privileged reference
-implementation.
-
-Shared governance is also NOT limited to behavior that is already identical
-across consumers.
-
-Every shared-governance factorization follows this sequence:
+for their accepted proto-ring scope. The current bootstrap direction is:
 
 ```text
-observe concrete governance in multiple consumers
-→ compare their strengths, constraints, evidence, and failure modes
-→ derive the strongest justified consumer-independent contract
-→ preserve every demonstrated consumer guarantee unless an explicit
-  strengthening intentionally supersedes it
-→ implement the generic contract or mechanism in proto-ring
+Turnlock
+→ primary source of the governance method
+→ maximum consumer-independent extraction candidate
+
+Ruu
+→ principal current confrontation consumer
+→ falsification, distinction, strengthening, and additional-generic-property
+   evidence
+
+→ strongest justified consumer-independent proto-ring contract or mechanism
+```
+
+Turnlock is currently the primary source from which the governance method is
+being maximally factorized. This is an extraction direction, not a transfer of
+Turnlock authority. Turnlock remains a consumer authority for Turnlock-owned
+semantics, decisions, evidence, configuration, topology, and bindings, and a
+Turnlock implementation is not an unquestioned proto-ring reference
+implementation.
+
+### Maximum justified extraction
+
+For every relevant Turnlock governance property or mechanism under
+consideration, apply this rule:
+
+```text
+consumer-independent repository governance
+→ candidate for proto-ring extraction
+
+intrinsically Turnlock-specific
+→ remains Turnlock-owned
+```
+
+A candidate is consumer-independent only after analysis establishes that it is
+repository-governance methodology rather than Turnlock product semantics,
+Turnlock-specific authority, local configuration, historical evidence,
+repository topology, or another consumer-local concern. This proof of
+independence is required for every extraction; Turnlock containing a property
+is not sufficient by itself.
+
+The absence of an equivalent mechanism in Ruu MUST NOT by itself prevent
+extraction. A property demonstrated in Turnlock does not need prior duplication
+in Ruu before it can be considered consumer-independent. Common implementation
+in multiple consumers is strong evidence, but it is not a prerequisite.
+
+### Consumer confrontation
+
+Confront every Turnlock-derived candidate with Ruu and with any other concrete
+consumer available for the work. Ruu is the principal current confrontation
+consumer. The confrontation MUST determine whether Ruu:
+
+* falsifies the proposed generalization;
+* exposes a missing distinction;
+* demonstrates a stronger consumer-independent guarantee;
+* demonstrates an additional consumer-independent governance property absent
+  from Turnlock; or
+* has only consumer-specific behavior that must remain local to Ruu.
+
+A false generalization MUST be narrowed or its consumer-specific portion
+returned to Turnlock. A Ruu-specific difference is not automatically generic.
+Ruu's absence of the candidate is not evidence against it. Future consumers
+MAY provide the same kind of falsification, distinction, strengthening, or
+additional-generic-property evidence; this bootstrap doctrine is not limited to
+Ruu.
+
+### Strengthening rule
+
+When Ruu demonstrates a stronger property:
+
+```text
+if consumer-independent and justified
+→ strengthen proto-ring
+
+if Ruu-specific
+→ leave it in Ruu
+```
+
+Do not weaken Turnlock merely to match Ruu. Do not preserve a weaker Turnlock
+formulation merely because it was established first. The final proto-ring
+contract or mechanism MAY therefore be stronger than either consumer's starting
+implementation, but the strengthening must remain supported by concrete
+consumer evidence and analysis rather than speculation.
+
+### Anti-intersection and anti-copy rules
+
+The following derivation is prohibited:
+
+```text
+shared = intersection(Turnlock, Ruu)
+```
+
+Proto-ring MUST NOT be reduced to the lowest common denominator, and it MUST
+NOT require two-consumer duplication before a property can be considered
+consumer-independent.
+
+The opposite error is also prohibited:
+
+```text
+Turnlock contains X
+≠
+X automatically belongs in proto-ring
+```
+
+Every extraction requires the consumer-independence analysis above. Neither
+blind Turnlock copying nor symmetric intersection is an acceptable method.
+
+The factorization and adoption sequence is therefore:
+
+```text
+observe Turnlock governance
+→ identify the maximum consumer-independent extraction candidate
+→ confront the candidate with Ruu and other concrete consumers
+→ narrow false generalizations
+→ strengthen with better consumer-independent guarantees
+→ establish the proto-ring contract or mechanism
 → validate proto-ring independently
-→ pin an immutable proto-ring identity in each consumer
-→ bind the shared mechanism through consumer-owned authority and configuration
+→ pin an immutable proto-ring identity in each adopting consumer
+→ bind it through consumer-owned authority and configuration
 → prove preservation, equivalence, or intentional strengthening as applicable
 → remove only the local duplication that has actually become shared
 → revalidate the complete affected consumer
-````
+```
 
 "The strongest justified contract" means the strongest contract supported by
-demonstrated consumer needs and evidence. It does not mean the strongest
-contract that can be imagined.
-
-A difference between consumers is evidence to analyze. It is not automatically
-generic and it is not automatically local.
-
-When one consumer demonstrates a stronger governance property than another,
-proto-ring MUST determine whether that property is consumer-independent and
-justified for the other consumer before either extracting it or leaving it
-local.
-
-Do not weaken a demonstrated guarantee merely to make implementations look
-identical.
-
-Do not strengthen a consumer merely to make extraction aesthetically uniform.
-
-Within consumer-derived factorization, do not invent speculative governance
-unsupported by a concrete demonstrated need.
+concrete consumer needs and evidence. It does not mean the strongest contract
+that can be imagined. Proto-ring MUST NOT invent speculative governance.
 
 Consumer-specific authority, validation membership, ordering, bindings,
 profiles, product semantics, qualification claims, evidence, provenance,
@@ -381,7 +465,6 @@ The fact that a property is consumer-local today does not by itself establish
 that the property must remain consumer-local permanently.
 
 A consumer adoption proof therefore need not always be exact behavioral parity.
-
 The required proof may be:
 
 ```text
