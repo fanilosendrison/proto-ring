@@ -47,6 +47,10 @@ delimiter. Frontmatter is loaded through the safe YAML mechanism and must be a
 mapping. Parsing returns the mapping and the exact decision-body bytes without
 normalizing either authored body bytes or final-newline state.
 
+`parse_adr_bytes` is the single exact parser for both repository file bytes and
+historical Git blob bytes. `parse_adr` contributes only path-specific byte
+reading and delegates the returned bytes to that parser without normalization.
+
 ## JSON Schema validation
 
 Metadata is validated independently against a base JSON Schema and a consumer
@@ -99,6 +103,7 @@ meaning, relation completeness rule, or consumer identity format.
 - `h1_text`;
 - `preserved_payload_bytes`;
 - `parse_adr`;
+- `parse_adr_bytes`;
 - `schema_errors`;
 - `repository_path`;
 - `require_mapping`;
