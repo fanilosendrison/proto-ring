@@ -137,18 +137,26 @@ def resolve(repository: Path, adr_id: str) -> CanonicalAdr:
         raise adr_metadata.AdrMetadataError(
             f"repository.adr_directory is not an existing directory: {adr_directory_value}"
         )
+    candidates: list[Path] = []
     try:
-        direct_files = [entry for entry in adr_directory.iterdir() if entry.is_file()]
+        for entry in adr_directory.iterdir():
+            match = filename_regex.fullmatch(entry.name)
+            if match is None:
+                continue
+            if match.group("number") != number:
+                continue
+            if entry.is_symlink():
+                raise adr_metadata.AdrMetadataError(
+                    "canonical ADR candidate must be a direct non-symlink file: "
+                    f"{entry.name}"
+                )
+            if not entry.is_file():
+                continue
+            candidates.append(entry)
     except OSError as error:
         raise adr_metadata.AdrMetadataError(
             f"cannot inspect repository.adr_directory: {error}"
         ) from error
-
-    candidates: list[Path] = []
-    for entry in direct_files:
-        match = filename_regex.fullmatch(entry.name)
-        if match is not None and match.group("number") == number:
-            candidates.append(entry)
     if not candidates:
         raise adr_metadata.AdrMetadataError(
             f"no canonical ADR candidate exists for {adr_id}"

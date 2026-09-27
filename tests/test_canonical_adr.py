@@ -194,6 +194,52 @@ class CanonicalAdrTests(unittest.TestCase):
         )
         self.assertEqual(resolve(self.repository, "ADR-001").path, expected.resolve())
 
+    def test_matching_symlink_to_file_outside_adr_directory_fails(self) -> None:
+        self.write_profile(adr_directory="docs/adr")
+        self.write_adr("authority.md", directory="outside")
+        symlink = self.repository / "docs/adr/adr-001-symlink.md"
+        symlink.parent.mkdir(parents=True, exist_ok=True)
+        symlink.symlink_to("../../outside/authority.md")
+
+        with self.assertRaisesRegex(
+            AdrMetadataError,
+            "canonical ADR candidate must be a direct non-symlink file",
+        ):
+            resolve(self.repository, "ADR-001")
+
+    def test_matching_symlink_to_nested_adr_file_fails(self) -> None:
+        self.write_profile(adr_directory="docs/adr")
+        self.write_adr("authority.md", directory="docs/adr/nested")
+        symlink = self.repository / "docs/adr/adr-001-symlink.md"
+        symlink.symlink_to("nested/authority.md")
+
+        with self.assertRaisesRegex(
+            AdrMetadataError,
+            "canonical ADR candidate must be a direct non-symlink file",
+        ):
+            resolve(self.repository, "ADR-001")
+
+    def test_matching_symlink_to_same_directory_target_fails(self) -> None:
+        self.write_profile(adr_directory="docs/adr")
+        self.write_adr("authority-target.md", directory="docs/adr")
+        symlink = self.repository / "docs/adr/adr-001-symlink.md"
+        symlink.symlink_to("authority-target.md")
+
+        with self.assertRaisesRegex(
+            AdrMetadataError,
+            "canonical ADR candidate must be a direct non-symlink file",
+        ):
+            resolve(self.repository, "ADR-001")
+
+    def test_unrelated_symlink_does_not_affect_valid_resolution(self) -> None:
+        self.write_profile(adr_directory="docs/adr")
+        expected = self.write_adr(directory="docs/adr")
+        self.write_adr("authority.md", adr_id="ADR-002", directory="outside")
+        symlink = self.repository / "docs/adr/adr-002-unrelated.md"
+        symlink.symlink_to("../../outside/authority.md")
+
+        self.assertEqual(resolve(self.repository, "ADR-001").path, expected.resolve())
+
     def test_generated_index_claim_has_no_effect(self) -> None:
         expected = self.write_adr()
         (self.repository / ADR_DIRECTORY / "index.md").write_text(
