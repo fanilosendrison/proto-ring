@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest import mock
 
+from proto_ring import canonical_adr
 from proto_ring.adr_metadata import sha256_hex
 from proto_ring.shared_governance_provider import check
 
@@ -11,6 +13,7 @@ from proto_ring.shared_governance_provider import check
 CONTRACT_COMMIT = "974ca31ff12630a90da6371cc27c1f5ef0cc590e"
 OTHER_COMMIT = "1" * 40
 BINDING_PATH = "docs/repository-governance/consumer-binding.md"
+PROFILE_PATH = "docs/adr/adr-profile.yaml"
 ADR_PATH = "docs/adr/adr-001-provider.md"
 IDENTITY = (
     "fanilosendrison/proto-ring\n"
@@ -27,6 +30,7 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.binding_path = self.repository / BINDING_PATH
         self.adr_path = self.repository / ADR_PATH
         self.write_agents()
+        self.write_profile()
         self.write_binding()
         self.write_adr()
 
@@ -45,6 +49,8 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         (self.repository / "AGENTS.md").write_text(
             "---\n"
             "repository_governance:\n"
+            "  architecture_decisions:\n"
+            f'    profile_path: "{PROFILE_PATH}"\n'
             "  shared_governance_provider:\n"
             f"    required: {required}\n"
             f"{binding_line}"
@@ -53,12 +59,24 @@ class SharedGovernanceProviderTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+    def write_profile(self) -> None:
+        profile_path = self.repository / PROFILE_PATH
+        profile_path.parent.mkdir(parents=True, exist_ok=True)
+        profile_path.write_text(
+            "repository:\n"
+            '  adr_directory: "docs/adr"\n'
+            "  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n"
+            "  id_pattern: '^ADR-[0-9]{3}$'\n"
+            "  id_width: 3\n",
+            encoding="utf-8",
+        )
+
     def write_binding(
         self,
         *,
         mandatory: str = "true",
         authority_id: str | None = "ADR-001",
-        authority_path: str | None = ADR_PATH,
+        authority_path: str | None = None,
         repository: str = "fanilosendrison/proto-ring",
         commit: str = CONTRACT_COMMIT,
         contract_path: str = "docs/contracts/shared-governance-provider.md",
@@ -91,15 +109,17 @@ class SharedGovernanceProviderTests(unittest.TestCase):
     def write_adr(
         self,
         *,
+        path: Path | None = None,
         adr_id: str = "ADR-001",
         status: str = "accepted",
         context: str | None = None,
-    ) -> None:
-        self.adr_path.parent.mkdir(parents=True, exist_ok=True)
+    ) -> Path:
+        adr_path = path if path is not None else self.adr_path
+        adr_path.parent.mkdir(parents=True, exist_ok=True)
         decision_body = (
             context if context is not None else f"## Context\n\n{IDENTITY}\n"
         ).encode("utf-8")
-        self.adr_path.write_bytes(
+        adr_path.write_bytes(
             (
                 "---\n"
                 f'id: "{adr_id}"\n'
@@ -110,12 +130,38 @@ class SharedGovernanceProviderTests(unittest.TestCase):
             ).encode("utf-8")
             + decision_body
         )
+        return adr_path
 
     def assert_errors(self) -> None:
         self.assertTrue(check(self.repository))
 
     def test_valid_structured_chain_passes(self) -> None:
         self.assertEqual([], check(self.repository))
+
+    def test_binding_authority_id_resolves_through_canonical_adr(self) -> None:
+        with mock.patch.object(
+            canonical_adr, "resolve", wraps=canonical_adr.resolve
+        ) as resolver:
+            self.assertEqual([], check(self.repository))
+        resolver.assert_called_once_with(self.repository, "ADR-001")
+
+    def test_same_id_adr_outside_configured_corpus_is_ignored(self) -> None:
+        self.write_adr(
+            path=self.repository / "outside" / "adr-001-impostor.md",
+            context="## Context\n\nNo provider identity.\n",
+        )
+        self.assertEqual([], check(self.repository))
+
+    def test_two_canonical_candidates_return_error(self) -> None:
+        self.write_adr(path=self.repository / "docs/adr/adr-001-second.md")
+        self.assert_errors()
+
+    def test_declared_authority_path_returns_exact_error(self) -> None:
+        self.write_binding(authority_path=ADR_PATH)
+        self.assertIn(
+            "authority_adr.path must not be declared; canonical ADR paths are derived",
+            check(self.repository),
+        )
 
     def test_missing_agents_returns_error(self) -> None:
         (self.repository / "AGENTS.md").unlink()
@@ -181,14 +227,6 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.write_binding(authority_id=None)
         self.assert_errors()
 
-    def test_missing_authority_path_returns_error(self) -> None:
-        self.write_binding(authority_path=None)
-        self.assert_errors()
-
-    def test_escaping_authority_path_returns_error(self) -> None:
-        self.write_binding(authority_path="../authority.md")
-        self.assert_errors()
-
     def test_missing_authority_adr_returns_error(self) -> None:
         self.adr_path.unlink()
         self.assert_errors()
@@ -222,8 +260,7 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.assert_errors()
 
     def test_authority_with_mutable_identity_returns_error(self) -> None:
-        mutable = IDENTITY.replace(CONTRACT_COMMIT, "main")
-        self.write_adr(context=f"## Context\n\n{mutable}\n")
+        self.write_adr(context=f"## Context\n\n{IDENTITY.replace(CONTRACT_COMMIT, 'main')}\n")
         self.assert_errors()
 
     def test_binding_contract_repository_mismatch_returns_error(self) -> None:
@@ -239,7 +276,9 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.assert_errors()
 
     def test_binding_body_identity_mismatch_returns_error(self) -> None:
-        self.write_binding(body=f"# Binding\n\n{IDENTITY.replace(CONTRACT_COMMIT, OTHER_COMMIT)}\n")
+        self.write_binding(
+            body=f"# Binding\n\n{IDENTITY.replace(CONTRACT_COMMIT, OTHER_COMMIT)}\n"
+        )
         self.assert_errors()
 
     def test_binding_body_with_zero_identity_blocks_returns_error(self) -> None:
@@ -269,7 +308,9 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.assert_errors()
 
     def test_binding_with_crlf_returns_error(self) -> None:
-        self.binding_path.write_bytes(self.binding_path.read_bytes().replace(b"\n", b"\r\n"))
+        self.binding_path.write_bytes(
+            self.binding_path.read_bytes().replace(b"\n", b"\r\n")
+        )
         self.assert_errors()
 
     def test_old_prose_directive_is_not_required(self) -> None:
