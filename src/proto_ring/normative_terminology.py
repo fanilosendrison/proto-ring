@@ -185,7 +185,7 @@ def parse_registry(
         if len(row) != len(registry_format.headers):
             errors.append(f"terminology registry row {row_number} has {len(row)} cells; expected 6")
             continue
-        plain_cells = (row[0], row[1], row[5])
+        plain_cells = (row[0], row[1])
         term_cells = tuple(
             item for cell in (row[3], row[4]) for item in cell.split(";")
             if item.strip() and item.strip() != "—"

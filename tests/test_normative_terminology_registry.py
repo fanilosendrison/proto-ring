@@ -188,6 +188,19 @@ class RegistryTests(unittest.TestCase):
         self.assertTrue(any("term-structure" in error for error in errors))
         self.assertNotIn("alpha", [entry.key for entry in entries])
 
+    def test_term_structure_allows_inline_code(self) -> None:
+        changed = SPEC.replace(
+            "| base |",
+            "| compound; overloaded modifier: `bounded` |",
+            1,
+        )
+        entries, errors = parse_registry(changed, FORMAT)
+        self.assertEqual([], errors)
+        self.assertEqual(
+            "compound; overloaded modifier: `bounded`",
+            entries[0].term_structure,
+        )
+
     def test_same_alias_may_belong_to_distinct_compound_concepts(self) -> None:
         changed = SPEC.replace("`bounded region` | —", "`first concept` | —")
         entries, errors = parse_registry(changed, FORMAT)
