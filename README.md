@@ -43,6 +43,7 @@ The historical extraction analysis lives at:
 
 ## Shared contracts
 
+- [Shared Governance Provider](docs/contracts/shared-governance-provider.md)
 - [Repository Integrity](docs/contracts/repository-integrity.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Projection Integrity](docs/contracts/projection-integrity.md)
