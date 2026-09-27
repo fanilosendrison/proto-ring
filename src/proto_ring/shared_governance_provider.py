@@ -8,7 +8,7 @@ from typing import cast
 
 import yaml
 
-from proto_ring import adr_metadata
+from proto_ring import adr_metadata, canonical_adr
 
 __all__ = [
     "check",
@@ -169,9 +169,10 @@ def check(repository: Path) -> list[str]:
     authority_id = authority.get("id")
     if not isinstance(authority_id, str) or not authority_id:
         errors.append("authority_adr.id must be a non-empty string")
-    authority_path = _repository_path(
-        repository, authority.get("path"), "authority_adr.path", errors
-    )
+    if "path" in authority:
+        errors.append(
+            "authority_adr.path must not be declared; canonical ADR paths are derived"
+        )
 
     contract_repository = contract.get("repository")
     contract_commit = contract.get("commit")
@@ -186,23 +187,23 @@ def check(repository: Path) -> list[str]:
         errors.append("binding contract path is not canonical")
 
     authoritative_commit: str | None = None
-    if authority_path is not None:
+    if isinstance(authority_id, str) and authority_id:
         try:
-            metadata, decision_body = adr_metadata.parse_adr(authority_path)
+            authority_record = canonical_adr.resolve(repository, authority_id)
         except adr_metadata.AdrMetadataError as error:
-            errors.append(f"cannot parse authority ADR: {error}")
+            errors.append(f"cannot resolve authority ADR: {error}")
         else:
-            if metadata.get("id") != authority_id:
-                errors.append("authority ADR id does not match binding authority_adr.id")
-            if metadata.get("status") != "accepted":
+            if authority_record.metadata.get("status") != "accepted":
                 errors.append("authority ADR status must be accepted")
-            body_hash = metadata.get("decision_body_sha256")
+            body_hash = authority_record.metadata.get("decision_body_sha256")
             if not isinstance(body_hash, str) or not _SHA256_PATTERN.fullmatch(body_hash):
                 errors.append("authority ADR decision_body_sha256 must be 64 lowercase hex")
-            elif body_hash != adr_metadata.sha256_hex(decision_body):
+            elif body_hash != adr_metadata.sha256_hex(authority_record.decision_body):
                 errors.append("authority ADR decision body hash does not match")
             authoritative_commit = _identity(
-                decision_body.decode("utf-8"), "authority ADR", errors
+                authority_record.decision_body.decode("utf-8"),
+                "authority ADR",
+                errors,
             )
 
     if authoritative_commit is not None and contract_commit != authoritative_commit:
