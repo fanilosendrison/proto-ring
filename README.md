@@ -47,9 +47,12 @@ The historical extraction analysis lives at:
 - [Repository Integrity](docs/contracts/repository-integrity.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Projection Integrity](docs/contracts/projection-integrity.md)
+- [Normative Terminology](docs/contracts/normative-terminology.md)
 
 Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
+Normative Terminology factorization evidence is preserved in the
+[Normative Terminology extraction inventory](docs/bootstrap/normative-terminology-extraction.md).
 
 Existing proto-ring contracts and mechanisms retain the authority already
 established for their stated scope.
