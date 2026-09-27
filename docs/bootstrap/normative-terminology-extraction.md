@@ -182,10 +182,11 @@ The inventory follows the source file from imports through CLI termination.
   aliases, and deprecated wording: `EXTRACT`.
 - Allowing one expression to appear in distinct concepts, including overloaded
   compound terminology: `EXTRACT`; semantic disambiguation remains human work.
-- Requiring non-empty term-structure classification after code-span decoding
-  and whitespace trimming: `EXTRACT` as a registry completeness rule. This
-  strengthens the source's pre-decoding check. The classification content
-  remains consumer-owned and is not interpreted by the engine.
+- Requiring a non-empty term-structure classification after whole-cell
+  code-span decoding and whitespace trimming: `EXTRACT` as a registry
+  completeness rule. This strengthens the source's pre-decoding check. The
+  classification content remains consumer-owned, allows inline code and local
+  prose, and is not parsed as a term expression.
 - Preserving only governed fields in `RegistryEntry` rather than making term
   structure semantic input to discovery: `EXTRACT`.
 - Detecting duplicate concept keys: `EXTRACT`.
@@ -723,6 +724,24 @@ because Issue #15 owns their contract, implementation, and regression boundary.
 - **Required authority:** None.
 - **Next action:** Detect and exclude the sentinel after removing every
   recognized presentation wrapper.
+
+### Term-structure inline code
+
+- **Statement:** Term structure must allow consumer inline code.
+- **Source and evidence:** Turnlock adoption at
+  `bfc64d8a1b8f219de22467d0f200c24ac97fa840` against proto-ring provider
+  `11123355e1e36b64d11f05b9ee627af5e3ba12d1`; the current Turnlock registry
+  produced 71 failures beginning at row 9.
+- **Existing authority:** The shared contract requires non-empty term structure
+  but states that its classification content is not interpreted. Consumers own
+  that content.
+- **Semantic disposition:** `no-normative-impact`.
+- **Affected layers:** `normative-contract`, `architecture-or-implementation`,
+  `integration-or-conformance`, and `verification-or-qualification-evidence`.
+- **Related discoveries or consequences:** None.
+- **Required authority:** None.
+- **Next action:** Allow inline code while retaining whole-cell decoding and the
+  non-empty guard.
 
 ## Ruu confrontation
 
