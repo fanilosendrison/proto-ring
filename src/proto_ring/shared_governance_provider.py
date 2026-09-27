@@ -1,129 +1,232 @@
-"""Verify consumer bindings to the Shared Governance Provider contract."""
+"""Verify a consumer's structured Shared Governance Provider authority chain."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 import re
+from typing import cast
 
-from proto_ring.adr_metadata import AdrMetadataError, repository_path
+import yaml
+
+from proto_ring import adr_metadata
 
 __all__ = [
-    "SharedGovernanceProviderProfile",
     "check",
 ]
 
+_AGENT_DIRECTIVES_PATH = "AGENTS.md"
 _PROVIDER_REPOSITORY = "fanilosendrison/proto-ring"
 _CONTRACT_PATH = "docs/contracts/shared-governance-provider.md"
 _COMMIT_PATTERN = re.compile(r"[0-9a-f]{40}")
+_SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 _IDENTITY_PATTERN = re.compile(
     rf"(?m)^{re.escape(_PROVIDER_REPOSITORY)}\n([^\n]*)\n"
     rf"{re.escape(_CONTRACT_PATH)}$"
 )
 
 
-@dataclass(frozen=True)
-class SharedGovernanceProviderProfile:
-    agent_directives_path: str
-    binding_path: str
-    contract_commit: str
-    required_agent_directive: str
-    required_binding_directive: str
-
-
-def _profile_paths(
-    repository: Path,
-    profile: SharedGovernanceProviderProfile,
-) -> tuple[Path | None, Path | None, list[str]]:
-    errors: list[str] = []
-    resolved: list[Path | None] = []
-    for label, relative in (
-        ("agent_directives_path", profile.agent_directives_path),
-        ("binding_path", profile.binding_path),
-    ):
-        try:
-            resolved.append(repository_path(repository, relative))
-        except AdrMetadataError as error:
-            errors.append(f"{label}: {error}")
-            resolved.append(None)
-    return resolved[0], resolved[1], errors
-
-
-def _read_strict(path: Path, label: str) -> tuple[str | None, list[str]]:
+def _load_frontmatter(
+    path: Path,
+    label: str,
+) -> tuple[dict[str, object] | None, str | None, list[str]]:
     try:
         data = path.read_bytes()
     except OSError as error:
-        return None, [f"cannot read {label}: {error}"]
+        return None, None, [f"cannot read {label}: {error}"]
     if data.startswith(b"\xef\xbb\xbf"):
-        return None, [f"{label} contains a UTF-8 BOM"]
+        return None, None, [f"{label} contains a UTF-8 BOM"]
     if b"\r" in data:
-        return None, [f"{label} contains CR or CRLF line endings"]
+        return None, None, [f"{label} contains CR or CRLF line endings"]
     try:
-        return data.decode("utf-8"), []
+        text = data.decode("utf-8")
     except UnicodeDecodeError as error:
-        return None, [f"{label} is not valid UTF-8: {error}"]
+        return None, None, [f"{label} is not valid UTF-8: {error}"]
+    if not text.startswith("---\n"):
+        return None, None, [f"{label} has no YAML frontmatter"]
+    closing = text.find("\n---\n", 4)
+    if closing < 0:
+        return None, None, [f"{label} frontmatter has no closing delimiter"]
+    try:
+        metadata = yaml.safe_load(text[4:closing])
+    except yaml.YAMLError as error:
+        return None, None, [f"{label} frontmatter is invalid YAML: {error}"]
+    if not isinstance(metadata, dict):
+        return None, None, [f"{label} frontmatter must be a mapping"]
+    return cast(dict[str, object], metadata), text[closing + 5 :], []
 
 
-def check(
+def _mapping(
+    parent: dict[str, object],
+    key: str,
+    label: str,
+    errors: list[str],
+) -> dict[str, object] | None:
+    value = parent.get(key)
+    if not isinstance(value, dict):
+        errors.append(f"{label} must be a mapping")
+        return None
+    return cast(dict[str, object], value)
+
+
+def _repository_path(
     repository: Path,
-    profile: SharedGovernanceProviderProfile,
-) -> list[str]:
-    """Return controlled errors for an invalid consumer-owned binding."""
+    relative: object,
+    label: str,
+    errors: list[str],
+) -> Path | None:
+    try:
+        return adr_metadata.repository_path(repository, relative)
+    except (adr_metadata.AdrMetadataError, OSError, RuntimeError) as error:
+        errors.append(f"{label}: {error}")
+        return None
 
-    agent_path, binding_path, errors = _profile_paths(repository, profile)
 
-    if not isinstance(profile.contract_commit, str) or not _COMMIT_PATTERN.fullmatch(
-        profile.contract_commit
-    ):
-        errors.append("contract_commit must be exactly 40 lowercase hexadecimal characters")
-    if not isinstance(profile.required_agent_directive, str) or not profile.required_agent_directive:
-        errors.append("required_agent_directive must be a non-empty string")
-    elif not isinstance(profile.binding_path, str) or profile.binding_path not in profile.required_agent_directive:
-        errors.append("required_agent_directive must contain binding_path literally")
-    if not isinstance(profile.required_binding_directive, str) or not profile.required_binding_directive:
-        errors.append("required_binding_directive must be a non-empty string")
-
-    agent_text: str | None = None
-    binding_text: str | None = None
-    if agent_path is not None:
-        agent_text, read_errors = _read_strict(agent_path, "agent directives")
-        errors.extend(read_errors)
-    if binding_path is not None:
-        binding_text, read_errors = _read_strict(binding_path, "binding")
-        errors.extend(read_errors)
-
-    if binding_text is not None:
-        identities = _IDENTITY_PATTERN.findall(binding_text)
-        if not identities:
-            errors.append(
-                "binding does not contain the canonical Shared Governance Provider identity"
-            )
-        elif len(identities) > 1:
-            errors.append("binding contains multiple Shared Governance Provider identities")
-        else:
-            identity = identities[0]
-            if not _COMMIT_PATTERN.fullmatch(identity):
-                errors.append(
-                    "binding contract identity must be exactly 40 lowercase hexadecimal characters"
-                )
-            elif identity != profile.contract_commit:
-                errors.append("binding contract identity does not match contract_commit")
-
-        if (
-            isinstance(profile.required_binding_directive, str)
-            and profile.required_binding_directive
-            and profile.required_binding_directive not in binding_text
-        ):
-            errors.append("binding is missing the required mandatory-provider directive")
-
-    if (
-        agent_text is not None
-        and isinstance(profile.required_agent_directive, str)
-        and profile.required_agent_directive
-        and profile.required_agent_directive not in agent_text
-    ):
+def _identity(
+    body: str,
+    label: str,
+    errors: list[str],
+) -> str | None:
+    identities = _IDENTITY_PATTERN.findall(body)
+    if not identities:
+        errors.append(f"{label} contains no Shared Governance Provider identity block")
+        return None
+    if len(identities) > 1:
+        errors.append(f"{label} contains multiple Shared Governance Provider identities")
+        return None
+    identity = identities[0]
+    if not _COMMIT_PATTERN.fullmatch(identity):
         errors.append(
-            "agent directives do not route repository-governance work through the binding"
+            f"{label} contract identity must be exactly 40 lowercase hexadecimal characters"
         )
+        return None
+    return identity
+
+
+def check(repository: Path) -> list[str]:
+    """Return controlled errors for an invalid structured authority chain."""
+
+    errors: list[str] = []
+    agent_path = _repository_path(
+        repository, _AGENT_DIRECTIVES_PATH, "agent directives path", errors
+    )
+    if agent_path is None:
+        return errors
+    agent_metadata, _agent_body, agent_errors = _load_frontmatter(
+        agent_path, "agent directives"
+    )
+    errors.extend(agent_errors)
+    if agent_metadata is None:
+        return errors
+
+    governance = _mapping(
+        agent_metadata, "repository_governance", "repository_governance", errors
+    )
+    if governance is None:
+        return errors
+    routing = _mapping(
+        governance,
+        "shared_governance_provider",
+        "repository_governance.shared_governance_provider",
+        errors,
+    )
+    if routing is None:
+        return errors
+    if routing.get("required") is not True:
+        errors.append("shared governance provider routing required must be exactly true")
+    binding_path = _repository_path(
+        repository, routing.get("binding_path"), "binding_path", errors
+    )
+    if binding_path is None:
+        return errors
+
+    binding_metadata, binding_body, binding_errors = _load_frontmatter(
+        binding_path, "binding"
+    )
+    errors.extend(binding_errors)
+    if binding_metadata is None or binding_body is None:
+        return errors
+
+    provider = _mapping(
+        binding_metadata,
+        "shared_governance_provider",
+        "shared_governance_provider",
+        errors,
+    )
+    if provider is None:
+        return errors
+    if provider.get("mandatory") is not True:
+        errors.append("shared_governance_provider.mandatory must be exactly true")
+
+    authority = _mapping(
+        provider, "authority_adr", "shared_governance_provider.authority_adr", errors
+    )
+    contract = _mapping(
+        provider, "contract", "shared_governance_provider.contract", errors
+    )
+    if authority is None or contract is None:
+        return errors
+
+    authority_id = authority.get("id")
+    if not isinstance(authority_id, str) or not authority_id:
+        errors.append("authority_adr.id must be a non-empty string")
+    authority_path = _repository_path(
+        repository, authority.get("path"), "authority_adr.path", errors
+    )
+
+    contract_repository = contract.get("repository")
+    contract_commit = contract.get("commit")
+    contract_path = contract.get("path")
+    if contract_repository != _PROVIDER_REPOSITORY:
+        errors.append("binding contract repository is not canonical")
+    if not isinstance(contract_commit, str) or not _COMMIT_PATTERN.fullmatch(
+        contract_commit
+    ):
+        errors.append("binding contract commit must be 40 lowercase hexadecimal characters")
+    if contract_path != _CONTRACT_PATH:
+        errors.append("binding contract path is not canonical")
+
+    authoritative_commit: str | None = None
+    if authority_path is not None:
+        try:
+            metadata, decision_body = adr_metadata.parse_adr(authority_path)
+        except adr_metadata.AdrMetadataError as error:
+            errors.append(f"cannot parse authority ADR: {error}")
+        else:
+            if metadata.get("id") != authority_id:
+                errors.append("authority ADR id does not match binding authority_adr.id")
+            if metadata.get("status") != "accepted":
+                errors.append("authority ADR status must be accepted")
+            body_hash = metadata.get("decision_body_sha256")
+            if not isinstance(body_hash, str) or not _SHA256_PATTERN.fullmatch(body_hash):
+                errors.append("authority ADR decision_body_sha256 must be 64 lowercase hex")
+            elif body_hash != adr_metadata.sha256_hex(decision_body):
+                errors.append("authority ADR decision body hash does not match")
+            authoritative_commit = _identity(
+                decision_body.decode("utf-8"), "authority ADR", errors
+            )
+
+    if authoritative_commit is not None and contract_commit != authoritative_commit:
+        errors.append("binding contract commit does not match authority ADR")
+
+    binding_identity = _identity(binding_body, "binding body", errors)
+    if binding_identity is not None and binding_identity != contract_commit:
+        errors.append("binding body identity does not match binding frontmatter")
 
     return errors
+
+
+def main() -> int:
+    errors = check(Path.cwd())
+
+    if errors:
+        print("shared governance provider binding: FAILED")
+        for error in errors:
+            print(error)
+        return 1
+
+    print("shared governance provider binding: OK")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
