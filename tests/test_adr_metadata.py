@@ -13,6 +13,7 @@ from proto_ring.adr_metadata import (
     load_json,
     load_yaml,
     parse_adr,
+    parse_adr_bytes,
     preserved_payload_bytes,
     relation_target_errors,
     repository_path,
@@ -123,8 +124,10 @@ class AdrMetadataPrimitiveTests(unittest.TestCase):
             body = b"## Context\nbody\n"
             path.write_bytes(b"---\nid: ADR-001\nname: Example\n---\n\n# ADR\n\n" + body)
             metadata, parsed_body = parse_adr(path)
+            byte_metadata, byte_body = parse_adr_bytes(path.read_bytes())
             self.assertEqual(metadata, {"id": "ADR-001", "name": "Example"})
             self.assertEqual(parsed_body, body)
+            self.assertEqual((byte_metadata, byte_body), (metadata, parsed_body))
 
     def test_parse_adr_rejects_missing_or_non_mapping_frontmatter(self) -> None:
         with tempfile.TemporaryDirectory(prefix="proto-ring-adr-errors-") as temporary:

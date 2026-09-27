@@ -25,6 +25,7 @@ __all__ = [
     "load_json",
     "load_yaml",
     "parse_adr",
+    "parse_adr_bytes",
     "preserved_payload_bytes",
     "relation_target_errors",
     "repository_path",
@@ -110,13 +111,8 @@ def preserved_payload_bytes(data: bytes) -> bytes:
     return data[headings[0].start() :]
 
 
-def parse_adr(path: Path) -> tuple[dict[str, object], bytes]:
-    """Parse safe YAML frontmatter and return the exact decision body bytes."""
-
-    try:
-        data = path.read_bytes()
-    except OSError as error:
-        raise AdrMetadataError(f"cannot read {path}: {error}") from error
+def parse_adr_bytes(data: bytes) -> tuple[dict[str, object], bytes]:
+    """Parse exact ADR bytes into safe frontmatter and decision-body bytes."""
 
     body = decision_body_bytes(data)
     if not data.startswith(b"---\n"):
@@ -132,6 +128,16 @@ def parse_adr(path: Path) -> tuple[dict[str, object], bytes]:
     if not isinstance(metadata, dict):
         raise AdrMetadataError("ADR frontmatter must be a mapping")
     return cast(dict[str, object], metadata), body
+
+
+def parse_adr(path: Path) -> tuple[dict[str, object], bytes]:
+    """Parse safe YAML frontmatter and return the exact decision body bytes."""
+
+    try:
+        data = path.read_bytes()
+    except OSError as error:
+        raise AdrMetadataError(f"cannot read {path}: {error}") from error
+    return parse_adr_bytes(data)
 
 
 def schema_errors(
