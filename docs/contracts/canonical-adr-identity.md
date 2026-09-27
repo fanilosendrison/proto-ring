@@ -57,7 +57,9 @@ that directory are irrelevant to Canonical ADR Identity, including files that
 claim the requested identity in structured metadata.
 
 Only direct files in the declared directory are inspected. Nested files do not
-participate.
+participate. Canonical candidates must be direct non-symlink regular-file entries
+in the declared ADR directory. A matching symbolic-link entry is invalid and
+resolution fails closed without following its target.
 
 ## Candidate resolution
 
