@@ -47,6 +47,7 @@ The historical extraction analysis lives at:
 - [Repository Integrity](docs/contracts/repository-integrity.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Canonical ADR Identity](docs/contracts/canonical-adr-identity.md)
+- [Accepted ADR Body Immutability](docs/contracts/accepted-adr-body-immutability.md)
 - [Projection Integrity](docs/contracts/projection-integrity.md)
 - [Normative Terminology](docs/contracts/normative-terminology.md)
 
@@ -54,6 +55,8 @@ Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
 Canonical ADR Identity factorization evidence is preserved in the
 [Canonical ADR Identity extraction record](docs/bootstrap/canonical-adr-identity-extraction.md).
+Accepted ADR Body Immutability factorization evidence is preserved in the
+[Accepted ADR Body Immutability extraction record](docs/bootstrap/accepted-adr-body-immutability-extraction.md).
 Normative Terminology factorization evidence is preserved in the
 [Normative Terminology extraction inventory](docs/bootstrap/normative-terminology-extraction.md).
 
