@@ -69,7 +69,7 @@ class NormativeTerminologyContractTests(unittest.TestCase):
             "[Normative Terminology](docs/contracts/normative-terminology.md)",
             readme,
         )
-        self.assertIn('version = "0.5.0"', project)
+        self.assertIn('version = "0.6.0"', project)
 
 
 if __name__ == "__main__":
