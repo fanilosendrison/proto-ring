@@ -9,7 +9,7 @@ from typing import Mapping, cast
 
 import yaml
 
-from proto_ring import adr_metadata
+from proto_ring import adr_metadata, governance_routing
 
 
 __all__ = [
@@ -63,18 +63,19 @@ def configured_profile_path(repository: Path) -> Path:
     """Return the contained ADR profile configured by root ``AGENTS.md``."""
 
     metadata = _agents_frontmatter(repository)
-    governance = adr_metadata.require_mapping(
-        metadata.get("repository_governance"), "repository_governance"
-    )
-    architecture = adr_metadata.require_mapping(
-        governance.get("architecture_decisions"),
-        "repository_governance.architecture_decisions",
-    )
-    profile_path = adr_metadata.require_string(
-        architecture.get("profile_path"),
-        "repository_governance.architecture_decisions.profile_path",
-    )
-    return adr_metadata.repository_path(repository, profile_path)
+    try:
+        resolved = governance_routing.resolve_path(
+            repository,
+            metadata,
+            (
+                "repository_governance",
+                "architecture_decisions",
+                "profile_path",
+            ),
+        )
+    except governance_routing.GovernanceRoutingError as error:
+        raise adr_metadata.AdrMetadataError(str(error)) from error
+    return resolved.target
 
 
 def _profile_repository(repository: Path) -> dict[str, object]:
