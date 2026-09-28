@@ -18,17 +18,23 @@ consumer's decisions to proto-ring.
 
 ## Consumer-owned configuration
 
-The consumer owns its ADR profile. The operational route to that profile is
-stored in the root `AGENTS.md` frontmatter:
+The consumer owns its ADR profile. Canonical ADR Identity uses Canonical
+Governance Routing for exact path-resolution semantics.
 
-```yaml
-repository_governance:
-  architecture_decisions:
-    profile_path: "<relative path>"
+The current Canonical ADR Identity adapter obtains the consumer routing mapping
+from root `AGENTS.md` frontmatter and supplies this exact route:
+
+```text
+repository_governance.architecture_decisions.profile_path
 ```
 
-The configured path must be non-empty, repository-relative, and contained by
-the repository root after resolution.
+That carrier and route vocabulary remain part of the current consumer adapter.
+Canonical Governance Routing does not own `AGENTS.md`, its frontmatter parser,
+or those route keys.
+
+The routed profile path must be non-empty, repository-relative, contained by the
+repository root after resolution, and available. The consumer retains authority
+over the profile and every field it contains.
 
 ## Consumed profile fields
 
