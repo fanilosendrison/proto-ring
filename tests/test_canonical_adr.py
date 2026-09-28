@@ -85,6 +85,12 @@ class CanonicalAdrTests(unittest.TestCase):
             (self.repository / PROFILE_PATH).resolve(),
         )
 
+    def test_configured_profile_path_missing_target_fails(self) -> None:
+        (self.repository / PROFILE_PATH).unlink()
+
+        with self.assertRaises(AdrMetadataError):
+            configured_profile_path(self.repository)
+
     def test_missing_agents_fails(self) -> None:
         (self.repository / "AGENTS.md").unlink()
         with self.assertRaises(AdrMetadataError):
