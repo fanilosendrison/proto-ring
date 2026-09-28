@@ -65,3 +65,13 @@ Normative Terminology factorization evidence is preserved in the
 
 Existing proto-ring contracts and mechanisms retain the authority already
 established for their stated scope.
+
+## Shared provider mechanisms
+
+GitHub Authoritative Ref Monotonicity effective-rule live conformance is
+provided by `proto_ring.github_authoritative_ref_monotonicity`. It is an
+executable provider mechanism composed with existing contracts, not a new
+contract.
+
+Its extraction evidence and observability boundary are recorded in the
+[GitHub Authoritative Ref Monotonicity live conformance extraction record](docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md).
