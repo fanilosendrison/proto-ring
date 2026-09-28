@@ -41,6 +41,10 @@ The historical extraction analysis lives at:
 
 [docs/bootstrap/turnlock-extraction-audit.md](docs/bootstrap/turnlock-extraction-audit.md)
 
+The baseline- and maturity-bounded residual adjudication lives at:
+
+[docs/bootstrap/turnlock-residual-governance-reaudit.md](docs/bootstrap/turnlock-residual-governance-reaudit.md)
+
 ## Shared contracts
 
 - [Shared Governance Provider](docs/contracts/shared-governance-provider.md)
