@@ -11,6 +11,7 @@ from proto_ring.canonical_adr import configured_profile_path, resolve
 
 
 PROFILE_PATH = "config/adr-profile.yaml"
+BINDING_PATH = "docs/repository-governance/test-shared-governance-provider.md"
 ADR_DIRECTORY = "records"
 FILENAME_PATTERN = r"^adr-(?P<number>[0-9]{3})-[a-z]+(?:-[a-z]+)*\.md$"
 ID_PATTERN = r"^ADR-[0-9]{3}$"
@@ -25,18 +26,40 @@ class CanonicalAdrTests(unittest.TestCase):
         self.write_profile()
 
     def write_agents(self, architecture: object = PROFILE_PATH) -> None:
-        governance: dict[str, object] = {}
+        capabilities: dict[str, object] = {
+            "shared_governance_provider": {
+                "configuration": {"required": True},
+                "routes": {"binding": BINDING_PATH},
+            }
+        }
         if architecture is not None:
-            governance["architecture_decisions"] = (
-                {"profile_path": architecture}
-                if isinstance(architecture, str)
-                else architecture
-            )
+            capabilities["architecture_decisions"] = {
+                "configuration": {},
+                "routes": (
+                    {"profile": architecture}
+                    if isinstance(architecture, str)
+                    else architecture
+                ),
+            }
+        governance = {
+            "model_version": 1,
+            "provider": {
+                "id": "proto-ring",
+                "binding": {
+                    "capability": "shared_governance_provider",
+                    "route": "binding",
+                },
+            },
+            "capabilities": capabilities,
+        }
         payload = {"repository_governance": governance}
         text = yaml.safe_dump(payload, sort_keys=False)
         (self.repository / "AGENTS.md").write_text(
             f"---\n{text}---\n# Directives\n", encoding="utf-8"
         )
+        binding = self.repository / BINDING_PATH
+        binding.parent.mkdir(parents=True, exist_ok=True)
+        binding.write_text("# Test binding target\n", encoding="utf-8")
 
     def write_profile(self, **repository_overrides: object) -> None:
         repository: dict[str, object] = {
@@ -86,12 +109,13 @@ class CanonicalAdrTests(unittest.TestCase):
         )
 
     def test_duplicate_profile_path_is_rejected(self) -> None:
+        text = (self.repository / "AGENTS.md").read_text(encoding="utf-8")
         (self.repository / "AGENTS.md").write_text(
-            "---\nrepository_governance:\n"
-            "  architecture_decisions:\n"
-            f'    profile_path: "{PROFILE_PATH}"\n'
-            f'    "profile_path": "{PROFILE_PATH}"\n'
-            "---\n# Directives\n",
+            text.replace(
+                f"      profile: {PROFILE_PATH}\n",
+                f"      profile: {PROFILE_PATH}\n"
+                f"      \"profile\": {PROFILE_PATH}\n",
+            ),
             encoding="utf-8",
         )
         with self.assertRaises(AdrMetadataError):
@@ -100,13 +124,7 @@ class CanonicalAdrTests(unittest.TestCase):
     def test_noncanonical_boolean_like_profile_path_remains_a_string(self) -> None:
         target = self.repository / "yes"
         target.write_text("repository: {}\n", encoding="utf-8")
-        (self.repository / "AGENTS.md").write_text(
-            "---\nrepository_governance:\n"
-            "  architecture_decisions:\n"
-            "    profile_path: yes\n"
-            "---\n# Directives\n",
-            encoding="utf-8",
-        )
+        self.write_agents("yes")
         self.assertEqual(configured_profile_path(self.repository), target.resolve())
 
     def test_configured_profile_path_missing_target_fails(self) -> None:

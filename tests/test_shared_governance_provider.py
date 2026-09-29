@@ -42,17 +42,28 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         body: str = "# Consumer directives\n",
     ) -> None:
         binding_line = (
-            f'    binding_path: "{binding_path}"\n'
+            f'        binding: "{binding_path}"\n'
             if binding_path is not None
             else ""
         )
         (self.repository / "AGENTS.md").write_text(
             "---\n"
             "repository_governance:\n"
-            "  architecture_decisions:\n"
-            f'    profile_path: "{PROFILE_PATH}"\n'
-            "  shared_governance_provider:\n"
-            f"    required: {required}\n"
+            "  model_version: 1\n"
+            "  provider:\n"
+            '    id: "proto-ring"\n'
+            "    binding:\n"
+            '      capability: "shared_governance_provider"\n'
+            '      route: "binding"\n'
+            "  capabilities:\n"
+            "    architecture_decisions:\n"
+            "      configuration: {}\n"
+            "      routes:\n"
+            f'        profile: "{PROFILE_PATH}"\n'
+            "    shared_governance_provider:\n"
+            "      configuration:\n"
+            f"        required: {required}\n"
+            "      routes:\n"
             f"{binding_line}"
             "---\n"
             f"{body}",
@@ -193,9 +204,10 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         self.assert_errors()
 
     def test_agents_without_shared_provider_returns_error(self) -> None:
-        (self.repository / "AGENTS.md").write_text(
-            "---\nrepository_governance: {}\n---\n# Directives\n", encoding="utf-8"
-        )
+        path = self.repository / "AGENTS.md"
+        text = path.read_text(encoding="utf-8")
+        start = text.index("    shared_governance_provider:\n")
+        path.write_text(text[:start] + "---\n# Directives\n", encoding="utf-8")
         self.assert_errors()
 
     def test_required_false_returns_error(self) -> None:

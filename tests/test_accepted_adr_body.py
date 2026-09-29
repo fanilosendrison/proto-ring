@@ -22,14 +22,32 @@ class GitRepository:
         (root / "AGENTS.md").write_text(
             "---\n"
             "repository_governance:\n"
-            "  architecture_decisions:\n"
-            "    profile_path: config/adr-profile.yaml\n"
+            "  model_version: 1\n"
+            "  provider:\n"
+            '    id: "proto-ring"\n'
+            "    binding:\n"
+            '      capability: "shared_governance_provider"\n'
+            '      route: "binding"\n'
+            "  capabilities:\n"
+            "    architecture_decisions:\n"
+            "      configuration: {}\n"
+            "      routes:\n"
+            '        profile: "config/adr-profile.yaml"\n'
+            "    shared_governance_provider:\n"
+            "      configuration:\n"
+            "        required: true\n"
+            "      routes:\n"
+            '        binding: "config/test-shared-governance-provider.md"\n'
             "---\n"
             "# Test directives\n",
             encoding="utf-8",
         )
         profile = root / "config/adr-profile.yaml"
         profile.parent.mkdir()
+        (root / "config/test-shared-governance-provider.md").write_text(
+            "# Test Shared Governance Provider binding target\n",
+            encoding="utf-8",
+        )
         profile.write_text(
             "repository:\n"
             "  adr_directory: docs/adr\n"
