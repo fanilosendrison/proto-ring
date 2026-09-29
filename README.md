@@ -51,6 +51,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Repository Integrity](docs/contracts/repository-integrity.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Canonical ADR Identity](docs/contracts/canonical-adr-identity.md)
+- [Canonical Governance Bootstrap](docs/contracts/governance-bootstrap.md)
 - [Canonical Governance Routing](docs/contracts/canonical-governance-routing.md)
 - [Accepted ADR Body Immutability](docs/contracts/accepted-adr-body-immutability.md)
 - [Authoritative Ref Monotonicity](docs/contracts/authoritative-ref-monotonicity.md)
@@ -62,6 +63,8 @@ Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
 Canonical ADR Identity factorization evidence is preserved in the
 [Canonical ADR Identity extraction record](docs/bootstrap/canonical-adr-identity-extraction.md).
+Canonical Governance Bootstrap factorization evidence is preserved in the
+[Canonical Governance Bootstrap extraction record](docs/bootstrap/governance-bootstrap-extraction.md).
 Canonical Governance Routing factorization evidence is preserved in the
 [Canonical Governance Routing extraction record](docs/bootstrap/canonical-governance-routing-extraction.md).
 Accepted ADR Body Immutability factorization evidence is preserved in the
