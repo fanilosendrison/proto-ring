@@ -9,7 +9,7 @@ from typing import cast
 from proto_ring import (
     adr_metadata,
     canonical_adr,
-    governance_bootstrap,
+    repository_governance_model,
     structured_data,
 )
 
@@ -59,19 +59,6 @@ def _mapping(
     return cast(dict[str, object], value)
 
 
-def _repository_path(
-    repository: Path,
-    relative: object,
-    label: str,
-    errors: list[str],
-) -> Path | None:
-    try:
-        return adr_metadata.repository_path(repository, relative)
-    except (adr_metadata.AdrMetadataError, OSError, RuntimeError) as error:
-        errors.append(f"{label}: {error}")
-        return None
-
-
 def _identity(
     body: str,
     label: str,
@@ -98,26 +85,21 @@ def check(repository: Path) -> list[str]:
 
     errors: list[str] = []
     try:
-        bootstrap = governance_bootstrap.load(repository)
-    except governance_bootstrap.GovernanceBootstrapError as error:
-        errors.append(f"cannot load agent directives: {error}")
+        model = repository_governance_model.load(repository)
+    except repository_governance_model.RepositoryGovernanceModelError as error:
+        errors.append(f"cannot load repository governance model: {error}")
         return errors
-    governance = cast(dict[str, object], bootstrap.repository_governance)
-    routing = _mapping(
-        governance,
-        "shared_governance_provider",
-        "repository_governance.shared_governance_provider",
-        errors,
-    )
-    if routing is None:
+    capability = model.capabilities.get("shared_governance_provider")
+    if capability is None:
+        errors.append("shared_governance_provider capability is required")
         return errors
-    if routing.get("required") is not True:
-        errors.append("shared governance provider routing required must be exactly true")
-    binding_path = _repository_path(
-        repository, routing.get("binding_path"), "binding_path", errors
-    )
-    if binding_path is None:
+    if capability.configuration.get("required") is not True:
+        errors.append("shared governance provider required must be exactly true")
+    binding = capability.routes.get("binding")
+    if binding is None:
+        errors.append("shared governance provider binding route is required")
         return errors
+    binding_path = binding.target
 
     binding_metadata, binding_body, binding_errors = _load_frontmatter(
         binding_path, "binding"
