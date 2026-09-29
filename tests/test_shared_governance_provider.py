@@ -177,6 +177,15 @@ class SharedGovernanceProviderTests(unittest.TestCase):
         )
         self.assert_errors()
 
+    def test_agents_duplicate_repository_governance_returns_error(self) -> None:
+        path = self.repository / "AGENTS.md"
+        path.write_bytes(
+            path.read_bytes().replace(
+                b"---\n", b"---\nrepository_governance: {}\n", 1
+            )
+        )
+        self.assert_errors()
+
     def test_agents_without_repository_governance_returns_error(self) -> None:
         (self.repository / "AGENTS.md").write_text(
             "---\nkind: KnowledgeAsset\n---\n# Directives\n", encoding="utf-8"
@@ -216,6 +225,22 @@ class SharedGovernanceProviderTests(unittest.TestCase):
     def test_binding_malformed_yaml_returns_error(self) -> None:
         self.binding_path.write_text(
             "---\nshared_governance_provider: [\n---\n# Binding\n", encoding="utf-8"
+        )
+        self.assert_errors()
+
+    def test_binding_duplicate_provider_mapping_returns_error(self) -> None:
+        self.binding_path.write_bytes(
+            self.binding_path.read_bytes().replace(
+                b"---\n", b"---\nshared_governance_provider: {}\n", 1
+            )
+        )
+        self.assert_errors()
+
+    def test_binding_anchor_returns_error(self) -> None:
+        self.binding_path.write_bytes(
+            self.binding_path.read_bytes().replace(
+                b"---\n", b"---\nignored: &anchor value\n", 1
+            )
         )
         self.assert_errors()
 

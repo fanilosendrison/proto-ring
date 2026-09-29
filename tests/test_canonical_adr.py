@@ -85,6 +85,30 @@ class CanonicalAdrTests(unittest.TestCase):
             (self.repository / PROFILE_PATH).resolve(),
         )
 
+    def test_duplicate_profile_path_is_rejected(self) -> None:
+        (self.repository / "AGENTS.md").write_text(
+            "---\nrepository_governance:\n"
+            "  architecture_decisions:\n"
+            f'    profile_path: "{PROFILE_PATH}"\n'
+            f'    "profile_path": "{PROFILE_PATH}"\n'
+            "---\n# Directives\n",
+            encoding="utf-8",
+        )
+        with self.assertRaises(AdrMetadataError):
+            configured_profile_path(self.repository)
+
+    def test_noncanonical_boolean_like_profile_path_remains_a_string(self) -> None:
+        target = self.repository / "yes"
+        target.write_text("repository: {}\n", encoding="utf-8")
+        (self.repository / "AGENTS.md").write_text(
+            "---\nrepository_governance:\n"
+            "  architecture_decisions:\n"
+            "    profile_path: yes\n"
+            "---\n# Directives\n",
+            encoding="utf-8",
+        )
+        self.assertEqual(configured_profile_path(self.repository), target.resolve())
+
     def test_configured_profile_path_missing_target_fails(self) -> None:
         (self.repository / PROFILE_PATH).unlink()
 

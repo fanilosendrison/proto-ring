@@ -18,6 +18,8 @@ import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 
+from proto_ring import structured_data
+
 __all__ = [
     "AdrMetadataError",
     "decision_body_bytes",
@@ -112,22 +114,14 @@ def preserved_payload_bytes(data: bytes) -> bytes:
 
 
 def parse_adr_bytes(data: bytes) -> tuple[dict[str, object], bytes]:
-    """Parse exact ADR bytes into safe frontmatter and decision-body bytes."""
+    """Parse exact ADR bytes into canonical metadata and decision-body bytes."""
 
     body = decision_body_bytes(data)
-    if not data.startswith(b"---\n"):
-        raise AdrMetadataError("ADR has no YAML frontmatter")
-
-    closing = data.find(b"\n---\n", 4)
-    if closing < 0:
-        raise AdrMetadataError("ADR frontmatter has no closing delimiter")
     try:
-        metadata = yaml.safe_load(data[4:closing].decode("utf-8"))
-    except (UnicodeDecodeError, yaml.YAMLError) as error:
+        parsed = structured_data.parse_frontmatter_bytes(data)
+    except structured_data.StructuredDataError as error:
         raise AdrMetadataError(f"invalid ADR frontmatter: {error}") from error
-    if not isinstance(metadata, dict):
-        raise AdrMetadataError("ADR frontmatter must be a mapping")
-    return cast(dict[str, object], metadata), body
+    return cast(dict[str, object], parsed.metadata), body
 
 
 def parse_adr(path: Path) -> tuple[dict[str, object], bytes]:

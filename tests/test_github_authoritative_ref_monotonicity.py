@@ -174,6 +174,29 @@ class GitHubAuthoritativeRefMonotonicityTests(unittest.TestCase):
             conformance.check(self.binding_path).status,
         )
 
+    def test_canonical_frontmatter_strengthening_is_violated(self) -> None:
+        base = self.binding_path.read_bytes()
+        cases = {
+            "BOM": b"\xef\xbb\xbf" + base,
+            "CRLF": base.replace(b"\n", b"\r\n"),
+            "duplicate": base.replace(
+                b"---\n", b"---\nauthoritative_ref_monotonicity: {}\n", 1
+            ),
+            "anchor": base.replace(
+                b"---\n", b"---\nignored: &anchor value\n", 1
+            ),
+            "noncanonical integer": base.replace(
+                f"ruleset_id: {RULESET_ID}".encode(), b"ruleset_id: 01"
+            ),
+        }
+        for label, data in cases.items():
+            with self.subTest(label=label):
+                self.binding_path.write_bytes(data)
+                result = conformance.check(self.binding_path)
+                self.assertEqual(
+                    conformance.ConformanceStatus.VIOLATED, result.status
+                )
+
     def test_empty_owner_or_repository_is_violated(self) -> None:
         for field in ("owner", "repository"):
             with self.subTest(field=field):

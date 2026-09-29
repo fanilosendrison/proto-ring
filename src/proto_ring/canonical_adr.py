@@ -7,9 +7,7 @@ from pathlib import Path
 import re
 from typing import Mapping, cast
 
-import yaml
-
-from proto_ring import adr_metadata, governance_routing
+from proto_ring import adr_metadata, governance_bootstrap, governance_routing
 
 
 __all__ = [
@@ -28,35 +26,13 @@ class CanonicalAdr:
 
 
 def _agents_frontmatter(repository: Path) -> dict[str, object]:
-    path = repository / "AGENTS.md"
     try:
-        data = path.read_bytes()
-    except OSError as error:
-        raise adr_metadata.AdrMetadataError(f"cannot read AGENTS.md: {error}") from error
-    if data.startswith(b"\xef\xbb\xbf"):
-        raise adr_metadata.AdrMetadataError("AGENTS.md contains a UTF-8 BOM")
-    if b"\r" in data:
-        raise adr_metadata.AdrMetadataError("AGENTS.md contains CR or CRLF line endings")
-    try:
-        text = data.decode("utf-8")
-    except UnicodeDecodeError as error:
+        bootstrap = governance_bootstrap.load(repository)
+    except governance_bootstrap.GovernanceBootstrapError as error:
         raise adr_metadata.AdrMetadataError(
-            f"AGENTS.md is not valid UTF-8: {error}"
+            f"cannot load AGENTS.md governance bootstrap: {error}"
         ) from error
-    if not text.startswith("---\n"):
-        raise adr_metadata.AdrMetadataError("AGENTS.md has no YAML frontmatter")
-    closing = text.find("\n---\n", 4)
-    if closing < 0:
-        raise adr_metadata.AdrMetadataError(
-            "AGENTS.md frontmatter has no closing delimiter"
-        )
-    try:
-        metadata = yaml.safe_load(text[4:closing])
-    except yaml.YAMLError as error:
-        raise adr_metadata.AdrMetadataError(
-            f"AGENTS.md frontmatter is invalid YAML: {error}"
-        ) from error
-    return adr_metadata.require_mapping(metadata, "AGENTS.md frontmatter")
+    return cast(dict[str, object], bootstrap.metadata)
 
 
 def configured_profile_path(repository: Path) -> Path:

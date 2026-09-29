@@ -129,6 +129,34 @@ class AdrMetadataPrimitiveTests(unittest.TestCase):
             self.assertEqual(parsed_body, body)
             self.assertEqual((byte_metadata, byte_body), (metadata, parsed_body))
 
+    def test_parse_adr_rejects_duplicate_constructed_keys(self) -> None:
+        source = (
+            b"---\nid: ADR-001\nname: Example\n\"name\": Other\n---\n\n"
+            b"# ADR\n\n## Context\nbody\n"
+        )
+        with self.assertRaises(AdrMetadataError):
+            parse_adr_bytes(source)
+
+    def test_parse_adr_rejects_forbidden_yaml_representation(self) -> None:
+        source = (
+            b"---\nid: ADR-001\nname: &identity Example\n---\n\n"
+            b"# ADR\n\n## Context\nbody\n"
+        )
+        with self.assertRaises(AdrMetadataError):
+            parse_adr_bytes(source)
+
+    def test_parse_adr_uses_canonical_scalars_and_adr_body_boundary(self) -> None:
+        body = b"## Context\nbody\n"
+        source = (
+            b"---\nid: ADR-001\nlegacy_word: yes\ndate_like: 2026-09-29\n"
+            b"explicit_null: null\n---\n\n# ADR\n\n" + body
+        )
+        metadata, parsed_body = parse_adr_bytes(source)
+        self.assertEqual(metadata["legacy_word"], "yes")
+        self.assertEqual(metadata["date_like"], "2026-09-29")
+        self.assertIsNone(metadata["explicit_null"])
+        self.assertEqual(parsed_body, body)
+
     def test_parse_adr_rejects_missing_or_non_mapping_frontmatter(self) -> None:
         with tempfile.TemporaryDirectory(prefix="proto-ring-adr-errors-") as temporary:
             path = Path(temporary) / "adr.md"

@@ -15,7 +15,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-import yaml
+from proto_ring import structured_data
 
 __all__ = [
     "ConformanceResult",
@@ -78,24 +78,17 @@ def _required_nonempty_string(parent: Mapping[object, object], key: str) -> str:
 
 def _load_binding(path: Path) -> _Binding:
     try:
-        text = path.read_bytes().decode("utf-8")
-    except (OSError, UnicodeDecodeError) as error:
+        data = path.read_bytes()
+    except OSError as error:
         raise _BindingError(f"cannot read binding: {error}") from error
-
-    if not text.startswith("---\n"):
-        raise _BindingError("binding has no opening YAML frontmatter delimiter")
-    closing = text.find("\n---\n", 4)
-    if closing < 0:
-        raise _BindingError("binding has no closing YAML frontmatter delimiter")
-
     try:
-        metadata = yaml.safe_load(text[4:closing])
-    except yaml.YAMLError as error:
-        raise _BindingError(f"binding frontmatter is invalid YAML: {error}") from error
-    if not isinstance(metadata, Mapping):
-        raise _BindingError("binding frontmatter must be a mapping")
+        parsed = structured_data.parse_frontmatter_bytes(data)
+    except structured_data.StructuredDataError as error:
+        raise _BindingError(f"cannot parse binding frontmatter: {error}") from error
 
-    configuration = _required_mapping(metadata, "authoritative_ref_monotonicity")
+    configuration = _required_mapping(
+        parsed.metadata, "authoritative_ref_monotonicity"
+    )
     repository = _required_mapping(configuration, "repository")
     protection = _required_mapping(configuration, "protection")
 

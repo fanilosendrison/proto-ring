@@ -6,15 +6,17 @@ from pathlib import Path
 import re
 from typing import cast
 
-import yaml
-
-from proto_ring import adr_metadata, canonical_adr
+from proto_ring import (
+    adr_metadata,
+    canonical_adr,
+    governance_bootstrap,
+    structured_data,
+)
 
 __all__ = [
     "check",
 ]
 
-_AGENT_DIRECTIVES_PATH = "AGENTS.md"
 _PROVIDER_REPOSITORY = "fanilosendrison/proto-ring"
 _CONTRACT_PATH = "docs/contracts/shared-governance-provider.md"
 _COMMIT_PATTERN = re.compile(r"[0-9a-f]{40}")
@@ -33,26 +35,15 @@ def _load_frontmatter(
         data = path.read_bytes()
     except OSError as error:
         return None, None, [f"cannot read {label}: {error}"]
-    if data.startswith(b"\xef\xbb\xbf"):
-        return None, None, [f"{label} contains a UTF-8 BOM"]
-    if b"\r" in data:
-        return None, None, [f"{label} contains CR or CRLF line endings"]
     try:
-        text = data.decode("utf-8")
-    except UnicodeDecodeError as error:
-        return None, None, [f"{label} is not valid UTF-8: {error}"]
-    if not text.startswith("---\n"):
-        return None, None, [f"{label} has no YAML frontmatter"]
-    closing = text.find("\n---\n", 4)
-    if closing < 0:
-        return None, None, [f"{label} frontmatter has no closing delimiter"]
-    try:
-        metadata = yaml.safe_load(text[4:closing])
-    except yaml.YAMLError as error:
-        return None, None, [f"{label} frontmatter is invalid YAML: {error}"]
-    if not isinstance(metadata, dict):
-        return None, None, [f"{label} frontmatter must be a mapping"]
-    return cast(dict[str, object], metadata), text[closing + 5 :], []
+        parsed = structured_data.parse_frontmatter_bytes(data)
+    except structured_data.StructuredDataError as error:
+        return None, None, [f"cannot parse {label} frontmatter: {error}"]
+    return (
+        cast(dict[str, object], parsed.metadata),
+        parsed.body.decode("utf-8"),
+        [],
+    )
 
 
 def _mapping(
@@ -106,23 +97,12 @@ def check(repository: Path) -> list[str]:
     """Return controlled errors for an invalid structured authority chain."""
 
     errors: list[str] = []
-    agent_path = _repository_path(
-        repository, _AGENT_DIRECTIVES_PATH, "agent directives path", errors
-    )
-    if agent_path is None:
+    try:
+        bootstrap = governance_bootstrap.load(repository)
+    except governance_bootstrap.GovernanceBootstrapError as error:
+        errors.append(f"cannot load agent directives: {error}")
         return errors
-    agent_metadata, _agent_body, agent_errors = _load_frontmatter(
-        agent_path, "agent directives"
-    )
-    errors.extend(agent_errors)
-    if agent_metadata is None:
-        return errors
-
-    governance = _mapping(
-        agent_metadata, "repository_governance", "repository_governance", errors
-    )
-    if governance is None:
-        return errors
+    governance = cast(dict[str, object], bootstrap.repository_governance)
     routing = _mapping(
         governance,
         "shared_governance_provider",
