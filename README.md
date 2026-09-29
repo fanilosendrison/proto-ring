@@ -56,6 +56,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Authoritative Ref Monotonicity](docs/contracts/authoritative-ref-monotonicity.md)
 - [Projection Integrity](docs/contracts/projection-integrity.md)
 - [Normative Terminology](docs/contracts/normative-terminology.md)
+- [Exact Evidence Binding](docs/contracts/exact-evidence-binding.md)
 
 Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
@@ -69,6 +70,8 @@ Authoritative Ref Monotonicity factorization evidence is preserved in the
 [Authoritative Ref Monotonicity extraction record](docs/bootstrap/authoritative-ref-monotonicity-extraction.md).
 Normative Terminology factorization evidence is preserved in the
 [Normative Terminology extraction inventory](docs/bootstrap/normative-terminology-extraction.md).
+Exact Evidence Binding factorization evidence is preserved in the
+[Exact Evidence Binding extraction record](docs/bootstrap/exact-evidence-binding-extraction.md).
 
 Existing proto-ring contracts and mechanisms retain the authority already
 established for their stated scope.
