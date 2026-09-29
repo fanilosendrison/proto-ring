@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 from typing import Mapping, cast
 
-from proto_ring import adr_metadata, governance_bootstrap, governance_routing
+from proto_ring import adr_metadata, repository_governance_model
 
 
 __all__ = [
@@ -25,33 +25,24 @@ class CanonicalAdr:
     decision_body: bytes
 
 
-def _agents_frontmatter(repository: Path) -> dict[str, object]:
-    try:
-        bootstrap = governance_bootstrap.load(repository)
-    except governance_bootstrap.GovernanceBootstrapError as error:
-        raise adr_metadata.AdrMetadataError(
-            f"cannot load AGENTS.md governance bootstrap: {error}"
-        ) from error
-    return cast(dict[str, object], bootstrap.metadata)
-
-
 def configured_profile_path(repository: Path) -> Path:
     """Return the contained ADR profile configured by root ``AGENTS.md``."""
 
-    metadata = _agents_frontmatter(repository)
     try:
-        resolved = governance_routing.resolve_path(
-            repository,
-            metadata,
-            (
-                "repository_governance",
-                "architecture_decisions",
-                "profile_path",
-            ),
-        )
-    except governance_routing.GovernanceRoutingError as error:
+        model = repository_governance_model.load(repository)
+    except repository_governance_model.RepositoryGovernanceModelError as error:
         raise adr_metadata.AdrMetadataError(str(error)) from error
-    return resolved.target
+    capability = model.capabilities.get("architecture_decisions")
+    if capability is None:
+        raise adr_metadata.AdrMetadataError(
+            "architecture_decisions capability is required"
+        )
+    profile = capability.routes.get("profile")
+    if profile is None:
+        raise adr_metadata.AdrMetadataError(
+            "architecture_decisions profile route is required"
+        )
+    return profile.target
 
 
 def _profile_repository(repository: Path) -> dict[str, object]:
