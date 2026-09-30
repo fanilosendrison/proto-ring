@@ -39,6 +39,11 @@ repository_governance:
       routes:
         profile: "docs/repository-governance/<consumer>-governance-authority.md"
 
+    governed_objects:
+      configuration: {}
+      routes:
+        profile: "docs/repository-governance/<consumer>-governed-objects.md"
+
     shared_governance_provider:
       configuration:
         required: true
@@ -146,15 +151,17 @@ capability identifiers:
 ```text
 architecture_decisions
 governance_authority
+governed_objects
 shared_governance_provider
 ```
 
 `shared_governance_provider` is mandatory because the model's logical provider
 binding refers to it. `architecture_decisions` is optional because not every
-consumer is required to use ADRs. `governance_authority` is optional at the
-Repository Governance Model layer and is required only when a consumer declares
-that capability. The existence of the Governance Authority contract does not
-require every consumer to adopt a `governance_authority` profile.
+consumer is required to use ADRs. `governance_authority` and `governed_objects`
+are optional globally. When `governed_objects` is declared, the same model MUST
+also declare `governance_authority`; governed responsibility references compose
+with that profile. Declaring `governed_objects` does not make
+`architecture_decisions` mandatory.
 
 An unknown declared capability MUST fail closed. A capability MUST NOT be
 silently ignored or inferred from prose, Python module names, or filesystem
@@ -181,13 +188,15 @@ share fields such as `required`, `profile_path`, `binding_path`, `mode`, or
 
 When `architecture_decisions` is declared, its `routes` mapping MUST contain
 `profile`. When `governance_authority` is declared, its `routes` mapping MUST
-contain `profile`. When `shared_governance_provider` is declared, its `routes`
-mapping MUST contain `binding`.
+contain `profile`. When `governed_objects` is declared, its `routes` mapping
+MUST contain `profile`. When `shared_governance_provider` is declared, its
+`routes` mapping MUST contain `binding`.
 
-The Repository Governance Model declares the `governance_authority` capability
-and routes it to a consumer-owned profile. The Canonical Governance Authority
-contract defines the detailed semantics of that profile. This contract does not
-acquire or duplicate those semantics.
+The Repository Governance Model declares the `governance_authority` and
+`governed_objects` capabilities and routes each to a consumer-owned profile. The
+Canonical Governance Authority contract and Canonical Governed Objects contract
+define the detailed semantics of those profiles. This contract does not acquire
+or duplicate those semantics.
 
 Additional route identifiers MAY exist inside a supported capability. Every
 route identifier and every route value MUST be a non-empty string.
