@@ -28,11 +28,13 @@ _PROVIDER_BINDING_ROUTE = "binding"
 _SUPPORTED_CAPABILITIES = frozenset(
     {
         "architecture_decisions",
+        "governance_authority",
         "shared_governance_provider",
     }
 )
 _REQUIRED_ROUTES = {
     "architecture_decisions": frozenset({"profile"}),
+    "governance_authority": frozenset({"profile"}),
     "shared_governance_provider": frozenset({"binding"}),
 }
 
