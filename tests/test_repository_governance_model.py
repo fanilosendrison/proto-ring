@@ -13,6 +13,7 @@ from proto_ring import repository_governance_model as model_module
 
 
 PROFILE = "docs/adr/adr-profile.yaml"
+AUTHORITY_PROFILE = "docs/repository-governance/governance-authority.md"
 BINDING = "docs/repository-governance/consumer-binding.md"
 
 
@@ -126,6 +127,23 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
         route = self.load().capabilities["shared_governance_provider"].routes["binding"]
         self.assertEqual(route.declared_path, BINDING)
         self.assertEqual(route.target, (self.repository / BINDING).resolve())
+
+    def test_governance_authority_profile_route_resolves(self) -> None:
+        self.capabilities["governance_authority"] = {
+            "configuration": {},
+            "routes": {"profile": AUTHORITY_PROFILE},
+        }
+        self.write_target(AUTHORITY_PROFILE)
+        route = self.load().capabilities["governance_authority"].routes["profile"]
+        self.assertEqual(route.declared_path, AUTHORITY_PROFILE)
+        self.assertEqual(route.target, (self.repository / AUTHORITY_PROFILE).resolve())
+
+    def test_governance_authority_requires_profile_route(self) -> None:
+        self.capabilities["governance_authority"] = {
+            "configuration": {},
+            "routes": {},
+        }
+        self.assert_fails()
 
     def test_configuration_unknown_descendants_are_preserved(self) -> None:
         configuration = {"required": True, "unknown": {"items": [1, None, "x"]}}
