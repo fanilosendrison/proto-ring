@@ -14,6 +14,7 @@ from proto_ring import repository_governance_model as model_module
 
 PROFILE = "docs/adr/adr-profile.yaml"
 AUTHORITY_PROFILE = "docs/repository-governance/governance-authority.md"
+GOVERNED_OBJECTS_PROFILE = "docs/repository-governance/governed-objects.md"
 BINDING = "docs/repository-governance/consumer-binding.md"
 
 
@@ -76,6 +77,17 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
     @property
     def capabilities(self) -> dict[str, object]:
         return self.governance["capabilities"]  # type: ignore[return-value]
+
+    def add_governed_objects(self, routes: dict[str, str] | None = None) -> None:
+        self.capabilities["governance_authority"] = {
+            "configuration": {}, "routes": {"profile": AUTHORITY_PROFILE}
+        }
+        self.capabilities["governed_objects"] = {
+            "configuration": {},
+            "routes": {"profile": GOVERNED_OBJECTS_PROFILE} if routes is None else routes,
+        }
+        self.write_target(AUTHORITY_PROFILE)
+        self.write_target(GOVERNED_OBJECTS_PROFILE)
 
     def test_public_api_is_exact(self) -> None:
         self.assertEqual(
@@ -144,6 +156,32 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
             "routes": {},
         }
         self.assert_fails()
+
+    def test_governed_objects_profile_route_resolves_and_succeeds(self) -> None:
+        self.add_governed_objects()
+        route = self.load().capabilities["governed_objects"].routes["profile"]
+        self.assertEqual(route.declared_path, GOVERNED_OBJECTS_PROFILE)
+        self.assertEqual(route.target, (self.repository / GOVERNED_OBJECTS_PROFILE).resolve())
+
+    def test_governed_objects_requires_profile_route(self) -> None:
+        self.add_governed_objects({})
+        self.assert_fails()
+
+    def test_governed_objects_without_governance_authority_fails(self) -> None:
+        self.capabilities["governed_objects"] = {
+            "configuration": {}, "routes": {"profile": GOVERNED_OBJECTS_PROFILE}
+        }
+        self.write_target(GOVERNED_OBJECTS_PROFILE)
+        with self.assertRaisesRegex(
+            model_module.RepositoryGovernanceModelError,
+            "governed_objects capability requires governance_authority capability",
+        ):
+            self.load()
+
+    def test_architecture_decisions_remains_optional_with_governed_objects(self) -> None:
+        del self.capabilities["architecture_decisions"]
+        self.add_governed_objects()
+        self.assertNotIn("architecture_decisions", self.load().capabilities)
 
     def test_configuration_unknown_descendants_are_preserved(self) -> None:
         configuration = {"required": True, "unknown": {"items": [1, None, "x"]}}

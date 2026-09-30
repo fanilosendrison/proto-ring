@@ -29,12 +29,14 @@ _SUPPORTED_CAPABILITIES = frozenset(
     {
         "architecture_decisions",
         "governance_authority",
+        "governed_objects",
         "shared_governance_provider",
     }
 )
 _REQUIRED_ROUTES = {
     "architecture_decisions": frozenset({"profile"}),
     "governance_authority": frozenset({"profile"}),
+    "governed_objects": frozenset({"profile"}),
     "shared_governance_provider": frozenset({"binding"}),
 }
 
@@ -143,6 +145,10 @@ def _load_capabilities(
     if _PROVIDER_BINDING_CAPABILITY not in declarations:
         raise RepositoryGovernanceModelError(
             "shared_governance_provider capability is required"
+        )
+    if "governed_objects" in declarations and "governance_authority" not in declarations:
+        raise RepositoryGovernanceModelError(
+            "governed_objects capability requires governance_authority capability"
         )
 
     capabilities: dict[str, GovernanceCapability] = {}
