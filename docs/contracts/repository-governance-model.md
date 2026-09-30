@@ -34,12 +34,20 @@ repository_governance:
       routes:
         profile: "docs/adr/adr-profile.yaml"
 
+    governance_authority:
+      configuration: {}
+      routes:
+        profile: "docs/repository-governance/<consumer>-governance-authority.md"
+
     shared_governance_provider:
       configuration:
         required: true
       routes:
         binding: "docs/repository-governance/<consumer>-shared-governance-provider.md"
 ```
+
+The route strings in this declaration illustrate consumer-owned targets. They
+do not impose a universal physical repository layout.
 
 ## Model composition
 
@@ -137,12 +145,16 @@ capability identifiers:
 
 ```text
 architecture_decisions
+governance_authority
 shared_governance_provider
 ```
 
 `shared_governance_provider` is mandatory because the model's logical provider
 binding refers to it. `architecture_decisions` is optional because not every
-consumer is required to use ADRs.
+consumer is required to use ADRs. `governance_authority` is optional at the
+Repository Governance Model layer and is required only when a consumer declares
+that capability. The existence of the Governance Authority contract does not
+require every consumer to adopt a `governance_authority` profile.
 
 An unknown declared capability MUST fail closed. A capability MUST NOT be
 silently ignored or inferred from prose, Python module names, or filesystem
@@ -168,8 +180,14 @@ share fields such as `required`, `profile_path`, `binding_path`, `mode`, or
 ## Required routes
 
 When `architecture_decisions` is declared, its `routes` mapping MUST contain
-`profile`. When `shared_governance_provider` is declared, its `routes` mapping
-MUST contain `binding`.
+`profile`. When `governance_authority` is declared, its `routes` mapping MUST
+contain `profile`. When `shared_governance_provider` is declared, its `routes`
+mapping MUST contain `binding`.
+
+The Repository Governance Model declares the `governance_authority` capability
+and routes it to a consumer-owned profile. The Canonical Governance Authority
+contract defines the detailed semantics of that profile. This contract does not
+acquire or duplicate those semantics.
 
 Additional route identifiers MAY exist inside a supported capability. Every
 route identifier and every route value MUST be a non-empty string.
