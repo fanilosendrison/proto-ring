@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import cast
 
 from proto_ring import governance_bootstrap, governance_routing
+from proto_ring.governance_bindings import (
+    BindingKind,
+    GovernanceBindingRegistry,
+    ScopeKind,
+)
 from proto_ring.governance_routing import ResolvedGovernanceRoute
 from proto_ring.structured_data import StructuredValue
 
@@ -19,25 +24,50 @@ __all__ = [
     "RepositoryGovernanceModel",
     "RepositoryGovernanceModelError",
     "load",
+    "validate_binding_capabilities",
 ]
 
-_MODEL_VERSION = 1
 _PROVIDER_ID = "proto-ring"
 _PROVIDER_BINDING_CAPABILITY = "shared_governance_provider"
-_PROVIDER_BINDING_ROUTE = "binding"
-_SUPPORTED_CAPABILITIES = frozenset(
-    {
-        "architecture_decisions",
-        "governance_authority",
-        "governed_objects",
-        "shared_governance_provider",
-    }
-)
-_REQUIRED_ROUTES = {
+
+
+@dataclass(frozen=True)
+class _ModelVersionSpecification:
+    provider_binding_route: str
+    capabilities: frozenset[str]
+    mandatory_capabilities: frozenset[str]
+    required_routes: dict[str, frozenset[str]]
+
+
+_V1_REQUIRED_ROUTES = {
     "architecture_decisions": frozenset({"profile"}),
     "governance_authority": frozenset({"profile"}),
     "governed_objects": frozenset({"profile"}),
     "shared_governance_provider": frozenset({"binding"}),
+}
+_V2_REQUIRED_ROUTES = {
+    "architecture_decisions": frozenset({"profile"}),
+    "governance_authority": frozenset({"profile"}),
+    "governed_objects": frozenset({"profile"}),
+    "shared_governance_provider": frozenset({"registry"}),
+    "projection_integrity": frozenset({"registry"}),
+    "repository_integrity": frozenset({"profile"}),
+    "evidence_requirements": frozenset({"registry"}),
+    "authoritative_ref_monotonicity": frozenset({"binding"}),
+}
+_MODEL_VERSIONS = {
+    1: _ModelVersionSpecification(
+        "binding",
+        frozenset(_V1_REQUIRED_ROUTES),
+        frozenset({"shared_governance_provider"}),
+        _V1_REQUIRED_ROUTES,
+    ),
+    2: _ModelVersionSpecification(
+        "registry",
+        frozenset(_V2_REQUIRED_ROUTES),
+        frozenset({"shared_governance_provider", "governance_authority"}),
+        _V2_REQUIRED_ROUTES,
+    ),
 }
 
 
@@ -101,7 +131,10 @@ def _require_non_empty_string(value: object, label: str) -> str:
     return value
 
 
-def _load_provider(governance: Mapping[object, object]) -> LogicalGovernanceProvider:
+def _load_provider(
+    governance: Mapping[object, object],
+    specification: _ModelVersionSpecification,
+) -> LogicalGovernanceProvider:
     provider = _require_mapping(governance["provider"], "provider")
     _require_exact_keys(provider, frozenset({"id", "binding"}), "provider")
     provider_id = _require_non_empty_string(provider["id"], "provider.id")
@@ -118,10 +151,11 @@ def _load_provider(governance: Mapping[object, object]) -> LogicalGovernanceProv
     route = _require_non_empty_string(binding["route"], "provider.binding.route")
     if (
         capability != _PROVIDER_BINDING_CAPABILITY
-        or route != _PROVIDER_BINDING_ROUTE
+        or route != specification.provider_binding_route
     ):
         raise RepositoryGovernanceModelError(
-            "provider binding must reference shared_governance_provider/binding"
+            "provider binding must reference shared_governance_provider/"
+            f"{specification.provider_binding_route}"
         )
     return LogicalGovernanceProvider(
         id=provider_id,
@@ -132,23 +166,36 @@ def _load_provider(governance: Mapping[object, object]) -> LogicalGovernanceProv
 def _load_capabilities(
     repository: Path,
     governance: Mapping[object, object],
+    model_version: int,
+    specification: _ModelVersionSpecification,
 ) -> dict[str, GovernanceCapability]:
     declarations = _require_mapping(governance["capabilities"], "capabilities")
     capability_ids: list[str] = []
     for raw_capability_id in declarations:
         capability_id = _require_non_empty_string(raw_capability_id, "capability id")
-        if capability_id not in _SUPPORTED_CAPABILITIES:
+        if capability_id not in specification.capabilities:
             raise RepositoryGovernanceModelError(
                 f"unsupported capability: {capability_id}"
             )
         capability_ids.append(capability_id)
-    if _PROVIDER_BINDING_CAPABILITY not in declarations:
+    missing_capabilities = specification.mandatory_capabilities - frozenset(
+        capability_ids
+    )
+    if missing_capabilities:
         raise RepositoryGovernanceModelError(
-            "shared_governance_provider capability is required"
+            f"{sorted(missing_capabilities)[0]} capability is required"
         )
     if "governed_objects" in declarations and "governance_authority" not in declarations:
         raise RepositoryGovernanceModelError(
             "governed_objects capability requires governance_authority capability"
+        )
+    if (
+        model_version == 2
+        and "projection_integrity" in declarations
+        and "repository_integrity" not in declarations
+    ):
+        raise RepositoryGovernanceModelError(
+            "projection_integrity capability requires repository_integrity capability"
         )
 
     capabilities: dict[str, GovernanceCapability] = {}
@@ -168,7 +215,9 @@ def _load_capabilities(
         routes = _require_mapping(
             declaration["routes"], f"capability {capability_id}.routes"
         )
-        missing_routes = _REQUIRED_ROUTES[capability_id] - frozenset(routes.keys())
+        missing_routes = specification.required_routes[capability_id] - frozenset(
+            routes.keys()
+        )
         if missing_routes:
             raise RepositoryGovernanceModelError(
                 f"capability {capability_id} is missing route: "
@@ -206,7 +255,7 @@ def _load_capabilities(
 
 
 def load(repository: Path) -> RepositoryGovernanceModel:
-    """Load the version-1 logical model from canonical bootstrap output."""
+    """Load a supported logical model from canonical bootstrap output."""
 
     try:
         bootstrap = governance_bootstrap.load(repository)
@@ -220,11 +269,14 @@ def load(repository: Path) -> RepositoryGovernanceModel:
         "repository_governance",
     )
     model_version = governance["model_version"]
-    if type(model_version) is not int or model_version != _MODEL_VERSION:
+    if type(model_version) is not int or model_version not in _MODEL_VERSIONS:
         raise RepositoryGovernanceModelError("unsupported model_version")
+    specification = _MODEL_VERSIONS[model_version]
 
-    provider = _load_provider(governance)
-    capabilities = _load_capabilities(repository, governance)
+    provider = _load_provider(governance, specification)
+    capabilities = _load_capabilities(
+        repository, governance, model_version, specification
+    )
     binding_capability = capabilities.get(provider.binding.capability)
     if (
         binding_capability is None
@@ -235,7 +287,38 @@ def load(repository: Path) -> RepositoryGovernanceModel:
     return RepositoryGovernanceModel(
         repository=bootstrap.repository,
         carrier=bootstrap.carrier,
-        model_version=_MODEL_VERSION,
+        model_version=model_version,
         provider=provider,
         capabilities=capabilities,
     )
+
+
+def validate_binding_capabilities(
+    model: RepositoryGovernanceModel,
+    registry: GovernanceBindingRegistry,
+) -> None:
+    """Validate v2 capability-scoped contract bindings without loading targets."""
+
+    if model.model_version != 2:
+        raise RepositoryGovernanceModelError(
+            "governance binding capability composition requires model_version 2"
+        )
+    try:
+        if model.repository.resolve() != registry.repository.resolve():
+            raise RepositoryGovernanceModelError(
+                "governance binding registry repository differs"
+            )
+    except OSError as error:
+        raise RepositoryGovernanceModelError(
+            f"cannot resolve repository root: {error}"
+        ) from error
+    for binding in registry.bindings.values():
+        if (
+            binding.kind is BindingKind.GOVERNANCE_CONTRACT
+            and binding.scope.kind is ScopeKind.CAPABILITY
+            and binding.scope.capability_id not in model.capabilities
+        ):
+            raise RepositoryGovernanceModelError(
+                "governance contract binding references undeclared capability: "
+                f"{binding.scope.capability_id}"
+            )
