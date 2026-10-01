@@ -28,7 +28,7 @@ class AuthoritativeRefMonotonicityContractTests(unittest.TestCase):
                 self.assertNotIn(value, contract)
 
     def test_contract_states_required_semantics(self) -> None:
-        contract = CONTRACT.read_text(encoding="utf-8")
+        contract = " ".join(CONTRACT.read_text(encoding="utf-8").split())
         required = (
             "authoritative ref",
             "ancestor-or-equal",
@@ -39,6 +39,8 @@ class AuthoritativeRefMonotonicityContractTests(unittest.TestCase):
             "local binding",
             "protection-control-plane administrator",
             "Authoritative Ref Monotonicity is not Authoritative State Admission",
+            "The local Authoritative Ref Monotonicity binding MUST NOT duplicate "
+            "that contract pin.",
         )
         for value in required:
             with self.subTest(value=value):
