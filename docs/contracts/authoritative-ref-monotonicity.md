@@ -116,13 +116,18 @@ Each consumer adoption MUST provide a local binding that identifies at least:
 
 - the authoritative repository identity;
 - the authoritative ref;
-- the external provider or enforcement mechanism;
+- the external provider or enforcement mechanism; and
 - the provider-specific protection identity sufficient to inspect or configure
-  that mechanism; and
-- the immutable proto-ring contract identity being adopted.
+  that mechanism.
 
 These values remain consumer-owned. They are not encoded in this shared
 contract.
+
+The immutable proto-ring contract identity is owned by the consumer's canonical
+Governance Binding Registry. The local Authoritative Ref Monotonicity binding
+MUST NOT duplicate that contract pin. Removing this duplication changes only
+contract-pin ownership; it does not change monotonicity, non-deletion, external
+enforcement, or the consumer-local facts above.
 
 ## Non-goals
 
