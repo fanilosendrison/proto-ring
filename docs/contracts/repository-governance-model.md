@@ -54,6 +54,99 @@ repository_governance:
 The route strings in this declaration illustrate consumer-owned targets. They
 do not impose a universal physical repository layout.
 
+## Model version 2
+
+Model version 1 is frozen. Model version 2 integrates the persistent governance
+capabilities without changing the semantics of their routed resources.
+
+The normative model-version-2 declaration shape is:
+
+```yaml
+repository_governance:
+  model_version: 2
+
+  provider:
+    id: "proto-ring"
+    binding:
+      capability: "shared_governance_provider"
+      route: "registry"
+
+  capabilities:
+    shared_governance_provider:
+      configuration: {}
+      routes:
+        registry: "<consumer-owned-target>"
+    governance_authority:
+      configuration: {}
+      routes:
+        profile: "<consumer-owned-target>"
+```
+
+The exact model-version-2 capability and required-route table is:
+
+| CapabilityId | Required route |
+|---|---|
+| `architecture_decisions` | `profile` |
+| `governance_authority` | `profile` |
+| `governed_objects` | `profile` |
+| `shared_governance_provider` | `registry` |
+| `projection_integrity` | `registry` |
+| `repository_integrity` | `profile` |
+| `evidence_requirements` | `registry` |
+| `authoritative_ref_monotonicity` | `binding` |
+
+This table is exhaustive and normative. Changing its capability vocabulary or
+required routes requires a later model version. Additional consumer-local route
+IDs remain opaque and do not acquire generic meaning.
+
+Model version 2 requires exactly these capabilities to be present:
+
+```text
+shared_governance_provider
+governance_authority
+```
+
+The other six supported capabilities are optional generically. Mandatory
+presence is a model rule and does not require a duplicated
+`configuration.required` field. Configuration remains opaque structured data.
+
+The model-version-2 provider binding reference is exactly:
+
+```text
+capability = shared_governance_provider
+route = registry
+```
+
+The target is the canonical Governance Binding Registry. The logical provider
+identifier remains exactly `proto-ring`; it remains distinct from executable
+provider and governance-contract identities.
+
+## Model-version-2 structural composition
+
+The following cross-capability rules are normative:
+
+- `governed_objects` composes with `governance_authority`, which is already
+  mandatory;
+- `projection_integrity` requires `repository_integrity` because Projection
+  Registry currentness and historical custody use Repository Integrity
+  `ValidationId` values;
+- `evidence_requirements` does not require `governed_objects` or
+  `repository_integrity`;
+- `authoritative_ref_monotonicity` has no additional generic capability
+  dependency.
+
+A governance-contract binding with `capability` scope must reference a
+capability declared by the same model-version-2 consumer. This cross-model check
+operates on already-loaded values; Repository Governance Model loading does not
+load the Governance Binding Registry.
+
+Capabilities are top-level repository-governance responsibilities, not Python
+modules or a one-to-one list of contracts. In particular,
+`exact_evidence_binding`, `governance_routing`, `structured_data`,
+`canonical_adr`, `accepted_adr_body`, `adr_metadata`, and `git_whitespace` are
+not capability IDs. One capability may compose multiple contracts, and module
+use does not imply a capability declaration.
+
 ## Model composition
 
 The model is constructed through this exact composition:
@@ -97,18 +190,12 @@ reject descendants that it cannot interpret as a valid version-1 model.
 
 ## Model version
 
-`model_version` MUST be the structured integer:
+For model version 1, `model_version` MUST be the structured integer `1`. For
+model version 2, it MUST be the structured integer `2`.
 
-```text
-1
-```
-
-It MUST NOT be `true`, `"1"`, `1.0`, another integer, or `null`. A Python
-implementation MUST require exactly:
-
-```python
-type(value) is int and value == 1
-```
+It MUST NOT be `true`, a string, a float, another integer, or `null`. A Python
+implementation MUST require an exact integer that is one of the two supported
+versions; boolean values are not integers for this purpose.
 
 ## Logical provider
 
@@ -277,13 +364,20 @@ routed target semantics
 routed target authority
 ```
 
-## Later-Issue boundary
+## Responsibility boundary
 
 The responsibility boundary is exact:
 
 ```text
-#24 owns authority/source-role semantics.
-#25 owns decision/invariant/obligation interfaces.
-#26 owns detailed immutable bindings and projection/validation/evidence registries.
+Canonical Governance Authority owns authority and source-role semantics.
+Governed Objects owns decision, invariant, and obligation interfaces.
+The individual registry/profile contracts own their detailed schemas and semantics.
+Repository Governance Model owns capability discovery and structural composition.
 #27 owns exact-state-bound RepositoryGovernanceState composition.
 ```
+
+Loading model version 2 validates only model structure, supported capability
+IDs, mandatory capabilities, required routes, cross-capability structural
+constraints, and route resolution. It does not load or execute routed
+registries/profiles, evidence candidates, Repository Integrity validations, or
+Projection Integrity validators or generators.
