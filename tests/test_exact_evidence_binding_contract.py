@@ -179,10 +179,10 @@ name: "Exact Evidence Binding extraction evidence"
             readme,
         )
 
-    def test_package_version_is_0_10_1(self) -> None:
+    def test_package_version_is_0_11_0(self) -> None:
         project = PROJECT.read_text(encoding="utf-8")
 
-        self.assertIn('version = "0.10.1"', project)
+        self.assertIn('version = "0.11.0"', project)
         self.assertNotIn('version = "0.9.0"', project)
 
 
