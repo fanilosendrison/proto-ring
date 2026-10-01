@@ -104,6 +104,170 @@ have one canonical consumer-owned source.
 Documentation and CI MUST reference that canonical source or be mechanically
 validated against it rather than maintaining independent manual copies.
 
+## Persistent consumer profile
+
+Model version 1 serializes the consumer-owned profile as canonical structured
+frontmatter under `repository_integrity`:
+
+```yaml
+repository_integrity:
+  model_version: 1
+  authority:
+    responsibility: <GovernedResponsibilityId>
+    source: <GovernedSourceId>
+  environments:
+    - <ValidationEnvironmentId>
+  continue_after_non_satisfied: true
+  validations:
+    <ValidationId>:
+      responsibility: <GovernedResponsibilityId>
+      prerequisites: []
+      instances:
+        kind: single
+      command:
+        kind: command
+        environment: <ValidationEnvironmentId>
+        arguments: []
+        undetermined_exit_codes: []
+  order:
+    - <ValidationId>
+```
+
+The carrier is the authoritative governed source for the profile's declared
+responsibility. Loading composes with Governance Authority and does not execute
+validators. A `ValidationId` is an opaque, non-empty consumer-owned identity for
+a validation requirement, not a label or runtime-instance identity. Every
+model-version-1 validation is mandatory.
+
+`order` is a total order containing every declared `ValidationId` exactly once.
+Mapping declaration order has no meaning. Each validation's duplicate-free
+`prerequisites` identifies declared validations that precede it in `order`.
+Order alone does not imply dependency.
+
+A validation may declare one governed-object target:
+
+```yaml
+target:
+  interface: <InterfaceId>
+  object: <ObjectId>
+```
+
+The object must exist and participate in the validation's governed
+responsibility. This association does not make the validation operation or an
+executable path a governed object.
+
+### Concrete instance resolution
+
+Model version 1 supports exactly `single` and `repository_paths` instances.
+`single` resolves to one concrete command obligation. Repository paths support
+exactly `append_all` and `for_each`:
+
+```yaml
+instances:
+  kind: repository_paths
+  mode: append_all
+  selectors:
+    - kind: path
+      path: pyproject.toml
+    - kind: glob
+      glob: src/*/*.py
+```
+
+A literal `path` remains selected when absent. A `glob` uses `/` as separator
+and only `*` as syntax. `*` matches zero or more characters within one component
+and never crosses `/`. Absolute paths, `..`, `**`, `?`, character classes,
+brace expansion, shell expansion, regular expressions, and Git pathspec
+semantics are forbidden.
+
+Selectors run in declaration order. Matches from each glob are sorted lexically
+by repository-relative path. Duplicate paths across selectors fail resolution;
+they are not deduplicated. Zero glob matches are valid and create no generic
+presence obligation.
+
+`append_all` always resolves to one obligation with selected paths appended to
+the base arguments. With zero selected paths, that one obligation contains only
+the base arguments. `for_each` resolves to one obligation per selected path and
+to zero obligations when selection succeeds with zero paths. Expanded path
+membership is runtime repository state, not persistent profile identity.
+
+### Command and environment binding
+
+Model version 1 supports only `command` bindings. A command declares one
+profile-owned `ValidationEnvironmentId`, ordered base arguments, and explicit
+nonzero `undetermined_exit_codes`. Machine-specific executable paths are not
+persistent profile data.
+
+An `EvaluationContext` supplies each available environment realization:
+
+```text
+ValidationEnvironmentId
++
+opaque realization identity
++
+runtime command prefix
++
+explicit process environment
+```
+
+The runtime command is the realization's prefix followed by the persistent base
+arguments and any selected repository paths. A missing required realization or
+a command that cannot execute is `UNDETERMINED`. Repository Integrity does not
+provision environments, create virtual environments, install dependencies,
+modify `PATH`, or repair tooling.
+
+Profile identity derives from canonical persistent profile semantics. It
+excludes runtime command prefixes, executable paths, expanded glob results,
+process environments, and ambient variables. Evaluation-context identity
+depends only on the opaque identities of realizations required by the profile.
+It excludes unrelated realizations, command prefixes, process environment
+values, ambient secrets, `HOME`, and `PATH`.
+
+A result binds all three exact dimensions:
+
+```text
+repository state identity
+profile identity
+evaluation context identity
+```
+
+## Validation-level aggregation and prerequisites
+
+Instance resolution and command execution are separate. If complete instance
+resolution cannot be determined, the aggregate `ValidationId` status is
+`UNDETERMINED`; a partial selection is not successful resolution.
+
+After successful complete resolution, aggregate exactly:
+
+```text
+zero concrete instances
+→ SATISFIED
+
+one or more instances and any VIOLATED
+→ VIOLATED
+
+one or more instances, none VIOLATED, and any UNDETERMINED
+→ UNDETERMINED
+
+one or more instances and all SATISFIED
+→ SATISFIED
+```
+
+Thus `VIOLATED` has precedence over `UNDETERMINED`, which has precedence over
+`SATISFIED`, independent of concrete execution order. Model version 1 has no
+fourth `NOT_APPLICABLE`, `SKIPPED`, or `EMPTY` status.
+
+A successfully resolved zero-instance `for_each` validation is deliberately
+`SATISFIED` for that exact repository state. This means only that no concrete
+obligation applies under the declared membership rule. It does not prove that a
+path exists and does not imply that a selector should normally match. A
+consumer that requires presence must declare a separate consumer-owned
+validation; proto-ring never invents that requirement.
+
+Prerequisites refer to aggregate `ValidationId` status. A dependent executes
+only when every prerequisite is `SATISFIED`. A zero-instance satisfied
+prerequisite therefore permits its dependent. A `VIOLATED` or `UNDETERMINED`
+prerequisite makes the dependent `UNDETERMINED` and not executed.
+
 ## Integrity obligation result
 
 Every mandatory applicable obligation has one of three semantic outcomes:
