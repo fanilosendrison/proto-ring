@@ -96,8 +96,8 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
                 "LogicalGovernanceProvider",
                 "ProviderBindingReference",
                 "RepositoryGovernanceModel",
-                "RepositoryGovernanceModelError",
-                "load",
+                "RepositoryGovernanceModelError", "load",
+                "validate_binding_capabilities",
             ],
             model_module.__all__,
         )
@@ -279,7 +279,7 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
         self.assert_fails()
 
     def test_other_model_version_fails(self) -> None:
-        self.governance["model_version"] = 2
+        self.governance["model_version"] = 3
         self.assert_fails()
 
     def test_extra_root_model_key_fails(self) -> None:
