@@ -147,6 +147,144 @@ A local extension MUST NOT:
 - silently substitute another provider; or
 - transfer consumer-specific authority into proto-ring.
 
+## Governance Binding Registry
+
+This contract owns the canonical structured Governance Binding Registry for the
+immutable-consumption responsibility.
+
+The registry is a consumer-owned Markdown governance artifact with deterministic
+structured frontmatter. Optional body prose is explanatory and is not
+machine-governing. The model-version-1 payload is:
+
+```yaml
+governance_bindings:
+  model_version: 1
+  source: <governed-source-id>
+  bindings: {}
+```
+
+The direct keys inside `governance_bindings` are exactly:
+
+```text
+model_version
+source
+bindings
+```
+
+`model_version` is the structured integer `1`. `source` is the existing
+`GovernedSourceId` whose repository target resolves to the routed registry
+carrier. `bindings` maps opaque, non-empty, consumer-owned `BindingId` values to
+binding declarations. A `BindingId` identifies the binding relation and remains
+distinct from the immutable identity currently bound. Proto-ring infers no
+semantics from its spelling.
+
+Each binding declaration has exactly:
+
+```text
+kind
+scope
+identity
+authority
+```
+
+### Binding kinds and scopes
+
+Model version 1 has exactly two binding kinds:
+
+```text
+executable_provider
+governance_contract
+```
+
+Each binding has exactly one scope. Scope kinds and their exact declarations
+are:
+
+```yaml
+kind: logical_provider
+```
+
+```yaml
+kind: capability
+capability: <repository-governance-model-capability-id>
+```
+
+```yaml
+kind: governed_object
+interface: <interface-id>
+object: <object-id>
+```
+
+`executable_provider` uses only `logical_provider` scope.
+`governance_contract` may use any of the three scopes. A governed-object scope
+uses the canonical Governed Objects `GovernedObjectRef`; the registry does not
+create another object identity system.
+
+Model version 1 has no responsibility, path, package, environment, or
+installation scope.
+
+### Immutable identities
+
+An executable-provider identity contains exactly:
+
+```yaml
+repository: <non-empty-repository-identity>
+commit: <40-lowercase-hexadecimal-git-commit>
+```
+
+A governance-contract identity contains exactly:
+
+```yaml
+repository: <non-empty-repository-identity>
+commit: <40-lowercase-hexadecimal-git-commit>
+path: <non-empty-contract-path>
+```
+
+Executable-provider identity, governance-contract identity, and `BindingId`
+remain distinct even when two immutable identities contain the same Git commit.
+The registry defines no package-manager, container, version-string, URL,
+Python, or installation-surface identity.
+
+### Consumer-owned binding authority
+
+Each binding's `authority` contains exactly:
+
+```yaml
+responsibility: <governed-responsibility-id>
+source: <governed-source-id>
+```
+
+Both values reference the consumer's Canonical Governance Authority profile.
+The responsibility and source exist, and the source has role `authority` for
+that responsibility. When the binding authority source differs from the
+registry source, the registry source has role `secondary_representation` for
+the same responsibility.
+
+The registry source resolves through Canonical Governance Routing to the routed
+registry carrier. A governed-object scope resolves through the consumer's
+Canonical Governed Objects catalog. These compositions reference existing
+authority and object identity; they do not redefine either contract.
+
+### Cardinality and ambiguity
+
+Model version 1 contains exactly one active `executable_provider` binding for
+the logical provider.
+
+Multiple governance-contract bindings may target one capability. One immutable
+contract identity may appear under distinct `BindingId` values or scopes.
+Simultaneous bindings are invalid when they identify different commits for the
+same contract repository and path under the same effective scope.
+
+### Read-only provider and installation boundary
+
+Registry loading is observational. It performs no mutation, provisioning,
+repair, upgrade, imported-module discovery, or effective-provider discovery.
+
+The registry does not define `requirements.txt`, pip, Python packaging,
+containers, Nix, or another installation mechanism. It also does not determine
+whether an installed or executed provider realizes the authoritative binding.
+That effective-realization relationship is a Projection Integrity and
+currentness responsibility, not binding authority.
+
 ## Existing and future proto-ring mechanisms
 
 This contract governs provider selection and responsibility placement.
