@@ -5,6 +5,7 @@ import unittest
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = Path("docs/contracts/projection-integrity.md")
 INVENTORY = Path("docs/bootstrap/projection-integrity-extraction.md")
+IMPLEMENTATION = Path("src/proto_ring/projection_registry.py")
 
 
 class ProjectionIntegrityContractTests(unittest.TestCase):
@@ -39,22 +40,70 @@ class ProjectionIntegrityContractTests(unittest.TestCase):
             with self.subTest(requirement=requirement):
                 self.assertIn(requirement, contract)
 
-    def test_contract_contains_no_consumer_owner_mapping(self) -> None:
+    def test_consumer_confrontation_adds_no_concrete_owner_or_install_mapping(self) -> None:
         contract = self.read(CONTRACT).lower()
+        self.assertIn("turnlock-rust", contract)
+        self.assertIn("ruu relations", contract)
         forbidden = (
-            "turnlock",
-            "ruu",
             "docs/",
             "formal/",
             "qualification/",
             ".github/",
-            "adr-",
+            "requirements.txt",
+            "pip install",
+            "virtualenv",
             "tl-inv",
             "project #",
         )
         for value in forbidden:
             with self.subTest(value=value):
                 self.assertNotIn(value, contract)
+
+    def test_contract_defines_persistent_registry_and_compositions(self) -> None:
+        contract = self.read(CONTRACT)
+        required = (
+            "## Persistent Projection Registry",
+            "projection_registry:",
+            "model_version: 1",
+            "canonical_source:",
+            "secondary_source:",
+            "validation: <ValidationId>",
+            "generator_source: <GovernedSourceId>",
+            "boundary_source: <GovernedSourceId>",
+            "binding: <BindingId>",
+            "projection_integrity declared",
+            "repository_integrity must also be declared",
+        )
+        for text in required:
+            with self.subTest(text=text):
+                self.assertIn(text, contract)
+
+    def test_registry_preserves_direct_source_modes_and_boundaries(self) -> None:
+        contract = " ".join(self.read(CONTRACT).split())
+        requirements = (
+            "must have Governance Authority role `authority`",
+            "must have role `secondary_representation`",
+            "generator source must exist and have role `non_authoritative`",
+            "Historical validation establishes only the declared boundary",
+            "Both relations point directly to the authority",
+            "must not contain conflicting canonical-source or mode declarations",
+        )
+        for requirement in requirements:
+            with self.subTest(requirement=requirement):
+                self.assertIn(requirement, contract)
+
+    def test_registry_implementation_has_no_execution_or_install_mechanism(self) -> None:
+        implementation = self.read(IMPLEMENTATION)
+        for forbidden in (
+            "subprocess",
+            "sys.executable",
+            "pip",
+            "requirements.txt",
+            "virtualenv",
+            "sha256",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, implementation)
 
     def test_inventory_is_turnlock_first_and_ruu_confronted(self) -> None:
         inventory = self.read(INVENTORY)
