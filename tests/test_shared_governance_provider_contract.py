@@ -30,6 +30,18 @@ class SharedGovernanceProviderContractTests(unittest.TestCase):
             with self.subTest(requirement=requirement):
                 self.assertIn(requirement, contract)
 
+    def test_contract_owns_governance_binding_registry(self) -> None:
+        contract = " ".join(self.read(CONTRACT).split())
+        self.assertIn(
+            "This contract owns the canonical structured Governance Binding Registry",
+            contract,
+        )
+        self.assertIn(
+            "effective-realization relationship is a Projection Integrity and "
+            "currentness responsibility, not binding authority",
+            contract,
+        )
+
     def test_readme_references_the_contract(self) -> None:
         self.assertIn(
             "docs/contracts/shared-governance-provider.md",
