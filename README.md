@@ -61,6 +61,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Projection Integrity](docs/contracts/projection-integrity.md)
 - [Normative Terminology](docs/contracts/normative-terminology.md)
 - [Exact Evidence Binding](docs/contracts/exact-evidence-binding.md)
+- [Evidence Requirements](docs/contracts/evidence-requirements.md)
 
 Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
