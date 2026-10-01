@@ -11,9 +11,12 @@ from enum import Enum
 import json
 from pathlib import Path
 import socket
+import ssl
 import urllib.error
 import urllib.parse
 import urllib.request
+
+import truststore
 
 from proto_ring import structured_data
 
@@ -133,14 +136,33 @@ def _read_page(binding: _Binding, page: int) -> list[object]:
         },
         method="GET",
     )
+    tls_context = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
     try:
-        with urllib.request.urlopen(request, timeout=_TIMEOUT_SECONDS) as response:
+        with urllib.request.urlopen(
+            request,
+            timeout=_TIMEOUT_SECONDS,
+            context=tls_context,
+        ) as response:
             status = response.status
             payload = response.read()
     except urllib.error.HTTPError as error:
         raise _ProviderError(f"provider request failed: HTTP {error.code}") from error
-    except (urllib.error.URLError, TimeoutError, socket.timeout) as error:
-        raise _ProviderError("provider request failed: network or timeout error") from error
+    except ssl.SSLCertVerificationError as error:
+        raise _ProviderError(
+            "provider request failed: TLS certificate verification error"
+        ) from error
+    except urllib.error.URLError as error:
+        if isinstance(error.reason, ssl.SSLCertVerificationError):
+            raise _ProviderError(
+                "provider request failed: TLS certificate verification error"
+            ) from error
+        raise _ProviderError(
+            "provider request failed: network or timeout error"
+        ) from error
+    except (TimeoutError, socket.timeout) as error:
+        raise _ProviderError(
+            "provider request failed: network or timeout error"
+        ) from error
     except OSError as error:
         raise _ProviderError("provider request failed: I/O error") from error
 
