@@ -21,7 +21,7 @@ from proto_ring.repository_integrity import (
     ValidationInstances,
     evaluate_consumer_profile,
 )
-from proto_ring.repository_integrity_state import StateCaptureError
+from proto_ring.repository_state import StateCaptureError
 from repository_integrity_test_support import RepositoryFixtureTestCase
 
 
