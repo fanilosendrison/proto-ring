@@ -141,6 +141,33 @@ be strong consumer mechanisms. None is a universal representation requirement.
 A consumer may require exhaustive registration for a governed scope without
 forcing another consumer to adopt the same mechanism.
 
+## Mechanically significant embedded assertions
+
+A carrier's structural validity does not establish the semantic currentness or
+truth of an assertion contained by that carrier.
+
+A mechanically significant assertion is an ordinary Projection Integrity
+relationship only when the consumer has already declared:
+
+- the governed responsibility;
+- a consumer-owned authority source for the fact;
+- the carrying representation as a secondary representation; and
+- the required source-to-representation relation and currentness obligation.
+
+Artifact hashing, registration, manifest inclusion, byte identity, replay,
+filesystem metadata, Git metadata, or persistence MUST NOT be promoted into
+fact authority merely because it exists.
+
+When required authority cannot be established, Projection Integrity MUST NOT
+invent a canonical source or create a false projection relation. The unresolved
+authority state remains governed by Canonical Governance Authority, and any
+mandatory consumer currentness obligation MUST fail closed through its owning
+evaluation path.
+
+Projection Integrity establishes correspondence and currentness only. It does
+not establish qualification truth, evidence truth, or the semantic truth of a
+consumer claim.
+
 ## Governed identity boundary
 
 Projection Integrity answers where the current source fact is owned and how a

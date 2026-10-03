@@ -161,6 +161,38 @@ context token. An unavailable required context resolves to the existing
 context-required but unknown representation and therefore remains
 `UNDETERMINED`.
 
+## Mechanically significant embedded assertions
+
+A mechanically significant assertion carried by an evidence or provenance
+artifact may participate in an Evidence Requirement without the carrier's
+structural validity establishing that assertion.
+
+The consumer owns:
+
+- whether the responsibility or object requires that evidence;
+- the expected semantic identity;
+- the source that resolves that identity;
+- the candidate assertion or binding; and
+- every higher-level consequence.
+
+Artifact registration, hashing, replay success, manifest membership, Git
+metadata, wall-clock metadata, or file existence is not a substitute for the
+consumer-owned current identity required by the declaration.
+
+When the required current subject or required current context cannot be
+determined by the consumer-owned source, resolution MUST preserve the existing
+Exact Evidence Binding unknown representation, and evaluation MUST remain
+`UNDETERMINED`.
+
+Known equality remains `MATCH`. Known inequality remains `MISMATCH`. Neither
+`MATCH` nor carrier structural validity establishes claim truth, qualification
+truth, evidence success, or semantic authority.
+
+An Evidence Requirement states that evidence is required for its declared
+consumer responsibility or object. Proto-ring does not add a separate generic
+`mandatory` flag and does not define how the consumer aggregates that
+requirement into a higher-level qualification or claim verdict.
+
 ## Candidate binding
 
 Every persistent requirement identifies one source supplying zero, one, or many
