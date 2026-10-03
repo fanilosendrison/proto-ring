@@ -54,6 +54,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Canonical Governance Bootstrap](docs/contracts/governance-bootstrap.md)
 - [Canonical Governance Routing](docs/contracts/canonical-governance-routing.md)
 - [Repository Governance Model](docs/contracts/repository-governance-model.md)
+- [RepositoryGovernanceState](docs/contracts/repository-governance-state.md)
 - [Governance Authority](docs/contracts/governance-authority.md)
 - [Governed Objects](docs/contracts/governed-objects.md)
 - [Accepted ADR Body Immutability](docs/contracts/accepted-adr-body-immutability.md)
@@ -73,6 +74,8 @@ Canonical Governance Routing factorization evidence is preserved in the
 [Canonical Governance Routing extraction record](docs/bootstrap/canonical-governance-routing-extraction.md).
 Canonical Repository Governance Model factorization evidence is preserved in the
 [Repository Governance Model extraction record](docs/bootstrap/repository-governance-model-extraction.md).
+Canonical RepositoryGovernanceState factorization evidence is preserved in the
+[RepositoryGovernanceState extraction record](docs/bootstrap/repository-governance-state-extraction.md).
 Canonical Governance Authority factorization evidence is preserved in the
 [Governance Authority extraction record](docs/bootstrap/governance-authority-extraction.md).
 Canonical Governed Objects factorization evidence is preserved in the
