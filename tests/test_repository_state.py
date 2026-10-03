@@ -17,8 +17,11 @@ EXPECTED_IDENTITIES = {
     "dirty_tracked": "e9505943f1ffe1643b8eb38b065ab802afe73fcf3041335bbfe9b742db100838",
     "file_mode": "255339e011a612bb4224532167bd27687bf45b13ce989778bc91cc7ab15d503b",
     "staged": "fdff09577440cf35ea92154bec82ad8d984f50fc4077cd425d6a0b7703968919",
-    "symlink": "b470201ef34b37f742e8efdcf8ed3087e73c23727fe058abe50587007fe701a5",
     "untracked": "3e428d0b69cd77f1750258ce6736ebb7505efdf6dfd288feb02272c2a691ef97",
+}
+EXPECTED_SYMLINK_IDENTITIES_BY_MODE = {
+    0o120755: "b470201ef34b37f742e8efdcf8ed3087e73c23727fe058abe50587007fe701a5",
+    0o120777: "d87afdf52aabbeed56a45081095eef178d5a3c607b99b39b9ef274bcbf14864d",
 }
 
 
@@ -68,16 +71,33 @@ class RepositoryStateTests(unittest.TestCase):
             self.git(repository, "checkout", "-q", "--detach", "HEAD")
         elif state_name == "file_mode":
             os.chmod(repository / "tracked.txt", 0o755)
-        elif state_name == "symlink":
-            (repository / "tracked.txt").unlink()
-            (repository / "target.txt").write_text("target\n", encoding="utf-8")
-            (repository / "tracked.txt").symlink_to("target.txt")
         return repository_state.capture(repository).identity
 
     def test_existing_state_identity_vectors_are_exactly_preserved(self) -> None:
         for state_name, expected in EXPECTED_IDENTITIES.items():
             with self.subTest(state=state_name):
                 self.assertEqual(expected, self.identity_for(state_name))
+
+    def test_existing_symlink_state_identity_is_preserved_for_observed_mode(
+        self,
+    ) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+        tracked = repository / "tracked.txt"
+        tracked.unlink()
+        (repository / "target.txt").write_text("target\n", encoding="utf-8")
+        tracked.symlink_to("target.txt")
+        mode = os.lstat(tracked).st_mode
+
+        self.assertIn(
+            mode,
+            EXPECTED_SYMLINK_IDENTITIES_BY_MODE,
+            f"historical symlink state vector is not qualified for st_mode {mode:#o}",
+        )
+        self.assertEqual(
+            EXPECTED_SYMLINK_IDENTITIES_BY_MODE[mode],
+            repository_state.capture(repository).identity,
+        )
 
     def test_public_state_is_frozen_and_scope_is_canonical(self) -> None:
         temporary, repository = self.repository()
