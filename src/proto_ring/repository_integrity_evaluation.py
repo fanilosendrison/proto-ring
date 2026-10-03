@@ -11,8 +11,8 @@ from proto_ring.repository_integrity import (
     IntegrityResult, IntegrityVerdict, ObligationResult, ObligationStatus,
     RepositoryIntegrityError, ValidationResult, _RuntimeValidation, _selected_paths,
 )
-from proto_ring.repository_integrity_state import (
-    StateCaptureError, capture_state, discover_repository_paths, resolve_worktree_root,
+from proto_ring.repository_state import (
+    StateCaptureError, capture, discover_repository_paths, resolve_worktree_root,
 )
 def _runtime_identity(profile: IntegrityProfile) -> str:
     if profile.persistent_identity is not None:
@@ -61,9 +61,9 @@ def _resolve_profile(repository: Path, profile: ConsumerIntegrityProfile,
     try:
         if path_definitions:
             root = resolve_worktree_root(repository)
-            before_resolution = capture_state(root, literal_paths)
+            before_resolution = capture(root, literal_paths).identity
             repository_paths = discover_repository_paths(root)
-            resolution_state_identity = capture_state(root, literal_paths)
+            resolution_state_identity = capture(root, literal_paths).identity
             if before_resolution != resolution_state_identity:
                 raise StateCaptureError("repository changed during instance resolution")
         else:
@@ -215,7 +215,7 @@ def evaluate(
     validations = _runtime_validations(profile)
     try:
         root = resolve_worktree_root(Path(repository))
-        baseline_identity = capture_state(root, profile.governed_paths)
+        baseline_identity = capture(root, profile.governed_paths).identity
     except StateCaptureError as error:
         detail = f"baseline repository state could not be determined: {error}"
         validation_results = tuple(_skipped(validation, detail) for validation in validations)
@@ -273,7 +273,7 @@ def evaluate(
             obligation_results: list[ObligationResult] = []
             for obligation in validation.obligations:
                 try:
-                    before_identity = capture_state(root, profile.governed_paths)
+                    before_identity = capture(root, profile.governed_paths).identity
                 except StateCaptureError as error:
                     detail = (
                         "repository state could not be determined before obligation "
@@ -308,7 +308,7 @@ def evaluate(
                     break
                 obligation_result = _execute_obligation(root, obligation, env)
                 try:
-                    after_identity = capture_state(root, profile.governed_paths)
+                    after_identity = capture(root, profile.governed_paths).identity
                 except StateCaptureError as error:
                     detail = (
                         "repository state could not be determined after obligation "
