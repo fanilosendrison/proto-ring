@@ -254,13 +254,10 @@ def _load_capabilities(
     return capabilities
 
 
-def load(repository: Path) -> RepositoryGovernanceModel:
-    """Load a supported logical model from canonical bootstrap output."""
-
-    try:
-        bootstrap = governance_bootstrap.load(repository)
-    except governance_bootstrap.GovernanceBootstrapError as error:
-        raise RepositoryGovernanceModelError(str(error)) from error
+def from_bootstrap(
+    bootstrap: governance_bootstrap.GovernanceBootstrap,
+) -> RepositoryGovernanceModel:
+    """Construct a supported logical model from one canonical bootstrap value."""
 
     governance = bootstrap.repository_governance
     _require_exact_keys(
@@ -275,7 +272,7 @@ def load(repository: Path) -> RepositoryGovernanceModel:
 
     provider = _load_provider(governance, specification)
     capabilities = _load_capabilities(
-        repository, governance, model_version, specification
+        bootstrap.repository, governance, model_version, specification
     )
     binding_capability = capabilities.get(provider.binding.capability)
     if (
@@ -291,6 +288,16 @@ def load(repository: Path) -> RepositoryGovernanceModel:
         provider=provider,
         capabilities=capabilities,
     )
+
+
+def load(repository: Path) -> RepositoryGovernanceModel:
+    """Load a supported logical model from canonical bootstrap output."""
+
+    try:
+        bootstrap = governance_bootstrap.load(repository)
+    except governance_bootstrap.GovernanceBootstrapError as error:
+        raise RepositoryGovernanceModelError(str(error)) from error
+    return from_bootstrap(bootstrap)
 
 
 def validate_binding_capabilities(
