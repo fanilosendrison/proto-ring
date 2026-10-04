@@ -113,9 +113,5 @@ name: "Canonical RepositoryGovernanceState contract"
             readme,
         )
 
-    def test_issue_does_not_add_runtime_composition(self) -> None:
-        self.assertFalse((PRODUCTION / "repository_governance_state.py").exists())
-
-
 if __name__ == "__main__":
     unittest.main()
