@@ -95,6 +95,12 @@ forge rulesets, call a provider API, or access the network.
 
 ## Exact-observation invariant
 
+The shared local repository-observation semantics are owned by
+[Canonical RepositoryState](repository-state.md). RepositoryGovernanceState owns
+which governance paths must participate in its observation scope and the
+coherence of that scope across composition; it does not define a competing
+RepositoryState identity algorithm.
+
 A `RepositoryGovernanceState` MUST NOT be returned unless every contained
 governance value belongs to one stable exact repository observation and one
 stable observation scope.
@@ -113,8 +119,16 @@ check must not be returned.
 
 The observation scope covers the root bootstrap carrier and the
 consumer-declared governance targets actually used to construct the state. It
-must preserve sensitivity to both a declared symbolic-link binding and its
-resolved repository-contained target when they differ.
+must preserve sensitivity to both a declared in-repository filesystem binding
+and its resolved repository-contained target when they differ.
+
+Canonical Governance Routing retains ownership of declared route-string
+semantics. A route declaration whose spelling is not itself an exact
+repository-contained filesystem path identity MUST NOT be handed to
+RepositoryState as though RepositoryState were a second routing interpreter.
+The serialized declaration remains observed through its governing carrier;
+RepositoryGovernanceState supplies the actual in-repository binding path where
+one exists and the resolved target required for exact observation.
 
 Exact observed governance state is not a universal snapshot of all consumer
 semantics. Construction does not recursively load every source referenced by a
