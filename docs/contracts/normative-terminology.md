@@ -62,6 +62,56 @@ Each consumer owns:
 
 The shared mechanism consumes these bindings. It does not infer or amend them.
 
+Consumer-supplied concept-key, canonical-anchor-link, and canonical-anchor
+patterns are interpreted through
+[Canonical Portable Pattern](portable-pattern.md). Native regex-engine syntax
+outside that contract is not admitted and no implementation's regex dialect is
+semantic authority.
+
+## Unicode text profile
+
+Every generic Unicode-sensitive operation in this contract is fixed to
+**Unicode 14.0.0**.
+
+The external normative data source is the versioned Unicode Character Database:
+
+```text
+https://www.unicode.org/Public/14.0.0/
+```
+
+### Default case folding
+
+Full caseless matching and registry-expression uniqueness use Unicode Default
+Case Folding as defined by rule R4: each scalar is mapped by the
+`Case_Folding` mapping represented by status `C` and `F` entries in the
+Unicode 14.0.0 `ucd/CaseFolding.txt` data.
+
+Status `T` Turkic mappings are not used.
+
+No NFC, NFD, NFKC, NFKD, locale-specific transformation, or compatibility
+normalization is applied before or after this case folding unless another
+consumer-owned operation separately requires it.
+
+A scalar with no Unicode-14.0.0 default case-fold mapping maps to itself.
+
+### Contract whitespace
+
+Unless a rule explicitly says ASCII space or ASCII tab, `whitespace`,
+`trim`, `strip`, or whitespace-run splitting in this contract uses the
+Unicode-14.0.0 character relation:
+
+```text
+General_Category == Zs
+OR
+Bidi_Class in {WS, B, S}
+```
+
+The relevant UCD authority is Unicode 14.0.0 `UnicodeData.txt` together with
+the Unicode-14.0.0 bidirectional-class data.
+
+This intentionally fixes the contract independently of the Unicode database
+version bundled by a host language runtime.
+
 ## Registry model
 
 A terminology registry contains exactly one ordered pair of standalone boundary
@@ -137,10 +187,11 @@ canonical destination must exist.
 ## Definition-like discovery
 
 For each registry expression, discovery preserves every expression character
-and performs boundary-aware matching with the same full Unicode case-fold
-relation used for registry expression uniqueness. Surrounding backtick,
-emphasis, strike, and quote presentation delimiters are admitted only in the
-definition context; they are not deleted from expression content.
+and performs boundary-aware matching with the Unicode-14.0.0 Default Case
+Folding relation fixed above, which is the same relation used for registry
+expression uniqueness. Surrounding backtick, emphasis, strike, and quote
+presentation delimiters are admitted only in the definition context; they are
+not deleted from expression content.
 
 Straight and curly single or double quotes may delimit an expression. The
 heuristic recognizes definition-like prose cues equivalent to:
@@ -152,6 +203,10 @@ means
 refer(s) to
 is/are defined as/by
 ```
+
+Those cue keywords use ASCII case-insensitive matching only: ASCII `A-Z` and
+`a-z` are paired, and no non-ASCII scalar is treated as an ASCII cue letter
+through a runtime regex engine's case-insensitive mode.
 
 It also recognizes line-start definition equations using `:=` or a single `=`.
 It excludes equality `==` from that equation cue.
@@ -196,9 +251,9 @@ organization.
 Block normalization is exactly:
 
 ```text
-split on Unicode whitespace
+split on the contract whitespace relation fixed above
 → remove empty runs
-→ join tokens with one ASCII space
+→ join tokens with one ASCII U+0020 space
 ```
 
 The occurrence fingerprint is the lowercase hexadecimal SHA-256 digest of the
@@ -221,9 +276,12 @@ meaning and is not a universal governed-object identity.
 
 The consumer supplies:
 
-- a non-empty set, represented immutably by the engine API, of allowed role
-  strings; and
+- a non-empty, duplicate-free, unordered set of non-empty allowed role strings;
+  and
 - a role resolver for discovered occurrences.
+
+The concrete in-memory set/container type is implementation-defined and has no
+semantic significance.
 
 The resolver may use the canonical flag, section label, heading, concepts, or
 other occurrence properties. Every resolved role must belong to the supplied
