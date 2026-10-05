@@ -544,6 +544,42 @@ class RepositoryGovernanceStateTests(unittest.TestCase):
         self.assertNotEqual(first.identity, second.identity)
         self.assertIn("ignored-bindings.md", second.scope_paths)
 
+    def test_contained_return_route_expression_is_not_repository_state_scope(self) -> None:
+        declared = f"../{self.repository.name}/governance-bindings.md"
+        self.configure(
+            route_overrides={"shared_governance_provider": declared}
+        )
+        self.assertTrue((self.repository / "governance-bindings.md").is_file())
+
+        state = load(self.repository)
+        route = (
+            state.repository_governance_model
+            .capabilities["shared_governance_provider"]
+            .routes["registry"]
+        )
+
+        self.assertEqual(declared, route.declared_path)
+        self.assertNotIn(declared, state.observed_state.scope_paths)
+        self.assertIn("governance-bindings.md", state.observed_state.scope_paths)
+
+    def test_contained_return_route_resolved_target_mutation_is_observed(self) -> None:
+        declared = f"../{self.repository.name}/governance-bindings.md"
+        self.configure(
+            route_overrides={"shared_governance_provider": declared}
+        )
+        first = load(self.repository)
+
+        with (self.repository / "governance-bindings.md").open(
+            "a", encoding="utf-8"
+        ) as carrier:
+            carrier.write("# explanatory revision\n")
+        second = load(self.repository)
+
+        self.assertNotEqual(
+            first.observed_state.identity,
+            second.observed_state.identity,
+        )
+
     def test_routed_symlink_binding_and_target_are_both_observed(self) -> None:
         self.configure()
         first_target = self.repository / "bindings-a.md"
