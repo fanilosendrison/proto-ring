@@ -172,8 +172,8 @@ deferred to #27.
 
 ## Structural keys
 
-For model version `1`, the direct keys of `repository_governance` MUST be
-exactly:
+For every currently supported Repository Governance Model version, the direct
+keys of `repository_governance` MUST be exactly:
 
 ```text
 model_version
@@ -184,9 +184,12 @@ capabilities
 Missing structural keys MUST fail closed. Unknown structural keys at this model
 layer MUST fail closed.
 
+A later model version may change this structural key set only by explicitly
+defining a different root shape for that version.
+
 This requirement does not alter Canonical Governance Bootstrap behavior.
 Bootstrap continues to preserve unknown valid descendants. The model layer may
-reject descendants that it cannot interpret as a valid version-1 model.
+reject descendants that it cannot interpret as a valid supported model version.
 
 ## Model version
 
