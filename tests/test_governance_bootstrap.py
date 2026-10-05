@@ -200,6 +200,37 @@ class GovernanceBootstrapTests(unittest.TestCase):
         with self.assertRaises(GovernanceBootstrapError):
             load(self.repository)
 
+    def test_governance_looking_body_cannot_repair_immediate_close(self) -> None:
+        (self.repository / "AGENTS.md").write_bytes(
+            b"---\n"
+            b"---\n"
+            b"repository_governance:\n"
+            b"  model_version: 2\n"
+            b"...\n"
+        )
+
+        with self.assertRaises(GovernanceBootstrapError) as raised:
+            load(self.repository)
+
+        self.assertIsInstance(raised.exception.__cause__, StructuredDataError)
+
+    def test_first_exact_close_preserves_only_first_governance_mapping(self) -> None:
+        body = (
+            "# body\n"
+            "---\n"
+            "repository_governance:\n"
+            "  source: replacement\n"
+            "---\n"
+        )
+        self.write_agents("repository_governance:\n  source: frontmatter", body)
+
+        bootstrap = load(self.repository)
+
+        self.assertEqual(
+            bootstrap.repository_governance,
+            {"source": "frontmatter"},
+        )
+
     def test_non_mapping_governance_fails(self) -> None:
         for value in ("true", "[item]"):
             with self.subTest(value=value):
