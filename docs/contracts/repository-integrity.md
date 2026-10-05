@@ -65,6 +65,10 @@ IntegrityVerdict
 `RepositoryState` is the exact governed repository state to which the verdict
 applies.
 
+The shared local observation semantics are owned by
+[Canonical RepositoryState](repository-state.md). Repository Integrity MUST
+compose that responsibility rather than define a competing state-capture model.
+
 It includes every repository-resident artifact whose content, identity,
 presence, absence, metadata, or relationship can affect a mandatory integrity
 obligation.
@@ -377,6 +381,48 @@ result.
 
 Repair, rendering, regeneration, and other state-producing operations are
 outside the semantic responsibility of Repository Integrity.
+
+### Exact purity-status attribution
+
+Repository-state coherence and command-result classification remain distinct.
+
+The exact model-version-1 attribution is:
+
+```text
+required state cannot be established before an obligation
+→ that obligation is UNDETERMINED
+→ it is not executed
+→ evaluation halts for state-coherence reasons
+
+required pre-obligation state is known and differs from the evaluation baseline
+→ that obligation is UNDETERMINED
+→ it is not executed
+→ evaluation halts for state-coherence reasons
+
+the obligation executes but required post-obligation state cannot be established
+→ that obligation is UNDETERMINED
+→ evaluation halts for state-coherence reasons
+
+the obligation executes and the required post-obligation state is known to
+differ from the evaluation baseline
+→ that obligation is VIOLATED
+→ evaluation records a purity/state-coherence failure
+→ evaluation halts for state-coherence reasons
+```
+
+Known post-execution drift is a demonstrated violation of the evaluation-purity
+requirement, even when the command exit status alone would otherwise have mapped
+to `SATISFIED` or `UNDETERMINED`.
+
+Failure to establish the required state is instead `UNDETERMINED`; inability to
+observe a comparison MUST NOT be converted into a known mismatch.
+
+Every not-yet-executed mandatory obligation after a state-coherence halt is
+`UNDETERMINED`.
+
+The consumer's `continue_after_non_satisfied` policy does not override a
+state-coherence halt. Continuation applies only to non-satisfied validation
+results observed while repository state remains the exact evaluation baseline.
 
 ## Generated and maintained projections
 
