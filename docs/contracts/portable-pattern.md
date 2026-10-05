@@ -91,6 +91,9 @@ It may contain exact literal characters and inclusive ASCII ranges such as:
 [0-9]
 ```
 
+A character class MUST contain at least one literal member or range after the
+optional leading negation marker. An empty class is invalid.
+
 A leading `^` immediately after `[` negates the class. Elsewhere inside the
 class, `^` is a literal character.
 
@@ -117,6 +120,10 @@ are forbidden.
 ### Concatenation and alternation
 
 Adjacent pattern atoms concatenate.
+
+An empty sequence is admitted and matches the empty string. Therefore an empty
+group `()`, an empty top-level pattern, and an empty alternative are
+well-defined empty matches.
 
 `|` denotes alternation.
 
