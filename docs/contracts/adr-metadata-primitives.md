@@ -46,10 +46,10 @@ digest.
 Machine-readable YAML consumed by this primitive layer composes with
 [Canonical Structured Data](structured-data.md).
 
-`load_yaml` consumes the complete standalone YAML file as one Canonical
-Structured Data document. It does not inherit a YAML library's implicit scalar
-typing, object construction, merge behavior, duplicate-key precedence, or
-multi-document behavior.
+The standalone YAML loading operation consumes the complete YAML file as one
+Canonical Structured Data document. It does not inherit a YAML library's
+implicit scalar typing, object construction, merge behavior, duplicate-key
+precedence, or multi-document behavior.
 
 The standalone root may be any Canonical Structured Data value. Callers that
 require a mapping use the existing generic mapping requirement.
@@ -62,9 +62,10 @@ constructs its mapping through Canonical Structured Data. Parsing returns the
 mapping and the exact decision-body bytes without normalizing authored body
 bytes or final-newline state.
 
-`parse_adr_bytes` is the single exact parser for both repository file bytes and
-historical Git blob bytes. `parse_adr` contributes only path-specific byte
-reading and delegates the returned bytes without normalization.
+One exact ADR-byte parsing operation owns both repository-file bytes and
+historical Git blob bytes. A path-based convenience operation contributes only
+path-specific byte reading and delegates the exact returned bytes without
+normalization.
 
 Parse, decoding, representation, and I/O failures remain controlled
 `AdrMetadataError` results at the ADR metadata boundary.
@@ -109,28 +110,28 @@ missing targets.
 The helper owns no relation vocabulary, inverse-relation model, lifecycle
 meaning, relation completeness rule, or consumer identity format.
 
-## Public primitive surface
+## Canonical operation set
 
-`proto_ring.adr_metadata` owns these public concepts:
+This contract owns the following language-neutral operations:
 
-- `AdrMetadataError`;
-- `load_yaml`;
-- `load_json`;
-- `sha256_hex`;
-- `decision_body_bytes`;
-- `h1_text`;
-- `preserved_payload_bytes`;
-- `parse_adr`;
-- `parse_adr_bytes`;
-- `schema_errors`;
-- `repository_path`;
-- `require_mapping`;
-- `require_string`;
-- `require_string_list`; and
-- `relation_target_errors`.
+- standalone Canonical Structured Data YAML loading through the ADR error
+  boundary;
+- strict UTF-8 JSON loading;
+- lowercase hexadecimal SHA-256 over exact input bytes;
+- exact decision-body boundary extraction;
+- exact H1 text extraction;
+- exact preserved authored-payload extraction;
+- exact ADR-frontmatter parsing over supplied bytes;
+- path-based ADR byte reading composed with that exact parser;
+- independent base/overlay JSON Schema Draft 2020-12 validation;
+- repository-relative containment;
+- generic mapping, non-empty-string, and duplicate-free string-list
+  requirements; and
+- generic self/missing relation-target checking.
 
-The module depends on the maintained PyYAML and jsonschema libraries at the
-versions declared by the proto-ring package.
+Concrete module names, function names, exception class names, parser libraries,
+container types, and package dependencies are implementation surfaces, not
+language-neutral contract authority.
 
 ## Consumer authority boundary
 
