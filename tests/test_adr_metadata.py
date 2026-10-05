@@ -35,7 +35,7 @@ class AdrMetadataPrimitiveTests(unittest.TestCase):
         )
         self.assertEqual(sha256_hex(payload), expected)
 
-    def test_safe_yaml_and_json_loaders_accept_utf8_data(self) -> None:
+    def test_yaml_and_json_loaders_accept_utf8_data(self) -> None:
         with tempfile.TemporaryDirectory(prefix="proto-ring-load-") as temporary:
             root = Path(temporary)
             yaml_path = root / "metadata.yaml"
@@ -81,6 +81,100 @@ class AdrMetadataPrimitiveTests(unittest.TestCase):
                 load_json(malformed_json)
             with self.assertRaises(AdrMetadataError):
                 load_json(root / "missing.json")
+            with self.assertRaises(AdrMetadataError):
+                load_yaml(root / "missing.yaml")
+
+    def test_yaml_loader_uses_canonical_scalar_semantics(self) -> None:
+        payload = """legacy_yes: yes
+legacy_on: on
+legacy_null: Null
+leading_zero: 01
+floating: 1.0
+date_like: 2026-09-29
+truth: true
+nothing: null
+count: 3
+"""
+        expected = {
+            "legacy_yes": "yes", "legacy_on": "on", "legacy_null": "Null",
+            "leading_zero": "01", "floating": "1.0",
+            "date_like": "2026-09-29", "truth": True, "nothing": None,
+            "count": 3,
+        }
+        with tempfile.TemporaryDirectory(prefix="proto-ring-yaml-scalars-") as temporary:
+            path = Path(temporary) / "metadata.yaml"
+            path.write_text(payload, encoding="utf-8")
+            self.assertEqual(load_yaml(path), expected)
+
+    def test_yaml_loader_rejects_duplicate_and_forbidden_representations(self) -> None:
+        cases = {
+            "duplicate": b"foo: one\nfoo: two\n",
+            "anchor alias": b"first: &x value\nsecond: *x\n",
+            "merge": b"base: &base\n  one: two\nvalue:\n  <<: *base\n",
+            "block scalar": b"value: |\n  text\n",
+            "omitted value": b"value:\n",
+        }
+        with tempfile.TemporaryDirectory(prefix="proto-ring-yaml-forbidden-") as temporary:
+            path = Path(temporary) / "metadata.yaml"
+            for label, data in cases.items():
+                with self.subTest(label=label):
+                    path.write_bytes(data)
+                    with self.assertRaises(AdrMetadataError) as raised:
+                        load_yaml(path)
+                    self.assertIsNotNone(raised.exception.__cause__)
+
+    def test_yaml_loader_document_markers_and_byte_restrictions(self) -> None:
+        invalid = {
+            "multiple documents": b"---\nvalue: one\n---\nvalue: two\n",
+            "BOM": b"\xef\xbb\xbfvalue: text\n",
+            "CR": b"value: text\r\n",
+            "invalid UTF-8": b"value: \xff\n",
+        }
+        with tempfile.TemporaryDirectory(prefix="proto-ring-yaml-bytes-") as temporary:
+            path = Path(temporary) / "metadata.yaml"
+            path.write_bytes(b"---\nvalue: text\n...\n# comment\n")
+            self.assertEqual(load_yaml(path), {"value": "text"})
+            for label, data in invalid.items():
+                with self.subTest(label=label):
+                    path.write_bytes(data)
+                    with self.assertRaises(AdrMetadataError):
+                        load_yaml(path)
+
+    def test_yaml_loader_leaves_mapping_shape_to_caller(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="proto-ring-yaml-root-") as temporary:
+            path = Path(temporary) / "metadata.yaml"
+            path.write_bytes(b"- one\n- two\n")
+            loaded = load_yaml(path)
+            self.assertEqual(loaded, ["one", "two"])
+            with self.assertRaises(AdrMetadataError):
+                require_mapping(loaded, "profile")
+
+    def test_yaml_loader_preserves_demonstrated_profile_shape(self) -> None:
+        profile = r"""profile_version: 0.1.0
+repository:
+  adr_directory: docs/adr
+  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9-]+\.md$'
+  id_pattern: '^ADR-[0-9]{3}$'
+  id_width: 3
+  require_contiguous_ids: true
+legacy:
+  null_dates: []
+generated_index:
+  required: true
+"""
+        with tempfile.TemporaryDirectory(prefix="proto-ring-profile-shape-") as temporary:
+            path = Path(temporary) / "profile.yaml"
+            path.write_text(profile, encoding="utf-8")
+            loaded = require_mapping(load_yaml(path), "profile")
+        repository = require_mapping(loaded["repository"], "repository")
+        self.assertEqual(loaded["profile_version"], "0.1.0")
+        self.assertEqual(repository["adr_directory"], "docs/adr")
+        self.assertEqual(repository["id_width"], 3)
+        self.assertIs(repository["require_contiguous_ids"], True)
+        self.assertEqual(require_mapping(loaded["legacy"], "legacy")["null_dates"], [])
+        self.assertIs(require_mapping(loaded["generated_index"], "index")["required"], True)
+        self.assertIsInstance(repository["filename_pattern"], str)
+        self.assertIsInstance(repository["id_pattern"], str)
 
     def test_decision_body_is_exact_context_suffix(self) -> None:
         source = (
