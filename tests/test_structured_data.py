@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import subprocess
+import sys
+import textwrap
 import unittest
 
 from proto_ring import structured_data
@@ -69,6 +72,88 @@ flow_mapping: {left: value, right: false}
             },
         )
 
+    def test_ordinary_canonical_integers_remain_exact(self) -> None:
+        parsed = parse_frontmatter_bytes(_carrier("zero: 0\npositive: 42\nnegative: -42"))
+
+        self.assertEqual(
+            parsed.metadata,
+            {"zero": 0, "positive": 42, "negative": -42},
+        )
+
+    def test_canonical_integers_beyond_fixed_width_remain_exact(self) -> None:
+        values = (2**64, 2**127)
+        payload = "\n".join(
+            f"value_{index}: {value}" for index, value in enumerate(values)
+        )
+
+        parsed = parse_frontmatter_bytes(_carrier(payload))
+
+        self.assertEqual(
+            parsed.metadata,
+            {f"value_{index}": value for index, value in enumerate(values)},
+        )
+
+    def test_canonical_integers_ignore_cpython_digit_limit(self) -> None:
+        if not hasattr(sys, "set_int_max_str_digits"):
+            self.skipTest("CPython integer-string digit limits are unavailable")
+
+        cases = (
+            (640, 640, False),
+            (4300, 4300, False),
+            (640, 640, True),
+        )
+        for limit, zero_count, negative in cases:
+            with self.subTest(
+                limit=limit,
+                zero_count=zero_count,
+                negative=negative,
+            ):
+                script = textwrap.dedent(
+                    f"""
+                    import sys
+                    from proto_ring.structured_data import parse_frontmatter_bytes
+
+                    sys.set_int_max_str_digits({limit})
+                    before = sys.get_int_max_str_digits()
+                    digits = "1" + "0" * {zero_count}
+                    sign = "-" if {negative!r} else ""
+                    carrier = (
+                        b"---\\nvalue: "
+                        + (sign + digits).encode("ascii")
+                        + b"\\n---\\n"
+                    )
+                    observed = parse_frontmatter_bytes(carrier).metadata["value"]
+                    expected = 10 ** {zero_count}
+                    if {negative!r}:
+                        expected = -expected
+                    if observed != expected:
+                        raise AssertionError("canonical integer value differs")
+                    after = sys.get_int_max_str_digits()
+                    print(before)
+                    print(after)
+                    """
+                )
+                completed = subprocess.run(
+                    [sys.executable, "-B", "-c", script],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+                self.assertEqual(
+                    completed.stdout.splitlines(),
+                    [str(limit), str(limit)],
+                )
+
+    def test_quoted_giant_integer_remains_a_string(self) -> None:
+        digits = "1" + "0" * 640
+
+        parsed = parse_frontmatter_bytes(_carrier(f'value: "{digits}"'))
+
+        self.assertEqual(parsed.metadata["value"], digits)
+        self.assertIsInstance(parsed.metadata["value"], str)
+
     def test_quoted_null_spellings_remain_strings(self) -> None:
         parsed = parse_frontmatter_bytes(
             _carrier("double: \"null\"\nsingle: 'null'")
@@ -115,6 +200,19 @@ flow_mapping: {left: value, right: false}
         parsed = parse_frontmatter_bytes(_carrier("metadata: value", body))
 
         self.assertEqual(parsed.metadata, {"metadata": "value"})
+        self.assertEqual(parsed.body, body)
+
+    def test_immediate_exact_close_is_empty_frontmatter(self) -> None:
+        self.assert_parse_error(b"---\n---\n")
+
+    def test_first_exact_close_wins_over_body_delimiters_and_yaml(self) -> None:
+        body = (
+            b"# body\n---\nrepository_governance:\n  replacement: true\n---\n"
+        )
+
+        parsed = parse_frontmatter_bytes(_carrier("value: frontmatter", body))
+
+        self.assertEqual(parsed.metadata, {"value": "frontmatter"})
         self.assertEqual(parsed.body, body)
 
     def test_invalid_utf8_anywhere_in_carrier_fails(self) -> None:
@@ -176,13 +274,47 @@ flow_mapping: {left: value, right: false}
     def test_yaml_directive_fails(self) -> None:
         self.assert_parse_error(_carrier("%YAML 1.2\n---\nvalue: text"))
 
-    def test_document_start_marker_fails(self) -> None:
-        self.assert_parse_error(
-            _carrier("value: text\n--- # another document\nother: value")
+    def test_ordinary_single_document_is_accepted(self) -> None:
+        parsed = parse_frontmatter_bytes(_carrier("value: text"))
+
+        self.assertEqual(parsed.metadata, {"value": "text"})
+
+    def test_explicit_document_end_marker_is_accepted(self) -> None:
+        parsed = parse_frontmatter_bytes(_carrier("value: text\n..."))
+
+        self.assertEqual(parsed.metadata, {"value": "text"})
+
+    def test_non_closing_document_start_and_end_markers_are_accepted(self) -> None:
+        parsed = parse_frontmatter_bytes(
+            _carrier("--- # document\nvalue: text\n...")
         )
 
-    def test_document_end_marker_fails(self) -> None:
-        self.assert_parse_error(_carrier("value: text\n..."))
+        self.assertEqual(parsed.metadata, {"value": "text"})
+
+    def test_document_markers_followed_by_comment_are_accepted(self) -> None:
+        parsed = parse_frontmatter_bytes(
+            _carrier("--- # document\nvalue: text\n...\n# comment")
+        )
+
+        self.assertEqual(parsed.metadata, {"value": "text"})
+
+    def test_two_actual_documents_fail(self) -> None:
+        self.assert_parse_error(
+            _carrier(
+                "--- # first document\n"
+                "value: first\n"
+                "--- # second document\n"
+                "value: second"
+            )
+        )
+
+    def test_residual_content_after_explicit_document_end_fails(self) -> None:
+        self.assert_parse_error(_carrier("value: text\n...\nother: value"))
+
+    def test_quoted_document_marker_strings_remain_strings(self) -> None:
+        parsed = parse_frontmatter_bytes(_carrier('a: "---"\nb: "..."'))
+
+        self.assertEqual(parsed.metadata, {"a": "---", "b": "..."})
 
     def test_non_string_mapping_keys_fail(self) -> None:
         payloads = {
