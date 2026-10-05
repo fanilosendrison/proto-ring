@@ -218,19 +218,21 @@ def _relative_path(repository: Path, path: Path) -> str:
         ) from error
 
 
-def _add_declared_and_resolved_scope(
-    scope: set[str], repository: Path, declared_path: str, resolved_target: Path
-) -> None:
-    scope.add(declared_path)
-    scope.add(_relative_path(repository, resolved_target))
-
-
 def _add_route_scope(
     scope: set[str], repository: Path, route: ResolvedGovernanceRoute
 ) -> None:
-    _add_declared_and_resolved_scope(
-        scope, repository, route.declared_path, route.target
-    )
+    scope.add(_relative_path(repository, route.target))
+    try:
+        declared_identity = repository_state._explicit_scope_path_identity(
+            repository, route.declared_path
+        )
+    except repository_state.StateCaptureError as error:
+        raise _fail(
+            RepositoryGovernanceStage.REPOSITORY_STATE,
+            f"route scope admissibility could not be determined: {error}",
+        ) from error
+    if declared_identity is not None:
+        scope.add(declared_identity)
 
 
 def _add_bootstrap_scope(
@@ -251,9 +253,8 @@ def _add_bootstrap_scope(
             RepositoryGovernanceStage.REPOSITORY_STATE,
             "bootstrap-resolved target is outside the repository observation root",
         ) from error
-    _add_declared_and_resolved_scope(
-        scope, repository, declared_path, resolved_target
-    )
+    scope.add(declared_path)
+    scope.add(_relative_path(repository, resolved_target))
 
 
 def _observation_scope(repository: Path, composition: _Composition) -> tuple[str, ...]:
