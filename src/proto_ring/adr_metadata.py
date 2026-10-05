@@ -14,7 +14,6 @@ from pathlib import Path
 import re
 from typing import Collection, Iterable, Mapping, cast
 
-import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import SchemaError
 
@@ -46,12 +45,16 @@ class AdrMetadataError(ValueError):
     """Report a controlled failure to determine valid ADR metadata."""
 
 
-def load_yaml(path: Path) -> object:
-    """Load one UTF-8 YAML document without enabling object constructors."""
+def load_yaml(path: Path) -> structured_data.StructuredValue:
+    """Load one standalone Canonical Structured Data YAML document."""
 
     try:
-        return yaml.safe_load(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, yaml.YAMLError) as error:
+        data = path.read_bytes()
+    except OSError as error:
+        raise AdrMetadataError(f"cannot read YAML {path}: {error}") from error
+    try:
+        return structured_data.parse_document_bytes(data)
+    except structured_data.StructuredDataError as error:
         raise AdrMetadataError(f"cannot read YAML {path}: {error}") from error
 
 
