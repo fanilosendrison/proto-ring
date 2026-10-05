@@ -74,14 +74,11 @@ evidence and policy.
 ## Current working state
 
 For every logical ADR identity with a historical seal, current state is resolved
-through:
+through the Canonical ADR Identity operation against the current working tree.
 
-```text
-canonical_adr.resolve(repository, adr_id)
-```
-
-The exact current decision body must equal the sealed bytes. Resolution uses the
-working tree, so an uncommitted body rewrite is detected.
+The exact current decision body returned by that canonical resolution must equal
+the sealed bytes. Because current resolution observes the working tree, an
+uncommitted body rewrite is detected.
 
 If no historical accepted anchor exists and the working tree contains a first
 acceptance candidate, the candidate is not rejected merely because the future
