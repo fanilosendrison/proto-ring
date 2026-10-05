@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,6 +25,22 @@ class ResolvedGovernanceRoute:
     route: tuple[str, ...]
     declared_path: str
     target: Path
+
+
+def _resolve_available_target(repository: Path, declared_path: str) -> Path:
+    try:
+        target = repository_path(repository, declared_path)
+        raw_declared_path = os.path.join(
+            os.fspath(repository),
+            declared_path,
+        )
+        os.stat(raw_declared_path)
+    except (AdrMetadataError, OSError, RuntimeError, ValueError) as error:
+        raise GovernanceRoutingError(
+            f"cannot resolve routed repository target: {declared_path}: {error}"
+        ) from error
+
+    return target
 
 
 def resolve_path(
@@ -64,14 +81,7 @@ def resolve_path(
     if not isinstance(declared_path, str) or declared_path == "":
         raise GovernanceRoutingError("route leaf must be a non-empty string")
 
-    try:
-        target = repository_path(repository, declared_path)
-    except AdrMetadataError as error:
-        raise GovernanceRoutingError(str(error)) from error
-    if not target.exists():
-        raise GovernanceRoutingError(
-            f"routed repository target does not exist: {declared_path}"
-        )
+    target = _resolve_available_target(repository, declared_path)
 
     return ResolvedGovernanceRoute(
         route=exact_route,
