@@ -1,4 +1,4 @@
-"""Interpret canonical structured frontmatter without consumer semantics."""
+"""Interpret canonical structured data without consumer semantics."""
 
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ __all__ = [
     "ParsedFrontmatter",
     "StructuredDataError",
     "StructuredValue",
+    "parse_document_bytes",
     "parse_frontmatter_bytes",
 ]
 
@@ -37,7 +38,7 @@ _FORBIDDEN_TOKEN_TYPES = (
 
 
 class StructuredDataError(ValueError):
-    """Report controlled failure to interpret canonical structured frontmatter."""
+    """Report controlled failure to interpret canonical structured data."""
 
 
 StructuredValue: TypeAlias = (
@@ -56,9 +57,20 @@ class ParsedFrontmatter:
     body: bytes
 
 
-def _validate_tokens(payload_text: str) -> None:
+def _decode_exact_document_bytes(data: bytes, *, label: str) -> str:
+    if _BOM in data:
+        raise StructuredDataError(f"{label} contains a UTF-8 BOM")
+    if b"\r" in data:
+        raise StructuredDataError(f"{label} contains a carriage-return byte")
     try:
-        tokens = yaml.scan(payload_text, Loader=yaml.BaseLoader)
+        return data.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise StructuredDataError(f"{label} is not valid UTF-8") from error
+
+
+def _validate_tokens(document_text: str, *, label: str) -> None:
+    try:
+        tokens = yaml.scan(document_text, Loader=yaml.BaseLoader)
         for token in tokens:
             if isinstance(token, _FORBIDDEN_TOKEN_TYPES):
                 raise StructuredDataError(
@@ -67,22 +79,18 @@ def _validate_tokens(payload_text: str) -> None:
             if isinstance(token, ScalarToken) and token.style in ("|", ">"):
                 raise StructuredDataError("block scalar values are forbidden")
     except yaml.YAMLError as error:
-        raise StructuredDataError(
-            f"invalid structured frontmatter: {error}"
-        ) from error
+        raise StructuredDataError(f"invalid {label}: {error}") from error
 
 
-def _compose_single_document(payload_text: str) -> Node:
+def _compose_single_document(document_text: str, *, label: str) -> Node:
     try:
-        documents = list(yaml.compose_all(payload_text, Loader=yaml.BaseLoader))
+        documents = list(yaml.compose_all(document_text, Loader=yaml.BaseLoader))
     except yaml.YAMLError as error:
-        raise StructuredDataError(
-            f"invalid structured frontmatter: {error}"
-        ) from error
+        raise StructuredDataError(f"invalid {label}: {error}") from error
     if not documents or documents[0] is None:
-        raise StructuredDataError("structured frontmatter must not be empty")
+        raise StructuredDataError(f"{label} must not be empty")
     if len(documents) != 1:
-        raise StructuredDataError("structured frontmatter must contain one document")
+        raise StructuredDataError(f"{label} must contain one document")
     return documents[0]
 
 
@@ -141,18 +149,23 @@ def _construct(node: Node) -> StructuredValue:
     raise StructuredDataError(f"unsupported YAML node: {type(node).__name__}")
 
 
+def _parse_document_bytes(data: bytes, *, label: str) -> StructuredValue:
+    document_text = _decode_exact_document_bytes(data, label=label)
+    _validate_tokens(document_text, label=label)
+    root = _compose_single_document(document_text, label=label)
+    return _construct(root)
+
+
+def parse_document_bytes(data: bytes) -> StructuredValue:
+    """Parse one complete Canonical Structured Data document."""
+
+    return _parse_document_bytes(data, label="structured document")
+
+
 def parse_frontmatter_bytes(data: bytes) -> ParsedFrontmatter:
     """Parse one exact frontmatter envelope into deterministic structured data."""
 
-    if _BOM in data:
-        raise StructuredDataError("UTF-8 BOM is forbidden")
-    if b"\r" in data:
-        raise StructuredDataError("carriage-return bytes are forbidden")
-    try:
-        data.decode("utf-8")
-    except UnicodeDecodeError as error:
-        raise StructuredDataError("carrier is not valid UTF-8") from error
-
+    _decode_exact_document_bytes(data, label="carrier")
     if not data.startswith(_OPENING_DELIMITER):
         raise StructuredDataError("carrier has no exact opening delimiter")
     closing = data.find(_CLOSING_BOUNDARY, len(_OPENING_DELIMITER) - 1)
@@ -161,10 +174,8 @@ def parse_frontmatter_bytes(data: bytes) -> ParsedFrontmatter:
 
     payload_bytes = data[len(_OPENING_DELIMITER) : closing]
     body = data[closing + len(_CLOSING_BOUNDARY) :]
-    payload_text = payload_bytes.decode("utf-8")
-    _validate_tokens(payload_text)
-    root = _compose_single_document(payload_text)
-    if not isinstance(root, MappingNode):
+    metadata = _parse_document_bytes(payload_bytes, label="structured frontmatter")
+    if not isinstance(metadata, dict):
         raise StructuredDataError("structured frontmatter must be a mapping")
 
-    return ParsedFrontmatter(metadata=_construct_mapping(root), body=body)
+    return ParsedFrontmatter(metadata=metadata, body=body)
