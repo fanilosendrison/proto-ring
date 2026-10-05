@@ -110,10 +110,10 @@ class GovernanceRoutingContractTests(unittest.TestCase):
             readme,
         )
 
-    def test_package_version_is_0_14_0(self) -> None:
+    def test_package_version_is_0_15_0(self) -> None:
         project = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
 
-        self.assertIn('version = "0.14.0"', project)
+        self.assertIn('version = "0.15.0"', project)
 
 
 if __name__ == "__main__":
