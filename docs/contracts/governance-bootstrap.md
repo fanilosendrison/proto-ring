@@ -67,134 +67,24 @@ this contract. The envelope delimiters are not YAML multi-document syntax.
 The remainder after the closing delimiter is agent-facing body or prose. The
 bootstrap MUST NOT interpret that remainder as machine-governing configuration.
 
-## Structured-data model
+## Canonical Structured Data composition
 
-The admitted structured-data tree MUST contain only:
+The bytes extracted by the exact frontmatter envelope form one
+[Canonical Structured Data](structured-data.md) document.
 
-```text
-mapping<string, value>
-sequence<value>
-string
-boolean
-integer
-null
-```
+Canonical Structured Data owns the structured value domain, deterministic scalar
+construction, duplicate-key behavior, admitted single-document marker behavior,
+and forbidden YAML representation features.
 
-No floating-point type or timestamp/date runtime type exists in this model. No
-representation feature may construct an object outside this fixed data model.
+Governance Bootstrap does not define a second YAML or structured-value model.
 
-Mappings and sequences MAY use ordinary YAML block or flow form. Comments are
-allowed.
+For bootstrap composition, the constructed Canonical Structured Data root MUST
+be a mapping.
 
-## Scalar interpretation
-
-Scalars MUST be constructed in this exact order:
-
-```text
-exact lowercase true / false
-→ boolean
-
-exact lowercase null
-→ null
-
-canonical decimal integer grammar
-→ integer
-
-every other admitted ordinary scalar
-→ string
-```
-
-Implicit YAML scalar resolution MUST NOT alter this order or introduce another
-runtime type.
-
-### Strings
-
-Quoted YAML strings MUST construct strings. A quoted empty string is allowed.
-Quoted `"null"` and `'null'` MUST construct strings.
-
-Any admitted plain scalar that does not match the exact boolean, null, or
-integer rules MUST construct a string. This includes dates, versions, hashes,
-identifiers, refs, paths, ordinary words, floating-looking text,
-timestamp-looking text, `yes`, `no`, `on`, `off`, `True`, `FALSE`, `Null`,
-`NULL`, and `~`.
-
-Block scalar forms `|` and `>` MUST NOT be admitted.
-
-### Booleans
-
-Only the exact unquoted lowercase tokens `true` and `false` MUST construct
-booleans.
-
-Alternative spellings, including `True`, `FALSE`, `yes`, `no`, `on`, and `off`,
-MUST construct strings.
-
-### Integers
-
-Only an unquoted plain scalar matching this exact grammar MUST construct an
-integer:
-
-```regex
-^(0|-?[1-9][0-9]*)$
-```
-
-The tokens `01`, `-0`, `+1`, `1_000`, `0x10`, `0o10`, `0b10`, `1.0`, and `1e3`
-MUST construct strings. Implicit floating-point conversion MUST NOT occur.
-
-### Null
-
-Only the exact unquoted lowercase token `null` MUST construct the null value.
-
-The tokens `Null`, `NULL`, and `~` MUST construct strings. Quoted `"null"` and
-`'null'` MUST construct strings.
-
-An omitted mapping value, such as the following, MUST be invalid and MUST NOT
-construct null:
-
-```yaml
-key:
-```
-
-Explicit null MUST be written as:
-
-```yaml
-key: null
-```
-
-## Mapping requirements
-
-Every mapping key MUST construct to a string. Duplicate constructed string keys
-MUST fail closed at every mapping depth. Quoting does not create a distinct key;
-therefore this input contains a forbidden duplicate:
-
-```yaml
-foo: 1
-"foo": 2
-```
-
-A mapping key whose constructed string is exactly `<<` MUST be forbidden,
-whether quoted or unquoted.
-
-The top-level structured value MUST be a mapping.
-
-## Forbidden YAML representation features
-
-The structured-data representation MUST forbid:
-
-- anchors;
-- aliases;
-- merge semantics;
-- any mapping key whose constructed string is `<<`;
-- explicit YAML tags;
-- YAML directives;
-- multiple YAML documents;
-- arbitrary object constructors or other unsafe construction;
-- duplicate mapping keys at any depth;
-- non-string mapping keys;
-- block scalar forms `|` and `>`; and
-- omitted-value null syntax.
-
-Malformed or forbidden representation MUST NOT be normalized into accepted
-input.
+The frontmatter envelope delimiters remain carrier syntax, not YAML
+multi-document syntax. A valid single structured document inside that envelope
+may use the explicit single-document markers admitted by Canonical Structured
+Data when they do not replace or bypass the exact bootstrap envelope.
 
 ## Governance bootstrap root
 
