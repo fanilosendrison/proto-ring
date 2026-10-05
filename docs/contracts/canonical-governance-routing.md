@@ -49,12 +49,40 @@ convention or selection of another source.
 
 ## Repository target
 
-The declared target path must be non-empty and repository-relative. Resolution
-must include symbolic-link resolution and must reject a target that escapes the
-resolved repository root.
+The declared target path must be non-empty and repository-relative. The exact
+declared string is retained as part of the resolved binding.
 
-The contained target must exist. The contract does not require the target to be
-a file or a directory; target kind and target semantics remain consumer-owned.
+Target availability MUST be established by resolving the declared path itself,
+anchored at the supplied repository root. Resolution MUST preserve the path
+semantics that apply to the declaration while traversing filesystem components
+and symbolic links.
+
+An implementation MUST NOT lexically or representationally simplify away a
+resolution failure merely because a simplified spelling would identify an
+existing target. In particular, resolution MUST NOT erase an unavailable
+intermediate component, traversal through a non-directory component, a broken or
+cyclic symbolic link, or a platform-significant path suffix before availability
+has been established.
+
+`.` and `..` components are not forbidden generically. They are admissible only
+when the declared path can actually be resolved with their applicable filesystem
+semantics. Symbolic links are resolved as part of that traversal; an
+implementation MUST NOT lexically cancel `symlink/..` before resolving the
+symbolic link.
+
+After faithful declared-path resolution succeeds, the final resolved target MUST
+remain contained by the resolved repository root. This contract constrains final
+resolved-target containment. It does not require every intermediate component
+used during resolution to remain inside the repository root.
+
+The contained final target must exist. The contract does not require the target
+to be a file or a directory; target kind and target semantics remain
+consumer-owned.
+
+Failure to establish declared-path resolution or target availability MUST fail
+closed through the controlled routing error boundary. The routing operation does
+not read or validate target content, does not reserve the target against later
+mutation, and does not create RepositoryGovernanceState observation semantics.
 
 ## Resolved binding
 
