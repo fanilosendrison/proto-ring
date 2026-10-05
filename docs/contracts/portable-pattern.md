@@ -56,10 +56,25 @@ The model-version-1 grammar admits only the following constructs.
 
 ### Literal characters and escaping
 
-A character that is not pattern metasyntax matches itself exactly.
+Outside a character class, pattern metasyntax is exactly:
 
-A backslash may escape a pattern metacharacter so that the escaped character is
-matched literally.
+```text
+\ ^ $ . [ ] ( ) | ? * + { }
+```
+
+Every other Unicode scalar matches itself exactly.
+
+A backslash may escape exactly one of those metacharacters so that the escaped
+character is matched literally. A backslash before any other character is
+invalid; Canonical Portable Pattern has no implementation-defined escape
+vocabulary.
+
+The dot `.` is reserved metasyntax in model version 1 but has no wildcard
+meaning. An unescaped dot is therefore invalid. A literal dot is written
+`\.`.
+
+Likewise, a metacharacter that is not valid in its grammatical position is an
+error rather than an implementation-specific literal fallback.
 
 There are no shorthand character classes such as `\d`, `\w`, or `\s`,
 no Unicode-property escapes, and no implementation-defined escape vocabulary.
@@ -76,13 +91,24 @@ It may contain exact literal characters and inclusive ASCII ranges such as:
 [0-9]
 ```
 
-A leading `^` immediately after `[` negates the class.
+A leading `^` immediately after `[` negates the class. Elsewhere inside the
+class, `^` is a literal character.
+
+Inside a class:
+
+- `]` terminates the class and may appear literally only when escaped;
+- `\` begins an escape and a literal backslash is written `\\`;
+- `-` denotes a range only when it occurs between two class literals and is
+  neither the first nor final class item;
+- a first or final unescaped `-` is literal; and
+- `]`, `\`, `-`, and `^` may be escaped to force literal meaning.
+
+Outside-class metacharacters such as `.`, `(`, `)`, `{`, `}`, `|`,
+`?`, `*`, and `+` have no special meaning inside a class unless covered by
+the rules above; they are literal class members.
 
 Class ranges are allowed only when both endpoints are ASCII scalar values and
 the start code point is not greater than the end code point.
-
-Characters that are syntactically significant inside a class may be escaped
-literally.
 
 POSIX character classes, Unicode property classes, collating elements, locale
 classes, class subtraction/intersection, and implementation-specific extensions
@@ -95,6 +121,10 @@ Adjacent pattern atoms concatenate.
 `|` denotes alternation.
 
 Alternation precedence is lower than concatenation.
+
+Alternatives are ordered. When more than one alternative can participate in a
+successful full match, alternatives are attempted from left to right in source
+order.
 
 ### Groups and captures
 
@@ -139,13 +169,31 @@ The admitted greedy quantifiers are exactly:
 {m,n}
 ```
 
-where `m` and `n` are canonical non-negative ASCII decimal integers and,
-for `{m,n}`, `m <= n`.
+where `m` and `n` are canonical non-negative ASCII decimal integers with
+grammar:
+
+```regex
+^(0|[1-9][0-9]*)$
+```
+
+and, for `{m,n}`, `m <= n`.
+
+Quantifier bounds are mathematical integers and have no contract-defined
+machine-width or runtime digit limit.
 
 Lazy, possessive, conditional, or implementation-specific quantifiers are
 forbidden.
 
-A quantifier applies to the immediately preceding atom or group.
+A quantifier applies to the immediately preceding consuming atom or group.
+Anchors are not quantifiable.
+
+An unbounded quantifier (`*`, `+`, or `{m,}`) applied to an expression
+that can match the empty string is invalid. Otherwise, unbounded repetition has
+a finite maximum for a finite input because every successful repetition consumes
+at least one Unicode scalar.
+
+Bounded quantifiers may apply to an empty-matching group because their maximum
+repetition count is finite.
 
 ### Anchors
 
@@ -165,13 +213,32 @@ Native engine differences in Unicode version, locale, line mode, dot behavior,
 capture extensions, or escape interpretation must not affect Canonical Portable
 Pattern results.
 
-## Captures
+## Match selection and captures
+
+Matching is deterministic under these priorities:
+
+1. the complete input must be consumed;
+2. ordered alternatives are attempted left to right;
+3. at each quantified atom/group, larger permitted repetition counts are
+   attempted before smaller counts;
+4. when a larger greedy choice prevents a successful full match, the matcher
+   backtracks to the next smaller permitted count and continues under the same
+   priorities; and
+5. the first successful full-match derivation under those priorities is the
+   result.
 
 A successful full match returns the exact input substring captured by each
 participating capture group.
 
-An optional capture that does not participate is absent; it is distinct from a
-participating capture of the empty string.
+When a capturing group participates more than once because it is quantified or
+is inside a quantified group, its reported capture is the substring from its
+last successful participation in the selected derivation.
+
+A capture that never participates is absent. It is distinct from a participating
+capture of the empty string.
+
+A named capture and its positional capture refer to the same participation and
+must report the same substring/absence state.
 
 A consuming contract may require a particular named or positional capture and
 must fail closed when that required capture is absent or empty.
