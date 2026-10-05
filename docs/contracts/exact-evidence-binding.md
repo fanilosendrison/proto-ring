@@ -48,13 +48,16 @@ identity is unknown is also structurally valid but currently undetermined.
 
 ## Opaque identity tokens
 
-Subject and context identities are opaque non-empty `bytes` tokens. Proto-ring
-compares them only with Python bytes equality.
+Subject and context identities are opaque non-empty octet sequences. Proto-ring
+compares them only by exact length-and-octet equality.
 
-The consumer owns how a domain identity becomes the exact bytes supplied to the
-mechanism. A consumer may use raw canonical bytes, an encoded object identity,
-content digest bytes, a consumer-defined canonical serialization, or another
-consumer-owned representation.
+The consumer owns how a domain identity becomes the exact octet sequence supplied
+to the mechanism. A consumer may use raw canonical octets, an encoded object
+identity, content-digest octets, a consumer-defined canonical serialization, or
+another consumer-owned representation.
+
+The concrete in-memory representation of an identity token is
+implementation-defined and has no semantic significance.
 
 The contract defines no identity algorithm, hash function, serialization,
 canonical form, encoding, namespace, prefix, case rule, or semantic-equivalence
@@ -75,8 +78,11 @@ no semantic equivalence
 ## Explicit evidence-class admission
 
 Evidence-class vocabulary remains consumer-owned. A requirement supplies a
-non-empty `frozenset[str]` of explicitly admitted class identifiers. Every
+non-empty duplicate-free set of explicitly admitted class identifiers. Every
 identifier must be a non-empty string and is consumed exactly as supplied.
+
+The concrete in-memory set representation is implementation-defined and has no
+semantic significance.
 
 A requirement may admit multiple classes. That is an explicit consumer-policy
 decision; it is not an equivalence inferred by proto-ring.
