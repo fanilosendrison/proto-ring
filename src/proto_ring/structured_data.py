@@ -12,8 +12,6 @@ from yaml.tokens import (
     AliasToken,
     AnchorToken,
     DirectiveToken,
-    DocumentEndToken,
-    DocumentStartToken,
     ScalarToken,
     TagToken,
 )
@@ -35,8 +33,6 @@ _FORBIDDEN_TOKEN_TYPES = (
     AliasToken,
     TagToken,
     DirectiveToken,
-    DocumentStartToken,
-    DocumentEndToken,
 )
 
 
@@ -76,6 +72,29 @@ def _validate_tokens(payload_text: str) -> None:
         ) from error
 
 
+def _compose_single_document(payload_text: str) -> Node:
+    try:
+        documents = list(yaml.compose_all(payload_text, Loader=yaml.BaseLoader))
+    except yaml.YAMLError as error:
+        raise StructuredDataError(
+            f"invalid structured frontmatter: {error}"
+        ) from error
+    if not documents or documents[0] is None:
+        raise StructuredDataError("structured frontmatter must not be empty")
+    if len(documents) != 1:
+        raise StructuredDataError("structured frontmatter must contain one document")
+    return documents[0]
+
+
+def _construct_canonical_integer(text: str) -> int:
+    negative = text.startswith("-")
+    digits = text[1:] if negative else text
+    result = 0
+    for character in digits:
+        result = result * 10 + (ord(character) - ord("0"))
+    return -result if negative else result
+
+
 def _construct_scalar(node: ScalarNode) -> str | bool | int | None:
     if node.style in ("'", '"'):
         return node.value
@@ -90,7 +109,7 @@ def _construct_scalar(node: ScalarNode) -> str | bool | int | None:
     if node.value == "null":
         return None
     if _INTEGER_PATTERN.fullmatch(node.value):
-        return int(node.value)
+        return _construct_canonical_integer(node.value)
     return node.value
 
 
@@ -136,7 +155,7 @@ def parse_frontmatter_bytes(data: bytes) -> ParsedFrontmatter:
 
     if not data.startswith(_OPENING_DELIMITER):
         raise StructuredDataError("carrier has no exact opening delimiter")
-    closing = data.find(_CLOSING_BOUNDARY, len(_OPENING_DELIMITER))
+    closing = data.find(_CLOSING_BOUNDARY, len(_OPENING_DELIMITER) - 1)
     if closing < 0:
         raise StructuredDataError("carrier has no exact closing delimiter")
 
@@ -144,15 +163,7 @@ def parse_frontmatter_bytes(data: bytes) -> ParsedFrontmatter:
     body = data[closing + len(_CLOSING_BOUNDARY) :]
     payload_text = payload_bytes.decode("utf-8")
     _validate_tokens(payload_text)
-
-    try:
-        root = yaml.compose(payload_text, Loader=yaml.BaseLoader)
-    except yaml.YAMLError as error:
-        raise StructuredDataError(
-            f"invalid structured frontmatter: {error}"
-        ) from error
-    if root is None:
-        raise StructuredDataError("structured frontmatter must not be empty")
+    root = _compose_single_document(payload_text)
     if not isinstance(root, MappingNode):
         raise StructuredDataError("structured frontmatter must be a mapping")
 
