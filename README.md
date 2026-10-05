@@ -51,6 +51,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Repository Integrity](docs/contracts/repository-integrity.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Canonical ADR Identity](docs/contracts/canonical-adr-identity.md)
+- [Canonical Structured Data](docs/contracts/structured-data.md)
 - [Canonical Governance Bootstrap](docs/contracts/governance-bootstrap.md)
 - [Canonical Governance Routing](docs/contracts/canonical-governance-routing.md)
 - [Repository Governance Model](docs/contracts/repository-governance-model.md)
