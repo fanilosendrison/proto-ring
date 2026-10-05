@@ -49,6 +49,28 @@ class GovernanceRoutingContractTests(unittest.TestCase):
         self.assertIn("one exact route supplied by the consumer", contract)
         self.assertIn("route selection", contract)
 
+    def test_contract_requires_faithful_declared_path_resolution(self) -> None:
+        contract = " ".join(CONTRACT.read_text(encoding="utf-8").split())
+
+        self.assertIn(
+            "Target availability MUST be established by resolving the declared path itself",
+            contract,
+        )
+        self.assertIn(
+            "MUST NOT lexically or representationally simplify away a resolution failure",
+            contract,
+        )
+        self.assertIn("MUST NOT lexically cancel `symlink/..`", contract)
+
+    def test_contract_keeps_final_target_containment_boundary(self) -> None:
+        contract = " ".join(CONTRACT.read_text(encoding="utf-8").split())
+
+        self.assertIn("final resolved-target containment", contract)
+        self.assertIn("does not require every intermediate component", contract)
+        self.assertIn(
+            "does not require the target to be a file or a directory", contract
+        )
+
     def test_contract_prohibits_fallback_and_discovery(self) -> None:
         contract = CONTRACT.read_text(encoding="utf-8")
 
