@@ -121,6 +121,92 @@ class RepositoryStateTests(unittest.TestCase):
             repository_state.__all__,
         )
 
+    def test_ordinary_existing_explicit_scope_path_is_accepted(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+
+        state = repository_state.capture(repository, ("tracked.txt",))
+
+        self.assertIn("tracked.txt", state.scope_paths)
+
+    def test_explicit_scope_duplicate_and_order_variation_is_canonical(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+
+        first = repository_state.capture(
+            repository, ("tracked.txt", "missing.txt", "tracked.txt")
+        )
+        second = repository_state.capture(
+            repository, ("missing.txt", "tracked.txt", "missing.txt")
+        )
+
+        self.assertEqual(first.scope_paths, second.scope_paths)
+        self.assertEqual(first.identity, second.identity)
+
+    def test_structurally_invalid_explicit_scope_is_rejected_controlled(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+        invalid_values: tuple[object, ...] = (
+            os.fspath(repository / "tracked.txt"),
+            "../outside",
+            "./tracked.txt",
+            "dir/../tracked.txt",
+            f"dir{os.sep}{os.sep}tracked.txt",
+            f"dir{os.sep}",
+            "tracked\x00.txt",
+            "",
+            1,
+        )
+
+        for value in invalid_values:
+            with self.subTest(value=value):
+                with self.assertRaises(repository_state.StateCaptureError):
+                    repository_state.capture(repository, (value,))  # type: ignore[arg-type]
+
+    def test_absent_final_explicit_path_is_observed(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+
+        absent = repository_state.capture(repository, ("missing.txt",))
+        self.assertIn("missing.txt", absent.scope_paths)
+        (repository / "missing.txt").write_text("now present\n", encoding="utf-8")
+        present = repository_state.capture(repository, ("missing.txt",))
+
+        self.assertNotEqual(absent.identity, present.identity)
+
+    def test_final_symlink_to_outside_remains_observable(self) -> None:
+        temporary, repository = self.repository()
+        outside_temporary = TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.addCleanup(outside_temporary.cleanup)
+        outside = Path(outside_temporary.name)
+        first_target = outside / "first.txt"
+        second_target = outside / "second.txt"
+        first_target.write_text("first\n", encoding="utf-8")
+        second_target.write_text("second\n", encoding="utf-8")
+        link = repository / "final-link"
+        link.symlink_to(first_target)
+
+        first = repository_state.capture(repository, ("final-link",))
+        self.assertIn("final-link", first.scope_paths)
+        link.unlink()
+        link.symlink_to(second_target)
+        second = repository_state.capture(repository, ("final-link",))
+
+        self.assertNotEqual(first.identity, second.identity)
+
+    def test_intermediate_parent_symlink_escape_is_rejected_controlled(self) -> None:
+        temporary, repository = self.repository()
+        outside_temporary = TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.addCleanup(outside_temporary.cleanup)
+        outside = Path(outside_temporary.name)
+        (outside / "outside.txt").write_text("outside\n", encoding="utf-8")
+        (repository / "escape-dir").symlink_to(outside, target_is_directory=True)
+
+        with self.assertRaises(repository_state.StateCaptureError):
+            repository_state.capture(repository, ("escape-dir/outside.txt",))
+
     def test_explicit_regular_symlink_directory_and_absent_kinds_are_observed(self) -> None:
         temporary, repository = self.repository()
         self.addCleanup(temporary.cleanup)
