@@ -58,12 +58,8 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
         return target
 
     def write_agents(self, body: str = "# Directives\n") -> None:
-        payload = yaml.safe_dump(
-            {"repository_governance": self.governance}, sort_keys=False
-        )
-        (self.repository / "AGENTS.md").write_text(
-            f"---\n{payload}---\n{body}", encoding="utf-8"
-        )
+        payload = yaml.safe_dump({"repository_governance": self.governance}, sort_keys=False)
+        (self.repository / "AGENTS.md").write_text(f"---\n{payload}---\n{body}", encoding="utf-8")
 
     def load(self) -> model_module.RepositoryGovernanceModel:
         self.write_agents()
@@ -378,6 +374,11 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
         (self.repository / PROFILE).unlink()
         self.assert_fails()
 
+    def test_missing_component_route_target_fails(self) -> None:
+        self.write_target("existing-profile.md")
+        self.capabilities["architecture_decisions"]["routes"]["profile"] = "missing/../existing-profile.md"  # type: ignore[index]
+        self.assert_fails()
+
     def test_absolute_route_target_fails(self) -> None:
         self.capabilities["architecture_decisions"]["routes"]["profile"] = "/tmp/profile"  # type: ignore[index]
         self.assert_fails()
@@ -394,7 +395,6 @@ class RepositoryGovernanceModelTests(unittest.TestCase):
         route.symlink_to(outside)
         self.capabilities["architecture_decisions"]["routes"]["profile"] = "escape"  # type: ignore[index]
         self.assert_fails()
-
 
 if __name__ == "__main__":
     unittest.main()
