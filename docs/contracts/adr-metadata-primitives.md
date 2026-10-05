@@ -30,26 +30,44 @@ heading starts with `## Context` followed by a space or end of line. Missing or
 multiple boundaries are errors.
 
 The preserved authored payload is the exact byte suffix beginning at the unique
-level-one heading. It is available only for data that also has one valid
+level-one heading. For this primitive, a level-one heading is exactly one line
+whose bytes begin with `# ` and contain at least one byte after that ASCII
+space. No alternate Markdown H1 syntax participates. The exact UTF-8 text after
+the first `# ` is the H1 text; it is not trimmed or normalized.
+
+The preserved payload is available only for data that also has one valid
 decision-body boundary.
 
 SHA-256 operates over exact input bytes and returns a lowercase hexadecimal
 digest.
 
-## Safe structured-data loading
+## Canonical structured-data loading
 
-YAML loading uses the maintained safe loader and does not enable Python object
-constructors. JSON and YAML are read as strict UTF-8 text. Parse, decoding, and
-I/O failures become controlled `AdrMetadataError` results.
+Machine-readable YAML consumed by this primitive layer composes with
+[Canonical Structured Data](structured-data.md).
 
-ADR frontmatter parsing requires an opening `---` line and one exact closing
-delimiter. Frontmatter is loaded through the safe YAML mechanism and must be a
-mapping. Parsing returns the mapping and the exact decision-body bytes without
-normalizing either authored body bytes or final-newline state.
+`load_yaml` consumes the complete standalone YAML file as one Canonical
+Structured Data document. It does not inherit a YAML library's implicit scalar
+typing, object construction, merge behavior, duplicate-key precedence, or
+multi-document behavior.
+
+The standalone root may be any Canonical Structured Data value. Callers that
+require a mapping use the existing generic mapping requirement.
+
+JSON loading remains strict UTF-8 JSON and returns the corresponding structured
+value without adding YAML semantics.
+
+ADR frontmatter parsing uses the exact ADR/frontmatter carrier boundary and
+constructs its mapping through Canonical Structured Data. Parsing returns the
+mapping and the exact decision-body bytes without normalizing authored body
+bytes or final-newline state.
 
 `parse_adr_bytes` is the single exact parser for both repository file bytes and
 historical Git blob bytes. `parse_adr` contributes only path-specific byte
-reading and delegates the returned bytes to that parser without normalization.
+reading and delegates the returned bytes without normalization.
+
+Parse, decoding, representation, and I/O failures remain controlled
+`AdrMetadataError` results at the ADR metadata boundary.
 
 ## JSON Schema validation
 
