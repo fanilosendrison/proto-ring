@@ -101,10 +101,36 @@ Inside a class:
 
 - `]` terminates the class and may appear literally only when escaped;
 - `\` begins an escape and a literal backslash is written `\\`;
-- `-` denotes a range only when it occurs between two class literals and is
-  neither the first nor final class item;
-- a first or final unescaped `-` is literal; and
+- a first or final unescaped `-` is a literal class member; and
 - `]`, `\`, `-`, and `^` may be escaped to force literal meaning.
+
+Class items are parsed left to right without overlapping range endpoints.
+
+At a class-item position, when a literal `L` is immediately followed by an
+unescaped `-` and then by another literal `R` before the closing bracket,
+the three tokens `L-R` form exactly one range item and are consumed together.
+
+Otherwise the current literal is one literal item.
+
+After earlier items/ranges have been consumed, any remaining unescaped `-`
+that is neither the first nor final class item is invalid rather than being
+reassociated with a previously consumed range endpoint.
+
+Therefore:
+
+```text
+[a-z0-9-]
+→ range a-z, range 0-9, literal -
+
+[-a]
+→ literal -, literal a
+
+[a-]
+→ literal a, literal -
+
+[a-b-c]
+→ invalid
+```
 
 Outside-class metacharacters such as `.`, `(`, `)`, `{`, `}`, `|`,
 `?`, `*`, and `+` have no special meaning inside a class unless covered by
