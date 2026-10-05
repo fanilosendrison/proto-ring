@@ -54,6 +54,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Canonical Governance Bootstrap](docs/contracts/governance-bootstrap.md)
 - [Canonical Governance Routing](docs/contracts/canonical-governance-routing.md)
 - [Repository Governance Model](docs/contracts/repository-governance-model.md)
+- [RepositoryState](docs/contracts/repository-state.md)
 - [RepositoryGovernanceState](docs/contracts/repository-governance-state.md)
 - [Governance Authority](docs/contracts/governance-authority.md)
 - [Governed Objects](docs/contracts/governed-objects.md)
