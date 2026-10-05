@@ -96,11 +96,13 @@ There is no first-match, sorted-match, or lexicographic fallback.
 ## Structured record requirement
 
 The unique candidate must remain contained by the repository root and must be
-parseable through `proto_ring.adr_metadata.parse_adr`. Its `metadata.id` must
-equal the requested logical ADR identity exactly.
+parseable through the exact ADR parsing operation owned by the Canonical shared
+ADR metadata primitive contract. Its `metadata.id` must equal the requested
+logical ADR identity exactly.
 
 Successful resolution returns the logical identity, contained artifact path,
-structured metadata, and exact decision-body bytes returned by `parse_adr`.
+structured metadata, and the exact decision-body bytes produced by that
+contract-owned parsing operation.
 
 ## Authority boundary
 
