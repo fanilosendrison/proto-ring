@@ -154,6 +154,48 @@ def _discovered_path_identity(raw_path: bytes) -> bytes:
     return raw_path
 
 
+def _explicit_scope_path_identity(
+    repository: Path,
+    value: object,
+) -> str | None:
+    if not isinstance(value, str) or value == "" or "\x00" in value:
+        return None
+    if os.path.splitdrive(value)[0] or os.path.isabs(value):
+        return None
+
+    separators = {os.sep}
+    if os.altsep is not None:
+        separators.add(os.altsep)
+    components: list[str] = []
+    current: list[str] = []
+    for character in value:
+        if character in separators:
+            if not current:
+                return None
+            components.append("".join(current))
+            current = []
+        else:
+            current.append(character)
+    if not current:
+        return None
+    components.append("".join(current))
+    if any(component in {".", ".."} for component in components):
+        return None
+
+    parent = repository.joinpath(*components[:-1])
+    try:
+        resolved_parent = parent.resolve(strict=False)
+    except (OSError, RuntimeError, ValueError) as error:
+        raise StateCaptureError(
+            f"explicit scope parent cannot be resolved: {error}"
+        ) from error
+    try:
+        resolved_parent.relative_to(repository)
+    except ValueError:
+        return None
+    return value
+
+
 def _capture_structural(
     root: Path, additional_paths: tuple[bytes, ...] = ()
 ) -> _StructuralCapture:
@@ -258,7 +300,13 @@ def capture(repository: Path, scope_paths: tuple[str, ...] = ()) -> RepositorySt
     """Return one immutable state bound to the exact Git worktree root."""
 
     root = resolve_worktree_root(repository)
-    canonical_scope = tuple(sorted(set(scope_paths)))
+    validated_scope: list[str] = []
+    for value in scope_paths:
+        identity = _explicit_scope_path_identity(root, value)
+        if identity is None:
+            raise StateCaptureError("explicit scope path is not admissible")
+        validated_scope.append(identity)
+    canonical_scope = tuple(sorted(set(validated_scope)))
     additional_paths = tuple(os.fsencode(path) for path in canonical_scope)
     structural = _capture_structural(root, additional_paths)
     records = _capture_path_records(
