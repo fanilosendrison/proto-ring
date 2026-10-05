@@ -18,23 +18,25 @@ consumer's decisions to proto-ring.
 
 ## Consumer-owned configuration
 
-The consumer owns its ADR profile. Canonical ADR Identity uses Canonical
-Governance Routing for exact path-resolution semantics.
+The consumer owns its ADR profile. Canonical ADR Identity consumes the current
+Repository Governance Model and uses Canonical Governance Routing through the
+model-owned resolved route.
 
-The current Canonical ADR Identity adapter obtains the consumer routing mapping
-from root `AGENTS.md` frontmatter and supplies this exact route:
+The current adapter requires:
 
 ```text
-repository_governance.architecture_decisions.profile_path
+capability: architecture_decisions
+route: profile
 ```
 
-That carrier and route vocabulary remain part of the current consumer adapter.
-Canonical Governance Routing does not own `AGENTS.md`, its frontmatter parser,
-or those route keys.
+Repository Governance Model owns the serialized repository-governance carrier,
+capability declaration, route lookup, and resulting ResolvedGovernanceRoute.
+Canonical ADR Identity does not read a legacy `profile_path` key and does not
+reconstruct a route from prose or filesystem convention.
 
-The routed profile path must be non-empty, repository-relative, contained by the
-repository root after resolution, and available. The consumer retains authority
-over the profile and every field it contains.
+The resolved profile target must satisfy the routing authority already applied
+by Repository Governance Model. The consumer retains authority over the profile
+and every field it contains.
 
 ## Consumed profile fields
 
@@ -48,6 +50,14 @@ repository.id_width
 ```
 
 All other profile properties remain outside Canonical ADR Identity authority.
+
+`repository.filename_pattern` and `repository.id_pattern` are consumer-owned
+patterns interpreted through
+[Canonical Portable Pattern](portable-pattern.md). Native Python, Rust, PCRE,
+POSIX, or another regex dialect is not semantic authority.
+
+The filename pattern MUST expose one non-empty named capture exactly named
+`number`. The ID pattern has no generic capture requirement.
 
 ## Logical ADR identity
 
