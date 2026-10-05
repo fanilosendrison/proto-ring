@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest import mock
 
 from proto_ring.governance_routing import GovernanceRoutingError, resolve_path
 
@@ -56,6 +57,82 @@ class GovernanceRoutingTests(unittest.TestCase):
 
         self.assertEqual(result.target, (self.repository / "config/target.yaml").resolve())
 
+    def test_directory_target_with_trailing_slash_succeeds(self) -> None:
+        declared_path = "config/"
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, (self.repository / "config").resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
+    def test_directory_target_with_dot_component_succeeds(self) -> None:
+        declared_path = "config/."
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, (self.repository / "config").resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
+    def test_contained_final_symlink_target_succeeds(self) -> None:
+        link = self.target.parent / "inside-link.yaml"
+        link.symlink_to("target.yaml")
+        declared_path = "config/inside-link.yaml"
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, self.target.resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
+    def test_existing_directory_parent_traversal_succeeds(self) -> None:
+        target = self.repository / "target.yaml"
+        target.write_text("root target\n", encoding="utf-8")
+        declared_path = "config/../target.yaml"
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, target.resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
+    def test_symlink_parent_traversal_resolves_after_symlink(self) -> None:
+        package = self.repository / "pkg"
+        (package / "subdir").mkdir(parents=True)
+        package_target = package / "target.yaml"
+        package_target.write_text("package target\n", encoding="utf-8")
+        root_target = self.repository / "target.yaml"
+        root_target.write_text("root target\n", encoding="utf-8")
+        (self.repository / "jump").symlink_to(
+            "pkg/subdir", target_is_directory=True
+        )
+        declared_path = "jump/../target.yaml"
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, package_target.resolve())
+        self.assertNotEqual(result.target, root_target.resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
+    def test_intermediate_escape_with_contained_final_target_succeeds(self) -> None:
+        target = self.repository / "target.yaml"
+        target.write_text("target\n", encoding="utf-8")
+        declared_path = "../repository/target.yaml"
+
+        result = resolve_path(
+            self.repository, self.routing(declared_path), ROUTE  # type: ignore[arg-type]
+        )
+
+        self.assertEqual(result.target, target.resolve())
+        self.assertEqual(result.declared_path, declared_path)
+
     def test_empty_route_fails(self) -> None:
         self.assert_routing_error(self.routing(), ())
 
@@ -103,6 +180,53 @@ class GovernanceRoutingTests(unittest.TestCase):
 
     def test_missing_unavailable_target_fails(self) -> None:
         self.assert_routing_error(self.routing("config/missing.yaml"))
+
+    def test_missing_component_parent_traversal_fails(self) -> None:
+        (self.repository / "target.yaml").write_text("target\n", encoding="utf-8")
+
+        self.assert_routing_error(self.routing("missing/../target.yaml"))
+
+    def test_ordinary_file_parent_traversal_fails(self) -> None:
+        self.assert_routing_error(
+            self.routing("config/target.yaml/../target.yaml")
+        )
+
+    def test_ordinary_file_with_trailing_slash_fails(self) -> None:
+        self.assert_routing_error(self.routing("config/target.yaml/"))
+
+    def test_ordinary_file_with_dot_component_fails(self) -> None:
+        self.assert_routing_error(self.routing("config/target.yaml/."))
+
+    def test_broken_symlink_parent_traversal_fails(self) -> None:
+        (self.repository / "broken").symlink_to(
+            "missing-directory", target_is_directory=True
+        )
+        (self.repository / "target.yaml").write_text("target\n", encoding="utf-8")
+
+        self.assert_routing_error(self.routing("broken/../target.yaml"))
+
+    def test_symlink_cycle_parent_traversal_fails(self) -> None:
+        (self.repository / "a").symlink_to("b", target_is_directory=True)
+        (self.repository / "b").symlink_to("a", target_is_directory=True)
+        (self.repository / "target.yaml").write_text("target\n", encoding="utf-8")
+
+        self.assert_routing_error(self.routing("a/../target.yaml"))
+
+    def test_embedded_nul_path_failure_is_controlled(self) -> None:
+        self.assert_routing_error(self.routing("config/\x00target.yaml"))
+
+    def test_filesystem_resolution_error_is_controlled(self) -> None:
+        with mock.patch(
+            "proto_ring.governance_routing.repository_path",
+            return_value=self.target.resolve(),
+        ), mock.patch(
+            "proto_ring.governance_routing.os.stat",
+            side_effect=PermissionError("denied"),
+        ):
+            with self.assertRaises(GovernanceRoutingError) as captured:
+                resolve_path(self.repository, self.routing(), ROUTE)  # type: ignore[arg-type]
+
+        self.assertIsNotNone(captured.exception.__cause__)
 
     def test_plausible_sibling_route_does_not_act_as_fallback(self) -> None:
         routing = {
