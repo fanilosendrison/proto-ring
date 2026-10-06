@@ -9,12 +9,15 @@ ZERO_SHA = "0" * 40
 
 
 def _git_check(root: Path, args: list[str], label: str) -> list[str]:
-    result = subprocess.run(
-        ["git", *args],
-        cwd=root,
-        capture_output=True,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=root,
+            capture_output=True,
+            check=False,
+        )
+    except (OSError, ValueError) as error:
+        return [f"{label}: git command could not be started: {error}"]
     if result.returncode == 0:
         return []
 
@@ -31,13 +34,16 @@ def _git_check(root: Path, args: list[str], label: str) -> list[str]:
 
 
 def _empty_tree_hash(root: Path) -> str | None:
-    result = subprocess.run(
-        ["git", "hash-object", "-t", "tree", "--stdin"],
-        cwd=root,
-        input=b"",
-        capture_output=True,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            ["git", "hash-object", "-t", "tree", "--stdin"],
+            cwd=root,
+            input=b"",
+            capture_output=True,
+            check=False,
+        )
+    except (OSError, ValueError):
+        return None
     if result.returncode != 0:
         return None
 
