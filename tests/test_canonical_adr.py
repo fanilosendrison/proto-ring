@@ -194,6 +194,15 @@ class CanonicalAdrTests(unittest.TestCase):
         self.write_profile(id_pattern="[")
         self.assert_resolution_error()
 
+    def test_native_shorthand_id_pattern_fails_controlled(self) -> None:
+        self.write_profile(id_pattern=r"^ADR-\d{3}$")
+        self.assert_resolution_error()
+
+    def test_unescaped_dot_filename_pattern_fails_before_candidate_selection(self) -> None:
+        self.write_profile(filename_pattern=r"^adr-(?P<number>[0-9]{3}).md$")
+        self.write_adr("adr-001Xmd")
+        self.assert_resolution_error()
+
     def test_requested_id_rejected_by_profile_fails(self) -> None:
         self.write_profile(id_pattern=r"^ADR-002$")
         self.assert_resolution_error("ADR-001")

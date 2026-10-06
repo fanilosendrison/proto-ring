@@ -10,6 +10,9 @@ from proto_ring.accepted_adr_body import check
 
 ADR_NAME = "adr-001-example.md"
 ADR_PATH = Path("docs/adr") / ADR_NAME
+FILENAME_PATTERN = (
+    r"^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\.md$"
+)
 
 
 class GitRepository:
@@ -48,11 +51,13 @@ class GitRepository:
             "# Test Shared Governance Provider binding target\n",
             encoding="utf-8",
         )
-        profile.write_text(
+        self.write_profile()
+
+    def write_profile(self, filename_pattern: str = FILENAME_PATTERN) -> None:
+        (self.root / "config/adr-profile.yaml").write_text(
             "repository:\n"
             "  adr_directory: docs/adr\n"
-            "  filename_pattern: '^adr-(?P<number>[0-9]{3})-"
-            "[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n"
+            f"  filename_pattern: '{filename_pattern}'\n"
             "  id_pattern: '^ADR-[0-9]{3}$'\n"
             "  id_width: 3\n",
             encoding="utf-8",
@@ -139,6 +144,20 @@ class AcceptedAdrBodyTests(unittest.TestCase):
         self.repository.write_adr(status="accepted", body=b"A")
         self.repository.commit("accepted")
         self.assert_passes()
+
+    def test_native_shorthand_filename_pattern_fails_controlled(self) -> None:
+        self.repository.write_profile(
+            r"^adr-(?P<number>\d{3})-[a-z0-9]+\.md$"
+        )
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("invalid portable shorthand")
+        self.assert_fails("repository.filename_pattern is invalid")
+
+    def test_unescaped_dot_filename_pattern_fails_controlled(self) -> None:
+        self.repository.write_profile(r"^adr-(?P<number>[0-9]{3})-example.md$")
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("invalid portable dot")
+        self.assert_fails("repository.filename_pattern is invalid")
 
     def test_proposed_body_may_change_before_acceptance(self) -> None:
         self.repository.write_adr(status="proposed", body=b"A")
