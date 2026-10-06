@@ -208,6 +208,25 @@ Those cue keywords use ASCII case-insensitive matching only: ASCII `A-Z` and
 `a-z` are paired, and no non-ASCII scalar is treated as an ASCII cue letter
 through a runtime regex engine's case-insensitive mode.
 
+Whitespace between words of a multi-word cue uses the Unicode-14.0.0 contract
+whitespace relation fixed above and requires one or more whitespace scalars.
+
+Cue token termination is ASCII-defined and does not use a runtime regular
+expression engine's Unicode word-boundary relation. After the final ASCII cue
+letter, the cue is complete only at end of block text or when the next scalar
+is outside:
+
+```text
+ASCII A-Z
+ASCII a-z
+ASCII 0-9
+_
+```
+
+Therefore a non-ASCII scalar does not become an ASCII cue letter through case
+folding, and it also does not acquire or lose cue-boundary significance when a
+host runtime upgrades its Unicode database.
+
 It also recognizes line-start definition equations using `:=` or a single `=`.
 It excludes equality `==` from that equation cue.
 
