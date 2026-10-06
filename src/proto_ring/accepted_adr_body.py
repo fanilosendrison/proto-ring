@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import subprocess
 from dataclasses import dataclass
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 from proto_ring import adr_metadata, canonical_adr, portable_pattern
 
@@ -151,7 +151,7 @@ def _first_parent(repository: Path, commit: str) -> str | None:
     return fields[1] if len(fields) > 1 else None
 
 
-def _changed_paths(repository: Path, commit: str) -> list[str]:
+def _changed_paths(repository: Path, commit: str) -> list[bytes]:
     parent = _first_parent(repository, commit)
     args = [
         "diff-tree",
@@ -168,7 +168,7 @@ def _changed_paths(repository: Path, commit: str) -> list[str]:
     raw_paths = _git_output(repository, *args).split(b"\x00")
     if raw_paths and raw_paths[-1] == b"":
         raw_paths.pop()
-    return [_decode_git_text(path, "historical Git path") for path in raw_paths]
+    return raw_paths
 
 
 def _tree_entry(
@@ -190,19 +190,41 @@ def _tree_entry(
     return mode.decode("ascii"), object_type.decode("ascii"), object_id.decode("ascii")
 
 
-def _matching_slot(path: str, config: _DiscoveryConfig) -> str | None:
-    candidate = PurePosixPath(path)
-    if candidate.parent.as_posix() != config.adr_directory:
+def _matching_slot(
+    raw_path: bytes, config: _DiscoveryConfig
+) -> tuple[str, str] | None:
+    directory_bytes = config.adr_directory.encode("utf-8")
+    if config.adr_directory == ".":
+        if not raw_path or b"/" in raw_path:
+            return None
+        basename_bytes = raw_path
+    else:
+        prefix = directory_bytes + b"/"
+        if not raw_path.startswith(prefix):
+            return None
+        basename_bytes = raw_path[len(prefix) :]
+        if not basename_bytes or b"/" in basename_bytes:
+            return None
+    try:
+        basename = basename_bytes.decode("utf-8")
+    except UnicodeDecodeError:
         return None
-    match = config.filename_pattern.full_match(candidate.name)
+    match = config.filename_pattern.full_match(basename)
     if match is None:
         return None
     number = match.group("number")
     if not number:
         raise _CheckFailure(
-            f"repository.filename_pattern matched an empty number group: {path}"
+            "repository.filename_pattern matched an empty number group: "
+            f"{basename}"
         )
-    return f"ADR-{number}"
+    try:
+        path = raw_path.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise _CheckFailure(
+            "participating historical Git path is not valid UTF-8"
+        ) from error
+    return f"ADR-{number}", path
 
 
 def _body_change_error(
@@ -222,10 +244,11 @@ def _inspect_history(
     seals: dict[str, _AcceptedBodyAnchor] = {}
     errors: list[str] = []
     for commit in _commits(repository):
-        for path in _changed_paths(repository, commit):
-            expected_id = _matching_slot(path, config)
-            if expected_id is None:
+        for raw_path in _changed_paths(repository, commit):
+            participating = _matching_slot(raw_path, config)
+            if participating is None:
                 continue
+            expected_id, path = participating
             entry = _tree_entry(repository, commit, path)
             if entry is None:
                 continue

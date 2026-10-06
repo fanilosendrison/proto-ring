@@ -100,6 +100,23 @@ class GitRepository:
         self.git("commit", "-qm", message)
         return self.git("rev-parse", "HEAD").decode().strip()
 
+    def commit_raw_git_path(
+        self,
+        raw_path: bytes,
+        *,
+        content: bytes = b"raw\n",
+        message: str,
+    ) -> str:
+        object_id = self.git(
+            "hash-object", "-w", "--stdin", input_bytes=content
+        ).strip()
+        if not object_id:
+            raise AssertionError("git hash-object returned an empty object ID")
+        record = b"100644 blob " + object_id + b"\t" + raw_path + b"\x00"
+        self.git("update-index", "-z", "--index-info", input_bytes=record)
+        self.git("commit", "-qm", message)
+        return self.git("rev-parse", "HEAD").decode().strip()
+
 
 class AcceptedAdrBodyTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -144,6 +161,55 @@ class AcceptedAdrBodyTests(unittest.TestCase):
         self.repository.write_adr(status="accepted", body=b"A")
         self.repository.commit("accepted")
         self.assert_passes()
+
+    def test_unrelated_non_utf8_path_after_acceptance_is_ignored(self) -> None:
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.repository.commit_raw_git_path(
+            b"outside/invalid-\xff.bin", message="unrelated raw path"
+        )
+        self.assert_passes()
+
+    def test_unrelated_non_utf8_path_before_acceptance_is_ignored(self) -> None:
+        self.repository.write_adr(status="proposed", body=b"A")
+        self.repository.commit("proposed")
+        self.repository.commit_raw_git_path(
+            b"outside/before-\xff.bin", message="raw path before acceptance"
+        )
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.assert_passes()
+
+    def test_nested_non_utf8_path_under_adr_directory_is_ignored(self) -> None:
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.repository.commit_raw_git_path(
+            b"docs/adr/nested/invalid-\xff.bin", message="nested raw path"
+        )
+        self.assert_passes()
+
+    def test_direct_non_utf8_adr_child_is_ignored(self) -> None:
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.repository.commit_raw_git_path(
+            b"docs/adr/invalid-\xff.md", message="direct raw path"
+        )
+        self.assert_passes()
+
+    def test_non_utf8_directory_prefix_collision_is_ignored(self) -> None:
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.repository.commit_raw_git_path(
+            b"docs/adr-other/invalid-\xff.bin", message="prefix collision"
+        )
+        self.assert_passes()
+
+    def test_matching_utf8_direct_child_remains_participating(self) -> None:
+        self.repository.write_adr(status="accepted", body=b"A")
+        self.repository.commit("accepted")
+        self.repository.write_adr(status="accepted", body=b"B")
+        self.repository.commit("changed matching path")
+        self.assert_fails("accepted ADR body changed")
 
     def test_native_shorthand_filename_pattern_fails_controlled(self) -> None:
         self.repository.write_profile(
