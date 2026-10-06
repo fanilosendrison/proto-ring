@@ -9,6 +9,7 @@ from dataclasses import dataclass
 import hashlib
 import re
 
+from . import portable_pattern
 from .normative_terminology_matching import definition_concepts as _definition_concepts
 
 
@@ -29,12 +30,14 @@ class RegistryFormat:
         if len(self.headers) != 6 or any(not value for value in self.headers):
             raise ValueError("registry format must define six non-empty headers")
         try:
-            re.compile(self.key_pattern)
-            anchor_link = re.compile(self.anchor_link_pattern)
-            anchor = re.compile(self.anchor_pattern)
-        except re.error as error:
-            raise ValueError(f"registry format contains an invalid regex: {error}") from error
-        if anchor_link.groups < 1 or anchor.groups < 1:
+            portable_pattern.PortablePattern(self.key_pattern)
+            anchor_link = portable_pattern.PortablePattern(self.anchor_link_pattern)
+            anchor = portable_pattern.PortablePattern(self.anchor_pattern)
+        except portable_pattern.PortablePatternError as error:
+            raise ValueError(
+                f"registry format contains an invalid portable pattern: {error}"
+            ) from error
+        if anchor_link.capture_count < 1 or anchor.capture_count < 1:
             raise ValueError("anchor patterns must capture the canonical destination")
 
 
@@ -194,8 +197,10 @@ def parse_registry(
             errors.append(f"terminology registry row {row_number} has malformed backtick delimiters")
             continue
         key, canonical_term = _plain_cell(row[0]), _plain_cell(row[1])
-        anchor_match = re.fullmatch(registry_format.anchor_link_pattern, row[2])
-        if not re.fullmatch(registry_format.key_pattern, key):
+        anchor_match = portable_pattern.full_match(
+            registry_format.anchor_link_pattern, row[2]
+        )
+        if portable_pattern.full_match(registry_format.key_pattern, key) is None:
             errors.append(f"invalid terminology concept key: {key!r}")
         if not canonical_term:
             errors.append(f"{key or f'row {row_number}'} has no canonical term")
@@ -277,7 +282,9 @@ def parse_blocks(
             if not isinstance(section, str):
                 raise ValueError("section policy must return a string")
             continue
-        anchor_match = re.fullmatch(policy.registry.anchor_pattern, line.strip())
+        anchor_match = portable_pattern.full_match(
+            policy.registry.anchor_pattern, line.strip()
+        )
         if anchor_match:
             flush_paragraph()
             anchor = anchor_match.group(1)
