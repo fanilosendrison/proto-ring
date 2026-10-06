@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 import os
-import re
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
-from proto_ring import adr_metadata, canonical_adr
+from proto_ring import adr_metadata, canonical_adr, portable_pattern
 
 __all__ = ["check"]
 
@@ -33,7 +32,7 @@ class _AcceptedBodyAnchor:
 @dataclass(frozen=True)
 class _DiscoveryConfig:
     adr_directory: str
-    filename_regex: re.Pattern[str]
+    filename_pattern: portable_pattern.PortablePattern
 
 
 def _git_environment() -> dict[str, str]:
@@ -124,16 +123,16 @@ def _load_discovery_config(repository: Path) -> _DiscoveryConfig:
             "repository.adr_directory escapes repository"
         ) from error
     try:
-        filename_regex = re.compile(filename_pattern)
-    except re.error as error:
+        filename_matcher = portable_pattern.PortablePattern(filename_pattern)
+    except portable_pattern.PortablePatternError as error:
         raise adr_metadata.AdrMetadataError(
             f"repository.filename_pattern is invalid: {error}"
         ) from error
-    if "number" not in filename_regex.groupindex:
+    if "number" not in filename_matcher.capture_names:
         raise adr_metadata.AdrMetadataError(
             "repository.filename_pattern must define named group 'number'"
         )
-    return _DiscoveryConfig(directory_relative, filename_regex)
+    return _DiscoveryConfig(directory_relative, filename_matcher)
 
 
 def _commits(repository: Path) -> list[str]:
@@ -195,7 +194,7 @@ def _matching_slot(path: str, config: _DiscoveryConfig) -> str | None:
     candidate = PurePosixPath(path)
     if candidate.parent.as_posix() != config.adr_directory:
         return None
-    match = config.filename_regex.fullmatch(candidate.name)
+    match = config.filename_pattern.full_match(candidate.name)
     if match is None:
         return None
     number = match.group("number")

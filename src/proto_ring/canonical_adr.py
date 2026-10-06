@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 from typing import Mapping, cast
 
-from proto_ring import adr_metadata, repository_governance_model
+from proto_ring import adr_metadata, portable_pattern, repository_governance_model
 
 
 __all__ = [
@@ -53,10 +53,12 @@ def _profile_repository(repository: Path) -> dict[str, object]:
     return adr_metadata.require_mapping(profile.get("repository"), "repository")
 
 
-def _compile_pattern(pattern: str, label: str) -> re.Pattern[str]:
+def _portable_pattern(
+    source: str, label: str
+) -> portable_pattern.PortablePattern:
     try:
-        return re.compile(pattern)
-    except re.error as error:
+        return portable_pattern.PortablePattern(source)
+    except portable_pattern.PortablePatternError as error:
         raise adr_metadata.AdrMetadataError(f"{label} is invalid: {error}") from error
 
 
@@ -79,13 +81,15 @@ def resolve(repository: Path, adr_id: str) -> CanonicalAdr:
             "repository.id_width must be a positive integer"
         )
 
-    filename_regex = _compile_pattern(filename_pattern, "repository.filename_pattern")
-    id_regex = _compile_pattern(id_pattern, "repository.id_pattern")
-    if "number" not in filename_regex.groupindex:
+    filename_matcher = _portable_pattern(
+        filename_pattern, "repository.filename_pattern"
+    )
+    id_matcher = _portable_pattern(id_pattern, "repository.id_pattern")
+    if "number" not in filename_matcher.capture_names:
         raise adr_metadata.AdrMetadataError(
             "repository.filename_pattern must define named group 'number'"
         )
-    if not isinstance(adr_id, str) or not id_regex.fullmatch(adr_id):
+    if not isinstance(adr_id, str) or id_matcher.full_match(adr_id) is None:
         raise adr_metadata.AdrMetadataError(
             "requested ADR ID does not match repository.id_pattern"
         )
@@ -108,7 +112,7 @@ def resolve(repository: Path, adr_id: str) -> CanonicalAdr:
     candidates: list[Path] = []
     try:
         for entry in adr_directory.iterdir():
-            match = filename_regex.fullmatch(entry.name)
+            match = filename_matcher.full_match(entry.name)
             if match is None:
                 continue
             if match.group("number") != number:
