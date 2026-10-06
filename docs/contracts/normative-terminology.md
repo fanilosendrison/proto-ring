@@ -194,14 +194,19 @@ presentation delimiters are admitted only in the definition context; they are
 not deleted from expression content.
 
 Straight and curly single or double quotes may delimit an expression. The
-heuristic recognizes definition-like prose cues equivalent to:
+heuristic recognizes exactly these definition-like prose cue forms:
 
 ```text
 is
 are
+mean
 means
-refer(s) to
-is/are defined as/by
+refer to
+refers to
+is defined as
+is defined by
+are defined as
+are defined by
 ```
 
 Those cue keywords use ASCII case-insensitive matching only: ASCII `A-Z` and
