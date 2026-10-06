@@ -13,6 +13,19 @@ from test_normative_terminology import FORMAT, POLICY, SPEC
 
 
 class RegistryTests(unittest.TestCase):
+    def test_consumer_patterns_reject_native_regex_extensions(self) -> None:
+        cases = (
+            ("key_pattern", r"^\w+$"),
+            ("key_pattern", r"^\d+$"),
+            ("key_pattern", "."),
+            ("key_pattern", r"^(?=a)a$"),
+            ("key_pattern", r"(?i:a)"),
+        )
+        for field, source in cases:
+            with self.subTest(source=source):
+                with self.assertRaises(ValueError):
+                    replace(FORMAT, **{field: source})
+
     def test_valid_registry_preserves_canonical_alias_deprecated_and_structure(self) -> None:
         entries, errors = parse_registry(SPEC, FORMAT)
 
