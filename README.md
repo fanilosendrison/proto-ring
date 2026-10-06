@@ -49,6 +49,7 @@ The baseline- and maturity-bounded residual adjudication lives at:
 
 - [Shared Governance Provider](docs/contracts/shared-governance-provider.md)
 - [Repository Integrity](docs/contracts/repository-integrity.md)
+- [Git Whitespace Validation](docs/contracts/git-whitespace-validation.md)
 - [ADR metadata primitives](docs/contracts/adr-metadata-primitives.md)
 - [Canonical ADR Identity](docs/contracts/canonical-adr-identity.md)
 - [Canonical Structured Data](docs/contracts/structured-data.md)
@@ -67,6 +68,8 @@ The baseline- and maturity-bounded residual adjudication lives at:
 - [Exact Evidence Binding](docs/contracts/exact-evidence-binding.md)
 - [Evidence Requirements](docs/contracts/evidence-requirements.md)
 
+Git Whitespace Validation factorization evidence is preserved in the
+[Git Whitespace Validation extraction record](docs/bootstrap/git-whitespace-validation-extraction.md).
 Extraction evidence for the ADR metadata primitive boundary is preserved in the
 [ADR metadata primitive extraction inventory](docs/bootstrap/adr-metadata-primitives-extraction.md).
 Canonical ADR Identity factorization evidence is preserved in the
