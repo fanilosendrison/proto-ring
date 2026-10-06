@@ -9,6 +9,7 @@ from dataclasses import dataclass
 import hashlib
 import re
 
+from . import _normative_terminology_unicode as unicode14
 from . import portable_pattern
 from .normative_terminology_matching import definition_concepts as _definition_concepts
 
@@ -40,7 +41,6 @@ class RegistryFormat:
         if anchor_link.capture_count < 1 or anchor.capture_count < 1:
             raise ValueError("anchor patterns must capture the canonical destination")
 
-
 @dataclass(frozen=True)
 class RegistryEntry:
     key: str
@@ -54,14 +54,12 @@ class RegistryEntry:
     def expressions(self) -> tuple[str, ...]:
         return (self.canonical_term, *self.aliases, *self.deprecated)
 
-
 @dataclass(frozen=True)
 class MarkdownBlock:
     line: int
     section: str
     heading: str
     text: str
-
 
 @dataclass(frozen=True)
 class Occurrence:
@@ -78,7 +76,6 @@ class Occurrence:
     @property
     def signature(self) -> tuple[tuple[str, ...], str, str, str]:
         return (self.concepts, self.section, self.heading, self.fingerprint)
-
 
 @dataclass(frozen=True)
 class TerminologyPolicy:
@@ -99,58 +96,57 @@ class TerminologyPolicy:
 
 
 def normalize_text(text: str) -> str:
-    return " ".join(text.split())
-
+    return " ".join(unicode14.split_whitespace(text))
 
 def fingerprint_text(text: str) -> str:
     return hashlib.sha256(normalize_text(text).encode("utf-8")).hexdigest()
 
-
 def _table_cells(line: str) -> list[str]:
-    return [cell.strip() for cell in line.strip().strip("|").split("|")]
-
+    cells = unicode14.strip(line).strip("|").split("|")
+    return [unicode14.strip(cell) for cell in cells]
 def _valid_backtick_delimiters(value: str) -> bool:
-    value = value.strip()
+    value = unicode14.strip(value)
     count = value.count("`")
     return count == 0 or (count == 2 and value.startswith("`") and value.endswith("`"))
-
 def _plain_cell(value: str) -> str:
-    value = value.strip()
+    value = unicode14.strip(value)
     if value.startswith("`") and value.endswith("`"):
-        value = value[1:-1].strip()
+        value = unicode14.strip(value[1:-1])
     return value
-
 def _is_em_dash_form(value: str) -> bool:
-    decoded = _plain_cell(value)
-    return decoded.strip("*_~\"'“”‘’").strip() == "—"
-
+    decoded = _plain_cell(value).strip("*_~\"'“”‘’")
+    return unicode14.strip(decoded) == "—"
 def _term_list(value: str) -> tuple[str, ...]:
-    if value.strip() in {"", "—"}:
+    if unicode14.strip(value) in {"", "—"}:
         return ()
     decoded = (
         _plain_cell(item) for item in value.split(";")
-        if item.strip() and not _is_em_dash_form(item)
+        if unicode14.strip(item) and not _is_em_dash_form(item)
     )
     return tuple(item for item in decoded if item)
-
 def _has_invalid_em_dash(value: str) -> bool:
-    if value.strip() in {"", "—"}:
-        return False
-    return any(_is_em_dash_form(item) for item in value.split(";") if item.strip())
-
-def _has_empty_term(value: str) -> bool:
-    if value.strip() in {"", "—"}:
+    if unicode14.strip(value) in {"", "—"}:
         return False
     return any(
-        not item.strip() or not _plain_cell(item) for item in value.split(";")
+        _is_em_dash_form(item) for item in value.split(";")
+        if unicode14.strip(item)
+    )
+def _has_empty_term(value: str) -> bool:
+    if unicode14.strip(value) in {"", "—"}:
+        return False
+    return any(
+        not unicode14.strip(item) or not _plain_cell(item)
+        for item in value.split(";")
     )
 
 def _registry_bounds(
     document: str, registry_format: RegistryFormat
 ) -> tuple[list[str], tuple[int, int] | None, str | None]:
     lines = document.splitlines()
-    starts = [i for i, line in enumerate(lines) if line.strip() == registry_format.start_marker]
-    ends = [i for i, line in enumerate(lines) if line.strip() == registry_format.end_marker]
+    starts = [i for i, line in enumerate(lines)
+              if unicode14.strip(line) == registry_format.start_marker]
+    ends = [i for i, line in enumerate(lines)
+            if unicode14.strip(line) == registry_format.end_marker]
     if len(starts) != 1 or len(ends) != 1:
         return lines, None, "document must contain exactly one terminology registry"
     if ends[0] <= starts[0]:
@@ -167,7 +163,8 @@ def parse_registry(
         return [], [boundary_error]
     assert bounds is not None
     start, end = bounds
-    registry_lines = [line.strip() for line in lines[start + 1 : end] if line.strip()]
+    registry_lines = [unicode14.strip(line) for line in lines[start + 1 : end]
+                      if unicode14.strip(line)]
     valid_outer_pipes = all(
         line.startswith("|") and line.endswith("|")
         and not line.startswith("||") and not line.endswith("||")
@@ -191,7 +188,7 @@ def parse_registry(
         plain_cells = (row[0], row[1])
         term_cells = tuple(
             item for cell in (row[3], row[4]) for item in cell.split(";")
-            if item.strip() and item.strip() != "—"
+            if unicode14.strip(item) and unicode14.strip(item) != "—"
         )
         if any(not _valid_backtick_delimiters(value) for value in (*plain_cells, *term_cells)):
             errors.append(f"terminology registry row {row_number} has malformed backtick delimiters")
@@ -218,7 +215,8 @@ def parse_registry(
             errors.append(f"{key} has an empty alias")
         if _has_empty_term(row[4]):
             errors.append(f"{key} has empty deprecated wording")
-        normalized = [value.casefold() for value in (canonical_term, *aliases, *deprecated)]
+        normalized = [unicode14.casefold(value)
+                      for value in (canonical_term, *aliases, *deprecated)]
         if len(normalized) != len(set(normalized)):
             errors.append(f"{key} repeats a canonical, alias, or deprecated term")
         term_structure = _plain_cell(row[5])
@@ -264,26 +262,31 @@ def parse_blocks(
             continue
         if fence is not None:
             fence.append(line)
-            if line.strip().startswith(fence_token):
+            if unicode14.strip(line).startswith(fence_token):
                 blocks.append(MarkdownBlock(fence_line, section, heading, "\n".join(fence)))
                 fence = None
             continue
-        fence_match = re.match(r"^\s*(```|~~~)", line)
-        if fence_match:
+        trimmed_left = unicode14.lstrip(line)
+        opening_token = next(
+            (token for token in ("```", "~~~") if trimmed_left.startswith(token)), ""
+        )
+        if opening_token:
             flush_paragraph()
-            fence, fence_line, fence_token = [line], line_number, fence_match.group(1)
+            fence, fence_line, fence_token = [line], line_number, opening_token
             continue
         heading_match = re.match(r"^ {0,3}#{1,6}(?:[ \t]+(.*?)|[ \t]*)$", line)
         if heading_match:
             flush_paragraph()
             heading = heading_match.group(1) or ""
-            heading = re.sub(r"(?:[ \t]+|^)#+[ \t]*$", "", heading).strip()
+            heading = unicode14.strip(re.sub(
+                r"(?:[ \t]+|^)#+[ \t]*$", "", heading
+            ))
             section = policy.section_from_heading(heading)
             if not isinstance(section, str):
                 raise ValueError("section policy must return a string")
             continue
         anchor_match = portable_pattern.full_match(
-            policy.registry.anchor_pattern, line.strip()
+            policy.registry.anchor_pattern, unicode14.strip(line)
         )
         if anchor_match:
             flush_paragraph()
@@ -292,7 +295,7 @@ def parse_blocks(
                 raise ValueError("anchor policy captured an empty canonical destination")
             anchors.setdefault(anchor, []).append((line_number, section, heading))
             continue
-        if not line.strip() or line.lstrip().startswith("<!--"):
+        if not unicode14.strip(line) or unicode14.lstrip(line).startswith("<!--"):
             flush_paragraph()
             continue
         if not paragraph:
