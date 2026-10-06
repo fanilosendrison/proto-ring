@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "normative-terminology.md"
 EXTRACTION = ROOT / "docs" / "bootstrap" / "normative-terminology-extraction.md"
 IMPLEMENTATIONS = (
+    ROOT / "src" / "proto_ring" / "_normative_terminology_unicode.py",
     ROOT / "src" / "proto_ring" / "normative_terminology.py",
     ROOT / "src" / "proto_ring" / "normative_terminology_matching.py",
     ROOT / "src" / "proto_ring" / "normative_terminology_inventory.py",
@@ -69,7 +70,7 @@ class NormativeTerminologyContractTests(unittest.TestCase):
             "[Normative Terminology](docs/contracts/normative-terminology.md)",
             readme,
         )
-        self.assertIn('version = "0.16.0"', project)
+        self.assertIn('version = "0.16.1"', project)
 
 
 if __name__ == "__main__":

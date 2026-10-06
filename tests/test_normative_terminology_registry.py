@@ -138,6 +138,12 @@ class RegistryTests(unittest.TestCase):
         _, errors = parse_registry(changed, FORMAT)
         self.assertTrue(any("repeats" in error for error in errors))
 
+        unicode14_fold = SPEC.replace(
+            "| `alpha` | `alpha` |", "| `alpha` | `Straße` |", 1
+        ).replace("`first concept`", "`STRASSE`", 1)
+        _, errors = parse_registry(unicode14_fold, FORMAT)
+        self.assertTrue(any("repeats" in error for error in errors))
+
     def test_registry_rejects_malformed_backtick_delimiters(self) -> None:
         for malformed in ("`first concept", "first concept`", "``first concept``"):
             changed = SPEC.replace("`first concept`", malformed, 1)
@@ -222,10 +228,32 @@ class RegistryTests(unittest.TestCase):
             2, sum("first concept" in entry.expressions for entry in entries)
         )
 
+    def test_registry_structural_trim_uses_contract_whitespace(self) -> None:
+        row = (
+            "| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | "
+            "`first concept` | `old alpha` | base |"
+        )
+        unicode_space = SPEC.replace(row, f"\u2007{row}\u2007", 1)
+        entries, errors = parse_registry(unicode_space, FORMAT)
+        self.assertEqual([], errors)
+        self.assertEqual(["alpha", "beta"], [entry.key for entry in entries])
+
+        non_whitespace = SPEC.replace(
+            FORMAT.start_marker,
+            f"\u180e{FORMAT.start_marker}\u180e",
+            1,
+        )
+        entries, errors = parse_registry(non_whitespace, FORMAT)
+        self.assertEqual([], entries)
+        self.assertIn("document must contain exactly one terminology registry", errors)
+
 
 class FingerprintTests(unittest.TestCase):
     def test_normalization_collapses_unicode_whitespace(self) -> None:
         self.assertEqual("alpha beta gamma", normalize_text("  alpha\n beta\tgamma  "))
+        self.assertEqual("alpha beta", normalize_text("alpha\u2007beta"))
+        self.assertEqual("alpha beta", normalize_text("alpha\u001cbeta"))
+        self.assertEqual("alpha\u180ebeta", normalize_text("alpha\u180ebeta"))
 
     def test_sha256_vector_is_independently_fixed(self) -> None:
         self.assertEqual(

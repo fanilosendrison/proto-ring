@@ -14,6 +14,14 @@ class TerminologyMatchingTests(unittest.TestCase):
         self.assertEqual([], errors)
         return occurrences
 
+    def candidate_is_discovered(self, text: str) -> bool:
+        addition = f"# 4. Candidate\n\n{text}\n\n"
+        changed = SPEC.replace("# 8. Summary", addition + "# 8. Summary")
+        return any(
+            not item.canonical and item.section == "4"
+            for item in self.occurrences(changed)
+        )
+
     def test_prose_and_equation_cues_are_discovered(self) -> None:
         additions = """
 # 4. Candidate forms
@@ -176,6 +184,59 @@ Alpha is defined by its governing paragraph.
                 "c038b075eef645f9d111ac59f9fcd71dc7bfac46f5cfcd3e31449269894fd16c",
             },
             {item.fingerprint for item in candidates},
+        )
+
+    def test_mean_and_means_are_exact_ascii_case_insensitive_cues(self) -> None:
+        for cue in ("mean", "means", "MEAN", "MEANS"):
+            with self.subTest(cue=cue):
+                self.assertTrue(
+                    self.candidate_is_discovered(f"Alpha {cue} one candidate.")
+                )
+        for noncue in ("meaning", "meant"):
+            with self.subTest(noncue=noncue):
+                self.assertFalse(
+                    self.candidate_is_discovered(f"Alpha {noncue} one candidate.")
+                )
+
+    def test_definition_cues_use_ascii_case_only(self) -> None:
+        self.assertFalse(self.candidate_is_discovered("Alpha iſ one candidate."))
+        self.assertFalse(self.candidate_is_discovered("Alpha İs one candidate."))
+        self.assertTrue(self.candidate_is_discovered("Alpha IS one candidate."))
+        self.assertTrue(self.candidate_is_discovered("Alpha Is one candidate."))
+
+    def test_cue_boundary_is_ascii_defined(self) -> None:
+        for text in ("Alpha is_name", "Alpha is9", "Alpha isa"):
+            with self.subTest(text=text):
+                self.assertFalse(self.candidate_is_discovered(text))
+        for text in (
+            "Alpha is: one.",
+            "Alpha is. one.",
+            "Alpha isé candidate.",
+            "Alpha is\U0001e4d0 candidate.",
+        ):
+            with self.subTest(text=text):
+                self.assertTrue(self.candidate_is_discovered(text))
+
+    def test_multiword_cues_use_contract_whitespace(self) -> None:
+        self.assertTrue(
+            self.candidate_is_discovered(
+                "Alpha is\u2007defined\u2007as one candidate."
+            )
+        )
+        self.assertTrue(
+            self.candidate_is_discovered("Alpha refers\u001cto one candidate.")
+        )
+
+    def test_equations_use_contract_whitespace(self) -> None:
+        for operator in ("=", ":="):
+            with self.subTest(operator=operator):
+                self.assertTrue(
+                    self.candidate_is_discovered(
+                        f"\u2007*Alpha*\u2007{operator}\u2007one candidate"
+                    )
+                )
+        self.assertFalse(
+            self.candidate_is_discovered("\u2007*Alpha*\u2007==\u2007comparison")
         )
 
 
