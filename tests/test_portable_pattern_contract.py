@@ -59,8 +59,8 @@ class PortablePatternContractTests(unittest.TestCase):
             self.assertNotIn("re", imports)
             self.assertNotIn("regex", imports)
 
-    def test_package_version_is_0_16_0(self) -> None:
-        self.assertIn('version = "0.16.0"', PROJECT.read_text(encoding="utf-8"))
+    def test_package_version_is_0_16_1(self) -> None:
+        self.assertIn('version = "0.16.1"', PROJECT.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
