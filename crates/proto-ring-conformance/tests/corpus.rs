@@ -235,7 +235,7 @@ fn published_corpus_runs_through_the_differential_harness() {
     assert!(retirement_only[0].case_file.is_none());
     assert_eq!(corpus.index.case_files.len(), 29);
     assert_eq!(corpus.matrices.len(), 29);
-    assert_eq!(vector_count, 469);
+    assert_eq!(vector_count, 470);
     assert!(
         corpus
             .matrices
@@ -244,12 +244,12 @@ fn published_corpus_runs_through_the_differential_harness() {
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 469);
+    assert_eq!(requests.len(), 470);
     let serialized = serialize_candidate_requests(&requests).expect("batch request must serialize");
     let request_probe = NamedTempFile::new().expect("request probe must be created");
     fs::write(request_probe.path(), &serialized).expect("request probe must be written");
     let serialized_probe = fs::read(request_probe.path()).expect("request probe must be read");
-    assert_request_schema(&serialized_probe, 469);
+    assert_request_schema(&serialized_probe, 470);
     assert_bridge_source_is_isolated(&repository_root);
     assert_output_schema(&repository_root, one_real_request(&corpus));
     assert_retirement_only_rejected(&repository_root);
@@ -257,11 +257,11 @@ fn published_corpus_runs_through_the_differential_harness() {
     let python_observations = PythonBridge::new(&repository_root)
         .execute(&requests)
         .expect("Python bridge must execute every Rust-port vector");
-    assert_eq!(python_observations.len(), 469);
+    assert_eq!(python_observations.len(), 470);
 
     let reports = run_differential(&corpus, &python_observations, &UnimplementedRustCandidate)
         .expect("differential harness must complete without execution errors");
-    assert_eq!(reports.len(), 469);
+    assert_eq!(reports.len(), 470);
 
     let python_match = reports
         .iter()
@@ -301,19 +301,19 @@ fn published_corpus_runs_through_the_differential_harness() {
         .count();
     let rust_implemented_responsibilities = implemented_responsibilities(&reports);
 
-    assert_eq!((python_match, python_mismatch), (469, 0));
+    assert_eq!((python_match, python_mismatch), (470, 0));
     assert_eq!(
         (rust_implemented_responsibilities, rust_unimplemented),
-        (0, 469)
+        (0, 470)
     );
-    assert_eq!((rust_match, rust_mismatch, rust_not_available), (0, 0, 469));
+    assert_eq!((rust_match, rust_mismatch, rust_not_available), (0, 0, 470));
     assert_eq!(
         (
             differential_match,
             differential_mismatch,
             differential_not_available
         ),
-        (0, 0, 469)
+        (0, 0, 470)
     );
 
     eprintln!("PYTHON_BRIDGE_LOADS_CORPUS=no");
@@ -326,8 +326,8 @@ fn published_corpus_runs_through_the_differential_harness() {
     eprintln!("RUST_PORT_RESPONSIBILITIES=29");
     eprintln!("RETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1");
     eprintln!("CORPUS_MATRICES=29");
-    eprintln!("CORPUS_VECTORS=469");
-    eprintln!("PYTHON_OBSERVATIONS=469");
+    eprintln!("CORPUS_VECTORS=470");
+    eprintln!("PYTHON_OBSERVATIONS=470");
     eprintln!("PYTHON_VS_EXPECTED_MATCH={python_match}");
     eprintln!("PYTHON_VS_EXPECTED_MISMATCH={python_mismatch}");
     eprintln!("RUST_IMPLEMENTED_RESPONSIBILITIES={rust_implemented_responsibilities}");
