@@ -45,6 +45,10 @@ The baseline- and maturity-bounded residual adjudication lives at:
 
 [docs/bootstrap/turnlock-residual-governance-reaudit.md](docs/bootstrap/turnlock-residual-governance-reaudit.md)
 
+The [Rust migration conformance corpus](conformance/v1/README.md) is a
+language-neutral reusable conformance/migration corpus derived from normative
+contracts; it is not normative authority.
+
 ## Shared contracts
 
 - [Shared Governance Provider](docs/contracts/shared-governance-provider.md)
