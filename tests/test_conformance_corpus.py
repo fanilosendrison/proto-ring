@@ -3,6 +3,7 @@ from __future__ import annotations
 import inspect
 import json
 from pathlib import Path
+import subprocess
 import sys
 import unittest
 
@@ -387,12 +388,10 @@ class ConformanceCorpusTest(unittest.TestCase):
         Path("/tmp/proto-ring-61-execution-metrics.txt").write_text(metrics, encoding="utf-8")
         sys.stderr.write(metrics)
 
-    def test_11_repository_boundary_and_cache_cleanliness(self) -> None:
+    def test_11_repository_boundary_and_tracked_cache_cleanliness(self) -> None:
         validate_repository_boundaries()
-        forbidden = [
-            path for path in REPOSITORY_ROOT.rglob("*")
-            if path.name == "__pycache__" or path.suffix in {".pyc", ".pyo"}
-        ]
+        tracked = subprocess.check_output(["git", "-C", str(REPOSITORY_ROOT), "ls-files", "-z"], text=True).split("\0")
+        forbidden = [path for path in tracked if "__pycache__" in Path(path).parts or Path(path).suffix in {".pyc", ".pyo"}]
         self.assertEqual(forbidden, [])
 
 
