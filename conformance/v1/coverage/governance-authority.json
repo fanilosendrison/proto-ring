@@ -8,13 +8,30 @@
   },
   "headings": [
     {
-      "coverage_assertion": null,
-      "disposition": "context",
+      "coverage_assertion": "The referenced fixtures operationally exercise non-empty opaque exact GovernedSourceId and GovernedResponsibilityId semantics, including whitespace, case, and Unicode-normalization distinctions.",
+      "disposition": "covered",
       "heading_path": "Purpose",
       "level": 2,
-      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
-      "responsibility_ids": [],
-      "vector_refs": []
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.empty-source-identity",
+        "governance-authority.profile.empty-responsibility-identity",
+        "governance-authority.profile.source-identity-whitespace",
+        "governance-authority.profile.source-identity-case",
+        "governance-authority.profile.source-identity-unicode-normalization",
+        "governance-authority.profile.responsibility-identity-whitespace",
+        "governance-authority.profile.responsibility-identity-case",
+        "governance-authority.profile.responsibility-identity-unicode-normalization",
+        "governance-authority.profile.source-identity-non-string",
+        "governance-authority.profile.responsibility-identity-non-string",
+        "governance-authority.profile.role-source-identity-non-string",
+        "governance-authority.profile.precedence-higher-source-non-string",
+        "governance-authority.profile.precedence-lower-source-non-string",
+        "governance-authority.profile.opaque-structured-spelling"
+      ]
     },
     {
       "coverage_assertion": "Each referenced concrete fixture exercises Source roles and its expected derivation binds this exact clause.",
@@ -30,7 +47,15 @@
         "governance-authority.profile.unknown-role",
         "governance-authority.profile.precedence-endpoint-without-role",
         "governance-authority.profile.precedence-secondary-endpoint",
-        "governance-authority.profile.precedence-non-authoritative-endpoint"
+        "governance-authority.profile.precedence-non-authoritative-endpoint",
+        "governance-authority.profile.role-non-string",
+        "governance-authority.profile.role-source-identity-non-string",
+        "governance-authority.profile.precedence-undeclared-higher-endpoint",
+        "governance-authority.profile.precedence-without-role-lower-endpoint",
+        "governance-authority.profile.precedence-secondary-higher-endpoint",
+        "governance-authority.profile.precedence-non-authoritative-lower-endpoint",
+        "governance-authority.profile.secondary-role-lookup",
+        "governance-authority.profile.opaque-structured-spelling"
       ]
     },
     {
@@ -60,7 +85,11 @@
       "vector_refs": [
         "governance-authority.profile.one-authority",
         "governance-authority.profile.coauthorities",
-        "governance-authority.profile.empty-authority-set"
+        "governance-authority.profile.empty-authority-set",
+        "governance-authority.profile.coauthorities-incomparable-a-b",
+        "governance-authority.profile.coauthorities-incomparable-b-a",
+        "governance-authority.profile.empty-profile",
+        "governance-authority.profile.secondary-with-multiple-authorities"
       ]
     },
     {
@@ -82,7 +111,24 @@
         "governance-authority.profile.undeclared-endpoint",
         "governance-authority.profile.precedence-endpoint-without-role",
         "governance-authority.profile.precedence-secondary-endpoint",
-        "governance-authority.profile.precedence-non-authoritative-endpoint"
+        "governance-authority.profile.precedence-non-authoritative-endpoint",
+        "governance-authority.profile.precedence-non-sequence",
+        "governance-authority.profile.precedence-entry-non-mapping",
+        "governance-authority.profile.precedence-entry-missing-higher-source",
+        "governance-authority.profile.precedence-entry-missing-lower-source",
+        "governance-authority.profile.precedence-entry-unknown-key",
+        "governance-authority.profile.precedence-transitively-redundant-edge",
+        "governance-authority.profile.coauthorities-incomparable-a-b",
+        "governance-authority.profile.coauthorities-incomparable-b-a",
+        "governance-authority.profile.precedence-higher-source-non-string",
+        "governance-authority.profile.precedence-lower-source-non-string",
+        "governance-authority.profile.precedence-reverse-not-outranking",
+        "governance-authority.profile.precedence-reflexive-not-outranking",
+        "governance-authority.profile.precedence-responsibility-scoped",
+        "governance-authority.profile.precedence-undeclared-higher-endpoint",
+        "governance-authority.profile.precedence-without-role-lower-endpoint",
+        "governance-authority.profile.precedence-secondary-higher-endpoint",
+        "governance-authority.profile.precedence-non-authoritative-lower-endpoint"
       ]
     },
     {
@@ -96,11 +142,13 @@
       ],
       "vector_refs": [
         "governance-authority.profile.secondary-with-authority",
-        "governance-authority.profile.secondary-without-authority"
+        "governance-authority.profile.secondary-without-authority",
+        "governance-authority.profile.secondary-role-lookup",
+        "governance-authority.profile.secondary-with-multiple-authorities"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Governed sources and its expected derivation binds this exact clause.",
+      "coverage_assertion": "The referenced local fixtures exercise repository_target participation, Canonical Governance Routing composition invocation, unused-source rejection, shared targets, and loaded binding retention without duplicating the routing responsibility's filesystem state space.",
       "disposition": "covered",
       "heading_path": "Governed sources",
       "level": 2,
@@ -111,7 +159,12 @@
       "vector_refs": [
         "governance-authority.profile.canonical-routing",
         "governance-authority.profile.canonical-routing-missing-parent",
-        "governance-authority.profile.unknown-source"
+        "governance-authority.profile.unknown-source",
+        "governance-authority.profile.repository-target-non-string",
+        "governance-authority.profile.repository-target-empty",
+        "governance-authority.profile.unused-source",
+        "governance-authority.profile.shared-repository-target",
+        "governance-authority.profile.source-binding-preserved"
       ]
     },
     {
@@ -124,21 +177,47 @@
         "governance-authority.profile"
       ],
       "vector_refs": [
-        "governance-authority.profile.body-prose"
+        "governance-authority.profile.body-prose",
+        "governance-authority.profile.model-version-integer-2",
+        "governance-authority.profile.model-version-boolean",
+        "governance-authority.profile.model-version-string",
+        "governance-authority.profile.model-version-float-like",
+        "governance-authority.profile.model-version-null",
+        "governance-authority.profile.missing-model-version",
+        "governance-authority.profile.missing-sources",
+        "governance-authority.profile.missing-responsibilities",
+        "governance-authority.profile.unknown-profile-key",
+        "governance-authority.profile.responsibility-missing-roles",
+        "governance-authority.profile.responsibility-missing-precedence",
+        "governance-authority.profile.responsibility-unknown-key",
+        "governance-authority.profile.source-non-mapping",
+        "governance-authority.profile.source-unknown-key",
+        "governance-authority.profile.repository-target-non-string",
+        "governance-authority.profile.repository-target-empty",
+        "governance-authority.profile.role-non-string",
+        "governance-authority.profile.empty-source-identity",
+        "governance-authority.profile.empty-responsibility-identity",
+        "governance-authority.profile.precedence-non-sequence",
+        "governance-authority.profile.precedence-entry-non-mapping",
+        "governance-authority.profile.precedence-entry-missing-higher-source",
+        "governance-authority.profile.precedence-entry-missing-lower-source",
+        "governance-authority.profile.precedence-entry-unknown-key",
+        "governance-authority.profile.empty-profile",
+        "governance-authority.profile.root-non-mapping",
+        "governance-authority.profile.sources-non-mapping",
+        "governance-authority.profile.responsibilities-non-mapping",
+        "governance-authority.profile.responsibility-declaration-non-mapping",
+        "governance-authority.profile.roles-non-mapping"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Repository Governance Model integration and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Repository Governance Model integration",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "governance-authority.profile"
-      ],
-      "vector_refs": [
-        "governance-authority.profile.canonical-routing"
-      ]
+      "reason": "Repository Governance Model capability presence, required route selection, and route preservation are operationally owned by repository-governance-model.load and repository-governance-model.binding-compatibility. Governance Authority consumes the routed profile and does not duplicate Repository Governance Model discovery semantics.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": null,
