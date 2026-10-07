@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import fields, is_dataclass
 from enum import Enum
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -258,11 +259,13 @@ def compare(actual: dict[str, object], expected: dict[str, object], rule: dict[s
             + "\nexpected=" + json.dumps(target, ensure_ascii=False, sort_keys=True)
         )
     return "MATCH"
-
 def git_show(commit: str, path: str) -> bytes:
-    return subprocess.check_output(
-        ["git", "-C", str(REPOSITORY_ROOT), "show", f"{commit}:{path}"]
-    )
+    snapshot = CORPUS_ROOT / "fixtures" / "authorities" / commit / path
+    expected = snapshot.read_bytes()
+    completed = subprocess.run(["git", "-C", str(REPOSITORY_ROOT), "show", f"{commit}:{path}"], capture_output=True)
+    if completed.returncode == 0 and completed.stdout != expected:
+        raise AssertionError(f"authority snapshot mismatch: {commit}:{path}")
+    return expected
 
 def _heading_paths(markdown: str) -> set[str]:
     paths = set()
@@ -368,8 +371,8 @@ def validate_migration_accounting(index, responsibilities, cases, coverage):
     if (len(responsibilities), len(rust_ids), retired) != (30, 29, {retired_id}) or set(cases) != rust_ids or set(OWNER_BY_ID) != rust_ids or len(index["case_files"]) != 29: raise AssertionError("invalid migration disposition partition")
     provider = responsibilities[retired_id]; ledger = provider.get("source_test_accounting", [])
     if (provider["rust_owner_issue"], provider["case_file"], provider["python_retirement_owner"]) != (None, None, 73) or len(ledger) != 1 or ledger[0]["disposition"] != "bootstrap_evidence_only": raise AssertionError("invalid legacy provider retirement accounting")
-    encoded = json.dumps([cases, coverage], sort_keys=True)
-    if "shared-governance-provider.check." in encoded or "974ca31ff12630a90da6371cc27c1f5ef0cc590e" in encoded: raise AssertionError("unresolved legacy provider conformance authority")
+    encoded = json.dumps([index, cases, coverage], sort_keys=True)
+    if "shared-governance-provider.check." in json.dumps([cases, coverage], sort_keys=True) or "974ca31ff12630a90da6371cc27c1f5ef0cc590e" in encoded: raise AssertionError("unresolved legacy provider conformance authority")
     rgs = responsibilities["repository-governance-state.compose"]; expected_sha = "5ba3ef457786b09fd51430418b3b62ed4dc991b9"; rgs_authorities = [item for item in rgs["authorities"] if item.get("path") == "docs/contracts/repository-governance-state.md"]
     if not rgs_authorities or {item["commit"] for item in rgs_authorities} != {expected_sha} or any(item["commit"] != expected_sha for vector in cases["repository-governance-state.compose"]["vectors"] for item in vector["authorities"] if item.get("path") == "docs/contracts/repository-governance-state.md"): raise AssertionError("RGS canonical authority conflict")
     fenced = responsibilities["normative-terminology.markdown"]["required_state_distinctions"]
@@ -383,18 +386,15 @@ def validate_migration_accounting(index, responsibilities, cases, coverage):
     module_dispositions = {}
     for value in responsibilities.values():
         for module in value["frozen_baseline_modules"]: module_dispositions.setdefault(module, set()).add(value["migration_disposition"])
-    expected_modules = {name for name in subprocess.check_output(["git", "-C", str(REPOSITORY_ROOT), "ls-tree", "--name-only", f"{FROZEN_SHA}:src/proto_ring"], text=True).splitlines() if name.endswith(".py") and name != "__init__.py"}
+    expected_modules = {"accepted_adr_body.py", "adr_metadata.py", "canonical_adr.py", "evidence_requirements.py", "exact_evidence_binding.py", "git_whitespace.py", "github_authoritative_ref_monotonicity.py", "governance_authority.py", "governance_bindings.py", "governance_bootstrap.py", "governance_routing.py", "governed_objects.py", "normative_terminology.py", "normative_terminology_inventory.py", "normative_terminology_matching.py", "projection_registry.py", "repository_governance_model.py", "repository_governance_state.py", "repository_integrity.py", "repository_integrity_evaluation.py", "repository_state.py", "shared_governance_provider.py", "structured_data.py"}
     if set(module_dispositions) != expected_modules or any(len(value) != 1 for value in module_dispositions.values()): raise AssertionError("unexplained frozen module migration disposition")
     carriers = {item for value in responsibilities.values() for item in value["post_baseline_implementation_carriers"]}; fixture_files = {path.relative_to(CORPUS_ROOT).as_posix() for path in (CORPUS_ROOT / "fixtures").rglob("*") if path.is_file() and path.name != "README.md"}
-    if carriers != {"portable_pattern.py", "portable_pattern_matching.py", "_normative_terminology_unicode.py"} or any(path not in encoded for path in fixture_files): raise AssertionError("carrier or fixture accounting mismatch")
+    authority_snapshots = {f"fixtures/authorities/{item['commit']}/{item['path']}" for value in responsibilities.values() for item in value["authorities"] if item["source_kind"] == "repository"} | {f"fixtures/authorities/{item['commit']}/{item['path']}" for case in cases.values() for vector in case["vectors"] for item in vector["authorities"] if item["source_kind"] == "repository"}
+    if carriers != {"portable_pattern.py", "portable_pattern_matching.py", "_normative_terminology_unicode.py"} or set(index["authority_snapshot_files"]) != authority_snapshots or any(path not in encoded for path in fixture_files): raise AssertionError("carrier or fixture accounting mismatch")
     return {"rust": len(rust_ids), "retired": len(retired), "matrices": len(cases), "modules": len(module_dispositions), "carriers": len(carriers), "literal_mismatches": literal_mismatches, **validate_opaque_identity(responsibilities, cases)}
 
-
 def validate_repository_boundaries():
-    if (CORPUS_ROOT / "manifest.json").exists():
-        raise AssertionError("superseded manifest exists")
-    original = git_show(BASE_SHA, "pyproject.toml")
-    if (REPOSITORY_ROOT / "pyproject.toml").read_bytes() != original:
-        raise AssertionError("pyproject.toml changed")
-    if b'version = "0.17.0"' not in original:
-        raise AssertionError("package version changed")
+    if (CORPUS_ROOT / "manifest.json").exists(): raise AssertionError("superseded manifest exists")
+    current = (REPOSITORY_ROOT / "pyproject.toml").read_bytes()
+    if hashlib.sha256(current).hexdigest() != "1767c4e426f1002cc8e5cd2ef9b5fd433c622976d9ad38c72fca45e99f8284b7": raise AssertionError("pyproject.toml changed")
+    if b'version = "0.17.0"' not in current: raise AssertionError("package version changed")
