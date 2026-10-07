@@ -63,7 +63,7 @@
     "symlink-to-directory/../target resolves through the reached directory semantics",
     "broken-symlink/../existing-target is rejected",
     "symlink-cycle/../existing-target is rejected",
-    "an absolute declared path is rejected",
+    "an absolute declared path is rejected independently of final-target containment, including when it names an existing target inside the repository",
     "a final resolved target outside the repository is rejected",
     "successful resolution separately retains route, original declared path, and resolved target"
   ],

@@ -62,6 +62,7 @@
       ],
       "vector_refs": [
         "governance-routing.resolve.absolute-path",
+        "governance-routing.resolve.absolute-path-contained-target",
         "governance-routing.resolve.outside-final",
         "governance-routing.resolve.existing-parent"
       ]
