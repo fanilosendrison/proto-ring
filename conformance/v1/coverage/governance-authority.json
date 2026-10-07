@@ -73,6 +73,8 @@
         "governance-authority.profile.precedence",
         "governance-authority.profile.transitive-outranking",
         "governance-authority.profile.invalid-graph",
+        "governance-authority.profile.precedence-self-edge",
+        "governance-authority.profile.precedence-duplicate-edge",
         "governance-authority.profile.undeclared-endpoint"
       ]
     },

@@ -126,7 +126,7 @@
           {
             "op": "write_utf8",
             "path": "authority.md",
-            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Conflicting body-only pseudo-governance\n\ngovernance_authority:\n  model_version: 2\n  sources:\n    body_only: {}\n  responsibilities:\n    body_only:\n      roles:\n        body_only: authority\n      precedence: []\n"
           }
         ]
       },
@@ -776,9 +776,203 @@
       "later_python_observation": null,
       "resolution": null,
       "state_distinctions": [
-        "self edges, cycles, and exact duplicate edges are rejected"
+        "a precedence cycle is rejected"
       ],
       "vector_id": "governance-authority.profile.invalid-graph"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence-self-edge yields the encoded observation under the cited responsibility clauses; Python execution is comparison evidence only. The fixture directly exercises Repository target and Precedence and Source roles through its concrete input and exact controlled rejection."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence:\n      - higher_source: a\n        lower_source: a\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a precedence self edge is rejected"
+      ],
+      "vector_id": "governance-authority.profile.precedence-self-edge"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence-duplicate-edge yields the encoded observation under the cited responsibility clauses; Python execution is comparison evidence only. The fixture directly exercises Repository target and Precedence and Source roles through its concrete input and exact controlled rejection."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence:\n      - higher_source: a\n        lower_source: b\n      - higher_source: a\n        lower_source: b\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an exact duplicate precedence edge is rejected"
+      ],
+      "vector_id": "governance-authority.profile.precedence-duplicate-edge"
     },
     {
       "authorities": [
