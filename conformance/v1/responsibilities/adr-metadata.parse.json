@@ -1,0 +1,74 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical operation set",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Canonical structured-data loading",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact text and hashing",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Standalone-document composition",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact authored ADR bytes or standalone Canonical Structured Data bytes"
+  ],
+  "case_file": "cases/adr-metadata.parse.matrix.json",
+  "frozen_baseline_modules": [
+    "adr_metadata.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "standalone canonical YAML mapping loads with Canonical Structured Data semantics",
+    "standalone yes, Null, 01, 1.0, and date-like scalars remain strings",
+    "one standalone document with explicit markers loads",
+    "a standalone duplicate mapping key is rejected",
+    "anchors, aliases, tags, merge and block scalars are rejected",
+    "the standalone loader admits a canonical sequence root",
+    "exact ADR frontmatter parsing returns mapping and exact decision body bytes",
+    "the exact suffix at the unique Context boundary is returned",
+    "a heading containing Context text without exact level-two boundary does not redefine the body",
+    "the first exact # heading yields untrimmed exact H1 text",
+    "the exact suffix beginning at the unique H1 is returned without newline normalization",
+    "SHA-256 over exact bytes returns lowercase hexadecimal digest",
+    "invalid authored UTF-8 is rejected through the controlled ADR metadata boundary"
+  ],
+  "responsibility_id": "adr-metadata.parse",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "ADR metadata exact parsing primitives"
+}

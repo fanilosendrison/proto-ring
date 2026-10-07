@@ -1,0 +1,168 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/governed-objects.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Carrier and machine-governing payload and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Carrier and machine-governing payload",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.valid-model",
+        "governed-objects.catalog.unknown-key"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model-version-1 structure and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model-version-1 structure",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.valid-model",
+        "governed-objects.catalog.invalid-version",
+        "governed-objects.catalog.missing-structure"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact identity semantics and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact identity semantics",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.case-distinct",
+        "governed-objects.catalog.empty-identity"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Cardinalities and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Cardinalities",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.empty-interfaces",
+        "governed-objects.catalog.empty-objects",
+        "governed-objects.catalog.empty-responsibilities"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical Governance Authority composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical Governance Authority composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.unknown-responsibility",
+        "governed-objects.catalog.foreign-authority-profile"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Governed relation integrity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Governed relation integrity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.source-ownership",
+        "governed-objects.catalog.missing-target",
+        "governed-objects.catalog.self-relation",
+        "governed-objects.catalog.cycle"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Duplicate and ordering semantics and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Duplicate and ordering semantics",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.duplicate-responsibility",
+        "governed-objects.catalog.duplicate-relation",
+        "governed-objects.catalog.different-relation"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Relation vocabulary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Relation vocabulary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.different-relation"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Semantic-content boundary",
+      "level": 2,
+      "reason": "The catalog intentionally does not interpret governed object content; identity and relation vectors cover its observable boundary.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Catalog authority boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Catalog authority boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governed-objects.catalog"
+      ],
+      "vector_refs": [
+        "governed-objects.catalog.foreign-authority-profile"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Ownership boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

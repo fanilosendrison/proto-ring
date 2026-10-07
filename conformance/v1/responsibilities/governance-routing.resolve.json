@@ -1,0 +1,74 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Exact-route traversal",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Inputs",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Repository target",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Resolved binding",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "repository root, parsed routing mapping, exact route"
+  ],
+  "case_file": "cases/governance-routing.resolve.matrix.json",
+  "frozen_baseline_modules": [
+    "governance_routing.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "existing-directory/../existing-target resolves when the final target is contained",
+    "missing-component/../existing-target is rejected because resolution cannot erase the missing component",
+    "ordinary-file/../existing-target is rejected because traversal crosses a non-directory",
+    "ordinary-file/ is rejected on the POSIX fixture",
+    "ordinary-file/. is rejected on the POSIX fixture",
+    "existing-directory/ resolves successfully",
+    "existing-directory/. resolves successfully",
+    "symlink-to-directory/../target resolves through the reached directory semantics",
+    "broken-symlink/../existing-target is rejected",
+    "symlink-cycle/../existing-target is rejected",
+    "an absolute declared path is rejected",
+    "a final resolved target outside the repository is rejected",
+    "successful resolution separately retains route, original declared path, and resolved target"
+  ],
+  "responsibility_id": "governance-routing.resolve",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "title": "Canonical Governance Routing resolution"
+}

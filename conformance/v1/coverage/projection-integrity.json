@@ -1,0 +1,316 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/projection-integrity.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Canonical ownership",
+      "level": 2,
+      "reason": "The heading allocates canonical ownership; direct-source vectors exercise its mechanically observable consequences.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection modes and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection modes",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.reference-mode",
+        "projection-registry.registry.generated-mode",
+        "projection-registry.registry.maintained-mode",
+        "projection-registry.registry.historical-mode"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection modes / Reference and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection modes / Reference",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.reference-mode"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection modes / Generated projection and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection modes / Generated projection",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.generated-mode"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection modes / Mechanically validated maintained projection and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection modes / Mechanically validated maintained projection",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.maintained-mode"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection modes / Bounded historical snapshot and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection modes / Bounded historical snapshot",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.historical-mode",
+        "projection-registry.registry.historical-no-conflict"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Direct-source rule and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Direct-source rule",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.direct-sources",
+        "projection-registry.registry.distinct-direct-sources"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Currentness and completion",
+      "level": 2,
+      "reason": "Currentness is established by the bound Repository Integrity validation rather than a separate projection-parser result.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Validation ownership and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Validation ownership",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.validation-reference"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Synchronization rule",
+      "level": 2,
+      "reason": "The rule constrains consumer update workflow and has no additional parser observation in #61.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Authority and evidence boundaries and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Authority and evidence boundaries",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry",
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.authority-reference",
+        "projection-registry.registry.direct-sources"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Mechanically significant embedded assertions and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Mechanically significant embedded assertions",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.mode-fields"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Governed identity boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Governed identity boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry",
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.object-scope",
+        "projection-registry.registry.optional-target"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Persistent Projection Registry and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent Projection Registry",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.reference-mode"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Authority and direct-source composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Authority and direct-source composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.direct-sources"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Persistent mode fields and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent mode fields",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.mode-fields"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository Integrity validation binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository Integrity validation binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.validation-reference"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Optional governed-object target and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Optional governed-object target",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.optional-target"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Optional Governance Binding reference and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Optional Governance Binding reference",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.optional-binding"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Executable realization composition",
+      "level": 2,
+      "reason": "Executable realization is a downstream composition concern; provider-observation vectors remain bound to ARM authority.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Active ambiguity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Active ambiguity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "projection-registry.registry"
+      ],
+      "vector_refs": [
+        "projection-registry.registry.active-ambiguity",
+        "projection-registry.registry.distinct-direct-sources",
+        "projection-registry.registry.historical-no-conflict"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Current consumer confrontation",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Change protocol",
+      "level": 2,
+      "reason": "The heading governs authority-change workflow rather than one additional executable projection value.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Relationship to Repository Integrity",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

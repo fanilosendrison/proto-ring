@@ -1,0 +1,2108 @@
+{
+  "case_id": "normative-terminology.fingerprint.matrix",
+  "operation_id": "normative-terminology.fingerprint",
+  "python_retirement_issue": 73,
+  "responsibility_id": "normative-terminology.fingerprint",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Canonical occurrence binding",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Canonical occurrence binding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "Full registry-driven occurrence discovery binds the exact block to its concept, numbered section, heading and canonical status; the expected fingerprint is independently calculated from contract-normalized fixture text."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "count",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "occurrence",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "fingerprint",
+                    "value": {
+                      "type": "string",
+                      "value": "dd512041ce4865f1c234a7dfb3c29514888f360452003fe44238e8b5d49b6d28"
+                    }
+                  },
+                  {
+                    "name": "heading",
+                    "value": {
+                      "type": "string",
+                      "value": "2.1 Definitions"
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "2.1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "markdown",
+              "value": {
+                "type": "string",
+                "value": "# Example specification\n\n# 0. Intent\n\nAlpha supports the product promise without defining it.\n\n# 2. Core model\n\n<!-- terminology:start -->\n| Concept key | Canonical term | Canonical anchor | Accepted aliases | Deprecated wording | Term structure |\n| ----------- | -------------- | ---------------- | ---------------- | ------------------ | -------------- |\n| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | `first concept` | `old alpha` | base |\n| `beta` | `beta region` | [`term-beta`](#term-beta) | `bounded region` | — | compound |\n<!-- terminology:end -->\n\n## 2.1 Definitions\n\n<a id=\"term-alpha\"></a>\n\nAn **alpha** is the first canonical concept.\n\n<a id=\"term-beta\"></a>\n\nA **beta region** is a separate compound concept.\n\n# 8. Summary\n\nAlpha refers to the canonical concept.\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "discover_occurrence"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "definition"
+                        },
+                        {
+                          "type": "string",
+                          "value": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "value": "summary"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "section_prefix"
+                          }
+                        },
+                        {
+                          "name": "section_prefix",
+                          "value": {
+                            "type": "string",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "definition"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "8",
+                                "value": {
+                                  "type": "string",
+                                  "value": "summary"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "numbered_dotted_prefix"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "2.1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a valid anchor binding produces one canonical occurrence"
+      ],
+      "vector_id": "normative-terminology.fingerprint.canonical-occurrence"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "The exact operational input for normative-terminology.fingerprint.fingerprint yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Fingerprints and signatures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "sha256",
+              "value": {
+                "type": "string",
+                "value": "1a989ea86150171c687b0727f218eedbb94c4665a7da9b0add1bf5de607f2bf1"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "fingerprint_text"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "alpha beta"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "fingerprint is lowercase SHA-256 over normalized UTF-8 text"
+      ],
+      "vector_id": "normative-terminology.fingerprint.fingerprint"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical occurrence binding",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Canonical occurrence binding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "Full occurrence discovery observes another recognized canonical anchor between term-alpha and its candidate definition block, so immediate canonical binding fails semantically."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "intervening_canonical_anchor"
+              }
+            },
+            {
+              "name": "present",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category_filter",
+              "value": {
+                "type": "string",
+                "value": "intervening_canonical_anchor"
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "markdown",
+              "value": {
+                "type": "string",
+                "value": "# Example specification\n\n# 0. Intent\n\nAlpha supports the product promise without defining it.\n\n# 2. Core model\n\n<!-- terminology:start -->\n| Concept key | Canonical term | Canonical anchor | Accepted aliases | Deprecated wording | Term structure |\n| ----------- | -------------- | ---------------- | ---------------- | ------------------ | -------------- |\n| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | `first concept` | `old alpha` | base |\n| `beta` | `beta region` | [`term-beta`](#term-beta) | `bounded region` | — | compound |\n<!-- terminology:end -->\n\n## 2.1 Definitions\n\n<a id=\"term-alpha\"></a>\n\n<a id=\"term-beta\"></a>\n\nAn **alpha** is the first canonical concept.\n\n<a id=\"term-beta\"></a>\n\nA **beta region** is a separate compound concept.\n\n# 8. Summary\n\nAlpha refers to the canonical concept.\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "discover_error_categories"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "definition"
+                        },
+                        {
+                          "type": "string",
+                          "value": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "value": "summary"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "section_prefix"
+                          }
+                        },
+                        {
+                          "name": "section_prefix",
+                          "value": {
+                            "type": "string",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "definition"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "8",
+                                "value": {
+                                  "type": "string",
+                                  "value": "summary"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "numbered_dotted_prefix"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an intervening recognized anchor prevents binding to the earlier anchor"
+      ],
+      "vector_id": "normative-terminology.fingerprint.intervening-anchor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Consumer role policy",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Consumer role policy",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "The fixture explicitly moves canonical location policy to section prefix 7; discovery accepts both registered definitions at 7.1 and reports no error."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "canonical_count",
+              "value": {
+                "type": "integer",
+                "value": "2"
+              }
+            },
+            {
+              "name": "canonical_sections",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "7.1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "7.1"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "markdown",
+              "value": {
+                "type": "string",
+                "value": "# Example specification\n\n# 0. Intent\n\nAlpha supports the product promise without defining it.\n\n# 2. Core model\n\n<!-- terminology:start -->\n| Concept key | Canonical term | Canonical anchor | Accepted aliases | Deprecated wording | Term structure |\n| ----------- | -------------- | ---------------- | ---------------- | ------------------ | -------------- |\n| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | `first concept` | `old alpha` | base |\n| `beta` | `beta region` | [`term-beta`](#term-beta) | `bounded region` | — | compound |\n<!-- terminology:end -->\n\n## 7.1 Definitions\n\n<a id=\"term-alpha\"></a>\n\nAn **alpha** is the first canonical concept.\n\n<a id=\"term-beta\"></a>\n\nA **beta region** is a separate compound concept.\n\n# 8. Summary\n\nAlpha refers to the canonical concept.\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "discover_location_summary"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "definition"
+                        },
+                        {
+                          "type": "string",
+                          "value": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "value": "summary"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "section_prefix"
+                          }
+                        },
+                        {
+                          "name": "section_prefix",
+                          "value": {
+                            "type": "string",
+                            "value": "7"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "definition"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "8",
+                                "value": {
+                                  "type": "string",
+                                  "value": "summary"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "numbered_dotted_prefix"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the consumer canonical-location predicate must return boolean true for canonical binding"
+      ],
+      "vector_id": "normative-terminology.fingerprint.location-policy"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "Full discovery emits one noncanonical occurrence for the exact combined block with both sorted concepts and its independently derived fingerprint. The concrete operation also demonstrates Fingerprints and signatures."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "count",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "occurrence",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        },
+                        {
+                          "type": "string",
+                          "value": "beta"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "fingerprint",
+                    "value": {
+                      "type": "string",
+                      "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                    }
+                  },
+                  {
+                    "name": "heading",
+                    "value": {
+                      "type": "string",
+                      "value": "4. Combined"
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "4"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "markdown",
+              "value": {
+                "type": "string",
+                "value": "# Example specification\n\n# 0. Intent\n\nAlpha supports the product promise without defining it.\n\n# 2. Core model\n\n<!-- terminology:start -->\n| Concept key | Canonical term | Canonical anchor | Accepted aliases | Deprecated wording | Term structure |\n| ----------- | -------------- | ---------------- | ---------------- | ------------------ | -------------- |\n| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | `first concept` | `old alpha` | base |\n| `beta` | `beta region` | [`term-beta`](#term-beta) | `bounded region` | — | compound |\n<!-- terminology:end -->\n\n## 2.1 Definitions\n\n<a id=\"term-alpha\"></a>\n\nAn **alpha** is the first canonical concept.\n\n<a id=\"term-beta\"></a>\n\nA **beta region** is a separate compound concept.\n\n# 4. Combined\n\nAlpha means one. Beta region means two.\n\n# 8. Summary\n\nAlpha refers to the canonical concept.\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "discover_occurrence"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "definition"
+                        },
+                        {
+                          "type": "string",
+                          "value": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "value": "summary"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "section_prefix"
+                          }
+                        },
+                        {
+                          "name": "section_prefix",
+                          "value": {
+                            "type": "string",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "definition"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "8",
+                                "value": {
+                                  "type": "string",
+                                  "value": "summary"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "numbered_dotted_prefix"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        },
+                        {
+                          "type": "string",
+                          "value": "beta"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "4"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one block may contain multiple sorted concept keys"
+      ],
+      "vector_id": "normative-terminology.fingerprint.multi-concept"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical occurrence binding",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Canonical occurrence binding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "Full registry-driven occurrence discovery binds the exact block to its concept, numbered section, heading and canonical status; the expected fingerprint is independently calculated from contract-normalized fixture text."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "count",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "occurrence",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "fingerprint",
+                    "value": {
+                      "type": "string",
+                      "value": "5a52e666cb3d2f6f432d5e146d10160e30248bf6a2c3cf383981df52dad48801"
+                    }
+                  },
+                  {
+                    "name": "heading",
+                    "value": {
+                      "type": "string",
+                      "value": "8. Summary"
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "8"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "markdown",
+              "value": {
+                "type": "string",
+                "value": "# Example specification\n\n# 0. Intent\n\nAlpha supports the product promise without defining it.\n\n# 2. Core model\n\n<!-- terminology:start -->\n| Concept key | Canonical term | Canonical anchor | Accepted aliases | Deprecated wording | Term structure |\n| ----------- | -------------- | ---------------- | ---------------- | ------------------ | -------------- |\n| `alpha` | `alpha` | [`term-alpha`](#term-alpha) | `first concept` | `old alpha` | base |\n| `beta` | `beta region` | [`term-beta`](#term-beta) | `bounded region` | — | compound |\n<!-- terminology:end -->\n\n## 2.1 Definitions\n\n<a id=\"term-alpha\"></a>\n\nAn **alpha** is the first canonical concept.\n\n<a id=\"term-beta\"></a>\n\nA **beta region** is a separate compound concept.\n\n# 8. Summary\n\nAlpha refers to the canonical concept.\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "discover_occurrence"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "definition"
+                        },
+                        {
+                          "type": "string",
+                          "value": "reference"
+                        },
+                        {
+                          "type": "string",
+                          "value": "summary"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "section_prefix"
+                          }
+                        },
+                        {
+                          "name": "section_prefix",
+                          "value": {
+                            "type": "string",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "definition"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "8",
+                                "value": {
+                                  "type": "string",
+                                  "value": "summary"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "numbered_dotted_prefix"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "canonical",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "concepts",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section",
+                    "value": {
+                      "type": "string",
+                      "value": "8"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "another definition-like block produces a noncanonical occurrence"
+      ],
+      "vector_id": "normative-terminology.fingerprint.noncanonical-occurrence"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "Actual Occurrence.signature excludes line and canonical, so A and B are equal after concept sorting, while C differs in the signature-participating section field."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "a_equals_b",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "a_equals_c",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "signatures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "sequence",
+                        "value": [
+                          {
+                            "type": "string",
+                            "value": "alpha"
+                          },
+                          {
+                            "type": "string",
+                            "value": "beta"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "value": "4"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4. Combined"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "sequence",
+                        "value": [
+                          {
+                            "type": "string",
+                            "value": "alpha"
+                          },
+                          {
+                            "type": "string",
+                            "value": "beta"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "value": "4"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4. Combined"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "sequence",
+                        "value": [
+                          {
+                            "type": "string",
+                            "value": "alpha"
+                          },
+                          {
+                            "type": "string",
+                            "value": "beta"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "value": "5"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4. Combined"
+                      },
+                      {
+                        "type": "string",
+                        "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Concept key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Accepted aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated wording"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": false
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            },
+                            {
+                              "type": "string",
+                              "value": "beta"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "4. Combined"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "10"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "4"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "beta"
+                            },
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "4. Combined"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "99"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "4"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": false
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            },
+                            {
+                              "type": "string",
+                              "value": "beta"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "4b52db97f4ba3359fcfa4f510d47587c6bb251ac21f854ff3a1b247055a10f6d"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "4. Combined"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "10"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "5"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "occurrence_signatures"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "signature excludes source line and canonical diagnostic flag"
+      ],
+      "vector_id": "normative-terminology.fingerprint.signature"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fingerprints and signatures",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Fingerprints and signatures"
+          ],
+          "reason": "The exact operational input for normative-terminology.fingerprint.whitespace-normalization yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Fingerprints and signatures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "alpha beta"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "normalize_text"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "alpha beta"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "contract whitespace runs collapse to one ASCII space"
+      ],
+      "vector_id": "normative-terminology.fingerprint.whitespace-normalization"
+    }
+  ]
+}

@@ -1,0 +1,4052 @@
+{
+  "case_id": "accepted-adr-body.immutability.matrix",
+  "operation_id": "accepted-adr-body.immutability",
+  "python_retirement_issue": 73,
+  "responsibility_id": "accepted-adr-body.immutability",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Acceptance anchor",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Acceptance anchor",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.accepted-creation yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Acceptance anchor through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "direct first accepted creation establishes a body seal and is valid"
+      ],
+      "vector_id": "accepted-adr-body.immutability.accepted-creation"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Acceptance anchor",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Current working state",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Acceptance anchor",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Current working state",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.first-uncommitted-acceptance yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Acceptance anchor through its concrete input and exact result. The fixture directly exercises Current working state through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"proposed\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "proposed A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a first working-tree acceptance without historical anchor is allowed"
+      ],
+      "vector_id": "accepted-adr-body.immutability.first-uncommitted-acceptance"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Legacy non-accepted structured state",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Legacy non-accepted structured state",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.legacy-superseded yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Legacy non-accepted structured state through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"superseded\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "legacy superseded"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "first structured superseded state without prior acceptance does not seal"
+      ],
+      "vector_id": "accepted-adr-body.immutability.legacy-superseded"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.nonutf8-direct yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Historical discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "hash-object",
+              "-w",
+              "--stdin"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "7261770a"
+          },
+          {
+            "argv": [
+              "update-index",
+              "-z",
+              "--index-info"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "31303036343420626c6f62203136623964343663613261623531653962356638613965356261333166336566356139303661623609646f63732f6164722f696e76616c69642dff2e6d6400"
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "raw path"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "errors",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "historical Git path is not valid UTF-8"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "After acceptance",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/accepted-adr-body-immutability.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "correction_issue": 81,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a direct non-UTF8 child cannot enter the textual filename-pattern domain and is ignored"
+      ],
+      "vector_id": "accepted-adr-body.immutability.nonutf8-direct"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.nonutf8-nested yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "hash-object",
+              "-w",
+              "--stdin"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "7261770a"
+          },
+          {
+            "argv": [
+              "update-index",
+              "-z",
+              "--index-info"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "31303036343420626c6f62203136623964343663613261623531653962356638613965356261333166336566356139303661623609646f63732f6164722f6e65737465642f696e76616c69642dff2e62696e00"
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "raw path"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "errors",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "historical Git path is not valid UTF-8"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "After acceptance",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/accepted-adr-body-immutability.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "correction_issue": 81,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a nested non-UTF8 path under the ADR directory is ignored"
+      ],
+      "vector_id": "accepted-adr-body.immutability.nonutf8-nested"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.nonutf8-outside yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "hash-object",
+              "-w",
+              "--stdin"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "7261770a"
+          },
+          {
+            "argv": [
+              "update-index",
+              "-z",
+              "--index-info"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "31303036343420626c6f622031366239643436636132616235316539623566386139653562613331663365663561393036616236096f7574736964652f696e76616c69642dff2e62696e00"
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "raw path"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "errors",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "historical Git path is not valid UTF-8"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "After acceptance",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/accepted-adr-body-immutability.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "correction_issue": 81,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an unrelated non-UTF8 path outside the ADR directory is ignored"
+      ],
+      "vector_id": "accepted-adr-body.immutability.nonutf8-outside"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Current configuration boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Current configuration boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.outside-impostor yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Current configuration boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "mkdir",
+            "path": "outside"
+          },
+          {
+            "op": "write_utf8",
+            "path": "outside/adr-001-impostor.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "impostor"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a same-ID impostor outside the canonical corpus is ignored"
+      ],
+      "vector_id": "accepted-adr-body.immutability.outside-impostor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.postacceptance-rewrite yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises After acceptance through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "body_changed"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted B"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a changed body after acceptance is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.postacceptance-rewrite"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.postacceptance-symlink yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Historical discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "historical_state_invalid"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "remove",
+            "path": "docs/adr/adr-001-example.md"
+          },
+          {
+            "op": "symlink",
+            "path": "docs/adr/adr-001-example.md",
+            "target": "../outside.md",
+            "target_is_directory": false
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "symlink"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "remove",
+            "path": "docs/adr/adr-001-example.md"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "restore"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a postacceptance matching symlink state is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.postacceptance-symlink"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.postacceptance-unstructured yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Historical discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "historical_state_invalid"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "# Legacy\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "unstructured"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "restore"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a postacceptance unstructured matching state is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.postacceptance-unstructured"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Before acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Before acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.preacceptance-change yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Before acceptance through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"proposed\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "proposed A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"proposed\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "proposed B"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nC\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted C"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "proposed body changes before acceptance are allowed"
+      ],
+      "vector_id": "accepted-adr-body.immutability.preacceptance-change"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.prefix-collision yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "hash-object",
+              "-w",
+              "--stdin"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "7261770a"
+          },
+          {
+            "argv": [
+              "update-index",
+              "-z",
+              "--index-info"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": "31303036343420626c6f62203136623964343663613261623531653962356638613965356261333166336566356139303661623609646f63732f6164722d6f746865722f696e76616c69642dff2e62696e00"
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "raw path"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "errors",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "historical Git path is not valid UTF-8"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "After acceptance",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/accepted-adr-body-immutability.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "7ccde07f4d9801383d6a2410e3d12ce6ee716f34",
+        "correction_issue": 81,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a non-UTF8 path under an ADR-directory prefix collision is ignored"
+      ],
+      "vector_id": "accepted-adr-body.immutability.prefix-collision"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.replace-refs yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Historical discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "accepted",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "write-tree"
+            ],
+            "capture_stdout_as": "tree",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit-tree",
+              "${tree}",
+              "-m",
+              "replacement"
+            ],
+            "capture_stdout_as": "replacement",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "replace",
+              "${accepted}",
+              "${replacement}"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Git replace refs are ignored during historical inspection"
+      ],
+      "vector_id": "accepted-adr-body.immutability.replace-refs"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.rewrite-restore yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises After acceptance through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "body_changed"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "changed B"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "restored A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a published rewrite followed by restoration remains rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.rewrite-restore"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.slug-rename-changed yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "body_changed"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted old"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "remove",
+            "path": "docs/adr/adr-001-example.md"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-renamed.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "renamed changed"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "slug rename changing accepted body is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.slug-rename-changed"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Current configuration boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Current configuration boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.slug-rename-same yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Historical discovery through its concrete input and exact result. The fixture directly exercises Current configuration boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted old"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "mv",
+              "docs/adr/adr-001-example.md",
+              "docs/adr/adr-001-renamed.md"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "renamed"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "slug rename preserving logical ID and exact body is accepted"
+      ],
+      "vector_id": "accepted-adr-body.immutability.slug-rename-same"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Lifecycle boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Lifecycle boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.superseded-changed yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises After acceptance through its concrete input and exact result. The fixture directly exercises Lifecycle boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "body_changed"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"superseded\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "superseded B"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "accepted to superseded with changed body is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.superseded-changed"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Lifecycle boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Lifecycle boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.superseded-same yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Lifecycle boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"superseded\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "superseded A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "accepted to superseded with identical body is accepted"
+      ],
+      "vector_id": "accepted-adr-body.immutability.superseded-same"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "After acceptance",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Current working state",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#After acceptance",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Current working state",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for accepted-adr-body.immutability.uncommitted-rewrite yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Current working state through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "body_changed"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "accepted A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nB\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a current uncommitted rewrite is rejected"
+      ],
+      "vector_id": "accepted-adr-body.immutability.uncommitted-rewrite"
+    }
+  ]
+}

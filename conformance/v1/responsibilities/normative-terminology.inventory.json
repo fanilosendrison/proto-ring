@@ -1,0 +1,61 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Consumer role policy",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Failure behavior",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Reviewed occurrence inventory",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "discovered occurrences, maintained inventory, allowed roles and resolver"
+  ],
+  "case_file": "cases/normative-terminology.inventory.matrix.json",
+  "frozen_baseline_modules": [
+    "normative_terminology_inventory.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a resolver-produced role in the consumer allowed set is accepted",
+    "a maintained or resolved role outside the allowed set is rejected",
+    "an inventory occurrence referencing an unknown concept is rejected",
+    "an unmatched discovered occurrence is unreviewed and fails",
+    "an unmatched maintained occurrence is stale and fails",
+    "maintained copies exceeding discovered multiplicity are rejected",
+    "canonical and noncanonical facts may resolve to consumer-owned roles",
+    "inventory comparison uses contract occurrence signatures and multiset multiplicity"
+  ],
+  "responsibility_id": "normative-terminology.inventory",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Normative Terminology reviewed inventory"
+}

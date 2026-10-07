@@ -1,0 +1,184 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/shared-governance-provider.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority remains local",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Generic versus consumer-specific governance",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Mandatory provider rule",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Generic capability not yet present in proto-ring",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Immutable consumption",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Local composition",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.valid-registry"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Binding kinds and scopes and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry / Binding kinds and scopes",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.binding-kinds",
+        "governance-bindings.registry.scope-kinds"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Immutable identities and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry / Immutable identities",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.identity-shape",
+        "governance-bindings.registry.commit-shape"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Consumer-owned binding authority and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry / Consumer-owned binding authority",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.authority-reference",
+        "governance-bindings.registry.registry-source"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Cardinality and ambiguity and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry / Cardinality and ambiguity",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.cardinality",
+        "governance-bindings.registry.contract-ambiguity"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Read-only provider and installation boundary and binds its exact authority clause.",
+      "disposition": "covered",
+      "heading_path": "Governance Binding Registry / Read-only provider and installation boundary",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bindings.registry"
+      ],
+      "vector_refs": [
+        "governance-bindings.registry.valid-registry"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Existing and future proto-ring mechanisms",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Change protocol",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authority boundary",
+      "level": 2,
+      "reason": "normative consumer-adoption/provider-ownership policy; not a standalone reference-engine execution responsibility in the #61 Rust migration corpus",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

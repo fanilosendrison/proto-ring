@@ -1,0 +1,99 @@
+{
+  "allowed_implementation_freedom": [
+    "No Rust implementation is required or admitted for the obsolete RGM-v1 authority-chain bridge; #73 may remove or demote it after consumer migration proves no remaining dependency."
+  ],
+  "authorities": [
+    {
+      "clause": "Logical provider",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "current RGM-v2 shared_governance_provider / registry route and Governance Binding Registry; legacy RGM-v1 checker source-test inventory is retirement evidence only"
+  ],
+  "case_file": null,
+  "frozen_baseline_modules": [
+    "shared_governance_provider.py"
+  ],
+  "migration_disposition": "retire_without_rust_port",
+  "non_normative_behaviors": [
+    "legacy Python module implements the obsolete RGM-v1 provider authority-chain bridge",
+    "active v2 immutable binding representation is Governance Binding Registry",
+    "active v2 provider route is shared_governance_provider / registry",
+    "legacy checker receives no Rust port",
+    "Python module is retired or demoted by #73 after consumer migration"
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "legacy shared_governance_provider.py is fully accounted as retire_without_rust_port while active provider binding semantics remain owned by Governance Binding Registry and RGM v2"
+  ],
+  "responsibility_id": "shared-governance-provider.check",
+  "rust_owner_issue": null,
+  "schema_version": "1.0",
+  "source_test_accounting": [
+    {
+      "disposition": "bootstrap_evidence_only",
+      "methods": [
+        "test_absolute_binding_path_returns_error",
+        "test_agents_duplicate_repository_governance_returns_error",
+        "test_agents_malformed_yaml_returns_error",
+        "test_agents_with_crlf_returns_error",
+        "test_agents_with_invalid_utf8_returns_error",
+        "test_agents_with_utf8_bom_returns_error",
+        "test_agents_without_frontmatter_returns_error",
+        "test_agents_without_repository_governance_returns_error",
+        "test_agents_without_shared_provider_returns_error",
+        "test_authority_id_mismatch_returns_error",
+        "test_authority_with_mutable_identity_returns_error",
+        "test_authority_with_two_identity_blocks_returns_error",
+        "test_authority_with_zero_identity_blocks_returns_error",
+        "test_binding_anchor_returns_error",
+        "test_binding_authority_id_resolves_through_canonical_adr",
+        "test_binding_body_identity_mismatch_returns_error",
+        "test_binding_body_with_two_identity_blocks_returns_error",
+        "test_binding_body_with_zero_identity_blocks_returns_error",
+        "test_binding_contract_commit_mismatch_returns_error",
+        "test_binding_contract_path_mismatch_returns_error",
+        "test_binding_contract_repository_mismatch_returns_error",
+        "test_binding_duplicate_provider_mapping_returns_error",
+        "test_binding_malformed_yaml_returns_error",
+        "test_binding_with_crlf_returns_error",
+        "test_binding_with_utf8_bom_returns_error",
+        "test_binding_without_frontmatter_returns_error",
+        "test_decision_body_hash_mismatch_returns_error",
+        "test_declared_authority_path_returns_exact_error",
+        "test_escaping_binding_path_returns_error",
+        "test_malformed_decision_body_hash_returns_error",
+        "test_mandatory_false_returns_error",
+        "test_missing_agents_returns_error",
+        "test_missing_authority_adr_returns_error",
+        "test_missing_authority_id_returns_error",
+        "test_missing_binding_path_returns_error",
+        "test_missing_binding_returns_error",
+        "test_nonaccepted_authority_returns_error",
+        "test_old_prose_directive_is_not_required",
+        "test_required_false_returns_error",
+        "test_same_id_adr_outside_configured_corpus_is_ignored",
+        "test_two_canonical_candidates_return_error",
+        "test_valid_structured_chain_passes"
+      ],
+      "path": "tests/test_shared_governance_provider.py",
+      "reason": "legacy RGM-v1 authority-chain checker is retirement-only and superseded by Governance Binding Registry / RGM v2"
+    }
+  ],
+  "title": "Legacy Shared Governance Provider checker retirement accounting"
+}

@@ -1,0 +1,120 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Acceptance anchor",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "After acceptance",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Before acceptance",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Current configuration boundary",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Current working state",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Historical discovery",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Legacy non-accepted structured state",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Lifecycle boundary",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/accepted-adr-body-immutability.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Canonical corpus",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/canonical-adr-identity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact Git worktree history, current profile, current working tree"
+  ],
+  "case_file": "cases/accepted-adr-body.immutability.matrix.json",
+  "frozen_baseline_modules": [
+    "accepted_adr_body.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "direct first accepted creation establishes a body seal and is valid",
+    "proposed body changes before acceptance are allowed",
+    "a changed body after acceptance is rejected",
+    "a published rewrite followed by restoration remains rejected",
+    "a current uncommitted rewrite is rejected",
+    "a first working-tree acceptance without historical anchor is allowed",
+    "accepted to superseded with identical body is accepted",
+    "accepted to superseded with changed body is rejected",
+    "first structured superseded state without prior acceptance does not seal",
+    "slug rename preserving logical ID and exact body is accepted",
+    "slug rename changing accepted body is rejected",
+    "a postacceptance matching symlink state is rejected",
+    "a postacceptance unstructured matching state is rejected",
+    "Git replace refs are ignored during historical inspection",
+    "a same-ID impostor outside the canonical corpus is ignored",
+    "an unrelated non-UTF8 path outside the ADR directory is ignored",
+    "a nested non-UTF8 path under the ADR directory is ignored",
+    "a direct non-UTF8 child cannot enter the textual filename-pattern domain and is ignored",
+    "a non-UTF8 path under an ADR-directory prefix collision is ignored"
+  ],
+  "responsibility_id": "accepted-adr-body.immutability",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Accepted ADR Body Immutability"
+}

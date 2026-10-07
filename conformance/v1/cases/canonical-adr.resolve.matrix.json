@@ -1,0 +1,2557 @@
+{
+  "case_id": "canonical-adr.resolve.matrix",
+  "operation_id": "canonical-adr.resolve",
+  "python_retirement_issue": 73,
+  "responsibility_id": "canonical-adr.resolve",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Projection exclusion",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Projection exclusion"
+          ],
+          "reason": "Candidate resolution scans only canonical filename candidates and structured ADR identity. The exact body case additionally parses the resolved file and returns the byte-exact Context-through-EOF body; index and README redirect-like prose cannot influence resolution."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "include_decision_body",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nExact bytes.\n\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "outside"
+          },
+          {
+            "op": "write_utf8",
+            "path": "outside/adr-001-impostor.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Impostor\n\n## Context\n\nOutside.\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/README.md",
+            "text": "Historical ADR-001 redirects to ../outside/adr-001-impostor.md\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an annotated history claim cannot redirect resolution"
+      ],
+      "vector_id": "canonical-adr.resolve.annotated-history"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.directory-missing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical corpus through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a missing ADR directory is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.directory-missing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured record requirement",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Structured record requirement"
+          ],
+          "reason": "Candidate resolution scans only canonical filename candidates and structured ADR identity. The exact body case additionally parses the resolved file and returns the byte-exact Context-through-EOF body; index and README redirect-like prose cannot influence resolution. The concrete operation also demonstrates Structured record requirement."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "decision_body",
+              "value": {
+                "type": "bytes",
+                "value": "232320436f6e746578740a0a45786163742062797465732e0a0a"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "include_decision_body",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nExact bytes.\n\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "successful resolution returns the exact decision-body bytes"
+      ],
+      "vector_id": "canonical-adr.resolve.exact-body"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumer-owned configuration",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumer-owned configuration"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.filename-pattern-invalid yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumer-owned configuration through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '[(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an invalid consumer filename pattern is rejected through Portable Pattern"
+      ],
+      "vector_id": "canonical-adr.resolve.filename-pattern-invalid"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Projection exclusion",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Projection exclusion"
+          ],
+          "reason": "Candidate resolution scans only canonical filename candidates and structured ADR identity. The exact body case additionally parses the resolved file and returns the byte-exact Context-through-EOF body; index and README redirect-like prose cannot influence resolution."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "include_decision_body",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nExact bytes.\n\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "outside"
+          },
+          {
+            "op": "write_utf8",
+            "path": "outside/adr-001-impostor.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Impostor\n\n## Context\n\nOutside.\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/index.md",
+            "text": "ADR-001 redirects to ../outside/adr-001-impostor.md\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a generated index claim cannot redirect resolution"
+      ],
+      "vector_id": "canonical-adr.resolve.generated-index"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumer-owned configuration",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumer-owned configuration"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.id-pattern-invalid yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumer-owned configuration through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '['\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an invalid consumer ID pattern is rejected through Portable Pattern"
+      ],
+      "vector_id": "canonical-adr.resolve.id-pattern-invalid"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.matching-symlink yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Candidate resolution through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/target.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "op": "symlink",
+            "path": "docs/adr/adr-001-example.md",
+            "target": "target.md",
+            "target_is_directory": false
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a matching symlink entry is rejected without following it"
+      ],
+      "vector_id": "canonical-adr.resolve.matching-symlink"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Logical ADR identity",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured record requirement",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Logical ADR identity",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Structured record requirement"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.metadata-id-mismatch yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Logical ADR identity through its concrete input and exact result. The fixture directly exercises Structured record requirement through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-002\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "candidate metadata.id mismatch is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.metadata-id-mismatch"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.multiple-candidates yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Candidate resolution through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-second.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "multiple candidates fail ambiguous"
+      ],
+      "vector_id": "canonical-adr.resolve.multiple-candidates"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumed profile fields",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumed profile fields"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.number-capture-absent yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumed profile fields through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a filename pattern without a nonempty named number capture is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.number-capture-absent"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.one-candidate yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Candidate resolution through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one matching regular-file candidate continues"
+      ],
+      "vector_id": "canonical-adr.resolve.one-candidate"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.outside-corpus yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical corpus through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "mkdir",
+            "path": "outside"
+          },
+          {
+            "op": "write_utf8",
+            "path": "outside/adr-001-impostor.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a same-ID file outside the configured corpus is ignored"
+      ],
+      "vector_id": "canonical-adr.resolve.outside-corpus"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumer-owned configuration",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumer-owned configuration"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.profile-route-malformed yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumer-owned configuration through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: [\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed profile route is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.profile-route-malformed"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumer-owned configuration",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumer-owned configuration"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.profile-route-missing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumer-owned configuration through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/missing.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "missing architecture_decisions profile route is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.profile-route-missing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.requested-pattern-mismatch yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "BAD-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a requested identity not fully matching id_pattern is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.requested-pattern-mismatch"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.requested-shape-mismatch yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a requested identity outside exact ADR-digits shape is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.requested-shape-mismatch"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.unrelated-symlink yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical corpus through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          },
+          {
+            "op": "symlink",
+            "path": "docs/adr/unrelated.md",
+            "target": "missing.md",
+            "target_is_directory": false
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unrelated symlink is ignored"
+      ],
+      "vector_id": "canonical-adr.resolve.unrelated-symlink"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured record requirement",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Structured record requirement"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.unstructured-candidate yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured record requirement through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "# no frontmatter\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unstructured matching candidate is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.unstructured-candidate"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Logical ADR identity",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Logical ADR identity"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.valid-resolution yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Logical ADR identity through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "relative_path",
+              "value": {
+                "type": "string",
+                "value": "docs/adr/adr-001-example.md"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# Decision\n\n## Context\n\nA\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one configured canonical candidate resolves with exact metadata and decision body"
+      ],
+      "vector_id": "canonical-adr.resolve.valid-resolution"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Consumed profile fields",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Consumed profile fields"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.wrong-width yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumed profile fields through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-01"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a requested identity with wrong configured digit width is rejected"
+      ],
+      "vector_id": "canonical-adr.resolve.wrong-width"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Candidate resolution",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Candidate resolution"
+          ],
+          "reason": "The exact operational input for canonical-adr.resolve.zero-candidate yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Candidate resolution through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "zero matching canonical candidates fail closed"
+      ],
+      "vector_id": "canonical-adr.resolve.zero-candidate"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Lookup states",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governance-authority.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Canonical Governance Authority composition",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Cardinalities",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Carrier and machine-governing payload",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Catalog authority boundary",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Duplicate and ordering semantics",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact identity semantics",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governed relation integrity",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model-version-1 structure",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Relation vocabulary",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "routed Governed Objects catalog and loaded Governance Authority profile"
+  ],
+  "case_file": "cases/governed-objects.catalog.matrix.json",
+  "frozen_baseline_modules": [
+    "governed_objects.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a valid exact model-version-1 catalog is accepted",
+    "an explicit empty interfaces mapping is admitted",
+    "an explicit empty objects mapping is admitted",
+    "an object with empty responsibilities is rejected",
+    "an object may reference a known responsibility whose authority roles are empty",
+    "an unknown responsibility reference is rejected",
+    "duplicate object responsibility identity is rejected",
+    "an object with zero relations is admitted",
+    "a relation may target another interface in the same catalog",
+    "a self relation is structurally admitted",
+    "a relation cycle is structurally admitted",
+    "relation responsibility must belong to the source object",
+    "a missing target interface or object is rejected",
+    "an exact duplicate relation is rejected",
+    "the same target under a distinct relation identity is admitted",
+    "case-distinct opaque IDs remain distinct",
+    "unknown structural keys are rejected",
+    "required model structures missing are rejected",
+    "empty interface, object, responsibility, or relation identities are rejected",
+    "a model version other than integer 1 is rejected",
+    "an authority profile from another repository composition is rejected"
+  ],
+  "responsibility_id": "governed-objects.catalog",
+  "rust_owner_issue": 65,
+  "schema_version": "1.0",
+  "title": "Governed Objects catalog"
+}

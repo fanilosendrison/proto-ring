@@ -1,0 +1,180 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/git-whitespace-validation.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Git whitespace authority and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Git whitespace authority",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.clean",
+        "git-whitespace.validate.unstaged",
+        "git-whitespace.validate.staged"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Mandatory local domains and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Mandatory local domains",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.unstaged",
+        "git-whitespace.validate.staged"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Explicit environment authority and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Explicit environment authority",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.unknown-event",
+        "git-whitespace.validate.push-range"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Events without a committed range and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Events without a committed range",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.unknown-event"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Push range and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Push range",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.push-range"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Root push and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Root push",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.root-push"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Pull-request range and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Pull-request range",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.pull-request"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Event payload failure boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Event payload failure boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.payload-missing-path",
+        "git-whitespace.validate.payload-nonexistent",
+        "git-whitespace.validate.payload-malformed-utf8",
+        "git-whitespace.validate.payload-malformed-json",
+        "git-whitespace.validate.payload-nonobject",
+        "git-whitespace.validate.payload-missing-sha"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Aggregate result and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Aggregate result",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.clean",
+        "git-whitespace.validate.unstaged",
+        "git-whitespace.validate.push-range"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Diagnostic boundary",
+      "level": 2,
+      "reason": "Exact diagnostics are explicitly non-normative; domain-level NON_PASS observations are covered by the surrounding vectors.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Process-start failure and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Process-start failure",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "git-whitespace.validate"
+      ],
+      "vector_refs": [
+        "git-whitespace.validate.git-unavailable"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Non-goals",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

@@ -1,0 +1,214 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/exact-evidence-binding.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Requirement authority and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Requirement authority",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.unknown-current-subject",
+        "exact-evidence-binding.evaluate.historical-change"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Opaque identity tokens and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Opaque identity tokens",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.subject-mismatch",
+        "exact-evidence-binding.evaluate.context-mismatch"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Explicit evidence-class admission and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Explicit evidence-class admission",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.class-unadmitted",
+        "exact-evidence-binding.evaluate.class-missing"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact subject binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact subject binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.subject-mismatch",
+        "exact-evidence-binding.evaluate.match-no-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture materially exercises Optional-but-explicit context binding and its exact expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Optional-but-explicit context binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry",
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.context-missing",
+        "exact-evidence-binding.evaluate.context-mismatch",
+        "exact-evidence-binding.evaluate.match-context",
+        "evidence-requirements.registry.required-unknown-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises MATCH / MISMATCH / UNDETERMINED and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "MATCH / MISMATCH / UNDETERMINED",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.match-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises MATCH / MISMATCH / UNDETERMINED / MATCH and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "MATCH / MISMATCH / UNDETERMINED / MATCH",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.match-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises MATCH / MISMATCH / UNDETERMINED / MISMATCH and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "MATCH / MISMATCH / UNDETERMINED / MISMATCH",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.context-mismatch"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises MATCH / MISMATCH / UNDETERMINED / UNDETERMINED and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "MATCH / MISMATCH / UNDETERMINED / UNDETERMINED",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.unknown-current-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Current versus historical requirement and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Current versus historical requirement",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.historical-change"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises No implicit evidence substitution and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "No implicit evidence substitution",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.no-fallback",
+        "exact-evidence-binding.evaluate.evidence-absent"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Fail-closed use of mandatory binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Fail-closed use of mandatory binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "exact-evidence-binding.evaluate.match-not-proof",
+        "exact-evidence-binding.evaluate.evidence-absent"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Relationship to Repository Integrity",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Explicit exclusions",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

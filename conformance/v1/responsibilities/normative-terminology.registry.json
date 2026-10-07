@@ -1,0 +1,68 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Matching operation",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Failure behavior",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Registry model",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "registry text and consumer-supplied registry format"
+  ],
+  "case_file": "cases/normative-terminology.registry.matrix.json",
+  "frozen_baseline_modules": [
+    "normative_terminology.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a valid six-column registry between one marker pair is accepted",
+    "exactly one ordered marker pair is required",
+    "reversed or embedded registry boundaries are rejected",
+    "displayed headers must equal consumer-supplied headers",
+    "the narrow GFM separator grammar is enforced",
+    "every table line has exactly one outer pipe after trimming",
+    "concept keys use Canonical Portable Pattern",
+    "canonical anchor links use Canonical Portable Pattern",
+    "canonical anchor destination must be nonempty",
+    "duplicate concept keys are rejected",
+    "duplicate canonical destinations are rejected",
+    "malformed surrounding backticks are rejected",
+    "empty aliases and deprecated entries decode as empty lists",
+    "a sole undecorated em dash is the exact empty-list sentinel",
+    "canonical term and term structure must remain nonempty"
+  ],
+  "responsibility_id": "normative-terminology.registry",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Normative Terminology registry"
+}

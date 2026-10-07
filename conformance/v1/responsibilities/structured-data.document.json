@@ -1,0 +1,153 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical document bytes",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Collection representation",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Determinism boundary",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Failure boundary",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Forbidden representation features",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Scalar interpretation",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Scalar interpretation / Booleans",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Scalar interpretation / Integers",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Scalar interpretation / Null",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Scalar interpretation / Strings",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Standalone-document composition",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Structured value model",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact canonical structured-document bytes"
+  ],
+  "case_file": "cases/structured-data.document.matrix.json",
+  "frozen_baseline_modules": [
+    "structured_data.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "plain text constructs the exact string text",
+    "unquoted true constructs boolean true",
+    "unquoted false constructs boolean false",
+    "unquoted null constructs null",
+    "canonical positive decimal integer 42 constructs the exact mathematical integer 42",
+    "canonical negative decimal integer -42 constructs the exact mathematical integer -42",
+    "the canonical decimal scalar 18446744073709551616 constructs the exact mathematical integer 18446744073709551616 without rejection, truncation, rounding, float conversion, or string fallback caused by a 64-bit machine-width boundary",
+    "a 641-digit canonical integer remains an exact mathematical integer",
+    "a 4301-digit canonical integer remains an exact mathematical integer",
+    "a mapping root with key value constructs an exact mapping",
+    "a sequence root with two strings preserves order",
+    "duplicate constructed mapping key foo is rejected",
+    "an anchor declaration is rejected",
+    "an alias use is rejected",
+    "a merge key is rejected whether quoted or unquoted",
+    "an explicit YAML tag is rejected",
+    "a literal block scalar is rejected",
+    "an omitted mapping value is rejected",
+    "one document without markers is accepted",
+    "one document with explicit start and end markers is accepted",
+    "two YAML documents are rejected",
+    "invalid UTF-8 document bytes are rejected",
+    "a UTF-8 BOM is rejected",
+    "a carriage-return byte is rejected",
+    "plain yes constructs the string yes rather than boolean true",
+    "plain 2026-09-29 constructs an exact string rather than a date object",
+    "plain 01 constructs the string 01 rather than integer 1",
+    "plain 1.0 constructs the string 1.0 rather than a floating value"
+  ],
+  "responsibility_id": "structured-data.document",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "title": "Canonical Structured Data document interpretation"
+}

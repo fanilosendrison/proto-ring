@@ -1,0 +1,4189 @@
+{
+  "case_id": "normative-terminology.definition-discovery.matrix",
+  "operation_id": "normative-terminology.definition-discovery",
+  "python_retirement_issue": 73,
+  "responsibility_id": "normative-terminology.definition-discovery",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.ascii-cue-case yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha IS one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "ASCII cue keywords match ASCII case-insensitively"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.ascii-cue-case"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.boundary-digit yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is1 one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an ASCII digit after the final cue letter blocks termination"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.boundary-digit"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.boundary-letter yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha isx one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an ASCII letter after the final cue letter blocks termination"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.boundary-letter"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.boundary-nonascii yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha isé one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a non-ASCII next scalar permits ASCII cue termination"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.boundary-nonascii"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.boundary-underscore yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Definition-like discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is_ one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an underscore after the final cue letter blocks termination"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.boundary-underscore"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Contract whitespace"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.control-whitespace yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile / Contract whitespace through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha\u001cis one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "normalized",
+                "value": {
+                  "type": "string",
+                  "value": "alpha beta"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+001C through U+001F satisfy the contract whitespace relation"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.control-whitespace"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-are yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha are one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue are is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-are"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-are-defined-as yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha are defined as one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue are defined as is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-are-defined-as"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-are-defined-by yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Definition-like discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha are defined by one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue are defined by is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-are-defined-by"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-is yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Definition-like discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue is is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-is"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-is-defined-as yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is defined as one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue is defined as is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-is-defined-as"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-is-defined-by yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is defined by one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue is defined by is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-is-defined-by"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-mean yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha mean one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue mean is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-mean"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-means yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha means one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue means is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-means"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-refer-to yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha refer to one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue refer to is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-refer-to"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.cue-refers-to yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha refers to one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the exact cue refers to is recognized"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.cue-refers-to"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.dotted-i-fold yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "i̇tem",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "İtem is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+0130 uses its exact Unicode-14 full mapping"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.dotted-i-fold"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.dotted-i-negative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha İs one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "detected",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "dotted-I does not act as ASCII I in a cue"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.dotted-i-negative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Contract whitespace"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.figure-space yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile / Contract whitespace through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "normalized",
+                "value": {
+                  "type": "string",
+                  "value": "alpha beta"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+2007 satisfies the contract whitespace relation"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.figure-space"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Contract whitespace"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.ideographic-space yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile / Contract whitespace through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha　is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+3000 satisfies the contract whitespace relation"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.ideographic-space"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.kelvin yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "K",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "K is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "Kelvin sign uses its Unicode-14 default case-fold mapping"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.kelvin"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.long-s-negative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Definition-like discovery through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha iſ one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "detected",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "long-s does not act as ASCII s in a cue"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.long-s-negative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.meaning-negative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha meaning one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "meaning is not an admitted cue"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.meaning-negative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.meant-negative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha meant one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "meant is not an admitted cue"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.meant-negative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Contract whitespace"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.mongolian-vowel-separator yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile / Contract whitespace through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha᠎is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "normalized",
+                "value": {
+                  "type": "string",
+                  "value": "alpha᠎beta"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+180E is not contract whitespace"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.mongolian-vowel-separator"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.multiword-unicode-space yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha refer to one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "Unicode-14 contract whitespace may separate multiword cue terms"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.multiword-unicode-space"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Default case folding"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.no-normalization yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile through its concrete input and exact result. The fixture directly exercises Unicode text profile / Default case folding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "é",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "é is one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "detected",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "name": "folded",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "é"
+                    },
+                    {
+                      "type": "string",
+                      "value": "é"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "composed and decomposed expressions remain distinct"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.no-normalization"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.post-14-unmapped yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Alpha",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "Alpha is𞓐 candidate."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "detected",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "U+1E4D0 remains unmapped by Unicode 14 and still permits ASCII cue termination"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.post-14-unmapped"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Unicode text profile / Contract whitespace",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+          "sha256": null,
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+          "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+          "source_id": "unicode-character-database",
+          "source_kind": "external",
+          "version": "14.0.0"
+        },
+        {
+          "clause": "Definition-like discovery",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unicode text profile / Default case folding",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/#Unicode text profile / Contract whitespace",
+            "external:unicode-character-database@14.0.0:https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt#Unicode text profile / Default case folding",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Definition-like discovery",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Unicode text profile / Default case folding"
+          ],
+          "reason": "The exact operational input for normative-terminology.definition-discovery.strasse yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unicode text profile through its concrete input and exact result. The fixture directly exercises Unicode text profile / Default case folding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "concepts",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "expressions",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "Straße",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "definition_concepts"
+              }
+            },
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "STRASSE means one."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "detected",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "concepts",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Definition-like discovery",
+            "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+            "path": "docs/contracts/normative-terminology.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Unicode text profile / Contract whitespace",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+            "sha256": null,
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          },
+          {
+            "clause": "Unicode text profile / Default case folding",
+            "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+            "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+            "source_id": "unicode-character-database",
+            "source_kind": "external",
+            "version": "14.0.0"
+          }
+        ],
+        "corrected_python_sha": "a5dde79df8ff8375a18d8e77aea965735c041cf0",
+        "correction_issue": 80,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "Straße and STRASSE compare equal under Unicode-14 Default Case Folding"
+      ],
+      "vector_id": "normative-terminology.definition-discovery.strasse"
+    }
+  ]
+}

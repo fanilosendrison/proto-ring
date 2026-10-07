@@ -1,0 +1,148 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Composition with Exact Evidence Binding",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/evidence-requirements.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Current versus historical requirement",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact subject binding",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Explicit evidence-class admission",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Fail-closed use of mandatory binding",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "MATCH / MISMATCH / UNDETERMINED",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "MATCH / MISMATCH / UNDETERMINED / MATCH",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "MATCH / MISMATCH / UNDETERMINED / MISMATCH",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "MATCH / MISMATCH / UNDETERMINED / UNDETERMINED",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "No implicit evidence substitution",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Opaque identity tokens",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Optional-but-explicit context binding",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Requirement authority",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/exact-evidence-binding.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "one concrete EvidenceRequirement and optional candidate EvidenceBinding"
+  ],
+  "case_file": "cases/exact-evidence-binding.evaluate.matrix.json",
+  "frozen_baseline_modules": [
+    "exact_evidence_binding.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "unknown current subject yields UNDETERMINED",
+    "unknown current subject yields UNDETERMINED even when class appears mismatched",
+    "required unknown current context yields UNDETERMINED",
+    "absent candidate evidence yields UNDETERMINED",
+    "missing or malformed candidate class yields UNDETERMINED",
+    "missing or malformed candidate subject yields UNDETERMINED",
+    "required missing or malformed candidate context yields UNDETERMINED",
+    "known unadmitted class yields MISMATCH",
+    "known unequal subject token yields MISMATCH",
+    "known unequal required context yields MISMATCH",
+    "exact admitted class and subject yields MATCH when context is not required",
+    "exact class, subject, and required context yields MATCH",
+    "an unadmitted class receives no implicit alias or fallback",
+    "a historical match does not authorize changed current subject or context",
+    "MATCH establishes exact binding only, not proof, truth, evidence success, or overall success"
+  ],
+  "responsibility_id": "exact-evidence-binding.evaluate",
+  "rust_owner_issue": 66,
+  "schema_version": "1.0",
+  "title": "Exact Evidence Binding evaluation"
+}

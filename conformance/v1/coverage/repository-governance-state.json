@@ -1,0 +1,171 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+    "path": "docs/contracts/repository-governance-state.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model-version boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model-version boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.minimal-v2",
+        "repository-governance-state.compose.model-v1"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical state and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical state",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.minimal-v2",
+        "repository-governance-state.compose.objects-present",
+        "repository-governance-state.compose.integrity-present",
+        "repository-governance-state.compose.projection",
+        "repository-governance-state.compose.evidence"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Composition order and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Composition order",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.malformed-authority",
+        "repository-governance-state.compose.malformed-projection",
+        "repository-governance-state.compose.invalid-binding-scope"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Capabilities retained through the model and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Capabilities retained through the model",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.objects-absent",
+        "repository-governance-state.compose.objects-present",
+        "repository-governance-state.compose.integrity-absent",
+        "repository-governance-state.compose.integrity-present",
+        "repository-governance-state.compose.no-adr-scan",
+        "repository-governance-state.compose.no-provider-contact",
+        "repository-governance-state.compose.no-integrity-execution"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Exact-observation invariant and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Exact-observation invariant",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.stable-state",
+        "repository-governance-state.compose.resolved-target",
+        "repository-governance-state.compose.routed-symlink",
+        "repository-governance-state.compose.routing-expression-not-scope",
+        "repository-governance-state.compose.repository-drift",
+        "repository-governance-state.compose.scope-drift",
+        "repository-governance-state.compose.pure-construction"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository identity boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository identity boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.bootstrap-symlink",
+        "repository-governance-state.compose.ignored-routed-file",
+        "repository-governance-state.compose.routed-symlink"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Read-only and non-executing construction and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Read-only and non-executing construction",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.pure-construction",
+        "repository-governance-state.compose.no-adr-scan",
+        "repository-governance-state.compose.no-integrity-execution",
+        "repository-governance-state.compose.no-provider-contact"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Controlled construction failure and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Controlled construction failure",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-state.compose"
+      ],
+      "vector_refs": [
+        "repository-governance-state.compose.malformed-authority",
+        "repository-governance-state.compose.invalid-object-ref",
+        "repository-governance-state.compose.undeclared-capability-binding",
+        "repository-governance-state.compose.repository-drift",
+        "repository-governance-state.compose.scope-drift"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Non-goals",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

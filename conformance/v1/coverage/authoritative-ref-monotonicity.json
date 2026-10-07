@@ -1,0 +1,123 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/authoritative-ref-monotonicity.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Monotonic advancement and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Monotonic advancement",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "github-authoritative-ref-monotonicity.observe"
+      ],
+      "vector_refs": [
+        "github-authoritative-ref-monotonicity.observe.required-rules",
+        "github-authoritative-ref-monotonicity.observe.missing-non-fast-forward"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Non-deletion and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Non-deletion",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "github-authoritative-ref-monotonicity.observe"
+      ],
+      "vector_refs": [
+        "github-authoritative-ref-monotonicity.observe.required-rules",
+        "github-authoritative-ref-monotonicity.observe.missing-deletion"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises External enforcement and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "External enforcement",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "github-authoritative-ref-monotonicity.observe"
+      ],
+      "vector_refs": [
+        "github-authoritative-ref-monotonicity.observe.required-rules",
+        "github-authoritative-ref-monotonicity.observe.additional-rule",
+        "github-authoritative-ref-monotonicity.observe.other-ruleset"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Provider-neutral realization and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Provider-neutral realization",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "github-authoritative-ref-monotonicity.observe"
+      ],
+      "vector_refs": [
+        "github-authoritative-ref-monotonicity.observe.http-error",
+        "github-authoritative-ref-monotonicity.observe.network-error",
+        "github-authoritative-ref-monotonicity.observe.tls-error",
+        "github-authoritative-ref-monotonicity.observe.timeout",
+        "github-authoritative-ref-monotonicity.observe.io-error",
+        "github-authoritative-ref-monotonicity.observe.pagination"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Writer and control-plane boundary",
+      "level": 2,
+      "reason": "The heading allocates writer/control-plane ownership and introduces no standalone provider observation beyond the external-enforcement vectors.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authoritative State Admission distinction",
+      "level": 2,
+      "reason": "The heading defines a composition distinction consumed by Repository Integrity rather than an additional provider-response case.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Local binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Local binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "github-authoritative-ref-monotonicity.observe"
+      ],
+      "vector_refs": [
+        "github-authoritative-ref-monotonicity.observe.malformed-binding",
+        "github-authoritative-ref-monotonicity.observe.bound-absent"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Non-goals",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

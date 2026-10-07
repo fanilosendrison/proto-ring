@@ -1,0 +1,61 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical occurrence binding",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Consumer role policy",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Fingerprints and signatures",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "discovered occurrence blocks and canonical anchor bindings"
+  ],
+  "case_file": "cases/normative-terminology.fingerprint.matrix.json",
+  "frozen_baseline_modules": [
+    "normative_terminology.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a valid anchor binding produces one canonical occurrence",
+    "another definition-like block produces a noncanonical occurrence",
+    "one block may contain multiple sorted concept keys",
+    "an intervening recognized anchor prevents binding to the earlier anchor",
+    "the consumer canonical-location predicate must return boolean true for canonical binding",
+    "contract whitespace runs collapse to one ASCII space",
+    "fingerprint is lowercase SHA-256 over normalized UTF-8 text",
+    "signature excludes source line and canonical diagnostic flag"
+  ],
+  "responsibility_id": "normative-terminology.fingerprint",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Normative Terminology occurrences and fingerprints"
+}

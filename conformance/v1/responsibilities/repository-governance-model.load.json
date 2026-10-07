@@ -1,0 +1,127 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Capabilities namespace",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Capability declaration shape",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Logical provider",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model composition",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model version",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model version 2",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model-version-2 structural composition",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Repository root",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Required routes",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Structural keys",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Unknown and invalid state handling",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "repository root and Canonical Governance Bootstrap result"
+  ],
+  "case_file": "cases/repository-governance-model.load.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_governance_model.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a complete supported model-version-1 declaration loads",
+    "a complete supported model-version-2 declaration loads",
+    "an unsupported model version fails closed",
+    "repository identity comes only from the explicit repository argument",
+    "provider id proto-ring and the version-specific binding load exactly",
+    "supported capability declarations preserve opaque configuration descendants",
+    "required routes are present and resolved through Canonical Governance Routing",
+    "an unknown direct repository_governance key is rejected",
+    "a capability missing configuration or routes is rejected",
+    "malformed or unsupported state fails through a controlled boundary"
+  ],
+  "responsibility_id": "repository-governance-model.load",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "title": "Repository Governance Model loading"
+}

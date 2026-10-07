@@ -1,0 +1,158 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+    "path": "docs/contracts/repository-state.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact repository root and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact repository root",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.exact-root",
+        "repository-state.capture.subdirectory-root"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Observation scope and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Observation scope",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.scope-canonical",
+        "repository-state.capture.scope-order-duplicate",
+        "repository-state.capture.invalid-scope",
+        "repository-state.capture.absent-explicit"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact path identity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact path identity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.regular-file",
+        "repository-state.capture.symlink",
+        "repository-state.capture.directory",
+        "repository-state.capture.absent"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Required local state dimensions and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Required local state dimensions",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.symbolic-head",
+        "repository-state.capture.detached-head",
+        "repository-state.capture.unborn-head",
+        "repository-state.capture.head-object",
+        "repository-state.capture.index",
+        "repository-state.capture.tracked",
+        "repository-state.capture.untracked"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Content-sensitive distinction and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Content-sensitive distinction",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.bytes-change",
+        "repository-state.capture.mode-change",
+        "repository-state.capture.symlink-target-change",
+        "repository-state.capture.dirty-mutation"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Capture coherence and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Capture coherence",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.concurrent-mutation"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Opaque exact identity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Opaque exact identity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.exact-root",
+        "repository-state.capture.bytes-change"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Read-only boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Read-only boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.read-only"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Composition boundaries and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Composition boundaries",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-state.capture"
+      ],
+      "vector_refs": [
+        "repository-state.capture.ambient-redirect",
+        "repository-state.capture.nested-repository",
+        "repository-state.capture.submodule",
+        "repository-state.capture.directory-nonrecursive"
+      ]
+    }
+  ],
+  "schema_version": "1.0"
+}

@@ -1,0 +1,97 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them.",
+    "Profile identity representation, digest/hash algorithm, byte or text encoding, and internal serialization/framing are implementation-defined."
+  ],
+  "authorities": [
+    {
+      "clause": "Core model",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Core model / ConsumerIntegrityProfile",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Derivation baselines",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Persistent consumer profile",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Persistent consumer profile / Command and environment binding",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Persistent consumer profile / Concrete instance resolution",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "routed persistent Repository Integrity profile and composed authorities"
+  ],
+  "case_file": "cases/repository-integrity.profile.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_integrity.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority.",
+    "Current Python SHA-256 profile identity, 64-character text, JSON serialization, and framing are implementation behavior, not compatibility authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a successfully loaded profile exposes one opaque identity derived only from canonical persistent profile semantics",
+    "a contract-relevant persistent profile semantic change changes profile identity",
+    "a valid persistent model-version-1 profile loads without execution",
+    "profile and nested declaration keys are exact",
+    "environment declarations are opaque nonempty IDs",
+    "a command binds environment, ordered arguments, and undetermined exit codes",
+    "order contains every ValidationId exactly once",
+    "duplicate prerequisites are rejected",
+    "unknown prerequisites are rejected",
+    "self prerequisites are rejected",
+    "a prerequisite that does not precede its dependent is rejected",
+    "literal repository path selector preserves an absent path",
+    "restricted component-local star glob is admitted",
+    "absolute, parent, double-star, question, class, brace, shell, regex and pathspec syntax is rejected",
+    "profile identity is independent of declaration mapping order",
+    "profile identity excludes expanded glob membership",
+    "profile carrier source must be authority for the profile responsibility",
+    "an optional object target must exist and participate in the validation responsibility"
+  ],
+  "responsibility_id": "repository-integrity.profile",
+  "rust_owner_issue": 66,
+  "schema_version": "1.0",
+  "title": "Repository Integrity persistent profile"
+}

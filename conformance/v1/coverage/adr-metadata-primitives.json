@@ -1,0 +1,139 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+    "path": "docs/contracts/adr-metadata-primitives.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact text and hashing and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact text and hashing",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.parse"
+      ],
+      "vector_refs": [
+        "adr-metadata.parse.decision-body",
+        "adr-metadata.parse.h1",
+        "adr-metadata.parse.preserved-payload",
+        "adr-metadata.parse.sha256"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical structured-data loading and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical structured-data loading",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.parse"
+      ],
+      "vector_refs": [
+        "adr-metadata.parse.standalone-mapping",
+        "adr-metadata.parse.canonical-scalars",
+        "adr-metadata.parse.document-markers",
+        "adr-metadata.parse.duplicate-key"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises JSON Schema validation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "JSON Schema validation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.validation"
+      ],
+      "vector_refs": [
+        "adr-metadata.validation.valid-schema",
+        "adr-metadata.validation.calendar-date"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository path containment and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository path containment",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.repository-path"
+      ],
+      "vector_refs": [
+        "adr-metadata.repository-path.contained-relative",
+        "adr-metadata.repository-path.absolute",
+        "adr-metadata.repository-path.escaping",
+        "adr-metadata.repository-path.contained-symlink"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Structured configuration requirements and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Structured configuration requirements",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.validation"
+      ],
+      "vector_refs": [
+        "adr-metadata.validation.require-mapping",
+        "adr-metadata.validation.require-string",
+        "adr-metadata.validation.require-string-list"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Relation-reference checking and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Relation-reference checking",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.validation"
+      ],
+      "vector_refs": [
+        "adr-metadata.validation.relation-target",
+        "adr-metadata.validation.relation-vocabulary"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical operation set and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical operation set",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "adr-metadata.parse",
+        "adr-metadata.repository-path",
+        "adr-metadata.validation"
+      ],
+      "vector_refs": [
+        "adr-metadata.parse.frontmatter",
+        "adr-metadata.parse.decision-body",
+        "adr-metadata.validation.valid-schema",
+        "adr-metadata.repository-path.contained-relative"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

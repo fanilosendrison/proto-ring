@@ -1,0 +1,118 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Aggregate result",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Event payload failure boundary",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Events without a committed range",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Explicit environment authority",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Git whitespace authority",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Mandatory local domains",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Process-start failure",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Pull-request range",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Push range",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Root push",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/git-whitespace-validation.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "repository working directory and explicit environment mapping"
+  ],
+  "case_file": "cases/git-whitespace.validate.matrix.json",
+  "frozen_baseline_modules": [
+    "git_whitespace.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "clean local unstaged and staged domains with no required committed range yield PASS",
+    "unstaged Git diff --check violation yields NON_PASS in unstaged domain",
+    "staged Git diff --check violation yields NON_PASS in staged domain",
+    "whitespace in before..after push committed range yields NON_PASS",
+    "whitespace from the Git empty tree to root-push after yields NON_PASS",
+    "whitespace in base...head pull-request range yields NON_PASS",
+    "required missing or malformed push payload yields NON_PASS during range determination",
+    "unknown event with clean local domains requires no committed range and yields PASS",
+    "required Git process-start inability yields controlled NON_PASS"
+  ],
+  "responsibility_id": "git-whitespace.validate",
+  "rust_owner_issue": 69,
+  "schema_version": "1.0",
+  "title": "Canonical Git Whitespace Validation"
+}

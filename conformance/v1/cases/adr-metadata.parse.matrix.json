@@ -1,0 +1,1075 @@
+{
+  "case_id": "adr-metadata.parse.matrix",
+  "operation_id": "adr-metadata.parse",
+  "python_retirement_issue": 73,
+  "responsibility_id": "adr-metadata.parse",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "Canonical Structured Data constructs true_value as boolean true, integer_value as exact mathematical integer 42, and null_value as null; yes_value, capital_null_value, leading_zero_value, float_like_value, and date_like_value remain the exact strings yes, Null, 01, 1.0, and 2025-01-02."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capital_null_value",
+              "value": {
+                "type": "string",
+                "value": "Null"
+              }
+            },
+            {
+              "name": "date_like_value",
+              "value": {
+                "type": "string",
+                "value": "2025-01-02"
+              }
+            },
+            {
+              "name": "float_like_value",
+              "value": {
+                "type": "string",
+                "value": "1.0"
+              }
+            },
+            {
+              "name": "integer_value",
+              "value": {
+                "type": "integer",
+                "value": "42"
+              }
+            },
+            {
+              "name": "leading_zero_value",
+              "value": {
+                "type": "string",
+                "value": "01"
+              }
+            },
+            {
+              "name": "null_value",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "true_value",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "yes_value",
+              "value": {
+                "type": "string",
+                "value": "yes"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "747275655f76616c75653a20747275650a696e74656765725f76616c75653a2034320a6e756c6c5f76616c75653a206e756c6c0a7965735f76616c75653a207965730a6361706974616c5f6e756c6c5f76616c75653a204e756c6c0a6c656164696e675f7a65726f5f76616c75653a2030310a666c6f61745f6c696b655f76616c75653a20312e300a646174655f6c696b655f76616c75653a20323032352d30312d30320a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "true_value=true is boolean true; integer_value=42 is mathematical integer 42; null_value=null is null; yes_value=yes, capital_null_value=Null, leading_zero_value=01, float_like_value=1.0, and date_like_value=2025-01-02 are exact strings"
+      ],
+      "vector_id": "adr-metadata.parse.canonical-scalars"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.contextual-heading yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "decision_body"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a heading containing Context text without exact level-two boundary does not redefine the body"
+      ],
+      "vector_id": "adr-metadata.parse.contextual-heading"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.decision-body yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact text and hashing through its concrete input and exact result. The fixture directly exercises Canonical operation set through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "decision_body"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the exact suffix at the unique Context boundary is returned"
+      ],
+      "vector_id": "adr-metadata.parse.decision-body"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.document-markers yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical structured-data loading through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "text"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20746578740a2e2e2e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one standalone document with explicit markers loads"
+      ],
+      "vector_id": "adr-metadata.parse.document-markers"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.duplicate-key yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical structured-data loading through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "666f6f3a206f6e650a666f6f3a2074776f0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a standalone duplicate mapping key is rejected"
+      ],
+      "vector_id": "adr-metadata.parse.duplicate-key"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.forbidden-representation yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a202678206f6e650a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "anchors, aliases, tags, merge and block scalars are rejected"
+      ],
+      "vector_id": "adr-metadata.parse.forbidden-representation"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.frontmatter yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical operation set through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "id",
+                    "value": {
+                      "type": "string",
+                      "value": "ADR-001"
+                    }
+                  },
+                  {
+                    "name": "status",
+                    "value": {
+                      "type": "string",
+                      "value": "accepted"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "exact ADR frontmatter parsing returns mapping and exact decision body bytes"
+      ],
+      "vector_id": "adr-metadata.parse.frontmatter"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.h1 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact text and hashing through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "ADR-001: Example"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "h1"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the first exact # heading yields untrimmed exact H1 text"
+      ],
+      "vector_id": "adr-metadata.parse.h1"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.invalid-encoding yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "ff"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "invalid authored UTF-8 is rejected through the controlled ADR metadata boundary"
+      ],
+      "vector_id": "adr-metadata.parse.invalid-encoding"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.nonmapping-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "sequence",
+          "value": [
+            {
+              "type": "string",
+              "value": "one"
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d206f6e650a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the standalone loader admits a canonical sequence root"
+      ],
+      "vector_id": "adr-metadata.parse.nonmapping-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.preserved-payload yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact text and hashing through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "payload_hex",
+              "value": {
+                "type": "string",
+                "value": "23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "preserved_payload"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the exact suffix beginning at the unique H1 is returned without newline normalization"
+      ],
+      "vector_id": "adr-metadata.parse.preserved-payload"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.sha256 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact text and hashing through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "sha256",
+              "value": {
+                "type": "string",
+                "value": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "616263"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "sha256"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "SHA-256 over exact bytes returns lowercase hexadecimal digest"
+      ],
+      "vector_id": "adr-metadata.parse.sha256"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition"
+          ],
+          "reason": "The exact operational input for adr-metadata.parse.standalone-mapping yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical structured-data loading through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "text"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_yaml"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "standalone canonical YAML mapping loads with Canonical Structured Data semantics"
+      ],
+      "vector_id": "adr-metadata.parse.standalone-mapping"
+    }
+  ]
+}

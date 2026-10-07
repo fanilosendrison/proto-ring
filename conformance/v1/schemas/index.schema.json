@@ -1,0 +1,59 @@
+{
+  "$id": "index.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_files": {
+      "items": {
+        "pattern": "^cases/.+\\.matrix\\.json$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "corpus_version": {
+      "const": 1
+    },
+    "coverage_files": {
+      "items": {
+        "pattern": "^coverage/.+\\.json$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "fixture_roots": {
+      "const": [
+        "fixtures"
+      ]
+    },
+    "frozen_semantic_baseline": {
+      "const": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69"
+    },
+    "qualification_base": {
+      "const": "662d86d445cefed4e17aa3cfa897ac36344cba89"
+    },
+    "responsibility_files": {
+      "items": {
+        "pattern": "^responsibilities/.+\\.json$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema_version": {
+      "const": "1.0"
+    }
+  },
+  "required": [
+    "schema_version",
+    "corpus_version",
+    "qualification_base",
+    "frozen_semantic_baseline",
+    "responsibility_files",
+    "case_files",
+    "coverage_files",
+    "fixture_roots"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,358 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+    "path": "docs/contracts/repository-integrity.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Derivation baselines and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Derivation baselines",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.valid-profile",
+        "repository-integrity.profile.authoritative-carrier"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Core model and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Core model",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.valid-profile",
+        "repository-integrity.profile.authoritative-carrier"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Core model / RepositoryState and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Core model / RepositoryState",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.preexisting-dirty-state-admissible",
+        "repository-integrity.evaluate.post-obligation-content-drift-violated"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Core model / ConsumerIntegrityProfile and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Core model / ConsumerIntegrityProfile",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.valid-profile",
+        "repository-integrity.profile.authoritative-carrier"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Persistent consumer profile and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent consumer profile",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.valid-profile",
+        "repository-integrity.profile.authoritative-carrier"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Persistent consumer profile / Concrete instance resolution and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent consumer profile / Concrete instance resolution",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate",
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.path-selector",
+        "repository-integrity.profile.glob-selector",
+        "repository-integrity.profile.forbidden-selector",
+        "repository-integrity.evaluate.selector-failure",
+        "repository-integrity.evaluate.duplicate-selected",
+        "repository-integrity.evaluate.selector-sort",
+        "repository-integrity.evaluate.absent-literal",
+        "repository-integrity.evaluate.for-each-zero",
+        "repository-integrity.evaluate.append-all-zero"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Persistent consumer profile / Command and environment binding and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent consumer profile / Command and environment binding",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate",
+        "repository-integrity.profile"
+      ],
+      "vector_refs": [
+        "repository-integrity.profile.command-binding",
+        "repository-integrity.profile.environments",
+        "repository-integrity.evaluate.missing-environment",
+        "repository-integrity.evaluate.missing-executable",
+        "repository-integrity.evaluate.explicit-environment",
+        "repository-integrity.evaluate.context-identity"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Validation-level aggregation and prerequisites and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Validation-level aggregation and prerequisites",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.aggregation-undetermined",
+        "repository-integrity.evaluate.aggregation-violated",
+        "repository-integrity.evaluate.zero-prerequisite",
+        "repository-integrity.evaluate.validation-order"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Integrity obligation result and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Integrity obligation result",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.exit-zero",
+        "repository-integrity.evaluate.exit-nonzero",
+        "repository-integrity.evaluate.undetermined-exit"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository Integrity verdict and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository Integrity verdict",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.exit-zero",
+        "repository-integrity.evaluate.exit-nonzero"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact-state binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact-state binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.preexisting-dirty-state-admissible",
+        "repository-integrity.evaluate.post-obligation-content-drift-violated"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Evaluation purity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Evaluation purity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.preexisting-dirty-state-admissible",
+        "repository-integrity.evaluate.post-obligation-content-drift-violated",
+        "repository-integrity.evaluate.post-obligation-index-drift-violated",
+        "repository-integrity.evaluate.post-obligation-head-drift-violated",
+        "repository-integrity.evaluate.mutation-of-already-dirty-path-violated",
+        "repository-integrity.evaluate.state-coherence-halt-skips-later-obligation",
+        "repository-integrity.evaluate.post-obligation-state-unavailable-undetermined",
+        "repository-integrity.evaluate.pre-obligation-state-unavailable-undetermined"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture materially exercises Evaluation purity / Exact purity-status attribution and its exact expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Evaluation purity / Exact purity-status attribution",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.preexisting-dirty-state-admissible",
+        "repository-integrity.evaluate.post-obligation-content-drift-violated",
+        "repository-integrity.evaluate.post-obligation-index-drift-violated",
+        "repository-integrity.evaluate.post-obligation-head-drift-violated",
+        "repository-integrity.evaluate.mutation-of-already-dirty-path-violated",
+        "repository-integrity.evaluate.state-coherence-halt-skips-later-obligation",
+        "repository-integrity.evaluate.post-obligation-state-unavailable-undetermined",
+        "repository-integrity.evaluate.pre-obligation-state-unavailable-undetermined",
+        "repository-integrity.evaluate.pre-state-drift"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Generated and maintained projections",
+      "level": 2,
+      "reason": "Projection modes and their validation binding are covered by the Projection Integrity corpus.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Active-state manifests",
+      "level": 2,
+      "reason": "The heading concerns consumer-maintained active-state manifests and introduces no shared parser input in #61.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Failure collection and execution strategy and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Failure collection and execution strategy",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-integrity.evaluate"
+      ],
+      "vector_refs": [
+        "repository-integrity.evaluate.continue-false",
+        "repository-integrity.evaluate.continue-true",
+        "repository-integrity.evaluate.state-coherence-halt-skips-later-obligation",
+        "repository-integrity.evaluate.validation-order",
+        "repository-integrity.evaluate.pre-obligation-state-unavailable-undetermined",
+        "repository-integrity.evaluate.post-obligation-state-unavailable-undetermined"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Historical artifacts and evidence",
+      "level": 2,
+      "reason": "The heading governs evidence interpretation or adoption workflow rather than an additional executable Repository Integrity operation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Historical artifacts and evidence / Current custody",
+      "level": 3,
+      "reason": "The heading governs evidence interpretation or adoption workflow rather than an additional executable Repository Integrity operation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Historical artifacts and evidence / Historical claim validity",
+      "level": 3,
+      "reason": "The heading governs evidence interpretation or adoption workflow rather than an additional executable Repository Integrity operation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Repository Integrity and Qualification",
+      "level": 2,
+      "reason": "The heading governs evidence interpretation or adoption workflow rather than an additional executable Repository Integrity operation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Adoption and strengthening",
+      "level": 2,
+      "reason": "The heading governs evidence interpretation or adoption workflow rather than an additional executable Repository Integrity operation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Derived cross-consumer decisions",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Derived cross-consumer decisions / From Turnlock",
+      "level": 3,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Derived cross-consumer decisions / From Ruu",
+      "level": 3,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Resulting shared boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

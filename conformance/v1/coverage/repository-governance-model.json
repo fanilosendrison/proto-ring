@@ -1,0 +1,214 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/repository-governance-model.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model version 2 and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model version 2",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.valid-model-v2",
+        "repository-governance-model.load.unsupported-version"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model-version-2 structural composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model-version-2 structural composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.binding-compatibility",
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.valid-model-v2",
+        "repository-governance-model.binding-compatibility.compatible-binding"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.valid-model-v1",
+        "repository-governance-model.load.valid-model-v2"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository root and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository root",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.repository-root"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Structural keys and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Structural keys",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.unknown-root-key",
+        "repository-governance-model.load.malformed-capability"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model version and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model version",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.valid-model-v1",
+        "repository-governance-model.load.valid-model-v2",
+        "repository-governance-model.load.unsupported-version"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Logical provider and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Logical provider",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.logical-provider"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Capabilities namespace and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Capabilities namespace",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.capabilities"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Capability declaration shape and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Capability declaration shape",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.malformed-capability"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Required routes and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Required routes",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.binding-compatibility",
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.required-routes",
+        "repository-governance-model.binding-compatibility.missing-required-route"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Route result and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Route result",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.binding-compatibility"
+      ],
+      "vector_refs": [
+        "repository-governance-model.binding-compatibility.compatible-binding"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Unknown and invalid state handling and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Unknown and invalid state handling",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "repository-governance-model.load"
+      ],
+      "vector_refs": [
+        "repository-governance-model.load.controlled-invalid",
+        "repository-governance-model.load.unknown-root-key"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Provider boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Responsibility boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

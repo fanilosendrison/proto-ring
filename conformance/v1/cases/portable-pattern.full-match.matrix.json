@@ -1,0 +1,3958 @@
+{
+  "case_id": "portable-pattern.full-match.matrix",
+  "operation_id": "portable-pattern.full-match",
+  "python_retirement_issue": 73,
+  "responsibility_id": "portable-pattern.full-match",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Character classes",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Character classes",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.ascii-range yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar through its concrete input and exact result. The fixture directly exercises Admitted grammar / Character classes through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "m"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[a-z]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "inclusive ASCII ranges match exact code points"
+      ],
+      "vector_id": "portable-pattern.full-match.ascii-range"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.bounded-nullable yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar through its concrete input and exact result. The fixture directly exercises Admitted grammar / Quantifiers through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(a?){3}"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "bounded repetition of an empty-matching group is admitted"
+      ],
+      "vector_id": "portable-pattern.full-match.bounded-nullable"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.bounded-nullable-1500 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(a?){1500}"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a 1500-count bounded nullable repetition is independent of Python recursion limits"
+      ],
+      "vector_id": "portable-pattern.full-match.bounded-nullable-1500"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Groups and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Groups and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.capture-numbering yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Groups and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "ab"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(a)(b)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "capture numbers follow opening-group source order"
+      ],
+      "vector_id": "portable-pattern.full-match.capture-numbering"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.demonstrated-adr-pattern yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "001"
+                  },
+                  {
+                    "type": "string",
+                    "value": "example-name"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "number",
+                    "value": {
+                      "type": "string",
+                      "value": "001"
+                    }
+                  },
+                  {
+                    "name": "slug",
+                    "value": {
+                      "type": "string",
+                      "value": "example-name"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "adr-001-example-name.md"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "^adr-(?P<number>[0-9]{3})-(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)\\.md$"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "number",
+                "value": {
+                  "type": "string",
+                  "value": "001"
+                }
+              },
+              {
+                "name": "slug",
+                "value": {
+                  "type": "string",
+                  "value": "example-name"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "captures",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "001"
+                    },
+                    {
+                      "type": "string",
+                      "value": "example-name"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "named_captures",
+                "value": {
+                  "type": "record",
+                  "value": [
+                    {
+                      "name": "number",
+                      "value": {
+                        "type": "string",
+                        "value": "001"
+                      }
+                    },
+                    {
+                      "name": "slug",
+                      "value": {
+                        "type": "string",
+                        "value": "example-name"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "demonstrated ADR filename pattern preserves exact named captures"
+      ],
+      "vector_id": "portable-pattern.full-match.demonstrated-adr-pattern"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.demonstrated-anchor-pattern yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "term-alpha"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "[`term-alpha`](#term-alpha)"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "capture_1",
+                "value": {
+                  "type": "string",
+                  "value": "term-alpha"
+                }
+              },
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "captures",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "term-alpha"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "named_captures",
+                "value": {
+                  "type": "record",
+                  "value": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "demonstrated terminology anchor-link pattern preserves exact positional capture"
+      ],
+      "vector_id": "portable-pattern.full-match.demonstrated-anchor-pattern"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Groups and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Groups and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.duplicate-name yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Groups and captures through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "ab"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?P<x>a)(?P<x>b)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "duplicate named captures are rejected"
+      ],
+      "vector_id": "portable-pattern.full-match.duplicate-name"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Concatenation and alternation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Concatenation and alternation",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.empty-alternative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Concatenation and alternation through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "a|"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an empty alternative is admitted"
+      ],
+      "vector_id": "portable-pattern.full-match.empty-alternative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Groups and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Groups and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.empty-group yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Groups and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "()"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an empty group participates with an empty capture"
+      ],
+      "vector_id": "portable-pattern.full-match.empty-group"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.empty-pattern yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an empty pattern full-matches the empty input"
+      ],
+      "vector_id": "portable-pattern.full-match.empty-pattern"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Anchors",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Anchors",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.end-anchor yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Anchors through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "abc"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "abc$"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "$ denotes exact input end, not before a final LF"
+      ],
+      "vector_id": "portable-pattern.full-match.end-anchor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Literal characters and escaping",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Literal characters and escaping",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.escaped-dot yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Literal characters and escaping through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "."
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "\\."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "escaped dot matches a literal dot"
+      ],
+      "vector_id": "portable-pattern.full-match.escaped-dot"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Literal characters and escaping",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Literal characters and escaping",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.exact-literal yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Matching operation through its concrete input and exact result. The fixture directly exercises Admitted grammar through its concrete input and exact result. The fixture directly exercises Admitted grammar / Literal characters and escaping through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "abc"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "abc"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "literal scalars match exactly"
+      ],
+      "vector_id": "portable-pattern.full-match.exact-literal"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Character classes",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Character classes",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.final-hyphen yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Character classes through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "-"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[a-]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a final unescaped hyphen is literal"
+      ],
+      "vector_id": "portable-pattern.full-match.final-hyphen"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Character classes",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Character classes",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.first-hyphen yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Character classes through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "-"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[-a]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a first unescaped hyphen is literal"
+      ],
+      "vector_id": "portable-pattern.full-match.first-hyphen"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden engine behavior",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Forbidden engine behavior",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.forbidden-native-extensions yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden engine behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?=a)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "lookaround, backreference, inline flags, shorthand and native extensions are rejected"
+      ],
+      "vector_id": "portable-pattern.full-match.forbidden-native-extensions"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.full-match-only yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Matching operation through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "xabc"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "abc"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a proper substring does not match"
+      ],
+      "vector_id": "portable-pattern.full-match.full-match-only"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.greedy-backtracking yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Quantifiers through its concrete input and exact result. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "aa"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "x",
+                    "value": {
+                      "type": "string",
+                      "value": "aa"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "aaa"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?P<x>a*)a"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "greedy repetition backs down only as needed for full match"
+      ],
+      "vector_id": "portable-pattern.full-match.greedy-backtracking"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.last-repeated-capture yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Quantifiers through its concrete input and exact result. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "x",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "aaa"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?P<x>a)+"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a repeated capture reports its last successful participation"
+      ],
+      "vector_id": "portable-pattern.full-match.last-repeated-capture"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Groups and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Groups and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.named-capture yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar through its concrete input and exact result. The fixture directly exercises Admitted grammar / Groups and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "x",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?P<x>a)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a named capture is also the same positional capture"
+      ],
+      "vector_id": "portable-pattern.full-match.named-capture"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden engine behavior",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Forbidden engine behavior",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.native-shorthand-digit yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden engine behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "^ADR-\\d{3}$"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "resolved",
+                "value": {
+                  "type": "string",
+                  "value": "adr-001-example-name.md"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "portable-pattern.full-match.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "native shorthand digit escape is outside Canonical Portable Pattern"
+      ],
+      "vector_id": "portable-pattern.full-match.native-shorthand-digit"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden engine behavior",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Forbidden engine behavior",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.native-shorthand-word yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden engine behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "alpha_key"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "^\\w+$"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "registry_key",
+                "value": {
+                  "type": "string",
+                  "value": "alpha_key"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "portable-pattern.full-match.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "native shorthand word escape is outside Canonical Portable Pattern"
+      ],
+      "vector_id": "portable-pattern.full-match.native-shorthand-word"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Character classes",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Character classes",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.negated-class yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Character classes through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "x"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[^`]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a negated class rejects listed members and admits other scalars"
+      ],
+      "vector_id": "portable-pattern.full-match.negated-class"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Text domain",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Text domain"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.no-normalization yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Text domain through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "é"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "é"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "composed and decomposed spellings remain distinct"
+      ],
+      "vector_id": "portable-pattern.full-match.no-normalization"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.nonparticipating-capture yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "null",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "b"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(a)?b"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a capture in an unselected alternative is absent"
+      ],
+      "vector_id": "portable-pattern.full-match.nonparticipating-capture"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Concatenation and alternation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Concatenation and alternation",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.ordered-alternation yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Concatenation and alternation through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "a"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "x",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  },
+                  {
+                    "name": "y",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "aa"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "(?P<x>a|aa)(?P<y>a|)"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "multiple successful alternatives select source order"
+      ],
+      "vector_id": "portable-pattern.full-match.ordered-alternation"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Character classes",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Character classes",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.overlapping-range yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Character classes through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[a-b-c]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "[a-b-c] is rejected"
+      ],
+      "vector_id": "portable-pattern.full-match.overlapping-range"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Match selection and captures",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Match selection and captures",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.participating-empty yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Match selection and captures through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "b"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "()b"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a participating empty capture is present and distinct from absence"
+      ],
+      "vector_id": "portable-pattern.full-match.participating-empty"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.positive-class yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "-"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "[a-z0-9-]"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a positive class admits listed members"
+      ],
+      "vector_id": "portable-pattern.full-match.positive-class"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.retained-nested-capture yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "a"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "((a))"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an earlier nested capture remains when a later outer repetition omits it"
+      ],
+      "vector_id": "portable-pattern.full-match.retained-nested-capture"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Anchors",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Anchors",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.start-anchor yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Anchors through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "abc"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "^abc"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "^ denotes exact input start"
+      ],
+      "vector_id": "portable-pattern.full-match.start-anchor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.unbounded-nullable yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Quantifiers through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "()*"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "unbounded repetition of an empty-matching expression is rejected"
+      ],
+      "vector_id": "portable-pattern.full-match.unbounded-nullable"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Literal characters and escaping",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Literal characters and escaping",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.unescaped-dot yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Admitted grammar / Literal characters and escaping through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "portable-pattern.full-match.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "x"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "."
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "candidate",
+                "value": {
+                  "type": "string",
+                  "value": "adr-001Xmd"
+                }
+              },
+              {
+                "name": "matched",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "portable-pattern.full-match.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "unescaped dot is rejected rather than treated as wildcard"
+      ],
+      "vector_id": "portable-pattern.full-match.unescaped-dot"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Text domain",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Text domain"
+          ],
+          "reason": "The exact operational input for portable-pattern.full-match.unicode-scalar yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Text domain through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "named_captures",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "é"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "é"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Matching operation",
+            "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+            "path": "docs/contracts/portable-pattern.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "b6c849e67223a9b319fdcb48d33899e9a99b1ed2",
+        "correction_issue": 79,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "matching compares exact Unicode scalar values"
+      ],
+      "vector_id": "portable-pattern.full-match.unicode-scalar"
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+    "path": "docs/contracts/structured-data.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Structured value model and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Structured value model",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.canonical-string",
+        "structured-data.document.canonical-true",
+        "structured-data.document.positive-integer",
+        "structured-data.document.mapping-root",
+        "structured-data.document.sequence-root"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical document bytes and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical document bytes",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.invalid-utf8",
+        "structured-data.document.bom",
+        "structured-data.document.carriage-return"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Collection representation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Collection representation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.mapping-root",
+        "structured-data.document.sequence-root",
+        "structured-data.document.duplicate-key"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Scalar interpretation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Scalar interpretation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.canonical-string",
+        "structured-data.document.canonical-true",
+        "structured-data.document.canonical-false",
+        "structured-data.document.canonical-null",
+        "structured-data.document.positive-integer"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Scalar interpretation / Strings and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Scalar interpretation / Strings",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.canonical-string",
+        "structured-data.document.legacy-yes-string",
+        "structured-data.document.legacy-null-string",
+        "structured-data.document.legacy-date-string",
+        "structured-data.document.legacy-leading-zero-string",
+        "structured-data.document.legacy-float-string"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Scalar interpretation / Booleans and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Scalar interpretation / Booleans",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.canonical-true",
+        "structured-data.document.canonical-false"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Scalar interpretation / Integers and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Scalar interpretation / Integers",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.positive-integer",
+        "structured-data.document.negative-integer",
+        "structured-data.document.beyond-i64",
+        "structured-data.document.int-limit-641",
+        "structured-data.document.int-limit-4301"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Scalar interpretation / Null and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Scalar interpretation / Null",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.canonical-null"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Forbidden representation features and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Forbidden representation features",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.duplicate-key",
+        "structured-data.document.anchor",
+        "structured-data.document.alias",
+        "structured-data.document.merge",
+        "structured-data.document.explicit-tag",
+        "structured-data.document.block-scalar",
+        "structured-data.document.omitted-value-null"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Determinism boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Determinism boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.mapping-root",
+        "structured-data.document.sequence-root",
+        "structured-data.document.duplicate-key"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Frontmatter composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Frontmatter composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.frontmatter"
+      ],
+      "vector_refs": [
+        "structured-data.frontmatter.valid-mapping",
+        "structured-data.frontmatter.first-close",
+        "structured-data.frontmatter.immediate-close",
+        "structured-data.frontmatter.body-cannot-repair",
+        "structured-data.frontmatter.body-preserved",
+        "structured-data.frontmatter.document-start-marker",
+        "structured-data.frontmatter.document-end-marker"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Standalone-document composition and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Standalone-document composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document"
+      ],
+      "vector_refs": [
+        "structured-data.document.single-document",
+        "structured-data.document.explicit-markers",
+        "structured-data.document.multiple-documents"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Failure boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Failure boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "structured-data.document",
+        "structured-data.frontmatter"
+      ],
+      "vector_refs": [
+        "structured-data.document.invalid-utf8",
+        "structured-data.document.duplicate-key",
+        "structured-data.frontmatter.missing-opening",
+        "structured-data.frontmatter.missing-closing"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

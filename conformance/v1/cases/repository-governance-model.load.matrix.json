@@ -1,0 +1,1474 @@
+{
+  "case_id": "repository-governance-model.load.matrix",
+  "operation_id": "repository-governance-model.load",
+  "python_retirement_issue": 73,
+  "responsibility_id": "repository-governance-model.load",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Capabilities namespace",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Capabilities namespace",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.capabilities yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Capabilities namespace through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "binding"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "supported capability declarations preserve opaque configuration descendants"
+      ],
+      "vector_id": "repository-governance-model.load.capabilities"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unknown and invalid state handling",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Unknown and invalid state handling"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.controlled-invalid yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Unknown and invalid state handling through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-governance-model.load.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance: [\n---\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed or unsupported state fails through a controlled boundary"
+      ],
+      "vector_id": "repository-governance-model.load.controlled-invalid"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Logical provider",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Logical provider",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.logical-provider yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Logical provider through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "binding"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider id proto-ring and the version-specific binding load exactly"
+      ],
+      "vector_id": "repository-governance-model.load.logical-provider"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Capability declaration shape",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Capability declaration shape",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.malformed-capability yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structural keys through its concrete input and exact result. The fixture directly exercises Capability declaration shape through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-governance-model.load.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider: true\n    removed:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a capability missing configuration or routes is rejected"
+      ],
+      "vector_id": "repository-governance-model.load.malformed-capability"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository root",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Repository root",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.repository-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Repository root through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "binding"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "repository identity comes only from the explicit repository argument"
+      ],
+      "vector_id": "repository-governance-model.load.repository-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required routes",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Required routes",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.required-routes yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Required routes through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "binding"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "required routes are present and resolved through Canonical Governance Routing"
+      ],
+      "vector_id": "repository-governance-model.load.required-routes"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Unknown and invalid state handling",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Unknown and invalid state handling"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.unknown-root-key yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structural keys through its concrete input and exact result. The fixture directly exercises Unknown and invalid state handling through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-governance-model.load.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  extra: true\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unknown direct repository_governance key is rejected"
+      ],
+      "vector_id": "repository-governance-model.load.unknown-root-key"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Model version",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model version 2",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version 2",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.unsupported-version yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Model version 2 through its concrete input and exact result. The fixture directly exercises Model version through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-governance-model.load.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 3\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unsupported model version fails closed"
+      ],
+      "vector_id": "repository-governance-model.load.unsupported-version"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Model composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model version",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.valid-model-v1 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Model composition through its concrete input and exact result. The fixture directly exercises Model version through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "binding"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a complete supported model-version-1 declaration loads"
+      ],
+      "vector_id": "repository-governance-model.load.valid-model-v1"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Model composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model version",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model version 2",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model-version-2 structural composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structural keys",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version 2",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model-version-2 structural composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.valid-model-v2 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Model version 2 through its concrete input and exact result. The fixture directly exercises Model-version-2 structural composition through its concrete input and exact result. The fixture directly exercises Model composition through its concrete input and exact result. The fixture directly exercises Model version through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "governance_authority"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "2"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "registry"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "governance_authority",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "registry"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository: {}\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a complete supported model-version-2 declaration loads"
+      ],
+      "vector_id": "repository-governance-model.load.valid-model-v2"
+    }
+  ]
+}

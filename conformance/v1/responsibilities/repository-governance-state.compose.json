@@ -1,0 +1,128 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them.",
+    "RepositoryGovernanceState inherits RepositoryState identity opacity; observed-identity representation, digest/hash algorithm, encoding, and framing are implementation-defined."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical state",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Capabilities retained through the model",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Composition order",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Controlled construction failure",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact-observation invariant",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Model-version boundary",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Read-only and non-executing construction",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Repository identity boundary",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-governance-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Opaque exact identity",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact repository root containing model-version-2 governance carriers"
+  ],
+  "case_file": "cases/repository-governance-state.compose.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_governance_state.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority.",
+    "Current Python RepositoryState digest text and its 64-character representation are implementation behavior, not compatibility authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "successful composition exposes one opaque observed-state identity",
+    "a minimal valid model-v2 repository composes a coherent state",
+    "model version 1 is rejected at the RGS version-1 boundary",
+    "Governed Objects is absent exactly when capability is absent",
+    "Governed Objects loads exactly when capability is declared",
+    "Repository Integrity is absent exactly when capability is absent",
+    "Repository Integrity loads exactly when capability is declared",
+    "Projection Registry composes when declared",
+    "Evidence Requirements Registry composes when declared",
+    "invalid governed-object reference is attributed to its component stage",
+    "invalid binding scope is attributed to binding composition",
+    "binding to undeclared capability is rejected",
+    "malformed authority profile is stage-attributed",
+    "malformed projection registry is stage-attributed",
+    "architecture_decisions declaration does not trigger eager ADR enumeration",
+    "authoritative_ref_monotonicity declaration does not contact a provider",
+    "unchanged exact repository and scope returns coherent state",
+    "repository mutation during construction fails closed",
+    "observation-scope drift during construction fails closed",
+    "a routed file ignored by Git still participates in exact observation",
+    "the resolved routing target participates in observation",
+    "a direct routed symlink binding and distinct resolved target are both observed",
+    "bootstrap carrier symlink boundaries fail closed according to exact carrier/root identity",
+    "construction does not mutate repository state",
+    "integrity commands are not executed during construction"
+  ],
+  "responsibility_id": "repository-governance-state.compose",
+  "rust_owner_issue": 68,
+  "schema_version": "1.0",
+  "title": "RepositoryGovernanceState composition"
+}

@@ -1,0 +1,131 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them.",
+    "Opaque RepositoryState identity representation, digest/hash algorithm, byte or text encoding, and internal framing are implementation-defined."
+  ],
+  "authorities": [
+    {
+      "clause": "Capture coherence",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Composition boundaries",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Content-sensitive distinction",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact path identity",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact repository root",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Observation scope",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Opaque exact identity",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Read-only boundary",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Required local state dimensions",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-state.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact Git worktree root and explicit observation scope"
+  ],
+  "case_file": "cases/repository-state.capture.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_state.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority.",
+    "Current Python SHA-256, 64-character identity text, digest serialization, and framing are implementation behavior, not compatibility authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "successful capture exposes one opaque exact-state identity",
+    "capture requires the exact Git worktree root",
+    "a worktree subdirectory is rejected as root",
+    "symbolic HEAD identity is observed",
+    "detached HEAD is distinguished from symbolic HEAD",
+    "unborn HEAD is represented distinctly",
+    "changing HEAD object identity changes governed state",
+    "changing index stage identity changes governed state",
+    "tracked paths participate even when ignore policy matches",
+    "repository-nonignored untracked paths participate",
+    "explicit scope returns canonical repository-contained path identities",
+    "scope order and duplicate spelling normalize to the same effective scope",
+    "an explicit scope escaping the root is rejected",
+    "an absent explicit final path remains observed as absent",
+    "regular-file kind, bytes, and relevant mode are observed",
+    "symlink kind and exact target are observed without following as file content",
+    "explicit directory kind and mode are observed",
+    "absence is a contract-owned path state",
+    "regular-file byte mutation changes state",
+    "relevant mode mutation changes state",
+    "symlink target mutation changes state",
+    "explicit ignored directory observation does not recursively include descendants",
+    "ambient Git redirection cannot redirect observation",
+    "a nested repository path is observed under outer repository path semantics",
+    "a submodule Git index/path identity participates without recursive ambient substitution",
+    "mutation of already-dirty or already-untracked content changes state",
+    "capture does not mutate repository or Git state",
+    "concurrent structural or content mutation prevents successful identity"
+  ],
+  "responsibility_id": "repository-state.capture",
+  "rust_owner_issue": 67,
+  "schema_version": "1.0",
+  "title": "Canonical RepositoryState capture"
+}

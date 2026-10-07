@@ -1,0 +1,2768 @@
+{
+  "case_id": "structured-data.document.matrix",
+  "operation_id": "structured-data.document",
+  "python_retirement_issue": 73,
+  "responsibility_id": "structured-data.document",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.alias yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "66697273743a2026782076616c75650a7365636f6e643a202a780a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "first",
+                "value": {
+                  "type": "string",
+                  "value": "value"
+                }
+              },
+              {
+                "name": "second",
+                "value": {
+                  "type": "string",
+                  "value": "value"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "structured-data.document.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an alias use is rejected"
+      ],
+      "vector_id": "structured-data.document.alias"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.anchor yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a202661206f6e650a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an anchor declaration is rejected"
+      ],
+      "vector_id": "structured-data.document.anchor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Integers",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Integers",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The canonical decimal scalar 18446744073709551616 matches the integer grammar and therefore constructs the exact mathematical integer 18446744073709551616 without any machine-width rejection, truncation, rounding, float conversion, or string conversion."
+        },
+        "kind": "result",
+        "value": {
+          "type": "integer",
+          "value": "18446744073709551616"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "3138343436373434303733373039353531363136"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the canonical decimal scalar 18446744073709551616 constructs the exact mathematical integer 18446744073709551616 and must not be rejected, truncated, rounded, converted to float, or converted to string due to any 64-bit machine-width boundary"
+      ],
+      "vector_id": "structured-data.document.beyond-i64"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.block-scalar yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a207c0a2020746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "text\n"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "structured-data.document.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a literal block scalar is rejected"
+      ],
+      "vector_id": "structured-data.document.block-scalar"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical document bytes",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Canonical document bytes",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.bom yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical document bytes through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "efbbbf76616c75653a20746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a UTF-8 BOM is rejected"
+      ],
+      "vector_id": "structured-data.document.bom"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Scalar interpretation / Booleans",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Booleans",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.canonical-false yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation through its concrete input and exact result. The fixture directly exercises Scalar interpretation / Booleans through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "boolean",
+          "value": false
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "66616c73650a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unquoted false constructs boolean false"
+      ],
+      "vector_id": "structured-data.document.canonical-false"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Scalar interpretation / Null",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Null",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.canonical-null yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation through its concrete input and exact result. The fixture directly exercises Scalar interpretation / Null through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "null",
+          "value": null
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "6e756c6c0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unquoted null constructs null"
+      ],
+      "vector_id": "structured-data.document.canonical-null"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.canonical-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured value model through its concrete input and exact result. The fixture directly exercises Scalar interpretation through its concrete input and exact result. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "string",
+          "value": "text"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "plain text constructs the exact string text"
+      ],
+      "vector_id": "structured-data.document.canonical-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Scalar interpretation / Booleans",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Booleans",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.canonical-true yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured value model through its concrete input and exact result. The fixture directly exercises Scalar interpretation through its concrete input and exact result. The fixture directly exercises Scalar interpretation / Booleans through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "boolean",
+          "value": true
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "747275650a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unquoted true constructs boolean true"
+      ],
+      "vector_id": "structured-data.document.canonical-true"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical document bytes",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Canonical document bytes",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.carriage-return yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical document bytes through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20746578740d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a carriage-return byte is rejected"
+      ],
+      "vector_id": "structured-data.document.carriage-return"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Collection representation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Determinism boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Failure boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Collection representation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Determinism boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Failure boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.duplicate-key yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Collection representation through its concrete input and exact result. The fixture directly exercises Forbidden representation features through its concrete input and exact result. The fixture directly exercises Determinism boundary through its concrete input and exact result. The fixture directly exercises Failure boundary through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "666f6f3a206f6e650a666f6f3a2074776f0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "foo",
+                "value": {
+                  "type": "string",
+                  "value": "two"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "structured-data.document.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "duplicate constructed mapping key foo is rejected"
+      ],
+      "vector_id": "structured-data.document.duplicate-key"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.explicit-markers yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Standalone-document composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "text"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d202320646f63756d656e740a76616c75653a20746578740a2e2e2e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "text"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "text"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "one document with explicit start and end markers is accepted"
+      ],
+      "vector_id": "structured-data.document.explicit-markers"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.explicit-tag yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20212173747220746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an explicit YAML tag is rejected"
+      ],
+      "vector_id": "structured-data.document.explicit-tag"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Integers",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Integers",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.int-limit-4301 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Integers through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "integer",
+          "value": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "3130303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "ValueError",
+          "kind": "raw_python_exception",
+          "message": "Exceeds the limit (4300 digits) for integer string conversion: value has 4301 digits; use sys.set_int_max_str_digits() to increase the limit"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "integer",
+            "value": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Scalar interpretation / Integers",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a 4301-digit canonical integer remains an exact mathematical integer"
+      ],
+      "vector_id": "structured-data.document.int-limit-4301"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Integers",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Integers",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.int-limit-641 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Integers through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "integer",
+          "value": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "3130303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "ValueError",
+          "kind": "raw_python_exception",
+          "message": "Exceeds the limit (640 digits) for integer string conversion: value has 641 digits; use sys.set_int_max_str_digits() to increase the limit"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "integer",
+            "value": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Scalar interpretation / Integers",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a 641-digit canonical integer remains an exact mathematical integer"
+      ],
+      "vector_id": "structured-data.document.int-limit-641"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical document bytes",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Failure boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Canonical document bytes",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Failure boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.invalid-utf8 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical document bytes through its concrete input and exact result. The fixture directly exercises Failure boundary through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20ff0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "invalid UTF-8 document bytes are rejected"
+      ],
+      "vector_id": "structured-data.document.invalid-utf8"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.legacy-date-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "2026-09-29"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20323032362d30392d32390a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "python_type",
+                "value": {
+                  "type": "string",
+                  "value": "datetime.date"
+                }
+              },
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "2026-09-29"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "2026-09-29"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "plain 2026-09-29 constructs an exact string rather than a date object"
+      ],
+      "vector_id": "structured-data.document.legacy-date-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.legacy-float-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "1.0"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20312e300a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "python_type",
+                "value": {
+                  "type": "string",
+                  "value": "float"
+                }
+              },
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "1.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "1.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "plain 1.0 constructs the string 1.0 rather than a floating value"
+      ],
+      "vector_id": "structured-data.document.legacy-float-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.legacy-leading-zero-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "01"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a2030310a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "integer",
+                  "value": "1"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "01"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "plain 01 constructs the string 01 rather than integer 1"
+      ],
+      "vector_id": "structured-data.document.legacy-leading-zero-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.legacy-null-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "Null"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a204e756c6c0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "Null"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "plain Null remains the exact string Null"
+      ],
+      "vector_id": "structured-data.document.legacy-null-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Strings",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Strings",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.legacy-yes-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Scalar interpretation / Strings through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "yes"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a207965730a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "string",
+                  "value": "yes"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "plain yes constructs the string yes rather than boolean true"
+      ],
+      "vector_id": "structured-data.document.legacy-yes-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Collection representation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Determinism boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Collection representation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Determinism boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.mapping-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured value model through its concrete input and exact result. The fixture directly exercises Collection representation through its concrete input and exact result. The fixture directly exercises Determinism boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "text"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a mapping root with key value constructs an exact mapping"
+      ],
+      "vector_id": "structured-data.document.mapping-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.merge yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "626173653a2026620a20206f6e653a2074776f0a76616c75653a0a20203c3c3a202a620a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a merge key is rejected whether quoted or unquoted"
+      ],
+      "vector_id": "structured-data.document.merge"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.multiple-documents yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Standalone-document composition through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a206f6e650a2d2d2d0a76616c75653a2074776f0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "two YAML documents are rejected"
+      ],
+      "vector_id": "structured-data.document.multiple-documents"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation / Integers",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Integers",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The canonical unquoted decimal scalar -42 matches the integer grammar and constructs the exact mathematical integer -42."
+        },
+        "kind": "result",
+        "value": {
+          "type": "integer",
+          "value": "-42"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d34320a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unquoted -42 constructs mathematical integer -42"
+      ],
+      "vector_id": "structured-data.document.negative-integer"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Forbidden representation features",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Forbidden representation features",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.omitted-value-null yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Forbidden representation features through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.document.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "value",
+                "value": {
+                  "type": "null",
+                  "value": null
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "structured-data.document.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "an omitted mapping value is rejected"
+      ],
+      "vector_id": "structured-data.document.omitted-value-null"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Scalar interpretation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Scalar interpretation / Integers",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Scalar interpretation / Integers",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The canonical unquoted decimal scalar 42 matches the integer grammar and constructs the exact mathematical integer 42."
+        },
+        "kind": "result",
+        "value": {
+          "type": "integer",
+          "value": "42"
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "34320a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unquoted 42 constructs mathematical integer 42"
+      ],
+      "vector_id": "structured-data.document.positive-integer"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Collection representation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Determinism boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Collection representation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Determinism boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.sequence-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured value model through its concrete input and exact result. The fixture directly exercises Collection representation through its concrete input and exact result. The fixture directly exercises Determinism boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "sequence",
+          "value": [
+            {
+              "type": "string",
+              "value": "one"
+            },
+            {
+              "type": "string",
+              "value": "two"
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d206f6e650a2d2074776f0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "sequence",
+            "value": [
+              {
+                "type": "string",
+                "value": "one"
+              },
+              {
+                "type": "string",
+                "value": "two"
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "sequence",
+            "value": [
+              {
+                "type": "string",
+                "value": "one"
+              },
+              {
+                "type": "string",
+                "value": "two"
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Structured value model",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "503be33bf615d211af7a85b15cbb511b3f2612ce",
+        "correction_issue": 78,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "a sequence root with two strings preserves order"
+      ],
+      "vector_id": "structured-data.document.sequence-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Standalone-document composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured value model",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Standalone-document composition",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Structured value model"
+          ],
+          "reason": "The exact operational input for structured-data.document.single-document yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Standalone-document composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "text"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_document"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one document without markers is accepted"
+      ],
+      "vector_id": "structured-data.document.single-document"
+    }
+  ]
+}

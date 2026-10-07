@@ -1,0 +1,2368 @@
+{
+  "case_id": "governance-authority.profile.matrix",
+  "operation_id": "governance-authority.profile",
+  "python_retirement_issue": 73,
+  "responsibility_id": "governance-authority.profile",
+  "rust_owner_issue": 65,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Model-version-1 profile",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Model-version-1 profile",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.body-prose yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Model-version-1 profile through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "body prose cannot alter structured authority declarations"
+      ],
+      "vector_id": "governance-authority.profile.body-prose"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Governed sources",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Repository Governance Model integration",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Governed sources",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Repository Governance Model integration",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.canonical-routing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Governed sources through its concrete input and exact result. The fixture directly exercises Repository Governance Model integration through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "repository targets resolve through Canonical Governance Routing"
+      ],
+      "vector_id": "governance-authority.profile.canonical-routing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Co-authorities",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Co-authorities",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.coauthorities yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Co-authorities through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "authority_sources"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "multiple incomparable authority sources are valid"
+      ],
+      "vector_id": "governance-authority.profile.coauthorities"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Co-authorities",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Co-authorities",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.empty-authority-set yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Co-authorities through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "authority_sources"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources: {}\n  responsibilities:\n    r:\n      roles: {}\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a known responsibility with empty roles is valid"
+      ],
+      "vector_id": "governance-authority.profile.empty-authority-set"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.invalid-graph yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Precedence through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence:\n      - higher_source: a\n        lower_source: b\n      - higher_source: b\n        lower_source: a\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "self edges, cycles, and exact duplicate edges are rejected"
+      ],
+      "vector_id": "governance-authority.profile.invalid-graph"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Lookup states",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Lookup states",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.malformed-lookup yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Lookup states through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles: []\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed lookup input fails closed rather than becoming a role"
+      ],
+      "vector_id": "governance-authority.profile.malformed-lookup"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Co-authorities",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Co-authorities",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.one-authority yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Co-authorities through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "authority_sources"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: non_authoritative\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one authority source is valid"
+      ],
+      "vector_id": "governance-authority.profile.one-authority"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Precedence through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  },
+                  {
+                    "type": "string",
+                    "value": "c"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "left",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  },
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "outranks"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  },
+                  {
+                    "name": "right",
+                    "value": {
+                      "type": "string",
+                      "value": "c"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n    c: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n        c: authority\n      precedence:\n      - higher_source: a\n        lower_source: b\n      - higher_source: b\n        lower_source: c\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a valid authority-to-authority precedence edge is accepted"
+      ],
+      "vector_id": "governance-authority.profile.precedence"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.roles yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Source roles through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "string",
+                "value": "authority"
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "role_of"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the exact serialized roles are authority, secondary_representation, and non_authoritative"
+      ],
+      "vector_id": "governance-authority.profile.roles"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.roles-by-responsibility yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "string",
+                "value": "non_authoritative"
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  },
+                  {
+                    "type": "string",
+                    "value": "r2"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "role_of"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r2"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n    r2:\n      roles:\n        a: non_authoritative\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "one source may have different roles by responsibility"
+      ],
+      "vector_id": "governance-authority.profile.roles-by-responsibility"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Secondary representations",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Secondary representations",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.secondary-with-authority yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Secondary representations through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: secondary_representation\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a secondary representation with at least one authority is valid"
+      ],
+      "vector_id": "governance-authority.profile.secondary-with-authority"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Secondary representations",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Secondary representations",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.secondary-without-authority yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Secondary representations through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: secondary_representation\n        b: non_authoritative\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a secondary representation without any authority is rejected"
+      ],
+      "vector_id": "governance-authority.profile.secondary-without-authority"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.transitive-outranking yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Precedence through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  },
+                  {
+                    "type": "string",
+                    "value": "c"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "left",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  },
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "outranks"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  },
+                  {
+                    "name": "right",
+                    "value": {
+                      "type": "string",
+                      "value": "c"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n    c: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n        c: authority\n      precedence:\n      - higher_source: a\n        lower_source: b\n      - higher_source: b\n        lower_source: c\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "transitive precedence establishes outranking without removing authority"
+      ],
+      "vector_id": "governance-authority.profile.transitive-outranking"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.undeclared-endpoint yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Precedence through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence:\n      - higher_source: a\n        lower_source: missing\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a precedence endpoint not declared as authority is rejected"
+      ],
+      "vector_id": "governance-authority.profile.undeclared-endpoint"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Lookup states",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Lookup states",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.undeclared-source yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Lookup states through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "string",
+                "value": "undeclared"
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "role_of"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "value": {
+                      "type": "string",
+                      "value": "missing"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "known responsibility without the source assignment is UNDECLARED"
+      ],
+      "vector_id": "governance-authority.profile.undeclared-source"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Lookup states",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Lookup states",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.unknown-responsibility yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Lookup states through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "string",
+                "value": "unknown_responsibility"
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "role_of"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "missing"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "value": {
+                      "type": "string",
+                      "value": "a"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "absent responsibility lookup is UNKNOWN_RESPONSIBILITY"
+      ],
+      "vector_id": "governance-authority.profile.unknown-responsibility"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.unknown-role yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Source roles through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: primary\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unknown serialized role is rejected"
+      ],
+      "vector_id": "governance-authority.profile.unknown-role"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Governed sources",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Governed sources",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.unknown-source yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Governed sources through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n        missing: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a role referencing an undeclared source is rejected"
+      ],
+      "vector_id": "governance-authority.profile.unknown-source"
+    }
+  ]
+}

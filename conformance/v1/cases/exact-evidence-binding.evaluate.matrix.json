@@ -1,0 +1,2305 @@
+{
+  "case_id": "exact-evidence-binding.evaluate.matrix",
+  "operation_id": "exact-evidence-binding.evaluate",
+  "python_retirement_issue": 73,
+  "responsibility_id": "exact-evidence-binding.evaluate",
+  "rust_owner_issue": 66,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Explicit evidence-class admission",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Explicit evidence-class admission",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.class-missing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Explicit evidence-class admission through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "missing or malformed candidate class yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.class-missing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Explicit evidence-class admission",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Explicit evidence-class admission",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.class-unadmitted yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Explicit evidence-class admission through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MISMATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "other"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "known unadmitted class yields MISMATCH"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.class-unadmitted"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED / MISMATCH",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque identity tokens",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED / MISMATCH",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Opaque identity tokens",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.context-mismatch yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Opaque identity tokens through its concrete input and exact result. The fixture directly exercises Optional-but-explicit context binding through its concrete input and exact result. The fixture directly exercises MATCH / MISMATCH / UNDETERMINED / MISMATCH through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MISMATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "6f74686572"
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "636f6e74657874"
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "known unequal required context yields MISMATCH"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.context-mismatch"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.context-missing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Optional-but-explicit context binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "636f6e74657874"
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "required missing or malformed candidate context yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.context-missing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fail-closed use of mandatory binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "No implicit evidence substitution",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Fail-closed use of mandatory binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#No implicit evidence substitution"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.evidence-absent yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises No implicit evidence substitution through its concrete input and exact result. The fixture directly exercises Fail-closed use of mandatory binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "absent candidate evidence yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.evidence-absent"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Current versus historical requirement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Requirement authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Current versus historical requirement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Requirement authority"
+          ],
+          "reason": "Two actual historical/current evaluations isolate subject change and context change. Each candidate exactly matches the historical requirement and mismatches the changed current requirement without substituting current authority backward."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "comparisons",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "current",
+                        "value": {
+                          "type": "string",
+                          "value": "MISMATCH"
+                        }
+                      },
+                      {
+                        "name": "historical",
+                        "value": {
+                          "type": "string",
+                          "value": "MATCH"
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "value": {
+                          "type": "string",
+                          "value": "subject-change"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "current",
+                        "value": {
+                          "type": "string",
+                          "value": "MISMATCH"
+                        }
+                      },
+                      {
+                        "name": "historical",
+                        "value": {
+                          "type": "string",
+                          "value": "MATCH"
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "value": {
+                          "type": "string",
+                          "value": "context-change"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "comparisons",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "binding",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "null",
+                                "value": null
+                              }
+                            },
+                            {
+                              "name": "evidence_class",
+                              "value": {
+                                "type": "string",
+                                "value": "check"
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "686973746f726963616c2d7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "current_requirement",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "admitted_classes",
+                              "value": {
+                                "type": "sequence",
+                                "value": [
+                                  {
+                                    "type": "string",
+                                    "value": "check"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "null",
+                                "value": null
+                              }
+                            },
+                            {
+                              "name": "context_required",
+                              "value": {
+                                "type": "boolean",
+                                "value": false
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "63757272656e742d7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "historical_requirement",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "admitted_classes",
+                              "value": {
+                                "type": "sequence",
+                                "value": [
+                                  {
+                                    "type": "string",
+                                    "value": "check"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "null",
+                                "value": null
+                              }
+                            },
+                            {
+                              "name": "context_required",
+                              "value": {
+                                "type": "boolean",
+                                "value": false
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "686973746f726963616c2d7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "value": {
+                          "type": "string",
+                          "value": "subject-change"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "binding",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "686973746f726963616c2d636f6e74657874"
+                              }
+                            },
+                            {
+                              "name": "evidence_class",
+                              "value": {
+                                "type": "string",
+                                "value": "check"
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "current_requirement",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "admitted_classes",
+                              "value": {
+                                "type": "sequence",
+                                "value": [
+                                  {
+                                    "type": "string",
+                                    "value": "check"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "63757272656e742d636f6e74657874"
+                              }
+                            },
+                            {
+                              "name": "context_required",
+                              "value": {
+                                "type": "boolean",
+                                "value": true
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "historical_requirement",
+                        "value": {
+                          "type": "record",
+                          "value": [
+                            {
+                              "name": "admitted_classes",
+                              "value": {
+                                "type": "sequence",
+                                "value": [
+                                  {
+                                    "type": "string",
+                                    "value": "check"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "name": "context_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "686973746f726963616c2d636f6e74657874"
+                              }
+                            },
+                            {
+                              "name": "context_required",
+                              "value": {
+                                "type": "boolean",
+                                "value": true
+                              }
+                            },
+                            {
+                              "name": "subject_hex",
+                              "value": {
+                                "type": "string",
+                                "value": "7375626a656374"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "value": {
+                          "type": "string",
+                          "value": "context-change"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_requirement_history"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a historical match does not authorize changed current subject or context"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.historical-change"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Composition with Exact Evidence Binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/evidence-requirements.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED / MATCH",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/evidence-requirements.md#Composition with Exact Evidence Binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED / MATCH",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.match-context yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Composition with Exact Evidence Binding through its concrete input and exact result. The fixture directly exercises Optional-but-explicit context binding through its concrete input and exact result. The fixture directly exercises MATCH / MISMATCH / UNDETERMINED through its concrete input and exact result. The fixture directly exercises MATCH / MISMATCH / UNDETERMINED / MATCH through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "636f6e74657874"
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "636f6e74657874"
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "exact class, subject, and required context yields MATCH"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.match-context"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact subject binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Exact subject binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.match-no-context yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact subject binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "exact admitted class and subject yields MATCH when context is not required"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.match-no-context"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Fail-closed use of mandatory binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Fail-closed use of mandatory binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.match-not-proof yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Fail-closed use of mandatory binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "MATCH establishes exact binding only, not proof, truth, evidence success, or overall success"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.match-not-proof"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "No implicit evidence substitution",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#No implicit evidence substitution"
+          ],
+          "reason": "Exact evidence-class admission rejects class check when only check-v2 is admitted; subject agreement cannot provide implicit class fallback."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MISMATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check-v2"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unadmitted class receives no implicit alias or fallback"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.no-fallback"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact subject binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque identity tokens",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Exact subject binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Opaque identity tokens"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.subject-mismatch yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Opaque identity tokens through its concrete input and exact result. The fixture directly exercises Exact subject binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MISMATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "6f74686572"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "known unequal subject token yields MISMATCH"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.subject-mismatch"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.subject-missing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "missing or malformed candidate subject yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.subject-missing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.unknown-current-context yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises MATCH / MISMATCH / UNDETERMINED / UNDETERMINED through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "636f6e74657874"
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "required unknown current context yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.unknown-current-context"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Requirement authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Requirement authority"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.unknown-current-subject yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Requirement authority through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unknown current subject yields UNDETERMINED"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.unknown-current-subject"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "The exact operational input for exact-evidence-binding.evaluate.unknown-precedes-class yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "other"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unknown current subject yields UNDETERMINED even when class appears mismatched"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.unknown-precedes-class"
+    }
+  ]
+}

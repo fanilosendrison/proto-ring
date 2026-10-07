@@ -1,0 +1,134 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+    "path": "docs/contracts/canonical-adr-identity.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Consumer-owned configuration and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Consumer-owned configuration",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.profile-route-missing",
+        "canonical-adr.resolve.profile-route-malformed",
+        "canonical-adr.resolve.filename-pattern-invalid",
+        "canonical-adr.resolve.id-pattern-invalid"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Consumed profile fields and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Consumed profile fields",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.wrong-width",
+        "canonical-adr.resolve.number-capture-absent"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Logical ADR identity and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Logical ADR identity",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.valid-resolution",
+        "canonical-adr.resolve.metadata-id-mismatch"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical corpus and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical corpus",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.directory-missing",
+        "canonical-adr.resolve.outside-corpus",
+        "canonical-adr.resolve.unrelated-symlink"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Candidate resolution and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Candidate resolution",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.zero-candidate",
+        "canonical-adr.resolve.one-candidate",
+        "canonical-adr.resolve.multiple-candidates",
+        "canonical-adr.resolve.matching-symlink"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Structured record requirement and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Structured record requirement",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.unstructured-candidate",
+        "canonical-adr.resolve.metadata-id-mismatch",
+        "canonical-adr.resolve.exact-body"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Projection exclusion and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Projection exclusion",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "canonical-adr.resolve"
+      ],
+      "vector_refs": [
+        "canonical-adr.resolve.generated-index",
+        "canonical-adr.resolve.annotated-history"
+      ]
+    }
+  ],
+  "schema_version": "1.0"
+}

@@ -1,0 +1,133 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Source roles",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governance-authority.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact identity semantics",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/governed-objects.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Authority and evidence boundaries",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/projection-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governed identity boundary",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/projection-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry / Binding kinds and scopes",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry / Cardinality and ambiguity",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry / Consumer-owned binding authority",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry / Immutable identities",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Governance Binding Registry / Read-only provider and installation boundary",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/shared-governance-provider.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "routed binding registry, model, authority profile and optional object catalog"
+  ],
+  "case_file": "cases/governance-bindings.registry.matrix.json",
+  "frozen_baseline_modules": [
+    "governance_bindings.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "the exact binding kinds are executable_provider and governance_contract",
+    "the exact scope kinds are logical_provider, capability, and governed_object",
+    "a valid model-version-1 binding registry is accepted",
+    "unknown structural keys are rejected",
+    "each binding kind admits only its contract-owned scope shapes",
+    "provider and contract identity shapes are exact",
+    "a binding commit must be forty lowercase hexadecimal characters",
+    "BindingId is an opaque nonempty consumer identity",
+    "binding authority references declared authority source and responsibility",
+    "registry source must exist and route to the carrier",
+    "a governed-object scope resolves through the object catalog",
+    "exactly one active executable provider exists for the logical provider",
+    "different commits for one contract under one effective scope are rejected",
+    "the same Git SHA under distinct immutable identity kinds remains admitted"
+  ],
+  "responsibility_id": "governance-bindings.registry",
+  "rust_owner_issue": 66,
+  "schema_version": "1.0",
+  "source_test_accounting": [
+    {
+      "disposition": "conformance_case",
+      "methods": [
+        "test_contract_owns_governance_binding_registry"
+      ],
+      "path": "tests/test_shared_governance_provider_contract.py",
+      "reason": "the current contract test asserts the active Governance Binding Registry owned by this Rust-port responsibility"
+    }
+  ],
+  "title": "Governance Binding Registry"
+}

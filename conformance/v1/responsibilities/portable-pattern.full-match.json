@@ -1,0 +1,148 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Admitted grammar",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Anchors",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Character classes",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Concatenation and alternation",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Groups and captures",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Literal characters and escaping",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Admitted grammar / Quantifiers",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Forbidden engine behavior",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Match selection and captures",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Matching operation",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Text domain",
+      "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+      "path": "docs/contracts/portable-pattern.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "Unicode scalar pattern and Unicode scalar input"
+  ],
+  "case_file": "cases/portable-pattern.full-match.matrix.json",
+  "frozen_baseline_modules": [],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [
+    "portable_pattern.py",
+    "portable_pattern_matching.py"
+  ],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "literal scalars match exactly",
+    "a proper substring does not match",
+    "matching compares exact Unicode scalar values",
+    "composed and decomposed spellings remain distinct",
+    "^ denotes exact input start",
+    "$ denotes exact input end, not before a final LF",
+    "escaped dot matches a literal dot",
+    "unescaped dot is rejected rather than treated as wildcard",
+    "a positive class admits listed members",
+    "a negated class rejects listed members and admits other scalars",
+    "inclusive ASCII ranges match exact code points",
+    "a first unescaped hyphen is literal",
+    "a final unescaped hyphen is literal",
+    "[a-b-c] is rejected",
+    "multiple successful alternatives select source order",
+    "an empty pattern full-matches the empty input",
+    "an empty group participates with an empty capture",
+    "an empty alternative is admitted",
+    "capture numbers follow opening-group source order",
+    "a named capture is also the same positional capture",
+    "duplicate named captures are rejected",
+    "a capture in an unselected alternative is absent",
+    "a participating empty capture is present and distinct from absence",
+    "greedy repetition backs down only as needed for full match",
+    "a repeated capture reports its last successful participation",
+    "an earlier nested capture remains when a later outer repetition omits it",
+    "bounded repetition of an empty-matching group is admitted",
+    "a 1500-count bounded nullable repetition is independent of Python recursion limits",
+    "unbounded repetition of an empty-matching expression is rejected",
+    "lookaround, backreference, inline flags, shorthand and native extensions are rejected"
+  ],
+  "responsibility_id": "portable-pattern.full-match",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Canonical Portable Pattern full matching"
+}

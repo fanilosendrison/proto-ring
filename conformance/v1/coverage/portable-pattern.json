@@ -1,0 +1,199 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+    "path": "docs/contracts/portable-pattern.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Text domain and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Text domain",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.unicode-scalar",
+        "portable-pattern.full-match.no-normalization"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Matching operation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Matching operation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.exact-literal",
+        "portable-pattern.full-match.full-match-only"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.exact-literal",
+        "portable-pattern.full-match.ascii-range",
+        "portable-pattern.full-match.named-capture",
+        "portable-pattern.full-match.bounded-nullable"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Literal characters and escaping and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Literal characters and escaping",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.exact-literal",
+        "portable-pattern.full-match.escaped-dot",
+        "portable-pattern.full-match.unescaped-dot"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Character classes and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Character classes",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.ascii-range",
+        "portable-pattern.full-match.negated-class",
+        "portable-pattern.full-match.overlapping-range",
+        "portable-pattern.full-match.first-hyphen",
+        "portable-pattern.full-match.final-hyphen"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Concatenation and alternation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Concatenation and alternation",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.ordered-alternation",
+        "portable-pattern.full-match.empty-alternative"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Groups and captures and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Groups and captures",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.capture-numbering",
+        "portable-pattern.full-match.named-capture",
+        "portable-pattern.full-match.duplicate-name",
+        "portable-pattern.full-match.empty-group"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Quantifiers and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Quantifiers",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.greedy-backtracking",
+        "portable-pattern.full-match.last-repeated-capture",
+        "portable-pattern.full-match.bounded-nullable",
+        "portable-pattern.full-match.unbounded-nullable"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Admitted grammar / Anchors and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Admitted grammar / Anchors",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.start-anchor",
+        "portable-pattern.full-match.end-anchor"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Forbidden engine behavior and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Forbidden engine behavior",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.forbidden-native-extensions",
+        "portable-pattern.full-match.native-shorthand-digit",
+        "portable-pattern.full-match.native-shorthand-word"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Match selection and captures and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Match selection and captures",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "portable-pattern.full-match"
+      ],
+      "vector_refs": [
+        "portable-pattern.full-match.greedy-backtracking",
+        "portable-pattern.full-match.last-repeated-capture",
+        "portable-pattern.full-match.nonparticipating-capture",
+        "portable-pattern.full-match.participating-empty",
+        "portable-pattern.full-match.demonstrated-adr-pattern",
+        "portable-pattern.full-match.demonstrated-anchor-pattern"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

@@ -1,0 +1,68 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical operation set",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "JSON Schema validation",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Relation-reference checking",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Structured configuration requirements",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/adr-metadata-primitives.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "structured metadata plus Draft 2020-12 base and overlay schemas"
+  ],
+  "case_file": "cases/adr-metadata.validation.matrix.json",
+  "frozen_baseline_modules": [
+    "adr_metadata.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "base and overlay Draft 2020-12 schemas independently validate metadata",
+    "format checking rejects an impossible calendar date",
+    "the generic mapping requirement accepts only mappings",
+    "the generic string requirement accepts only nonempty strings",
+    "the generic string-list requirement rejects duplicates and empty values",
+    "self-reference and missing relation targets are reported structurally",
+    "relation vocabulary remains consumer-owned and is not interpreted"
+  ],
+  "responsibility_id": "adr-metadata.validation",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "ADR metadata schema and structured requirements"
+}

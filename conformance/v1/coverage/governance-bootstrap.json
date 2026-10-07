@@ -1,0 +1,137 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/governance-bootstrap.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical carrier and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical carrier",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.valid-root",
+        "governance-bootstrap.root.missing-root",
+        "governance-bootstrap.root.not-root-carrier"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Byte-level carrier requirements and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Byte-level carrier requirements",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.malformed-structured-data"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture materially exercises Exact frontmatter envelope and its exact expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact frontmatter envelope",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.malformed-structured-data",
+        "governance-bootstrap.root.missing-repository-governance"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture materially exercises Canonical Structured Data composition and its exact expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical Structured Data composition",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.valid-root",
+        "governance-bootstrap.root.malformed-structured-data"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Governance bootstrap root and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Governance bootstrap root",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.valid-root",
+        "governance-bootstrap.root.unsupported-root"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Failure behavior and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Failure behavior",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.missing-root",
+        "governance-bootstrap.root.malformed-structured-data",
+        "governance-bootstrap.root.unsupported-root"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Composition with Canonical Governance Routing and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Composition with Canonical Governance Routing",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-bootstrap.root"
+      ],
+      "vector_refs": [
+        "governance-bootstrap.root.valid-root"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Explicit exclusions",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

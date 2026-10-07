@@ -1,0 +1,1723 @@
+{
+  "case_id": "github-authoritative-ref-monotonicity.observe.matrix",
+  "operation_id": "github-authoritative-ref-monotonicity.observe",
+  "python_retirement_issue": 73,
+  "responsibility_id": "github-authoritative-ref-monotonicity.observe",
+  "rust_owner_issue": 69,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.additional-rule yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises External enforcement through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "SATISFIED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a377d2c7b2274797065223a226e6f6e5f666173745f666f7277617264222c2272756c657365745f6964223a377d2c7b2274797065223a2272657175697265645f7374617475735f636865636b73222c2272756c657365745f6964223a377d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an additional effective rule under the bound ruleset still yields SATISFIED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.additional-rule"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Local binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Local binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.bound-absent yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Local binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "VIOLATED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "absent bound ruleset yields VIOLATED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.bound-absent"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.http-error yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "http_error",
+            "status": 503
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider returns HTTP error"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.http-error"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.io-error yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "io_error",
+            "message": "I/O unavailable"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider I/O fails"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.io-error"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Local binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Local binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.malformed-binding yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Local binding through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "VIOLATED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "232042696e64696e670a",
+          "path": "binding.md"
+        },
+        "interactions": [],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed required consumer binding yields VIOLATED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.malformed-binding"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.malformed-item yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b226e6f742d612d6d617070696e67225d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider list item is malformed"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.malformed-item"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.malformed-json yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "7b6e6f742d6a736f6e",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider body is malformed JSON"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.malformed-json"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.malformed-provider-data yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "ff",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed UTF-8, JSON, top-level, or item observation yields UNDETERMINED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.malformed-provider-data"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.malformed-utf8 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "ff",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider body is invalid UTF-8"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.malformed-utf8"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Non-deletion",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Non-deletion",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.missing-deletion yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Non-deletion through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "VIOLATED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a226e6f6e5f666173745f666f7277617264222c2272756c657365745f6964223a377d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "missing deletion protection yields VIOLATED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.missing-deletion"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Monotonic advancement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Monotonic advancement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.missing-non-fast-forward yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Monotonic advancement through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "VIOLATED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a377d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "missing non_fast_forward protection yields VIOLATED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.missing-non-fast-forward"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.network-error yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "network_error",
+            "message": "unavailable"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider network request fails"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.network-error"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.other-ruleset yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises External enforcement through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "VIOLATED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a387d2c7b2274797065223a226e6f6e5f666173745f666f7277617264222c2272756c657365745f6964223a387d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "required rules only under another ruleset yield VIOLATED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.other-ruleset"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.pagination yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "SATISFIED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a377d2c7b2274797065223a2265787472612d30222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d31222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d32222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d33222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d34222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d35222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d36222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d37222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d38222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d39222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3130222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3131222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3132222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3133222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3134222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3135222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3136222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3137222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3138222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3139222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3230222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3231222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3232222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3233222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3234222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3235222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3236222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3237222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3238222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3239222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3330222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3331222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3332222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3333222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3334222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3335222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3336222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3337222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3338222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3339222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3430222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3431222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3432222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3433222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3434222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3435222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3436222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3437222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3438222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3439222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3530222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3531222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3532222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3533222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3534222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3535222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3536222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3537222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3538222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3539222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3630222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3631222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3632222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3633222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3634222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3635222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3636222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3637222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3638222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3639222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3730222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3731222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3732222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3733222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3734222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3735222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3736222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3737222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3738222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3739222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3830222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3831222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3832222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3833222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3834222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3835222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3836222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3837222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3838222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3839222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3930222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3931222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3932222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3933222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3934222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3935222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3936222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3937222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3938222c2272756c657365745f6964223a387d5d",
+            "kind": "http_response",
+            "status": 200
+          },
+          {
+            "body_hex": "5b7b2274797065223a226e6f6e5f666173745f666f7277617264222c2272756c657365745f6964223a377d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "pagination aggregates all effective required rules before evaluation"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.pagination"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The first concrete full provider page requires a second page, whose exact timeout prevents complete aggregation; External enforcement therefore requires UNDETERMINED without using partial data as proof."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2265787472612d30222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d31222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d32222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d33222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d34222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d35222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d36222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d37222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d38222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d39222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3130222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3131222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3132222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3133222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3134222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3135222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3136222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3137222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3138222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3139222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3230222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3231222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3232222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3233222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3234222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3235222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3236222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3237222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3238222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3239222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3330222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3331222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3332222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3333222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3334222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3335222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3336222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3337222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3338222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3339222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3430222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3431222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3432222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3433222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3434222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3435222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3436222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3437222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3438222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3439222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3530222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3531222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3532222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3533222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3534222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3535222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3536222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3537222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3538222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3539222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3630222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3631222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3632222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3633222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3634222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3635222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3636222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3637222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3638222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3639222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3730222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3731222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3732222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3733222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3734222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3735222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3736222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3737222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3738222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3739222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3830222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3831222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3832222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3833222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3834222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3835222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3836222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3837222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3838222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3839222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3930222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3931222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3932222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3933222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3934222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3935222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3936222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3937222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3938222c2272756c657365745f6964223a387d2c7b2274797065223a2265787472612d3939222c2272756c657365745f6964223a387d5d",
+            "kind": "http_response",
+            "status": 200
+          },
+          {
+            "kind": "timeout",
+            "message": "page 2 unavailable"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "pagination that cannot establish a finite complete observation yields UNDETERMINED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.pagination-incomplete"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.provider-unavailable yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "network_error",
+            "message": "unavailable"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "HTTP, network, TLS, timeout, or rate-limit inability yields UNDETERMINED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.provider-unavailable"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Monotonic advancement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Non-deletion",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Monotonic advancement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Non-deletion",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.required-rules yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Monotonic advancement through its concrete input and exact result. The fixture directly exercises Non-deletion through its concrete input and exact result. The fixture directly exercises External enforcement through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "SATISFIED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "5b7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a377d2c7b2274797065223a226e6f6e5f666173745f666f7277617264222c2272756c657365745f6964223a377d5d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "bound ruleset exposing deletion and non_fast_forward yields SATISFIED"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.required-rules"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.timeout yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "timeout",
+            "message": "timed out"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider request times out"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.timeout"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Provider-neutral realization",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#Provider-neutral realization",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.tls-error yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Provider-neutral realization through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "kind": "tls_verification_error",
+            "message": "certificate verify failed"
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider TLS verification fails"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.tls-error"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Integrity obligation result",
+          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "path": "docs/contracts/repository-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observed gap",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "External enforcement",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/authoritative-ref-monotonicity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Executable realization composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-integrity.md#Integrity obligation result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md#Observed gap",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/authoritative-ref-monotonicity.md#External enforcement",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Executable realization composition"
+          ],
+          "reason": "The exact operational input for github-authoritative-ref-monotonicity.observe.wrong-top-level yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "binding": {
+          "bytes_hex": "2d2d2d0a617574686f72697461746976655f7265665f6d6f6e6f746f6e69636974793a0a20207265706f7369746f72793a0a2020202070726f76696465723a206769746875620a202020206f776e65723a206578616d706c652d6f776e65720a202020206e616d653a206578616d706c652d7265706f7369746f72790a2020617574686f72697461746976655f7265663a20726566732f68656164732f7472756e6b0a202070726f74656374696f6e3a0a202020206d656368616e69736d3a206769746875622d7265706f7369746f72792d72756c657365740a2020202072756c657365745f69643a20370a2d2d2d0a2320436172726965720a",
+          "path": "binding.md"
+        },
+        "interactions": [
+          {
+            "body_hex": "7b2274797065223a2264656c6574696f6e222c2272756c657365745f6964223a377d",
+            "kind": "http_response",
+            "status": 200
+          }
+        ],
+        "kind": "provider_observation"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "provider JSON top level is wrong"
+      ],
+      "vector_id": "github-authoritative-ref-monotonicity.observe.wrong-top-level"
+    }
+  ]
+}

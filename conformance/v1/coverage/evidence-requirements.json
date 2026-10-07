@@ -1,0 +1,165 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/evidence-requirements.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Persistent registry and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Persistent registry",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.single-instance",
+        "evidence-requirements.registry.empty-registry"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Requirement instantiation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Requirement instantiation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.single-instance",
+        "evidence-requirements.registry.source-instance"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Evidence-class admission and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Evidence-class admission",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.explicit-class",
+        "evidence-requirements.registry.source-class"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Subject and context binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Subject and context binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.context-not-required",
+        "evidence-requirements.registry.required-known-context",
+        "evidence-requirements.registry.required-unknown-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Mechanically significant embedded assertions and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Mechanically significant embedded assertions",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.invalid-combination"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Candidate binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Candidate binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.source-existence"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Source-role boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Source-role boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.authority-boundary",
+        "evidence-requirements.registry.foreign-reference"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Identity separation and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Identity separation",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.source-instance",
+        "evidence-requirements.registry.required-known-context"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Composition with Exact Evidence Binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Composition with Exact Evidence Binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "evidence-requirements.registry",
+        "exact-evidence-binding.evaluate"
+      ],
+      "vector_refs": [
+        "evidence-requirements.registry.explicit-class",
+        "exact-evidence-binding.evaluate.match-context"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer confrontation",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Explicit exclusions",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

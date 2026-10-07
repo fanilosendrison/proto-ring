@@ -1,0 +1,103 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+    "path": "docs/contracts/canonical-governance-routing.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Inputs and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Inputs",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-routing.resolve"
+      ],
+      "vector_refs": [
+        "governance-routing.resolve.binding-fields"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Exact-route traversal and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Exact-route traversal",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-routing.resolve"
+      ],
+      "vector_refs": [
+        "governance-routing.resolve.existing-parent",
+        "governance-routing.resolve.missing-parent",
+        "governance-routing.resolve.file-parent",
+        "governance-routing.resolve.file-trailing-slash",
+        "governance-routing.resolve.file-dot",
+        "governance-routing.resolve.directory-trailing-slash",
+        "governance-routing.resolve.directory-dot",
+        "governance-routing.resolve.symlink-parent",
+        "governance-routing.resolve.broken-symlink",
+        "governance-routing.resolve.symlink-cycle"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository target and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository target",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-routing.resolve"
+      ],
+      "vector_refs": [
+        "governance-routing.resolve.absolute-path",
+        "governance-routing.resolve.outside-final",
+        "governance-routing.resolve.existing-parent"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Resolved binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Resolved binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-routing.resolve"
+      ],
+      "vector_refs": [
+        "governance-routing.resolve.binding-fields",
+        "governance-routing.resolve.symlink-parent"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Explicit exclusions",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

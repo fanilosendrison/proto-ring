@@ -1,0 +1,156 @@
+{
+  "$defs": {
+    "authority": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "commit": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "path": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "repository": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_kind": {
+              "const": "repository"
+            }
+          },
+          "required": [
+            "source_kind",
+            "repository",
+            "commit",
+            "path",
+            "clause"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "locator": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_kind": {
+              "const": "external"
+            },
+            "version": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_kind",
+            "source_id",
+            "version",
+            "locator",
+            "sha256",
+            "clause"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "https://proto-ring.dev/conformance/v1/schemas/coverage.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "contract": {
+      "$ref": "#/$defs/authority"
+    },
+    "headings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "coverage_assertion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "covered",
+              "context",
+              "non_goal"
+            ]
+          },
+          "heading_path": {
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              2,
+              3
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "responsibility_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "vector_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "level",
+          "heading_path",
+          "disposition",
+          "responsibility_ids",
+          "vector_refs",
+          "coverage_assertion",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0"
+    }
+  },
+  "required": [
+    "schema_version",
+    "contract",
+    "headings"
+  ],
+  "title": "Contract heading semantic coverage",
+  "type": "object"
+}

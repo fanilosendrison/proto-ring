@@ -1,0 +1,1176 @@
+{
+  "case_id": "structured-data.frontmatter.matrix",
+  "operation_id": "structured-data.frontmatter",
+  "python_retirement_issue": 73,
+  "responsibility_id": "structured-data.frontmatter",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.body-cannot-repair yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a2d2d2d0a7265706f7369746f72795f676f7665726e616e63653a0a20206d6f64656c5f76657273696f6e3a20320a2e2e2e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "NOT_COMPARABLE",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "StructuredDataError",
+          "kind": "raw_python_exception",
+          "message": "carrier has no exact closing delimiter"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "controlled_rejection",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "category",
+                "value": {
+                  "type": "string",
+                  "value": "structured-data.frontmatter.rejected"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Frontmatter composition",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "governance-looking body bytes after the first exact close do not repair the empty payload"
+      ],
+      "vector_id": "structured-data.frontmatter.body-cannot-repair"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.body-preserved yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "2320626f64790a"
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "value",
+                    "value": {
+                      "type": "string",
+                      "value": "text"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20746578740a2d2d2d0a2320626f64790a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "body bytes after the first exact close are preserved exactly"
+      ],
+      "vector_id": "structured-data.frontmatter.body-preserved"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.bom yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "efbbbf2d2d2d0a76616c75653a20746578740a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a carrier BOM is rejected"
+      ],
+      "vector_id": "structured-data.frontmatter.bom"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.carriage-return yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0d0a76616c75653a20746578740d0a2d2d2d0d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a carrier carriage return is rejected"
+      ],
+      "vector_id": "structured-data.frontmatter.carriage-return"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.document-end-marker yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "value",
+                    "value": {
+                      "type": "string",
+                      "value": "text"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20746578740a2e2e2e0a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "NOT_COMPARABLE",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "StructuredDataError",
+          "kind": "raw_python_exception",
+          "message": "forbidden YAML token: DocumentEndToken"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "body_hex",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              },
+              {
+                "name": "metadata",
+                "value": {
+                  "type": "record",
+                  "value": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "type": "string",
+                        "value": "text"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Frontmatter composition",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "document end marker"
+      ],
+      "vector_id": "structured-data.frontmatter.document-end-marker"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.document-start-marker yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "value",
+                    "value": {
+                      "type": "string",
+                      "value": "text"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a2d2d2d202320646f63756d656e740a76616c75653a20746578740a2e2e2e0a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "NOT_COMPARABLE",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "StructuredDataError",
+          "kind": "raw_python_exception",
+          "message": "forbidden YAML token: DocumentStartToken"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "body_hex",
+                "value": {
+                  "type": "string",
+                  "value": ""
+                }
+              },
+              {
+                "name": "metadata",
+                "value": {
+                  "type": "record",
+                  "value": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "type": "string",
+                        "value": "text"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Frontmatter composition",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "document start marker"
+      ],
+      "vector_id": "structured-data.frontmatter.document-start-marker"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.first-close yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20626f64790a2d2d2d0a"
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "value",
+                    "value": {
+                      "type": "string",
+                      "value": "first"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a2066697273740a2d2d2d0a76616c75653a20626f64790a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the first exact closing delimiter terminates the payload and preserves following body bytes"
+      ],
+      "vector_id": "structured-data.frontmatter.first-close"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact frontmatter envelope",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical Structured Data composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "bootstrap_implementation_accident",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/governance-bootstrap.md#Exact frontmatter envelope",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/governance-bootstrap.md#Canonical Structured Data composition"
+          ],
+          "reason": "The first exact close immediately follows the opening delimiter, so the frontmatter payload is empty and fails at the Structured Data boundary. The governance-looking body is not frontmatter and cannot repair it; Governance Bootstrap exposes the composed controlled failure caused at the Structured Data boundary."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bootstrap_cause_boundary",
+              "value": {
+                "type": "string",
+                "value": "STRUCTURED_DATA"
+              }
+            },
+            {
+              "name": "frontmatter_payload",
+              "value": {
+                "type": "string",
+                "value": "EMPTY"
+              }
+            },
+            {
+              "name": "governance_body_interpreted",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "governance_bootstrap_boundary",
+              "value": {
+                "type": "string",
+                "value": "CONTROLLED_REJECTION"
+              }
+            },
+            {
+              "name": "immediate_close_recognized",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "structured_data_boundary",
+              "value": {
+                "type": "string",
+                "value": "CONTROLLED_REJECTION"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a2d2d2d0a7265706f7369746f72795f676f7665726e616e63653a0a20206d6f64656c5f76657273696f6e3a20320a2e2e2e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "immediate_close_boundaries"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\n---\nrepository_governance:\n  model_version: 2\n...\n"
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MISMATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "StructuredDataError",
+          "kind": "raw_python_exception",
+          "message": "carrier has no exact closing delimiter"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "bootstrap_cause_boundary",
+                "value": {
+                  "type": "string",
+                  "value": "STRUCTURED_DATA"
+                }
+              },
+              {
+                "name": "frontmatter_payload",
+                "value": {
+                  "type": "string",
+                  "value": "EMPTY"
+                }
+              },
+              {
+                "name": "governance_body_interpreted",
+                "value": {
+                  "type": "boolean",
+                  "value": false
+                }
+              },
+              {
+                "name": "governance_bootstrap_boundary",
+                "value": {
+                  "type": "string",
+                  "value": "CONTROLLED_REJECTION"
+                }
+              },
+              {
+                "name": "immediate_close_recognized",
+                "value": {
+                  "type": "boolean",
+                  "value": true
+                }
+              },
+              {
+                "name": "structured_data_boundary",
+                "value": {
+                  "type": "string",
+                  "value": "CONTROLLED_REJECTION"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Frontmatter composition",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/structured-data.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Exact frontmatter envelope",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/governance-bootstrap.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          },
+          {
+            "clause": "Canonical Structured Data composition",
+            "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+            "path": "docs/contracts/governance-bootstrap.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "f3bdde11f86c4caf98aeae208083e491f7f7014e",
+        "correction_issue": 75,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "the first immediate exact close yields an empty frontmatter payload; governance-looking body bytes remain body and cannot repair the controlled Structured Data and Governance Bootstrap rejection"
+      ],
+      "vector_id": "structured-data.frontmatter.immediate-close"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.invalid-utf8 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20ff0a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "invalid UTF-8 carrier bytes are rejected"
+      ],
+      "vector_id": "structured-data.frontmatter.invalid-utf8"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Failure boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Failure boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.missing-closing yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Failure boundary through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20746578740a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a carrier without an exact closing delimiter is rejected"
+      ],
+      "vector_id": "structured-data.frontmatter.missing-closing"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Failure boundary",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Failure boundary",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.missing-opening yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Failure boundary through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "structured-data.frontmatter.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "76616c75653a20746578740a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a carrier without the exact opening delimiter is rejected"
+      ],
+      "vector_id": "structured-data.frontmatter.missing-opening"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for structured-data.frontmatter.valid-mapping yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Frontmatter composition through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "value",
+                    "value": {
+                      "type": "string",
+                      "value": "text"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a76616c75653a20746578740a2d2d2d0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_frontmatter"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an exact frontmatter envelope containing a mapping is accepted"
+      ],
+      "vector_id": "structured-data.frontmatter.valid-mapping"
+    }
+  ]
+}

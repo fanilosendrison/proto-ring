@@ -1,0 +1,56 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Model-version-2 structural composition",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Required routes",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Route result",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/repository-governance-model.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "loaded model-version-2 value and loaded Governance Binding Registry"
+  ],
+  "case_file": "cases/repository-governance-model.binding-compatibility.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_governance_model.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "a capability-scoped governance-contract binding references a declared model-v2 capability",
+    "a binding references an undeclared model-v2 capability and is rejected",
+    "a declared capability missing its required route is rejected"
+  ],
+  "responsibility_id": "repository-governance-model.binding-compatibility",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "title": "Repository Governance Model binding compatibility"
+}

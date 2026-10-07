@@ -1,0 +1,110 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Unicode text profile / Contract whitespace",
+      "locator": "https://www.unicode.org/Public/14.0.0/ucd/",
+      "role": "external_normative_data",
+      "sha256": null,
+      "source_id": "unicode-character-database",
+      "source_kind": "external",
+      "version": "14.0.0"
+    },
+    {
+      "clause": "Unicode text profile / Default case folding",
+      "locator": "https://www.unicode.org/Public/14.0.0/ucd/CaseFolding.txt",
+      "role": "external_normative_data",
+      "sha256": "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f",
+      "source_id": "unicode-character-database",
+      "source_kind": "external",
+      "version": "14.0.0"
+    },
+    {
+      "clause": "Definition-like discovery",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Unicode text profile",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Unicode text profile / Contract whitespace",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Unicode text profile / Default case folding",
+      "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+      "path": "docs/contracts/normative-terminology.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "registry expressions and parsed Markdown blocks"
+  ],
+  "case_file": "cases/normative-terminology.definition-discovery.matrix.json",
+  "frozen_baseline_modules": [
+    "normative_terminology_matching.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [
+    "_normative_terminology_unicode.py"
+  ],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "Straße and STRASSE compare equal under Unicode-14 Default Case Folding",
+    "Kelvin sign uses its Unicode-14 default case-fold mapping",
+    "U+0130 uses its exact Unicode-14 full mapping",
+    "U+1E4D0 remains unmapped by Unicode 14 and still permits ASCII cue termination",
+    "U+001C through U+001F satisfy the contract whitespace relation",
+    "U+2007 satisfies the contract whitespace relation",
+    "U+3000 satisfies the contract whitespace relation",
+    "U+180E is not contract whitespace",
+    "composed and decomposed expressions remain distinct",
+    "ASCII cue keywords match ASCII case-insensitively",
+    "long-s does not act as ASCII s in a cue",
+    "dotted-I does not act as ASCII I in a cue",
+    "the exact cue is is recognized",
+    "the exact cue are is recognized",
+    "the exact cue mean is recognized",
+    "the exact cue means is recognized",
+    "the exact cue refer to is recognized",
+    "the exact cue refers to is recognized",
+    "the exact cue is defined as is recognized",
+    "the exact cue is defined by is recognized",
+    "the exact cue are defined as is recognized",
+    "the exact cue are defined by is recognized",
+    "meaning is not an admitted cue",
+    "meant is not an admitted cue",
+    "Unicode-14 contract whitespace may separate multiword cue terms",
+    "an ASCII letter after the final cue letter blocks termination",
+    "an ASCII digit after the final cue letter blocks termination",
+    "an underscore after the final cue letter blocks termination",
+    "a non-ASCII next scalar permits ASCII cue termination"
+  ],
+  "responsibility_id": "normative-terminology.definition-discovery",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "title": "Normative Terminology Unicode definition discovery"
+}

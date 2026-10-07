@@ -1,0 +1,132 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them.",
+    "Evaluation-context and RepositoryState identity representations, digest/hash algorithms, encodings, and internal serialization/framing are implementation-defined."
+  ],
+  "authorities": [
+    {
+      "clause": "Core model / RepositoryState",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Evaluation purity",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Evaluation purity / Exact purity-status attribution",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact-state binding",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Failure collection and execution strategy",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Integrity obligation result",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Persistent consumer profile / Command and environment binding",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Persistent consumer profile / Concrete instance resolution",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Repository Integrity verdict",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Validation-level aggregation and prerequisites",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "RepositoryState, ConsumerIntegrityProfile and EvaluationContext"
+  ],
+  "case_file": "cases/repository-integrity.evaluate.matrix.json",
+  "frozen_baseline_modules": [
+    "repository_integrity_evaluation.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority.",
+    "Current Python context and state digest text, SHA-256 use, 64-character representation, JSON serialization, and framing are implementation behavior, not compatibility authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "command exit 0 yields SATISFIED",
+    "ordinary nonzero exit yields VIOLATED",
+    "consumer-declared undetermined exit yields UNDETERMINED",
+    "missing executable yields UNDETERMINED",
+    "continue_after_non_satisfied false leaves later mandatory obligations UNDETERMINED",
+    "continue_after_non_satisfied true evaluates later independent obligations",
+    "consumer total validation order is preserved",
+    "only the supplied explicit process environment is used",
+    "successful for_each zero selection aggregates SATISFIED",
+    "a zero-instance SATISFIED prerequisite permits its dependent",
+    "selector resolution failure yields UNDETERMINED and blocks dependent execution",
+    "VIOLATED dominates UNDETERMINED and SATISFIED",
+    "UNDETERMINED dominates SATISFIED when no instance is VIOLATED",
+    "each glob result is sorted lexically",
+    "an absent literal selector remains selected",
+    "duplicate selected paths fail closed rather than deduplicate",
+    "append_all zero selection executes one base-argument instance",
+    "missing required environment realization yields UNDETERMINED",
+    "evaluation-context identity depends only on required opaque realization identities",
+    "a mandatory VIOLATED obligation makes overall verdict NON_PASS",
+    "a mandatory UNDETERMINED obligation makes overall verdict NON_PASS"
+  ],
+  "responsibility_id": "repository-integrity.evaluate",
+  "rust_owner_issue": 69,
+  "schema_version": "1.0",
+  "title": "Repository Integrity evaluation"
+}

@@ -1,0 +1,225 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+    "path": "docs/contracts/normative-terminology.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Non-proof boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Consumer authority",
+      "level": 2,
+      "reason": "The heading allocates consumer authority and does not define an additional parser observation.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Unicode text profile and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Unicode text profile",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.definition-discovery"
+      ],
+      "vector_refs": [
+        "normative-terminology.definition-discovery.strasse",
+        "normative-terminology.definition-discovery.no-normalization",
+        "normative-terminology.definition-discovery.post-14-unmapped"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Unicode text profile / Default case folding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Unicode text profile / Default case folding",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.definition-discovery"
+      ],
+      "vector_refs": [
+        "normative-terminology.definition-discovery.strasse",
+        "normative-terminology.definition-discovery.no-normalization"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Unicode text profile / Contract whitespace and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Unicode text profile / Contract whitespace",
+      "level": 3,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.definition-discovery"
+      ],
+      "vector_refs": [
+        "normative-terminology.definition-discovery.control-whitespace",
+        "normative-terminology.definition-discovery.figure-space",
+        "normative-terminology.definition-discovery.ideographic-space",
+        "normative-terminology.definition-discovery.mongolian-vowel-separator"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Registry model and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Registry model",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.registry"
+      ],
+      "vector_refs": [
+        "normative-terminology.registry.valid-registry",
+        "normative-terminology.registry.duplicate-key",
+        "normative-terminology.registry.anchor-pattern",
+        "normative-terminology.registry.nonempty-destination",
+        "normative-terminology.registry.nonempty-term",
+        "normative-terminology.registry.one-marker-pair"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Markdown structural model and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Markdown structural model",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.markdown"
+      ],
+      "vector_refs": [
+        "normative-terminology.markdown.atx-headings",
+        "normative-terminology.markdown.fenced-blocks",
+        "normative-terminology.markdown.canonical-anchor",
+        "normative-terminology.markdown.duplicate-anchor",
+        "normative-terminology.markdown.unregistered-anchor"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Definition-like discovery and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Definition-like discovery",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.definition-discovery"
+      ],
+      "vector_refs": [
+        "normative-terminology.definition-discovery.cue-is",
+        "normative-terminology.definition-discovery.cue-are-defined-by",
+        "normative-terminology.definition-discovery.long-s-negative",
+        "normative-terminology.definition-discovery.boundary-underscore"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Canonical occurrence binding and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Canonical occurrence binding",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.fingerprint"
+      ],
+      "vector_refs": [
+        "normative-terminology.fingerprint.canonical-occurrence",
+        "normative-terminology.fingerprint.noncanonical-occurrence",
+        "normative-terminology.fingerprint.intervening-anchor"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced executable fixture materially exercises Fingerprints and signatures and its exact observation derives from this clause.",
+      "disposition": "covered",
+      "heading_path": "Fingerprints and signatures",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.fingerprint"
+      ],
+      "vector_refs": [
+        "normative-terminology.fingerprint.whitespace-normalization",
+        "normative-terminology.fingerprint.fingerprint",
+        "normative-terminology.fingerprint.signature",
+        "normative-terminology.fingerprint.multi-concept"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Consumer role policy and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Consumer role policy",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.fingerprint",
+        "normative-terminology.inventory"
+      ],
+      "vector_refs": [
+        "normative-terminology.fingerprint.location-policy",
+        "normative-terminology.inventory.role-resolution"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Reviewed occurrence inventory and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Reviewed occurrence inventory",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.inventory"
+      ],
+      "vector_refs": [
+        "normative-terminology.inventory.allowed-role",
+        "normative-terminology.inventory.invalid-role",
+        "normative-terminology.inventory.unknown-concept",
+        "normative-terminology.inventory.unreviewed",
+        "normative-terminology.inventory.stale",
+        "normative-terminology.inventory.duplicate-copy"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Failure behavior and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Failure behavior",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "normative-terminology.inventory",
+        "normative-terminology.markdown",
+        "normative-terminology.registry"
+      ],
+      "vector_refs": [
+        "normative-terminology.registry.reversed-boundaries",
+        "normative-terminology.markdown.duplicate-anchor",
+        "normative-terminology.inventory.invalid-role"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Adoption boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

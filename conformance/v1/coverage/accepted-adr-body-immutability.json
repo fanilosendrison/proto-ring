@@ -1,0 +1,144 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+    "path": "docs/contracts/accepted-adr-body-immutability.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Acceptance anchor and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Acceptance anchor",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.accepted-creation",
+        "accepted-adr-body.immutability.first-uncommitted-acceptance"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Before acceptance and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Before acceptance",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.preacceptance-change"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises After acceptance and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "After acceptance",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.postacceptance-rewrite",
+        "accepted-adr-body.immutability.rewrite-restore",
+        "accepted-adr-body.immutability.superseded-changed"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Lifecycle boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Lifecycle boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.superseded-same",
+        "accepted-adr-body.immutability.superseded-changed"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Legacy non-accepted structured state and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Legacy non-accepted structured state",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.legacy-superseded"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Current working state and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Current working state",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.uncommitted-rewrite",
+        "accepted-adr-body.immutability.first-uncommitted-acceptance"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Historical discovery and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Historical discovery",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.replace-refs",
+        "accepted-adr-body.immutability.slug-rename-same",
+        "accepted-adr-body.immutability.postacceptance-symlink",
+        "accepted-adr-body.immutability.postacceptance-unstructured",
+        "accepted-adr-body.immutability.nonutf8-direct"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Current configuration boundary and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Current configuration boundary",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "accepted-adr-body.immutability"
+      ],
+      "vector_refs": [
+        "accepted-adr-body.immutability.slug-rename-same",
+        "accepted-adr-body.immutability.outside-impostor"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Threat-model boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}

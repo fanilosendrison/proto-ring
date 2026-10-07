@@ -1,0 +1,71 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Canonical Structured Data composition",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/governance-bootstrap.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Exact frontmatter envelope",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/governance-bootstrap.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Failure boundary",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Frontmatter composition",
+      "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+      "path": "docs/contracts/structured-data.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "exact frontmatter carrier bytes"
+  ],
+  "case_file": "cases/structured-data.frontmatter.matrix.json",
+  "frozen_baseline_modules": [
+    "structured_data.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "an exact frontmatter envelope containing a mapping is accepted",
+    "the first exact closing delimiter terminates the payload and preserves following body bytes",
+    "an immediate exact close yields an empty payload and controlled rejection at a mapping/nonempty consumer boundary",
+    "governance-looking body bytes after the first exact close do not repair the empty payload",
+    "a carrier without the exact opening delimiter is rejected",
+    "a carrier without an exact closing delimiter is rejected",
+    "a carrier BOM is rejected",
+    "a carrier carriage return is rejected",
+    "invalid UTF-8 carrier bytes are rejected",
+    "body bytes after the first exact close are preserved exactly"
+  ],
+  "responsibility_id": "structured-data.frontmatter",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "title": "Canonical Structured Data frontmatter composition"
+}

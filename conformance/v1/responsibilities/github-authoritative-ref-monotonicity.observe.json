@@ -1,0 +1,104 @@
+{
+  "allowed_implementation_freedom": [
+    "Internal language types, module boundaries, algorithms, and storage are unconstrained when every cited observable distinction is preserved.",
+    "Exact diagnostic wording and ordering are unconstrained unless a cited authority explicitly requires them."
+  ],
+  "authorities": [
+    {
+      "clause": "Integrity obligation result",
+      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "path": "docs/contracts/repository-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Observed gap",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "non_normative_evidence",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "External enforcement",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/authoritative-ref-monotonicity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Local binding",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/authoritative-ref-monotonicity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Monotonic advancement",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/authoritative-ref-monotonicity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Non-deletion",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/authoritative-ref-monotonicity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Provider-neutral realization",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/authoritative-ref-monotonicity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Executable realization composition",
+      "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+      "path": "docs/contracts/projection-integrity.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    }
+  ],
+  "blocking_gaps": [],
+  "canonical_input_forms": [
+    "consumer binding and complete provider effective-rule observations"
+  ],
+  "case_file": "cases/github-authoritative-ref-monotonicity.observe.matrix.json",
+  "frozen_baseline_modules": [
+    "github_authoritative_ref_monotonicity.py"
+  ],
+  "migration_disposition": "rust_port",
+  "non_normative_behaviors": [
+    "Python object types, exception classes, module layout, and incidental algorithms are not semantic authority.",
+    "Rust crate, module, and internal type layout are not semantic authority."
+  ],
+  "post_baseline_implementation_carriers": [],
+  "python_retirement_owner": 73,
+  "required_state_distinctions": [
+    "bound ruleset exposing deletion and non_fast_forward yields SATISFIED",
+    "an additional effective rule under the bound ruleset still yields SATISFIED",
+    "missing deletion protection yields VIOLATED",
+    "missing non_fast_forward protection yields VIOLATED",
+    "required rules only under another ruleset yield VIOLATED",
+    "absent bound ruleset yields VIOLATED",
+    "malformed required consumer binding yields VIOLATED",
+    "HTTP, network, TLS, timeout, or rate-limit inability yields UNDETERMINED",
+    "malformed UTF-8, JSON, top-level, or item observation yields UNDETERMINED",
+    "pagination aggregates all effective required rules before evaluation",
+    "pagination that cannot establish a finite complete observation yields UNDETERMINED"
+  ],
+  "responsibility_id": "github-authoritative-ref-monotonicity.observe",
+  "rust_owner_issue": 69,
+  "schema_version": "1.0",
+  "title": "GitHub Authoritative Ref Monotonicity observation"
+}

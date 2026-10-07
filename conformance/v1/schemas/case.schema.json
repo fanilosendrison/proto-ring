@@ -1,0 +1,1975 @@
+{
+  "$defs": {
+    "authority": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "commit": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "path": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "repository": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_kind": {
+              "const": "repository"
+            }
+          },
+          "required": [
+            "source_kind",
+            "repository",
+            "commit",
+            "path",
+            "clause"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "locator": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_kind": {
+              "const": "external"
+            },
+            "version": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_kind",
+            "source_id",
+            "version",
+            "locator",
+            "sha256",
+            "clause"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "command_action": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "exit"
+            },
+            "code": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "action",
+            "code"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "write_utf8"
+            },
+            "path": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "append_utf8"
+            },
+            "path": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "remove"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "touch"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "chmod"
+            },
+            "mode": {
+              "pattern": "^[0-7]{3,4}$",
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path",
+            "mode"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "git"
+            },
+            "argv": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "action",
+            "argv"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "record_arguments_utf8"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "path"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "assert_environment"
+            },
+            "failure_exit_code": {
+              "type": "integer"
+            },
+            "forbidden": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "required": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "required",
+            "forbidden",
+            "failure_exit_code"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "exit_code_from_utf8_integer_file_argument"
+            },
+            "argument_index": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "action",
+            "argument_index"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "expected": {
+      "additionalProperties": false,
+      "properties": {
+        "derivation": {
+          "additionalProperties": false,
+          "properties": {
+            "authority_keys": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "reason": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "authority_keys",
+            "reason"
+          ],
+          "type": "object"
+        },
+        "kind": {
+          "enum": [
+            "result",
+            "controlled_rejection"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/transport"
+        }
+      },
+      "required": [
+        "kind",
+        "value",
+        "derivation"
+      ],
+      "type": "object"
+    },
+    "fixture": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "input": {
+              "$ref": "#/$defs/transport"
+            },
+            "kind": {
+              "const": "inline"
+            }
+          },
+          "required": [
+            "kind",
+            "input"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "environment": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "faults": {
+              "items": {
+                "$ref": "#/$defs/transport"
+              },
+              "type": "array"
+            },
+            "invocation": {
+              "$ref": "#/$defs/transport"
+            },
+            "kind": {
+              "const": "repository_plan"
+            },
+            "steps": {
+              "items": {
+                "oneOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "argv": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "type": "array"
+                      },
+                      "capture_stdout_as": {
+                        "pattern": "^[a-z][a-z0-9_]*$",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "environment": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "op": {
+                        "const": "git"
+                      },
+                      "stdin_hex": {
+                        "pattern": "^(?:[0-9a-f]{2})*$",
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "argv",
+                      "stdin_hex",
+                      "capture_stdout_as",
+                      "environment"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "op": {
+                        "const": "mkdir"
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "op": {
+                        "const": "write_utf8"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path",
+                      "text"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "hex": {
+                        "pattern": "^(?:[0-9a-f]{2})*$",
+                        "type": "string"
+                      },
+                      "op": {
+                        "const": "write_hex"
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path",
+                      "hex"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "op": {
+                        "const": "remove"
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "op": {
+                        "const": "symlink"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "target_is_directory": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path",
+                      "target",
+                      "target_is_directory"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "mode": {
+                        "pattern": "^[0-7]{3,4}$",
+                        "type": "string"
+                      },
+                      "op": {
+                        "const": "chmod"
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "path",
+                      "mode"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "arguments": {
+                        "$ref": "#/$defs/transport"
+                      },
+                      "invocation_id": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "op": {
+                        "const": "invoke"
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "invocation_id",
+                      "arguments"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "steps",
+            "invocation",
+            "environment",
+            "faults"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "binding": {
+              "additionalProperties": false,
+              "properties": {
+                "bytes_hex": {
+                  "pattern": "^(?:[0-9a-f]{2})+$",
+                  "type": "string"
+                },
+                "path": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "path",
+                "bytes_hex"
+              ],
+              "type": "object"
+            },
+            "interactions": {
+              "items": {
+                "oneOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "body_hex": {
+                        "pattern": "^(?:[0-9a-f]{2})*$",
+                        "type": "string"
+                      },
+                      "kind": {
+                        "const": "http_response"
+                      },
+                      "status": {
+                        "maximum": 599,
+                        "minimum": 100,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "status",
+                      "body_hex"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "const": "http_error"
+                      },
+                      "status": {
+                        "maximum": 599,
+                        "minimum": 100,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "status"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "const": "network_error"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "message"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "const": "tls_verification_error"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "message"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "const": "timeout"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "message"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "const": "io_error"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "message"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "kind": {
+              "const": "provider_observation"
+            }
+          },
+          "required": [
+            "kind",
+            "binding",
+            "interactions"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "base": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "input": {
+                      "$ref": "#/$defs/transport"
+                    },
+                    "kind": {
+                      "const": "inline"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "input"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "environment": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "faults": {
+                      "items": {
+                        "$ref": "#/$defs/transport"
+                      },
+                      "type": "array"
+                    },
+                    "invocation": {
+                      "$ref": "#/$defs/transport"
+                    },
+                    "kind": {
+                      "const": "repository_plan"
+                    },
+                    "steps": {
+                      "items": {
+                        "oneOf": [
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "argv": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "minItems": 1,
+                                "type": "array"
+                              },
+                              "capture_stdout_as": {
+                                "pattern": "^[a-z][a-z0-9_]*$",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "environment": {
+                                "additionalProperties": {
+                                  "type": "string"
+                                },
+                                "type": "object"
+                              },
+                              "op": {
+                                "const": "git"
+                              },
+                              "stdin_hex": {
+                                "pattern": "^(?:[0-9a-f]{2})*$",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "argv",
+                              "stdin_hex",
+                              "capture_stdout_as",
+                              "environment"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "op": {
+                                "const": "mkdir"
+                              },
+                              "path": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "op": {
+                                "const": "write_utf8"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path",
+                              "text"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "hex": {
+                                "pattern": "^(?:[0-9a-f]{2})*$",
+                                "type": "string"
+                              },
+                              "op": {
+                                "const": "write_hex"
+                              },
+                              "path": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path",
+                              "hex"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "op": {
+                                "const": "remove"
+                              },
+                              "path": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "op": {
+                                "const": "symlink"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "target": {
+                                "type": "string"
+                              },
+                              "target_is_directory": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path",
+                              "target",
+                              "target_is_directory"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "mode": {
+                                "pattern": "^[0-7]{3,4}$",
+                                "type": "string"
+                              },
+                              "op": {
+                                "const": "chmod"
+                              },
+                              "path": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "path",
+                              "mode"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "additionalProperties": false,
+                            "properties": {
+                              "arguments": {
+                                "$ref": "#/$defs/transport"
+                              },
+                              "invocation_id": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "op": {
+                                "const": "invoke"
+                              }
+                            },
+                            "required": [
+                              "op",
+                              "invocation_id",
+                              "arguments"
+                            ],
+                            "type": "object"
+                          }
+                        ]
+                      },
+                      "minItems": 1,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "steps",
+                    "invocation",
+                    "environment",
+                    "faults"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "condition": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "git_process_start_unavailable"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "provider_network_access_forbidden"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_path_discovery_unavailable"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_state_unavailable_before_obligation"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_state_unavailable_after_obligation"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_mutation_during_capture"
+                    },
+                    "mutation": {
+                      "oneOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "exit"
+                            },
+                            "code": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "code"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "write_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "append_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "remove"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "touch"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "chmod"
+                            },
+                            "mode": {
+                              "pattern": "^[0-7]{3,4}$",
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "mode"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "git"
+                            },
+                            "argv": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "argv"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "record_arguments_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "assert_environment"
+                            },
+                            "failure_exit_code": {
+                              "type": "integer"
+                            },
+                            "forbidden": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            "required": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "required",
+                            "forbidden",
+                            "failure_exit_code"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "exit_code_from_utf8_integer_file_argument"
+                            },
+                            "argument_index": {
+                              "minimum": 0,
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "argument_index"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "mutation"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_mutation_during_integrity_evaluation"
+                    },
+                    "mutation": {
+                      "oneOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "exit"
+                            },
+                            "code": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "code"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "write_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "append_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "remove"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "touch"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "chmod"
+                            },
+                            "mode": {
+                              "pattern": "^[0-7]{3,4}$",
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "mode"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "git"
+                            },
+                            "argv": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "argv"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "phase": {
+                      "enum": [
+                        "after_baseline_before_obligation",
+                        "during_obligation"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "phase",
+                    "mutation"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "repository_mutation_during_governance_state_construction"
+                    },
+                    "mutation": {
+                      "oneOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "exit"
+                            },
+                            "code": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "code"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "write_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "append_utf8"
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "text"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "remove"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "touch"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "chmod"
+                            },
+                            "mode": {
+                              "pattern": "^[0-7]{3,4}$",
+                              "type": "string"
+                            },
+                            "path": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "path",
+                            "mode"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "action": {
+                              "const": "git"
+                            },
+                            "argv": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "action",
+                            "argv"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "mutation"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "after_scope": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "before_scope": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "kind": {
+                      "const": "observation_scope_mutation_during_governance_state_construction"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "before_scope",
+                    "after_scope"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "invocation": {
+              "$ref": "#/$defs/transport"
+            },
+            "kind": {
+              "const": "procedural_requirement"
+            }
+          },
+          "required": [
+            "kind",
+            "base",
+            "condition",
+            "invocation"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "transport": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "null"
+            },
+            "value": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "boolean"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "integer"
+            },
+            "value": {
+              "pattern": "^(0|-?[1-9][0-9]*)$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "bytes"
+            },
+            "value": {
+              "pattern": "^(?:[0-9a-f]{2})*$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "sequence"
+            },
+            "value": {
+              "items": {
+                "$ref": "#/$defs/transport"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "record"
+            },
+            "value": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "value": {
+                    "$ref": "#/$defs/transport"
+                  }
+                },
+                "required": [
+                  "name",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "vector": {
+      "additionalProperties": false,
+      "properties": {
+        "authorities": {
+          "items": {
+            "$ref": "#/$defs/authority"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "behavior_classification": {
+          "enum": [
+            "required_by_existing_normative_semantics",
+            "bootstrap_implementation_accident",
+            "missing_contract_responsibility",
+            "consumer_specific_behavior"
+          ]
+        },
+        "comparison": {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "exact"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        "expected_observation": {
+          "$ref": "#/$defs/expected"
+        },
+        "fixture": {
+          "$ref": "#/$defs/fixture"
+        },
+        "frozen_python_observation": {
+          "additionalProperties": false,
+          "properties": {
+            "comparison_to_expected": {
+              "enum": [
+                "MATCH",
+                "MISMATCH",
+                "NOT_COMPARABLE"
+              ]
+            },
+            "implementation_sha": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "observation": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "result",
+                        "controlled_rejection"
+                      ]
+                    },
+                    "value": {
+                      "$ref": "#/$defs/transport"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "class": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "kind": {
+                      "const": "raw_python_exception"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "class",
+                    "message"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "implementation_sha",
+            "observation",
+            "comparison_to_expected"
+          ],
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "later_python_observation": {
+          "additionalProperties": false,
+          "properties": {
+            "comparison_to_expected": {
+              "enum": [
+                "MATCH",
+                "MISMATCH",
+                "NOT_COMPARABLE"
+              ]
+            },
+            "implementation_sha": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "observation": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "result",
+                        "controlled_rejection"
+                      ]
+                    },
+                    "value": {
+                      "$ref": "#/$defs/transport"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "class": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "kind": {
+                      "const": "raw_python_exception"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "class",
+                    "message"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "implementation_sha",
+            "observation",
+            "comparison_to_expected"
+          ],
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "resolution": {
+          "additionalProperties": false,
+          "properties": {
+            "authorities": {
+              "items": {
+                "$ref": "#/$defs/authority"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "corrected_python_sha": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "correction_issue": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "status": {
+              "const": "resolved"
+            }
+          },
+          "required": [
+            "status",
+            "authorities",
+            "correction_issue",
+            "corrected_python_sha"
+          ],
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "state_distinctions": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "vector_id": {
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vector_id",
+        "behavior_classification",
+        "authorities",
+        "fixture",
+        "expected_observation",
+        "comparison",
+        "state_distinctions",
+        "frozen_python_observation",
+        "later_python_observation",
+        "resolution"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://proto-ring.dev/conformance/v1/schemas/case.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "operation_id": {
+      "type": "string"
+    },
+    "python_retirement_issue": {
+      "const": 73
+    },
+    "responsibility_id": {
+      "type": "string"
+    },
+    "rust_owner_issue": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "vectors": {
+      "items": {
+        "$ref": "#/$defs/vector"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "case_id",
+    "responsibility_id",
+    "operation_id",
+    "vectors",
+    "rust_owner_issue",
+    "python_retirement_issue"
+  ],
+  "title": "Proto-ring conformance responsibility matrix",
+  "type": "object"
+}

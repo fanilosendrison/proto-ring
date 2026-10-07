@@ -1,0 +1,336 @@
+{
+  "case_id": "adr-metadata.repository-path.matrix",
+  "operation_id": "adr-metadata.repository-path",
+  "python_retirement_issue": 73,
+  "responsibility_id": "adr-metadata.repository-path",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Repository path containment",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Repository path containment"
+          ],
+          "reason": "The exact operational input for adr-metadata.repository-path.absolute yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Repository path containment through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.repository-path.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "repository_path"
+              }
+            },
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "/tmp/value"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/value.txt",
+            "text": "value\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an absolute path is rejected"
+      ],
+      "vector_id": "adr-metadata.repository-path.absolute"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Repository path containment",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Repository path containment"
+          ],
+          "reason": "The exact operational input for adr-metadata.repository-path.contained-relative yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Repository path containment through its concrete input and exact result. The fixture directly exercises Canonical operation set through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "config/value.txt"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "repository_path"
+              }
+            },
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "config/value.txt"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/value.txt",
+            "text": "value\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a nonempty relative path resolving inside the repository is accepted"
+      ],
+      "vector_id": "adr-metadata.repository-path.contained-relative"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository path containment",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Repository path containment"
+          ],
+          "reason": "The exact operational input for adr-metadata.repository-path.contained-symlink yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Repository path containment through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "config/value.txt"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "repository_path"
+              }
+            },
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "config/link.txt"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/value.txt",
+            "text": "value\n"
+          },
+          {
+            "op": "symlink",
+            "path": "config/link.txt",
+            "target": "value.txt",
+            "target_is_directory": false
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a symlink resolving to a contained target is accepted while an escaping symlink is rejected"
+      ],
+      "vector_id": "adr-metadata.repository-path.contained-symlink"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository path containment",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Repository path containment"
+          ],
+          "reason": "The exact operational input for adr-metadata.repository-path.escaping yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Repository path containment through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.repository-path.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "repository_path"
+              }
+            },
+            {
+              "name": "relative",
+              "value": {
+                "type": "string",
+                "value": "../value"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/value.txt",
+            "text": "value\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a path resolving outside the repository is rejected"
+      ],
+      "vector_id": "adr-metadata.repository-path.escaping"
+    }
+  ]
+}

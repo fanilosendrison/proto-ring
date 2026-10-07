@@ -1,0 +1,322 @@
+{
+  "$defs": {
+    "authority": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "commit": {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            "path": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "repository": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "role": {
+              "enum": [
+                "normative",
+                "compatibility_obligation",
+                "non_normative_evidence"
+              ]
+            },
+            "source_kind": {
+              "const": "repository"
+            }
+          },
+          "required": [
+            "source_kind",
+            "repository",
+            "commit",
+            "path",
+            "clause",
+            "role"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "clause": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "locator": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "role": {
+              "const": "external_normative_data"
+            },
+            "sha256": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              ]
+            },
+            "source_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source_kind": {
+              "const": "external"
+            },
+            "version": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_kind",
+            "source_id",
+            "version",
+            "locator",
+            "sha256",
+            "clause",
+            "role"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "responsibility.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "migration_disposition": {
+            "const": "rust_port"
+          }
+        },
+        "required": [
+          "migration_disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "case_file": {
+            "pattern": "^cases/.+\\.matrix\\.json$",
+            "type": "string"
+          },
+          "rust_owner_issue": {
+            "enum": [
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69
+            ],
+            "type": "integer"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "migration_disposition": {
+            "const": "retire_without_rust_port"
+          }
+        },
+        "required": [
+          "migration_disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "case_file": {
+            "type": "null"
+          },
+          "rust_owner_issue": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "allowed_implementation_freedom": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "authorities": {
+      "items": {
+        "$ref": "#/$defs/authority"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "blocking_gaps": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "canonical_input_forms": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "case_file": {
+      "oneOf": [
+        {
+          "pattern": "^cases/.+\\.matrix\\.json$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "frozen_baseline_modules": {
+      "items": {
+        "pattern": "^[a-z0-9_]+\\.py$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "migration_disposition": {
+      "enum": [
+        "rust_port",
+        "retire_without_rust_port"
+      ],
+      "type": "string"
+    },
+    "non_normative_behaviors": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "post_baseline_implementation_carriers": {
+      "items": {
+        "pattern": "^_?[a-z0-9_]+\\.py$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "python_retirement_owner": {
+      "const": 73
+    },
+    "required_state_distinctions": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "responsibility_id": {
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "type": "string"
+    },
+    "rust_owner_issue": {
+      "oneOf": [
+        {
+          "enum": [
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "source_test_accounting": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "disposition": {
+            "enum": [
+              "conformance_case",
+              "bootstrap_evidence_only"
+            ],
+            "type": "string"
+          },
+          "methods": {
+            "items": {
+              "pattern": "^test_[a-z0-9_]+$",
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "path": {
+            "pattern": "^tests/test_[a-z0-9_]+\\.py$",
+            "type": "string"
+          },
+          "reason": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "methods",
+          "disposition",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "responsibility_id",
+    "title",
+    "frozen_baseline_modules",
+    "post_baseline_implementation_carriers",
+    "authorities",
+    "canonical_input_forms",
+    "migration_disposition",
+    "case_file",
+    "rust_owner_issue",
+    "python_retirement_owner",
+    "required_state_distinctions",
+    "allowed_implementation_freedom",
+    "non_normative_behaviors",
+    "blocking_gaps"
+  ],
+  "type": "object"
+}

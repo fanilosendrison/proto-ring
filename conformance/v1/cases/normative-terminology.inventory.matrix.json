@@ -1,0 +1,3217 @@
+{
+  "case_id": "normative-terminology.inventory.matrix",
+  "operation_id": "normative-terminology.inventory",
+  "python_retirement_issue": 73,
+  "responsibility_id": "normative-terminology.inventory",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.allowed-role yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a resolver-produced role in the consumer allowed set is accepted"
+      ],
+      "vector_id": "normative-terminology.inventory.allowed-role"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.duplicate-copy yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "maintained copies exceeding discovered multiplicity are rejected"
+      ],
+      "vector_id": "normative-terminology.inventory.duplicate-copy"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Failure behavior",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Failure behavior",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.invalid-role yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result. The fixture directly exercises Failure behavior through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "wrong"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a maintained or resolved role outside the allowed set is rejected"
+      ],
+      "vector_id": "normative-terminology.inventory.invalid-role"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Consumer role policy",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Consumer role policy",
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.role-resolution yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Consumer role policy through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "wrong"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "wrong"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "wrong"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "canonical and noncanonical facts may resolve to consumer-owned roles"
+      ],
+      "vector_id": "normative-terminology.inventory.role-resolution"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.signature-multiset yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "inventory comparison uses contract occurrence signatures and multiset multiplicity"
+      ],
+      "vector_id": "normative-terminology.inventory.signature-multiset"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.stale yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unmatched maintained occurrence is stale and fails"
+      ],
+      "vector_id": "normative-terminology.inventory.stale"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.unknown-concept yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "missing"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "role",
+                        "value": {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an inventory occurrence referencing an unknown concept is rejected"
+      ],
+      "vector_id": "normative-terminology.inventory.unknown-concept"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Reviewed occurrence inventory",
+          "commit": "f1cc389ccbd468165b877fa1b14e468110545113",
+          "path": "docs/contracts/normative-terminology.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@f1cc389ccbd468165b877fa1b14e468110545113:docs/contracts/normative-terminology.md#Reviewed occurrence inventory"
+          ],
+          "reason": "The exact operational input for normative-terminology.inventory.unreviewed yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Reviewed occurrence inventory through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "allowed_roles",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "canonical"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "entries",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "aliases",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "anchor",
+                        "value": {
+                          "type": "string",
+                          "value": "term-alpha"
+                        }
+                      },
+                      {
+                        "name": "canonical_term",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "deprecated",
+                        "value": {
+                          "type": "sequence",
+                          "value": []
+                        }
+                      },
+                      {
+                        "name": "key",
+                        "value": {
+                          "type": "string",
+                          "value": "alpha"
+                        }
+                      },
+                      {
+                        "name": "term_structure",
+                        "value": {
+                          "type": "string",
+                          "value": "singular"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "format",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "anchor_link_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "\\[`[^`]+`\\]\\(#(term-[a-z0-9-]+)\\)"
+                    }
+                  },
+                  {
+                    "name": "anchor_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "<a id=\"(term-[a-z0-9-]+)\"></a>"
+                    }
+                  },
+                  {
+                    "name": "end_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:end -->"
+                    }
+                  },
+                  {
+                    "name": "headers",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "Key"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Canonical term"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Anchor"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Aliases"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Deprecated"
+                        },
+                        {
+                          "type": "string",
+                          "value": "Term structure"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "key_pattern",
+                    "value": {
+                      "type": "string",
+                      "value": "^[a-z][a-z0-9-]*$"
+                    }
+                  },
+                  {
+                    "name": "start_marker",
+                    "value": {
+                      "type": "string",
+                      "value": "<!-- terminology-registry:start -->"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "inventory",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "occurrences",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "canonical",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      },
+                      {
+                        "name": "concepts",
+                        "value": {
+                          "type": "sequence",
+                          "value": [
+                            {
+                              "type": "string",
+                              "value": "alpha"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "fingerprint",
+                        "value": {
+                          "type": "string",
+                          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        }
+                      },
+                      {
+                        "name": "heading",
+                        "value": {
+                          "type": "string",
+                          "value": "Alpha"
+                        }
+                      },
+                      {
+                        "name": "line",
+                        "value": {
+                          "type": "integer",
+                          "value": "1"
+                        }
+                      },
+                      {
+                        "name": "section",
+                        "value": {
+                          "type": "string",
+                          "value": "Terms"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "reconcile_inventory"
+              }
+            },
+            {
+              "name": "policy",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "allowed_roles",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "canonical"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "canonical_location",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "anchor_matches_key"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "role_policy",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "canonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        },
+                        {
+                          "name": "noncanonical_section_prefixes",
+                          "value": {
+                            "type": "record",
+                            "value": []
+                          }
+                        },
+                        {
+                          "name": "other_noncanonical",
+                          "value": {
+                            "type": "string",
+                            "value": "canonical"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "section_from_heading",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "kind",
+                          "value": {
+                            "type": "string",
+                            "value": "identity"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "role",
+              "value": {
+                "type": "string",
+                "value": "canonical"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an unmatched discovered occurrence is unreviewed and fails"
+      ],
+      "vector_id": "normative-terminology.inventory.unreviewed"
+    }
+  ]
+}

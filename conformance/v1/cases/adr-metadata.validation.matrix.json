@@ -1,0 +1,846 @@
+{
+  "case_id": "adr-metadata.validation.matrix",
+  "operation_id": "adr-metadata.validation",
+  "python_retirement_issue": 73,
+  "responsibility_id": "adr-metadata.validation",
+  "rust_owner_issue": 64,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The impossible 2025-02-29 instance satisfies the explicit overlay but the base Draft 2020-12 date format checker reports a base-schema error at $.date; diagnostic prose is not compared."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "path",
+                        "value": {
+                          "type": "string",
+                          "value": "$.date"
+                        }
+                      },
+                      {
+                        "name": "schema",
+                        "value": {
+                          "type": "string",
+                          "value": "base"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "name": "rejected",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_locations"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "$schema",
+                    "value": {
+                      "type": "string",
+                      "value": "https://json-schema.org/draft/2020-12/schema"
+                    }
+                  },
+                  {
+                    "name": "properties",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "domain",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "const",
+                                "value": {
+                                  "type": "string",
+                                  "value": "example"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "$schema",
+                    "value": {
+                      "type": "string",
+                      "value": "https://json-schema.org/draft/2020-12/schema"
+                    }
+                  },
+                  {
+                    "name": "properties",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "date",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "format",
+                                "value": {
+                                  "type": "string",
+                                  "value": "date"
+                                }
+                              },
+                              {
+                                "name": "type",
+                                "value": {
+                                  "type": "string",
+                                  "value": "string"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "date"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "date",
+                    "value": {
+                      "type": "string",
+                      "value": "2025-02-29"
+                    }
+                  },
+                  {
+                    "name": "domain",
+                    "value": {
+                      "type": "string",
+                      "value": "example"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "format checking rejects an impossible calendar date"
+      ],
+      "vector_id": "adr-metadata.validation.calendar-date"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Relation-reference checking",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Relation-reference checking"
+          ],
+          "reason": "The exact targets include the source itself and one absent logical ADR identity, yielding respectively self-reference and missing-target categories without interpreting the consumer-owned relation type."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "category",
+                        "value": {
+                          "type": "string",
+                          "value": "self_reference"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "record",
+                    "value": [
+                      {
+                        "name": "category",
+                        "value": {
+                          "type": "string",
+                          "value": "missing_target"
+                        }
+                      },
+                      {
+                        "name": "target",
+                        "value": {
+                          "type": "string",
+                          "value": "ADR-003"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "known_ids",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "ADR-001"
+                  },
+                  {
+                    "type": "string",
+                    "value": "ADR-002"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "relation_target_categories"
+              }
+            },
+            {
+              "name": "relation_type",
+              "value": {
+                "type": "string",
+                "value": "amends"
+              }
+            },
+            {
+              "name": "source_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "targets",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "ADR-001"
+                  },
+                  {
+                    "type": "string",
+                    "value": "ADR-003"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "self-reference and missing relation targets are reported structurally"
+      ],
+      "vector_id": "adr-metadata.validation.relation-target"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Relation-reference checking",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Relation-reference checking"
+          ],
+          "reason": "The target is known and not self-referential, so the consumer-defined relation type produces no target-integrity error; proto-ring does not own relation vocabulary."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "known_ids",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "ADR-001"
+                  },
+                  {
+                    "type": "string",
+                    "value": "ADR-002"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "relation_target_errors"
+              }
+            },
+            {
+              "name": "relation_type",
+              "value": {
+                "type": "string",
+                "value": "consumer-defined"
+              }
+            },
+            {
+              "name": "source_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "targets",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "ADR-002"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "relation vocabulary remains consumer-owned and is not interpreted"
+      ],
+      "vector_id": "adr-metadata.validation.relation-vocabulary"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The exact operational input for adr-metadata.validation.require-mapping yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured configuration requirements through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_mapping"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "not-mapping"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the generic mapping requirement accepts only mappings"
+      ],
+      "vector_id": "adr-metadata.validation.require-mapping"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The exact operational input for adr-metadata.validation.require-string yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured configuration requirements through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the generic string requirement accepts only nonempty strings"
+      ],
+      "vector_id": "adr-metadata.validation.require-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The exact operational input for adr-metadata.validation.require-string-list yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Structured configuration requirements through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string_list"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "one"
+                  },
+                  {
+                    "type": "integer",
+                    "value": "1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the generic string-list requirement rejects duplicates and empty values"
+      ],
+      "vector_id": "adr-metadata.validation.require-string-list"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The exact operational input for adr-metadata.validation.valid-schema yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises JSON Schema validation through its concrete input and exact result. The fixture directly exercises Canonical operation set through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "errors",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_errors"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "name"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "name",
+                    "value": {
+                      "type": "string",
+                      "value": "alpha"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay Draft 2020-12 schemas independently validate metadata"
+      ],
+      "vector_id": "adr-metadata.validation.valid-schema"
+    }
+  ]
+}

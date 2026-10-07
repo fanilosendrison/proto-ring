@@ -1,0 +1,3295 @@
+{
+  "case_id": "git-whitespace.validate.matrix",
+  "operation_id": "git-whitespace.validate",
+  "python_retirement_issue": 73,
+  "responsibility_id": "git-whitespace.validate",
+  "rust_owner_issue": 69,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Git whitespace authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Git whitespace authority"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.clean yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Git whitespace authority through its concrete input and exact result. The fixture directly exercises Aggregate result through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "clean local unstaged and staged domains with no required committed range yield PASS"
+      ],
+      "vector_id": "git-whitespace.validate.clean"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Process-start failure",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Process-start failure"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.git-unavailable yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Process-start failure through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "git_observation"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "base": {
+          "environment": {},
+          "faults": [],
+          "invocation": {
+            "type": "record",
+            "value": [
+              {
+                "name": "environment",
+                "value": {
+                  "type": "record",
+                  "value": []
+                }
+              },
+              {
+                "name": "operation",
+                "value": {
+                  "type": "string",
+                  "value": "check_whitespace"
+                }
+              }
+            ]
+          },
+          "kind": "repository_plan",
+          "steps": [
+            {
+              "argv": [
+                "init",
+                "-q",
+                "-b",
+                "main"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.name",
+                "Corpus Author"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.email",
+                "corpus@example.invalid"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "op": "write_utf8",
+              "path": "clean.txt",
+              "text": "clean\n"
+            },
+            {
+              "argv": [
+                "add",
+                "-A"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "commit",
+                "-q",
+                "-m",
+                "clean"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            }
+          ]
+        },
+        "condition": {
+          "kind": "git_process_start_unavailable"
+        },
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "procedural_requirement"
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "NOT_COMPARABLE",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "class": "OSError",
+          "kind": "raw_python_exception",
+          "message": "git unavailable"
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "git_observation"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "required Git process-start inability yields controlled NON_PASS"
+      ],
+      "vector_id": "git-whitespace.validate.git-unavailable"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-malformed-json yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "{not json"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "event payload is malformed JSON"
+      ],
+      "vector_id": "git-whitespace.validate.payload-malformed-json"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-malformed-utf8 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "hex": "ff",
+            "op": "write_hex",
+            "path": "event.json"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "event payload is invalid UTF-8"
+      ],
+      "vector_id": "git-whitespace.validate.payload-malformed-utf8"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-missing-path yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "required event path variable is absent"
+      ],
+      "vector_id": "git-whitespace.validate.payload-missing-path"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-missing-sha yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "{\"before\":\"abc\"}"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "event payload omits a required SHA"
+      ],
+      "vector_id": "git-whitespace.validate.payload-missing-sha"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-nonexistent yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "missing.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "event path does not exist"
+      ],
+      "vector_id": "git-whitespace.validate.payload-nonexistent"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Event payload failure boundary",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Event payload failure boundary"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-nonobject yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Event payload failure boundary through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "[]"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "event JSON top level is not an object"
+      ],
+      "vector_id": "git-whitespace.validate.payload-nonobject"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.payload-unavailable yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "range_determination"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "range_determination"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "range_determination"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "required missing or malformed push payload yields NON_PASS during range determination"
+      ],
+      "vector_id": "git-whitespace.validate.payload-unavailable"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Pull-request range",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Pull-request range"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.pull-request yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Pull-request range through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "pull_request_committed_range"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "pull_request"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "base",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "bad.txt",
+            "text": "bad   \n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "head bad"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "head",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "{\"pull_request\":{\"base\":{\"sha\":\"${base}\"},\"head\":{\"sha\":\"${head}\"}}}\n"
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "pull_request_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "pull_request_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "whitespace in base...head pull-request range yields NON_PASS"
+      ],
+      "vector_id": "git-whitespace.validate.pull-request"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Explicit environment authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Push range",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Explicit environment authority",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Push range"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.push-range yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Explicit environment authority through its concrete input and exact result. The fixture directly exercises Push range through its concrete input and exact result. The fixture directly exercises Aggregate result through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "push_committed_range"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "before",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "bad.txt",
+            "text": "bad   \n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "bad"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "after",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "{\"before\":\"${before}\",\"after\":\"${after}\"}\n"
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "push_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "push_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "whitespace in before..after push committed range yields NON_PASS"
+      ],
+      "vector_id": "git-whitespace.validate.push-range"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Root push",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Root push"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.root-push yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Root push through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "push_committed_range"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "push"
+                    }
+                  },
+                  {
+                    "name": "GITHUB_EVENT_PATH",
+                    "value": {
+                      "type": "string",
+                      "value": "event.json"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "bad.txt",
+            "text": "bad   \n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "root bad"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "after",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "event.json",
+            "text": "{\"before\":\"0000000000000000000000000000000000000000\",\"after\":\"${after}\"}\n"
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "push_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "push_committed_range"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "whitespace from the Git empty tree to root-push after yields NON_PASS"
+      ],
+      "vector_id": "git-whitespace.validate.root-push"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Git whitespace authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Mandatory local domains",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Git whitespace authority",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Mandatory local domains"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.staged yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Git whitespace authority through its concrete input and exact result. The fixture directly exercises Mandatory local domains through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "staged"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean   \n"
+          },
+          {
+            "argv": [
+              "add",
+              "clean.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "staged"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "staged"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "staged Git diff --check violation yields NON_PASS in staged domain"
+      ],
+      "vector_id": "git-whitespace.validate.staged"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Events without a committed range",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Explicit environment authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Events without a committed range",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Explicit environment authority"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.unknown-event yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Explicit environment authority through its concrete input and exact result. The fixture directly exercises Events without a committed range through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GITHUB_EVENT_NAME",
+                    "value": {
+                      "type": "string",
+                      "value": "workflow_dispatch"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "unknown event with clean local domains requires no committed range and yields PASS"
+      ],
+      "vector_id": "git-whitespace.validate.unknown-event"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Aggregate result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Git whitespace authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Mandatory local domains",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/git-whitespace-validation.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "missing_contract_responsibility",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Aggregate result",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Git whitespace authority",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/git-whitespace-validation.md#Mandatory local domains"
+          ],
+          "reason": "The exact operational input for git-whitespace.validate.unstaged yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Git whitespace authority through its concrete input and exact result. The fixture directly exercises Mandatory local domains through its concrete input and exact result. The fixture directly exercises Aggregate result through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "domains",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "unstaged"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "environment",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_whitespace"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "clean"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "clean.txt",
+            "text": "clean   \n"
+          }
+        ]
+      },
+      "frozen_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "dedb01a3a9b7a18930c9da75afa3773b5ad67f69",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "unstaged"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "later_python_observation": {
+        "comparison_to_expected": "MATCH",
+        "implementation_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "observation": {
+          "kind": "result",
+          "value": {
+            "type": "record",
+            "value": [
+              {
+                "name": "domains",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "unstaged"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "status",
+                "value": {
+                  "type": "string",
+                  "value": "NON_PASS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "resolution": {
+        "authorities": [
+          {
+            "clause": "Aggregate result",
+            "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+            "path": "docs/contracts/git-whitespace-validation.md",
+            "repository": "fanilosendrison/proto-ring",
+            "source_kind": "repository"
+          }
+        ],
+        "corrected_python_sha": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+        "correction_issue": 82,
+        "status": "resolved"
+      },
+      "state_distinctions": [
+        "unstaged Git diff --check violation yields NON_PASS in unstaged domain"
+      ],
+      "vector_id": "git-whitespace.validate.unstaged"
+    }
+  ]
+}

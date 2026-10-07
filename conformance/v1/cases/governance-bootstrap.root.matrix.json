@@ -1,0 +1,808 @@
+{
+  "case_id": "governance-bootstrap.root.matrix",
+  "operation_id": "governance-bootstrap.root",
+  "python_retirement_issue": 73,
+  "responsibility_id": "governance-bootstrap.root",
+  "rust_owner_issue": 63,
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "authorities": [
+        {
+          "clause": "Byte-level carrier requirements",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical Structured Data composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact frontmatter envelope",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Failure behavior",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Byte-level carrier requirements",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical Structured Data composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Exact frontmatter envelope",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Failure behavior",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.malformed-structured-data yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Byte-level carrier requirements through its concrete input and exact result. The fixture directly exercises Exact frontmatter envelope through its concrete input and exact result. The fixture directly exercises Canonical Structured Data composition through its concrete input and exact result. The fixture directly exercises Failure behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-bootstrap.root.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance: [\n---\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "malformed Canonical Structured Data fails closed"
+      ],
+      "vector_id": "governance-bootstrap.root.malformed-structured-data"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact frontmatter envelope",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Exact frontmatter envelope",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.missing-repository-governance yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact frontmatter envelope through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-bootstrap.root.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nkind: KnowledgeAsset\n---\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a top-level mapping without repository_governance fails closed"
+      ],
+      "vector_id": "governance-bootstrap.root.missing-repository-governance"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Failure behavior",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Failure behavior",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.missing-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical carrier through its concrete input and exact result. The fixture directly exercises Failure behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-bootstrap.root.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a missing root AGENTS.md fails closed"
+      ],
+      "vector_id": "governance-bootstrap.root.missing-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.not-root-carrier yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical carrier through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-bootstrap.root.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "nested/AGENTS.md",
+            "text": "# no frontmatter\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a nested or alternate AGENTS.md is not discovered"
+      ],
+      "vector_id": "governance-bootstrap.root.not-root-carrier"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Failure behavior",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Governance bootstrap root",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Failure behavior",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Governance bootstrap root",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.unsupported-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Governance bootstrap root through its concrete input and exact result. The fixture directly exercises Failure behavior through its concrete input and exact result."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-bootstrap.root.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance: true\n---\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a nonmapping repository_governance value fails closed"
+      ],
+      "vector_id": "governance-bootstrap.root.unsupported-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical Structured Data composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical carrier",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Composition with Canonical Governance Routing",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Governance bootstrap root",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-bootstrap.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Frontmatter composition",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/structured-data.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical Structured Data composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Canonical carrier",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Composition with Canonical Governance Routing",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-bootstrap.md#Governance bootstrap root",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/structured-data.md#Frontmatter composition"
+          ],
+          "reason": "The exact operational input for governance-bootstrap.root.valid-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Canonical carrier through its concrete input and exact result. The fixture directly exercises Canonical Structured Data composition through its concrete input and exact result. The fixture directly exercises Governance bootstrap root through its concrete input and exact result. The fixture directly exercises Composition with Canonical Governance Routing through its concrete input and exact result."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "repository_governance",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "capabilities",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "governance_authority",
+                                "value": {
+                                  "type": "record",
+                                  "value": [
+                                    {
+                                      "name": "configuration",
+                                      "value": {
+                                        "type": "record",
+                                        "value": []
+                                      }
+                                    },
+                                    {
+                                      "name": "routes",
+                                      "value": {
+                                        "type": "record",
+                                        "value": [
+                                          {
+                                            "name": "profile",
+                                            "value": {
+                                              "type": "string",
+                                              "value": "config/authority.md"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "shared_governance_provider",
+                                "value": {
+                                  "type": "record",
+                                  "value": [
+                                    {
+                                      "name": "configuration",
+                                      "value": {
+                                        "type": "record",
+                                        "value": []
+                                      }
+                                    },
+                                    {
+                                      "name": "routes",
+                                      "value": {
+                                        "type": "record",
+                                        "value": [
+                                          {
+                                            "name": "registry",
+                                            "value": {
+                                              "type": "string",
+                                              "value": "config/provider.md"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "model_version",
+                          "value": {
+                            "type": "integer",
+                            "value": "2"
+                          }
+                        },
+                        {
+                          "name": "provider",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "binding",
+                                "value": {
+                                  "type": "record",
+                                  "value": [
+                                    {
+                                      "name": "capability",
+                                      "value": {
+                                        "type": "string",
+                                        "value": "shared_governance_provider"
+                                      }
+                                    },
+                                    {
+                                      "name": "route",
+                                      "value": {
+                                        "type": "string",
+                                        "value": "registry"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "id",
+                                "value": {
+                                  "type": "string",
+                                  "value": "proto-ring"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "repository_governance",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "capabilities",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "governance_authority",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "configuration",
+                                "value": {
+                                  "type": "record",
+                                  "value": []
+                                }
+                              },
+                              {
+                                "name": "routes",
+                                "value": {
+                                  "type": "record",
+                                  "value": [
+                                    {
+                                      "name": "profile",
+                                      "value": {
+                                        "type": "string",
+                                        "value": "config/authority.md"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "shared_governance_provider",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "configuration",
+                                "value": {
+                                  "type": "record",
+                                  "value": []
+                                }
+                              },
+                              {
+                                "name": "routes",
+                                "value": {
+                                  "type": "record",
+                                  "value": [
+                                    {
+                                      "name": "registry",
+                                      "value": {
+                                        "type": "string",
+                                        "value": "config/provider.md"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "model_version",
+                    "value": {
+                      "type": "integer",
+                      "value": "2"
+                    }
+                  },
+                  {
+                    "name": "provider",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "binding",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "capability",
+                                "value": {
+                                  "type": "string",
+                                  "value": "shared_governance_provider"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "string",
+                                  "value": "registry"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "id",
+                          "value": {
+                            "type": "string",
+                            "value": "proto-ring"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_bootstrap"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "mkdir",
+            "path": "nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a valid exact root AGENTS.md with repository_governance mapping loads"
+      ],
+      "vector_id": "governance-bootstrap.root.valid-root"
+    }
+  ]
+}

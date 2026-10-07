@@ -1,0 +1,144 @@
+{
+  "contract": {
+    "clause": "Purpose",
+    "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+    "path": "docs/contracts/governance-authority.md",
+    "repository": "fanilosendrison/proto-ring",
+    "source_kind": "repository"
+  },
+  "headings": [
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Purpose",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Source roles and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Source roles",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.roles",
+        "governance-authority.profile.unknown-role"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Lookup states and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Lookup states",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.unknown-responsibility",
+        "governance-authority.profile.undeclared-source",
+        "governance-authority.profile.malformed-lookup"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Co-authorities and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Co-authorities",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.one-authority",
+        "governance-authority.profile.coauthorities",
+        "governance-authority.profile.empty-authority-set"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Precedence and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Precedence",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.precedence",
+        "governance-authority.profile.transitive-outranking",
+        "governance-authority.profile.invalid-graph",
+        "governance-authority.profile.undeclared-endpoint"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Secondary representations and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Secondary representations",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.secondary-with-authority",
+        "governance-authority.profile.secondary-without-authority"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Governed sources and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Governed sources",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.canonical-routing",
+        "governance-authority.profile.unknown-source"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Model-version-1 profile and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Model-version-1 profile",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.body-prose"
+      ]
+    },
+    {
+      "coverage_assertion": "Each referenced concrete fixture exercises Repository Governance Model integration and its expected derivation binds this exact clause.",
+      "disposition": "covered",
+      "heading_path": "Repository Governance Model integration",
+      "level": 2,
+      "reason": null,
+      "responsibility_ids": [
+        "governance-authority.profile"
+      ],
+      "vector_refs": [
+        "governance-authority.profile.canonical-routing"
+      ]
+    },
+    {
+      "coverage_assertion": null,
+      "disposition": "context",
+      "heading_path": "Ownership boundary",
+      "level": 2,
+      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "responsibility_ids": [],
+      "vector_refs": []
+    }
+  ],
+  "schema_version": "1.0"
+}
