@@ -101,6 +101,7 @@
       ],
       "vector_refs": [
         "governance-authority.profile.canonical-routing",
+        "governance-authority.profile.canonical-routing-missing-parent",
         "governance-authority.profile.unknown-source"
       ]
     },

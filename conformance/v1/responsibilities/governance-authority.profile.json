@@ -108,6 +108,7 @@
     "self edges, cycles, and exact duplicate edges are rejected",
     "a precedence endpoint not declared as authority is rejected",
     "repository targets resolve through Canonical Governance Routing",
+    "repository_target resolution preserves Canonical Governance Routing traversal failures",
     "body prose cannot alter structured authority declarations",
     "an unknown serialized role is rejected",
     "a role referencing an undeclared source is rejected"
