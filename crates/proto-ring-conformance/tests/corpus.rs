@@ -73,7 +73,7 @@ fn assert_bridge_isolation(serialized: &[u8]) {
     }
     let document: Value = serde_json::from_slice(serialized).unwrap();
     let requests = document.as_array().unwrap();
-    assert_eq!(requests.len(), 485);
+    assert_eq!(requests.len(), 489);
     let expected = BTreeSet::from(["fixture", "responsibility_id", "vector_id"]);
     let forbidden = [
         "expected_observation",
@@ -258,7 +258,7 @@ fn published_corpus_runs_through_reference_candidate() {
             corpus.matrices.len(),
             vectors
         ),
-        (30, 29, 1, 29, 485)
+        (30, 29, 1, 29, 489)
     );
     assert_eq!(
         retired[0].responsibility_id,
@@ -271,7 +271,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_projection_regressions(&corpus);
     assert_source_boundaries(&corpus);
     let python = PythonBridge::new(&root()).execute(&requests).unwrap();
-    assert_eq!(python.len(), 485);
+    assert_eq!(python.len(), 489);
     let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
     let python_counts = count_status(&reports, |report| report.python_vs_expected);
@@ -285,9 +285,9 @@ fn published_corpus_runs_through_reference_candidate() {
             );
         }
     }
-    assert_eq!(python_counts, (485, 0, 0));
-    assert_eq!(rust_counts, (74, 0, 411));
-    assert_eq!(differential_counts, (74, 0, 411));
+    assert_eq!(python_counts, (489, 0, 0));
+    assert_eq!(rust_counts, (74, 0, 415));
+    assert_eq!(differential_counts, (74, 0, 415));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -349,17 +349,17 @@ fn published_corpus_runs_through_reference_candidate() {
 
     let metrics: HashMap<&str, usize> = HashMap::from([
         ("implemented", implemented_vectors),
-        ("unimplemented", 485 - implemented_vectors),
+        ("unimplemented", 489 - implemented_vectors),
     ]);
     eprintln!(
         "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
     );
     eprintln!(
-        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=485"
+        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=489"
     );
     eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=74");
     eprintln!(
-        "PYTHON_OBSERVATIONS=485\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
+        "PYTHON_OBSERVATIONS=489\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
