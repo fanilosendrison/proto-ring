@@ -116,6 +116,14 @@ def _authority_result(root: Path, arguments: dict[str, object]):
             result = governance_authority.authority_sources(loaded, query["responsibility"])
         elif operation == "outranks":
             result = governance_authority.outranks(loaded, query["responsibility"], query["left"], query["right"])
+        elif operation == "source_binding":
+            binding = loaded.sources[query["source"]].repository_target
+            if binding is not None:
+                result = {
+                    "declared_path": binding.declared_path,
+                    "resolved_target": binding.target.relative_to(root.resolve()).as_posix(),
+                    "route": list(binding.route),
+                }
     return _success({
         "model_version": loaded.model_version, "sources": sorted(loaded.sources),
         "responsibilities": sorted(loaded.responsibilities), "query_result": result,
@@ -127,10 +135,35 @@ def _objects_result(root: Path, arguments: dict[str, object]):
     if arguments.get("foreign_authority"):
         authority = replace(authority, repository=root.parent / "foreign")
     loaded = governed_objects.load(root, _route(root, arguments["path"], "governed_objects"), authority)
-    return _success({
+    result = {
         "model_version": loaded.model_version,
         "interfaces": {key: sorted(value.objects) for key, value in sorted(loaded.interfaces.items())},
-    })
+    }
+    query = arguments.get("query")
+    if query:
+        governed_object = loaded.interfaces[query["interface"]].objects[query["object"]]
+        if query["operation"] == "object_responsibilities":
+            result["query_result"] = sorted(governed_object.responsibilities)
+        elif query["operation"] == "object_relations":
+            relations = sorted(
+                governed_object.relations,
+                key=lambda item: (
+                    item.relation,
+                    item.responsibility,
+                    item.target.interface_id,
+                    item.target.object_id,
+                ),
+            )
+            result["query_result"] = [
+                {
+                    "relation": item.relation,
+                    "responsibility": item.responsibility,
+                    "target_interface": item.target.interface_id,
+                    "target_object": item.target.object_id,
+                }
+                for item in relations
+            ]
+    return _success(result)
 
 
 def _bindings_result(root: Path, arguments: dict[str, object]):
