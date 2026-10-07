@@ -1,8 +1,15 @@
 #![forbid(unsafe_code)]
 
-//! Implementation-private reference-engine substrate for the Rust migration.
+//! Implementation-private Rust reference engine.
 //!
-//! Issue #62 intentionally implements zero proto-ring semantic responsibilities.
-//! Normative contracts and the #61 corpus remain authority. Issues #63–#69 own
-//! the incremental semantic ports. This crate is not #28's public agent-facing
-//! API.
+//! #62 established the empty substrate. #63 implements exactly its six
+//! foundational responsibilities. Normative contracts and `conformance/v1`
+//! remain authority. The crate layout is not normative architecture, and #28
+//! owns the later public agent-facing API.
+
+pub mod governance_bootstrap;
+pub mod governance_routing;
+pub mod repository_governance_model;
+pub mod structured_data;
+
+mod structured_data_yaml;
