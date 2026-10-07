@@ -102,6 +102,15 @@ Exact Evidence Binding factorization evidence is preserved in the
 Existing proto-ring contracts and mechanisms retain the authority already
 established for their stated scope.
 
+## Rust reference-engine migration
+
+The Rust workspace is the implementation-private migration substrate owned by
+#45. Normative contracts and `conformance/v1` remain semantic authority. The
+Rust crate layout is not normative proto-ring architecture. Issue #62
+bootstraps the workspace and differential harness and claims no semantic parity.
+Issue #28 owns the later public agent-facing API. Issue #70 owns the later
+standalone compatibility runner.
+
 ## Shared provider mechanisms
 
 GitHub Authoritative Ref Monotonicity effective-rule live conformance is
