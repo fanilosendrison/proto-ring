@@ -1,20 +1,16 @@
 #![forbid(unsafe_code)]
 
-use std::collections::{BTreeSet, HashMap, HashSet};
+use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::{Command, Output};
 
 use proto_ring_conformance::harness::{
     CandidateExecutor, CandidateRequest, CandidateState, ComparisonStatus, PythonBridge,
-    candidate_requests, implemented_responsibilities, run_differential,
-    serialize_candidate_requests,
+    UnimplementedRustCandidate, candidate_requests, implemented_responsibilities, run_differential,
 };
 use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
 use proto_ring_conformance::model::{MigrationDisposition, Observation};
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
-use serde_json::{Value, json};
-use tempfile::NamedTempFile;
 const IMPLEMENTED: &[&str] = &[
     "governance-authority.profile",
     "governance-bootstrap.root",
@@ -31,85 +27,6 @@ fn root() -> PathBuf {
         .and_then(Path::parent)
         .unwrap()
         .to_path_buf()
-}
-
-fn invoke_bridge(request: &[u8]) -> (Output, Vec<u8>) {
-    let request_file = NamedTempFile::new().unwrap();
-    fs::write(request_file.path(), request).unwrap();
-    let output_file = NamedTempFile::new().unwrap();
-    let output =
-        Command::new(std::env::var_os("PROTO_RING_PYTHON").unwrap_or_else(|| "python3".into()))
-            .current_dir(root())
-            .env("PYTHONDONTWRITEBYTECODE", "1")
-            .args(["-B", "tests/conformance_python_bridge.py", "--request"])
-            .arg(request_file.path())
-            .arg("--output")
-            .arg(output_file.path())
-            .output()
-            .unwrap();
-    (output, fs::read(output_file.path()).unwrap())
-}
-
-fn json_bytes(value: &Value) -> Vec<u8> {
-    let mut bytes = serde_json::to_vec_pretty(value).unwrap();
-    bytes.push(b'\n');
-    bytes
-}
-
-fn assert_bridge_isolation(serialized: &[u8]) {
-    let source = fs::read_to_string(root().join("tests/conformance_python_bridge.py")).unwrap();
-    for forbidden in [
-        "load_corpus",
-        "expected_observation",
-        "behavior_classification",
-        "frozen_python_observation",
-        "later_python_observation",
-        "state_distinctions",
-        "compare",
-        "conformance/v1",
-        "index.json",
-    ] {
-        assert!(!source.contains(forbidden), "bridge contains {forbidden}");
-    }
-    let document: Value = serde_json::from_slice(serialized).unwrap();
-    let requests = document.as_array().unwrap();
-    assert_eq!(requests.len(), 596);
-    let expected = BTreeSet::from(["fixture", "responsibility_id", "vector_id"]);
-    let forbidden = [
-        "expected_observation",
-        "comparison",
-        "derivation",
-        "behavior_classification",
-        "frozen_python_observation",
-        "later_python_observation",
-        "resolution",
-        "authorities",
-        "state_distinctions",
-    ];
-    for request in requests {
-        let object = request.as_object().unwrap();
-        assert_eq!(
-            object.keys().map(String::as_str).collect::<BTreeSet<_>>(),
-            expected
-        );
-        assert!(object.keys().all(|key| !forbidden.contains(&key.as_str())));
-    }
-}
-
-#[test]
-fn bridge_rejects_oracle_malformed_duplicate_and_retirement_requests() {
-    let probes = [
-        json!([{"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{},"expected_observation":{}}]),
-        json!([{"responsibility_id":"structured-data.document","vector_id":"probe"}]),
-        json!([{"vector_id":"probe","fixture":{}}]),
-        json!({}),
-        json!([{"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{}},
-               {"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{}}]),
-        json!([{"responsibility_id":"shared-governance-provider.check","vector_id":"probe","fixture":{}}]),
-    ];
-    for probe in probes {
-        assert!(!invoke_bridge(&json_bytes(&probe)).0.status.success());
-    }
 }
 
 fn vector<'a>(
@@ -276,14 +193,45 @@ fn published_corpus_runs_through_reference_candidate() {
         retired[0].responsibility_id,
         "shared-governance-provider.check"
     );
+    assert!(retired[0].case_file.is_none());
+    assert_eq!(corpus.index.case_files.len(), 29);
+    assert!(
+        corpus
+            .matrices
+            .iter()
+            .all(|matrix| matrix.responsibility_id != "shared-governance-provider.check")
+    );
 
     let requests = candidate_requests(&corpus);
-    let serialized = serialize_candidate_requests(&requests).unwrap();
-    assert_bridge_isolation(&serialized);
+    assert_eq!(requests.len(), 596);
     assert_projection_regressions(&corpus);
     assert_source_boundaries(&corpus);
     let python = PythonBridge::new(&root()).execute(&requests).unwrap();
     assert_eq!(python.len(), 596);
+
+    let baseline_reports = run_differential(&corpus, &python, &UnimplementedRustCandidate).unwrap();
+    assert_eq!(baseline_reports.len(), 596);
+    let baseline_python_counts =
+        count_status(&baseline_reports, |report| report.python_vs_expected);
+    let baseline_rust_counts = count_status(&baseline_reports, |report| report.rust_vs_expected);
+    let baseline_differential_counts =
+        count_status(&baseline_reports, |report| report.python_vs_rust);
+    let baseline_unimplemented = baseline_reports
+        .iter()
+        .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
+        .count();
+    let baseline_implemented_responsibilities = implemented_responsibilities(&baseline_reports);
+    assert_eq!(baseline_python_counts, (596, 0, 0));
+    assert_eq!(
+        (
+            baseline_implemented_responsibilities,
+            baseline_unimplemented
+        ),
+        (0, 596)
+    );
+    assert_eq!(baseline_rust_counts, (0, 0, 596));
+    assert_eq!(baseline_differential_counts, (0, 0, 596));
+
     let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
     let python_counts = count_status(&reports, |report| report.python_vs_expected);

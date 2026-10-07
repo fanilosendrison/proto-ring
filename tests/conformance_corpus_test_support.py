@@ -62,7 +62,6 @@ CLASSIFICATIONS = {
     "consumer_specific_behavior",
 }
 
-
 def _integer_decimal(value: int) -> str:
     if value == 0:
         return "0"
@@ -279,18 +278,23 @@ def _heading_paths(markdown: str) -> set[str]:
     return paths
 
 def validate_authorities(cases):
+    repository_sources = {}
     for case in cases.values():
         for vector in case["vectors"]:
             for authority in vector["authorities"]:
                 if authority["source_kind"] == "repository":
                     if not re.fullmatch(r"[0-9a-f]{40}", authority["commit"]):
                         raise AssertionError(authority)
-                    content = git_show(authority["commit"], authority["path"])
-                    if authority["path"].endswith(".md"):
-                        if authority["clause"] not in _heading_paths(content.decode("utf-8")):
-                            raise AssertionError(
-                                f"missing authority clause: {authority_key(authority)}"
-                            )
+                    identity = (authority["repository"], authority["commit"], authority["path"])
+                    if identity not in repository_sources:
+                        content = git_show(authority["commit"], authority["path"])
+                        headings = _heading_paths(content.decode("utf-8")) if authority["path"].endswith(".md") else None
+                        repository_sources[identity] = (content, headings)
+                    content, headings = repository_sources[identity]
+                    if authority["path"].endswith(".md") and authority["clause"] not in headings:
+                        raise AssertionError(
+                            f"missing authority clause: {authority_key(authority)}"
+                        )
                 elif authority["sha256"] is not None and not re.fullmatch(
                     r"[0-9a-f]{64}", authority["sha256"]
                 ):
@@ -322,14 +326,12 @@ def validate_coverage(coverage, responsibilities, cases):
                 if exact_key not in vector["expected_observation"]["derivation"]["authority_keys"]:
                     raise AssertionError(f"coverage derivation mismatch: {vector_id}")
 
-
 def _walk_identity_values(value, path=()):
     if isinstance(value, dict):
         for key, item in value.items(): yield from _walk_identity_values(item, (*path, key))
     elif isinstance(value, list):
         for index, item in enumerate(value): yield from _walk_identity_values(item, (*path, index))
     else: yield path, value
-
 
 def validate_opaque_identity(responsibilities, cases):
     affected = {"repository-state.capture", "repository-governance-state.compose", "repository-integrity.profile", "repository-integrity.evaluate"}
@@ -365,7 +367,6 @@ def validate_opaque_identity(responsibilities, cases):
     if (lengths, digests, without_authority, current_compatibility) != (0, 0, 0, 0): raise AssertionError("unsupported exact identity representation remains")
     return {"identity_lengths": lengths, "identity_digests": digests, "identity_without_authority": without_authority, "identity_compatibility": current_compatibility, "opaque_identity_relations": "PASS"}
 
-
 def validate_migration_accounting(index, responsibilities, cases, coverage):
     retired_id = "shared-governance-provider.check"; rust_ids = {key for key, value in responsibilities.items() if value["migration_disposition"] == "rust_port"}; retired = {key for key, value in responsibilities.items() if value["migration_disposition"] == "retire_without_rust_port"}
     if (len(responsibilities), len(rust_ids), retired) != (30, 29, {retired_id}) or set(cases) != rust_ids or set(OWNER_BY_ID) != rust_ids or len(index["case_files"]) != 29: raise AssertionError("invalid migration disposition partition")
@@ -392,7 +393,6 @@ def validate_migration_accounting(index, responsibilities, cases, coverage):
     authority_snapshots = {f"fixtures/authorities/{item['commit']}/{item['path']}" for value in responsibilities.values() for item in value["authorities"] if item["source_kind"] == "repository"} | {f"fixtures/authorities/{item['commit']}/{item['path']}" for case in cases.values() for vector in case["vectors"] for item in vector["authorities"] if item["source_kind"] == "repository"}
     if carriers != {"portable_pattern.py", "portable_pattern_matching.py", "_normative_terminology_unicode.py"} or set(index["authority_snapshot_files"]) != authority_snapshots or any(path not in encoded for path in fixture_files): raise AssertionError("carrier or fixture accounting mismatch")
     return {"rust": len(rust_ids), "retired": len(retired), "matrices": len(cases), "modules": len(module_dispositions), "carriers": len(carriers), "literal_mismatches": literal_mismatches, **validate_opaque_identity(responsibilities, cases)}
-
 def validate_repository_boundaries():
     if (CORPUS_ROOT / "manifest.json").exists(): raise AssertionError("superseded manifest exists")
     current = (REPOSITORY_ROOT / "pyproject.toml").read_bytes()

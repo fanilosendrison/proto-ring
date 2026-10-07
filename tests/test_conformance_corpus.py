@@ -1,17 +1,17 @@
 from __future__ import annotations
-
 import inspect
 import json
 from pathlib import Path
 import subprocess
 import sys
 import unittest
+from unittest import mock
 
 from jsonschema import Draft202012Validator
-
 import conformance_python_adapter_63_64 as adapter_63_64
 import conformance_python_adapter_65_66 as adapter_65_66
 import conformance_python_adapter_67_69 as adapter_67_69
+import conformance_corpus_test_support as corpus_support
 from conformance_corpus_test_support import (
     CORPUS_ROOT,
     OWNER_BY_ID,
@@ -29,7 +29,6 @@ from conformance_corpus_test_support import (
     validate_vector_qualification,
 )
 from conformance_fixture_runner import materialize
-
 ACTUAL_OBSERVATIONS_PATH = Path("/tmp/proto-ring-61-actual-observations.json")
 COMMAND_ACTIONS = {
     "exit", "write_utf8", "append_utf8", "remove", "touch", "chmod", "git",
@@ -57,7 +56,6 @@ HISTORICAL_NOT_COMPARABLE = {
     "structured-data.frontmatter.document-start-marker",
     "structured-data.frontmatter.document-end-marker",
 }
-
 ADAPTERS = {
     63: adapter_63_64,
     64: adapter_63_64,
@@ -67,25 +65,20 @@ ADAPTERS = {
     68: adapter_67_69,
     69: adapter_67_69,
 }
-
-
 class ConformanceCorpusTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.index, cls.responsibilities, cls.cases, cls.coverage = load_corpus()
         cls.actual_observations: list[dict[str, object]] = []
         cls.executed = 0
-
     def test_01_all_json_is_canonical_utf8(self) -> None:
         for path in sorted(CORPUS_ROOT.rglob("*.json")):
             with self.subTest(path=path):
                 read_json(path)
-
     def test_02_documents_validate_against_strict_schemas(self) -> None:
         validate_schemas(
             self.index, self.responsibilities, self.cases, self.coverage
         )
-
     def test_03_layout_inventory_and_owners_are_exact(self) -> None:
         metrics = validate_migration_accounting(self.index, self.responsibilities, self.cases, self.coverage)
         self.assertEqual(metrics, {"rust": 29, "retired": 1, "matrices": 29, "modules": 23, "carriers": 3, "literal_mismatches": 0, "identity_lengths": 0, "identity_digests": 0, "identity_without_authority": 0, "identity_compatibility": 0, "opaque_identity_relations": "PASS"})
@@ -103,6 +96,13 @@ class ConformanceCorpusTest(unittest.TestCase):
         validate_coverage(
             self.coverage, self.responsibilities, self.cases
         )
+    def test_05a_repository_authority_reads_reuse_only_exact_identity(self) -> None:
+        authority_a = {"source_kind": "repository", "repository": "repo-a", "commit": "a" * 40, "path": "authority.txt", "clause": "clause"}
+        cases = {"synthetic": {"vectors": [{"authorities": [authority_a, dict(authority_a), {**authority_a, "repository": "repo-b"}]}]}}
+        with mock.patch.object(corpus_support, "git_show", return_value=b"authority") as git_show:
+            corpus_support.validate_authorities(cases)
+        self.assertEqual(git_show.call_count, 2)
+        self.assertEqual(git_show.call_args_list, [mock.call(authority_a["commit"], "authority.txt")] * 2)
     def test_06_known_bad_coverage_mappings_are_impossible(self) -> None:
         headings = {
             (record["contract"]["path"], heading["heading_path"]): heading
@@ -120,7 +120,6 @@ class ConformanceCorpusTest(unittest.TestCase):
             all(ref.startswith("governance-routing.resolve.") for ref in routing["vector_refs"])
         )
         self.assertNotIn("governance-authority.profile.invalid-graph", routing["vector_refs"])
-
         purity = headings[
             (
                 "docs/contracts/repository-integrity.md",
@@ -135,7 +134,6 @@ class ConformanceCorpusTest(unittest.TestCase):
             "github-authoritative-ref-monotonicity.observe.pagination",
             purity["vector_refs"],
         )
-
         discovery = headings[
             (
                 "docs/contracts/accepted-adr-body-immutability.md",
@@ -194,6 +192,16 @@ class ConformanceCorpusTest(unittest.TestCase):
                     "classification", "behavior_classification",
                 }
                 self.assertTrue(forbidden.isdisjoint(signature.parameters))
+    def test_07a_fixture_materialization_allocates_repository_only_when_required(self) -> None:
+        fixtures = (("inline", {"kind": "inline"}, False), ("procedural-inline", {"kind": "procedural_requirement", "base": {"kind": "inline"}}, False), ("repository-plan", {"kind": "repository_plan"}, True))
+        for name, fixture, allocates_repository in fixtures:
+            with self.subTest(name=name):
+                with materialize(fixture) as realized:
+                    if allocates_repository:
+                        self.assertTrue(realized.root is not None and realized._temporary is not None)
+                        self.assertTrue(realized.root.is_dir())
+                    else:
+                        self.assertEqual((realized.root, realized._temporary), (None, None))
     def test_08_every_vector_executes_and_current_python_conforms(self) -> None:
         actual_records = []
         for responsibility_id, matrix in sorted(self.cases.items()):
@@ -224,7 +232,6 @@ class ConformanceCorpusTest(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertEqual(self.executed, sum(len(case["vectors"]) for case in self.cases.values()))
-
     def test_09_historical_resolution_transport_and_projection_audits(self) -> None:
         resolution_inconsistencies = historical_inconsistencies = 0
         command_schema = read_json(CORPUS_ROOT / "schemas/case.schema.json")["$defs"]["command_action"]
@@ -313,7 +320,6 @@ class ConformanceCorpusTest(unittest.TestCase):
         ):
             self.assertEqual(selected[vector_id]["correction_issue"], 77)
             self.assertEqual(selected[vector_id]["corrected_python_sha"], "46ffdac569d36edc0f4a655aa603ac4656d29092")
-
     @staticmethod
     def _legacy_observation_matches(observed, expected):
         if observed.get("kind") != "result" or expected.get("kind") != "result":
@@ -330,7 +336,6 @@ class ConformanceCorpusTest(unittest.TestCase):
             named = right.get("named_captures", {})
             return all(left.get(name) == value for name, value in named.items())
         return False
-
     @staticmethod
     def _walk(value):
         yield value
@@ -340,7 +345,6 @@ class ConformanceCorpusTest(unittest.TestCase):
         elif isinstance(value, list):
             for nested in value:
                 yield from ConformanceCorpusTest._walk(nested)
-
     def test_10_execution_evidence_and_final_metrics(self) -> None:
         total = sum(len(case["vectors"]) for case in self.cases.values())
         self.assertEqual(self.executed, total)
@@ -387,13 +391,10 @@ class ConformanceCorpusTest(unittest.TestCase):
         )
         Path("/tmp/proto-ring-61-execution-metrics.txt").write_text(metrics, encoding="utf-8")
         sys.stderr.write(metrics)
-
     def test_11_repository_boundary_and_tracked_cache_cleanliness(self) -> None:
         validate_repository_boundaries()
         tracked = subprocess.check_output(["git", "-C", str(REPOSITORY_ROOT), "ls-files", "-z"], text=True).split("\0")
         forbidden = [path for path in tracked if "__pycache__" in Path(path).parts or Path(path).suffix in {".pyc", ".pyo"}]
         self.assertEqual(forbidden, [])
-
-
 if __name__ == "__main__":
     unittest.main()

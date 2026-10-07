@@ -105,23 +105,23 @@ class RealizedFixture:
         self.provider: ProviderSequence | None = None
 
     def __enter__(self):
+        kind = self.fixture["kind"]
+        if kind == "inline":
+            return self
+        if kind == "procedural_requirement":
+            base_kind = self.fixture["base"]["kind"]
+            if base_kind == "inline":
+                return self
+            if base_kind != "repository_plan":
+                raise FixtureError("procedural base must be inline or repository_plan")
+        elif kind not in {"provider_observation", "repository_plan"}:
+            raise FixtureError(f"unsupported fixture kind: {kind}")
         self._temporary = tempfile.TemporaryDirectory(prefix="proto-ring-corpus-")
         self.root = Path(self._temporary.name) / "repository"
-        kind = self.fixture["kind"]
+        self.root.mkdir()
         if kind == "provider_observation":
-            self.root.mkdir()
             self._write_binding(self.fixture["binding"])
             self.provider = ProviderSequence(self.fixture["interactions"])
-        elif kind == "procedural_requirement":
-            base = self.fixture["base"]
-            if base["kind"] == "repository_plan":
-                self.root.mkdir()
-            elif base["kind"] != "inline":
-                raise FixtureError("procedural base must be inline or repository_plan")
-        elif kind == "repository_plan":
-            self.root.mkdir()
-        elif kind != "inline":
-            raise FixtureError(f"unsupported fixture kind: {kind}")
         return self
 
     def __exit__(self, *_args: object) -> None:

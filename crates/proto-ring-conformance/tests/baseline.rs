@@ -6,9 +6,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
 
 use proto_ring_conformance::harness::{
-    CandidateRequest, CandidateState, ComparisonStatus, PythonBridge, UnimplementedRustCandidate,
-    candidate_requests, implemented_responsibilities, run_differential,
-    serialize_candidate_requests,
+    CandidateRequest, candidate_requests, serialize_candidate_requests,
 };
 use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
 use proto_ring_conformance::model::MigrationDisposition;
@@ -203,7 +201,7 @@ fn bridge_rejects_retirement_only_requests() {
 }
 
 #[test]
-fn published_corpus_runs_through_the_differential_harness() {
+fn published_corpus_bridge_contract_is_oracle_free() {
     let repository_root = repository_root();
     let corpus = load_corpus(&repository_root).expect("published corpus must load");
 
@@ -252,69 +250,6 @@ fn published_corpus_runs_through_the_differential_harness() {
     assert_request_schema(&serialized_probe, 596);
     assert_bridge_source_is_isolated(&repository_root);
     assert_output_schema(&repository_root, one_real_request(&corpus));
-    assert_retirement_only_rejected(&repository_root);
-
-    let python_observations = PythonBridge::new(&repository_root)
-        .execute(&requests)
-        .expect("Python bridge must execute every Rust-port vector");
-    assert_eq!(python_observations.len(), 596);
-
-    let reports = run_differential(&corpus, &python_observations, &UnimplementedRustCandidate)
-        .expect("differential harness must complete without execution errors");
-    assert_eq!(reports.len(), 596);
-
-    let python_match = reports
-        .iter()
-        .filter(|report| report.python_vs_expected == ComparisonStatus::Match)
-        .count();
-    let python_mismatch = reports
-        .iter()
-        .filter(|report| report.python_vs_expected == ComparisonStatus::Mismatch)
-        .count();
-    let rust_match = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::Match)
-        .count();
-    let rust_mismatch = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::Mismatch)
-        .count();
-    let rust_not_available = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::NotAvailable)
-        .count();
-    let differential_match = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::Match)
-        .count();
-    let differential_mismatch = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::Mismatch)
-        .count();
-    let differential_not_available = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::NotAvailable)
-        .count();
-    let rust_unimplemented = reports
-        .iter()
-        .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
-        .count();
-    let rust_implemented_responsibilities = implemented_responsibilities(&reports);
-
-    assert_eq!((python_match, python_mismatch), (596, 0));
-    assert_eq!(
-        (rust_implemented_responsibilities, rust_unimplemented),
-        (0, 596)
-    );
-    assert_eq!((rust_match, rust_mismatch, rust_not_available), (0, 0, 596));
-    assert_eq!(
-        (
-            differential_match,
-            differential_mismatch,
-            differential_not_available
-        ),
-        (0, 0, 596)
-    );
 
     eprintln!("PYTHON_BRIDGE_LOADS_CORPUS=no");
     eprintln!("PYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0");
@@ -327,17 +262,4 @@ fn published_corpus_runs_through_the_differential_harness() {
     eprintln!("RETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1");
     eprintln!("CORPUS_MATRICES=29");
     eprintln!("CORPUS_VECTORS=596");
-    eprintln!("PYTHON_OBSERVATIONS=596");
-    eprintln!("PYTHON_VS_EXPECTED_MATCH={python_match}");
-    eprintln!("PYTHON_VS_EXPECTED_MISMATCH={python_mismatch}");
-    eprintln!("RUST_IMPLEMENTED_RESPONSIBILITIES={rust_implemented_responsibilities}");
-    eprintln!("RUST_UNIMPLEMENTED_VECTORS={rust_unimplemented}");
-    eprintln!("RUST_VS_EXPECTED_MATCH={rust_match}");
-    eprintln!("RUST_VS_EXPECTED_MISMATCH={rust_mismatch}");
-    eprintln!("RUST_VS_EXPECTED_NOT_AVAILABLE={rust_not_available}");
-    eprintln!("PYTHON_VS_RUST_MATCH={differential_match}");
-    eprintln!("PYTHON_VS_RUST_MISMATCH={differential_mismatch}");
-    eprintln!("PYTHON_VS_RUST_NOT_AVAILABLE={differential_not_available}");
-    eprintln!("RETIREMENT_ONLY_EXECUTIONS=0");
-    eprintln!("DIFFERENTIAL_HARNESS=PASS");
 }
