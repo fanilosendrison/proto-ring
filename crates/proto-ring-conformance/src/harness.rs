@@ -63,6 +63,12 @@ pub struct DifferentialReport {
 #[derive(Debug)]
 pub struct HarnessError(String);
 
+impl HarnessError {
+    pub(crate) fn new(message: impl Into<String>) -> Self {
+        Self(message.into())
+    }
+}
+
 impl Display for HarnessError {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> std::fmt::Result {
         formatter.write_str(&self.0)
@@ -264,7 +270,7 @@ fn compared(
 }
 
 fn failure(message: String) -> HarnessError {
-    HarnessError(message)
+    HarnessError::new(message)
 }
 
 pub fn implemented_responsibilities(reports: &[DifferentialReport]) -> usize {
