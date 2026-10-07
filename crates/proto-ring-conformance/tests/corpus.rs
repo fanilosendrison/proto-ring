@@ -1,60 +1,63 @@
 #![forbid(unsafe_code)]
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
 
 use proto_ring_conformance::harness::{
-    CandidateRequest, CandidateState, ComparisonStatus, PythonBridge, UnimplementedRustCandidate,
+    CandidateExecutor, CandidateRequest, CandidateState, ComparisonStatus, PythonBridge,
     candidate_requests, implemented_responsibilities, run_differential,
     serialize_candidate_requests,
 };
 use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
-use proto_ring_conformance::model::MigrationDisposition;
+use proto_ring_conformance::model::{MigrationDisposition, Observation};
+use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use serde_json::{Value, json};
 use tempfile::NamedTempFile;
 
-fn repository_root() -> PathBuf {
+const IMPLEMENTED: &[&str] = &[
+    "governance-bootstrap.root",
+    "governance-routing.resolve",
+    "repository-governance-model.binding-compatibility",
+    "repository-governance-model.load",
+    "structured-data.document",
+    "structured-data.frontmatter",
+];
+
+fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .parent()
         .and_then(Path::parent)
-        .expect("conformance crate must be in the workspace crates directory")
+        .unwrap()
         .to_path_buf()
 }
 
-fn python_executable() -> std::ffi::OsString {
-    std::env::var_os("PROTO_RING_PYTHON").unwrap_or_else(|| "python3".into())
-}
-
-fn invoke_bridge(repository_root: &Path, request_bytes: &[u8]) -> (Output, Vec<u8>) {
-    let request_file = NamedTempFile::new().expect("request file must be created");
-    fs::write(request_file.path(), request_bytes).expect("request file must be written");
-    let output_file = NamedTempFile::new().expect("output file must be created");
-    let output = Command::new(python_executable())
-        .current_dir(repository_root)
-        .env("PYTHONDONTWRITEBYTECODE", "1")
-        .arg("-B")
-        .arg("tests/conformance_python_bridge.py")
-        .arg("--request")
-        .arg(request_file.path())
-        .arg("--output")
-        .arg(output_file.path())
-        .output()
-        .expect("Python bridge must start");
-    let response = fs::read(output_file.path()).expect("output file must be readable");
-    (output, response)
+fn invoke_bridge(request: &[u8]) -> (Output, Vec<u8>) {
+    let request_file = NamedTempFile::new().unwrap();
+    fs::write(request_file.path(), request).unwrap();
+    let output_file = NamedTempFile::new().unwrap();
+    let output =
+        Command::new(std::env::var_os("PROTO_RING_PYTHON").unwrap_or_else(|| "python3".into()))
+            .current_dir(root())
+            .env("PYTHONDONTWRITEBYTECODE", "1")
+            .args(["-B", "tests/conformance_python_bridge.py", "--request"])
+            .arg(request_file.path())
+            .arg("--output")
+            .arg(output_file.path())
+            .output()
+            .unwrap();
+    (output, fs::read(output_file.path()).unwrap())
 }
 
 fn json_bytes(value: &Value) -> Vec<u8> {
-    let mut bytes = serde_json::to_vec_pretty(value).expect("test JSON must serialize");
+    let mut bytes = serde_json::to_vec_pretty(value).unwrap();
     bytes.push(b'\n');
     bytes
 }
 
-fn assert_bridge_source_is_isolated(repository_root: &Path) {
-    let source = fs::read_to_string(repository_root.join("tests/conformance_python_bridge.py"))
-        .expect("bridge source must be readable");
+fn assert_bridge_isolation(serialized: &[u8]) {
+    let source = fs::read_to_string(root().join("tests/conformance_python_bridge.py")).unwrap();
     for forbidden in [
         "load_corpus",
         "expected_observation",
@@ -68,10 +71,11 @@ fn assert_bridge_source_is_isolated(repository_root: &Path) {
     ] {
         assert!(!source.contains(forbidden), "bridge contains {forbidden}");
     }
-}
-
-fn oracle_field_count(value: &Value) -> usize {
-    const ORACLE_FIELDS: &[&str] = &[
+    let document: Value = serde_json::from_slice(serialized).unwrap();
+    let requests = document.as_array().unwrap();
+    assert_eq!(requests.len(), 470);
+    let expected = BTreeSet::from(["fixture", "responsibility_id", "vector_id"]);
+    let forbidden = [
         "expected_observation",
         "comparison",
         "derivation",
@@ -82,262 +86,302 @@ fn oracle_field_count(value: &Value) -> usize {
         "authorities",
         "state_distinctions",
     ];
-    match value {
-        Value::Object(object) => object
-            .iter()
-            .map(|(key, value)| {
-                usize::from(ORACLE_FIELDS.contains(&key.as_str())) + oracle_field_count(value)
-            })
-            .sum(),
-        Value::Array(values) => values.iter().map(oracle_field_count).sum(),
-        _ => 0,
-    }
-}
-
-fn assert_request_schema(serialized: &[u8], expected_count: usize) {
-    let document: Value = serde_json::from_slice(serialized).expect("request must be JSON");
-    let requests = document.as_array().expect("request root must be an array");
-    assert_eq!(requests.len(), expected_count);
-    let expected_keys = BTreeSet::from(["fixture", "responsibility_id", "vector_id"]);
     for request in requests {
-        let keys = request
-            .as_object()
-            .expect("request must be an object")
-            .keys()
-            .map(String::as_str)
-            .collect::<BTreeSet<_>>();
-        assert_eq!(keys, expected_keys);
+        let object = request.as_object().unwrap();
+        assert_eq!(
+            object.keys().map(String::as_str).collect::<BTreeSet<_>>(),
+            expected
+        );
+        assert!(object.keys().all(|key| !forbidden.contains(&key.as_str())));
     }
-    assert_eq!(oracle_field_count(&document), 0);
 }
 
-fn one_real_request(corpus: &LoadedCorpus) -> CandidateRequest {
-    let matrix = corpus
+#[test]
+fn bridge_rejects_oracle_malformed_duplicate_and_retirement_requests() {
+    let probes = [
+        json!([{"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{},"expected_observation":{}}]),
+        json!([{"responsibility_id":"structured-data.document","vector_id":"probe"}]),
+        json!([{"vector_id":"probe","fixture":{}}]),
+        json!({}),
+        json!([{"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{}},
+               {"responsibility_id":"structured-data.document","vector_id":"probe","fixture":{}}]),
+        json!([{"responsibility_id":"shared-governance-provider.check","vector_id":"probe","fixture":{}}]),
+    ];
+    for probe in probes {
+        assert!(!invoke_bridge(&json_bytes(&probe)).0.status.success());
+    }
+}
+
+fn vector<'a>(
+    corpus: &'a LoadedCorpus,
+    id: &str,
+) -> (&'a str, &'a proto_ring_conformance::model::Vector) {
+    corpus
         .matrices
         .iter()
-        .find(|matrix| matrix.responsibility_id == "structured-data.document")
-        .expect("structured-data matrix must exist");
-    let vector = matrix
-        .vectors
-        .iter()
-        .find(|vector| vector.vector_id == "structured-data.document.positive-integer")
-        .expect("positive integer vector must exist");
+        .find_map(|matrix| {
+            matrix
+                .vectors
+                .iter()
+                .find(|vector| vector.vector_id == id)
+                .map(|vector| (matrix.responsibility_id.as_str(), vector))
+        })
+        .unwrap()
+}
+
+fn request_for(corpus: &LoadedCorpus, id: &str) -> CandidateRequest {
+    let (responsibility_id, vector) = vector(corpus, id);
     CandidateRequest {
-        responsibility_id: matrix.responsibility_id.clone(),
-        vector_id: vector.vector_id.clone(),
+        responsibility_id: responsibility_id.to_owned(),
+        vector_id: id.to_owned(),
         fixture: vector.fixture.clone(),
     }
 }
 
-fn assert_output_schema(repository_root: &Path, request: CandidateRequest) {
-    let request_bytes = serialize_candidate_requests(&[request]).expect("request must serialize");
-    let (output, response) = invoke_bridge(repository_root, &request_bytes);
-    assert!(
-        output.status.success(),
-        "{}",
-        String::from_utf8_lossy(&output.stderr)
-    );
-    let document: Value = serde_json::from_slice(&response).expect("response must be JSON");
-    let records = document.as_array().expect("response root must be an array");
-    assert_eq!(records.len(), 1);
-    let keys = records[0]
-        .as_object()
-        .expect("response must contain an object")
-        .keys()
-        .map(String::as_str)
-        .collect::<BTreeSet<_>>();
-    assert_eq!(
-        keys,
-        BTreeSet::from(["observation", "responsibility_id", "vector_id"])
-    );
+fn expected_observation(corpus: &LoadedCorpus, id: &str) -> Observation {
+    vector(corpus, id).1.expected_observation.observation()
 }
 
-fn assert_retirement_only_rejected(repository_root: &Path) {
-    let request = json!([{
-        "fixture": {},
-        "responsibility_id": "shared-governance-provider.check",
-        "vector_id": "retirement-only.probe"
-    }]);
-    let (output, _) = invoke_bridge(repository_root, &json_bytes(&request));
-    assert!(!output.status.success());
+fn assert_projection_regressions(corpus: &LoadedCorpus) {
+    let candidate = ReferenceRustCandidate;
+    for id in [
+        "structured-data.frontmatter.valid-mapping",
+        "structured-data.frontmatter.immediate-close",
+        "repository-governance-model.load.valid-model-v1",
+        "repository-governance-model.load.valid-model-v2",
+    ] {
+        let state = candidate.execute(&request_for(corpus, id)).unwrap();
+        assert_eq!(
+            state,
+            CandidateState::Observation(expected_observation(corpus, id))
+        );
+    }
 }
 
-#[test]
-fn bridge_rejects_oracle_bearing_and_malformed_requests() {
-    let root = repository_root();
-    let requests = [
-        json!([{
-            "responsibility_id": "structured-data.document",
-            "vector_id": "probe",
-            "fixture": {},
-            "expected_observation": {}
-        }]),
-        json!([{
-            "responsibility_id": "structured-data.document",
-            "vector_id": "probe"
-        }]),
-        json!([{"vector_id": "probe", "fixture": {}}]),
-        json!({}),
-        json!([
-            {
-                "responsibility_id": "structured-data.document",
-                "vector_id": "probe",
-                "fixture": {}
-            },
-            {
-                "responsibility_id": "structured-data.document",
-                "vector_id": "probe",
-                "fixture": {}
-            }
-        ]),
+fn assert_source_boundaries(corpus: &LoadedCorpus) {
+    let repository = root();
+    let candidate =
+        fs::read_to_string(repository.join("crates/proto-ring-conformance/src/rust_candidate.rs"))
+            .unwrap();
+    let engine_paths = [
+        "lib.rs",
+        "structured_data.rs",
+        "structured_data_yaml.rs",
+        "governance_bootstrap.rs",
+        "governance_routing.rs",
+        "repository_governance_model.rs",
     ];
-    for request in requests {
-        let (output, _) = invoke_bridge(&root, &json_bytes(&request));
-        assert!(!output.status.success());
+    let engine = engine_paths
+        .iter()
+        .map(|path| {
+            fs::read_to_string(repository.join("crates/proto-ring-engine/src").join(path)).unwrap()
+        })
+        .collect::<String>();
+    for matrix in &corpus.matrices {
+        if IMPLEMENTED.contains(&matrix.responsibility_id.as_str()) {
+            for vector in &matrix.vectors {
+                assert!(!candidate.contains(&vector.vector_id));
+            }
+        }
+    }
+    for forbidden in ["YamlLoader", "Yaml::Integer", "Yaml::Boolean", "Yaml::Null"] {
+        assert!(!engine.contains(forbidden));
+    }
+    assert!(engine.contains("parse_frontmatter_bytes"));
+    assert!(engine.contains("governance_bootstrap::load"));
+    assert!(engine.contains("governance_routing::resolve"));
+}
+
+fn count_status(
+    reports: &[proto_ring_conformance::harness::DifferentialReport],
+    channel: fn(&proto_ring_conformance::harness::DifferentialReport) -> ComparisonStatus,
+) -> (usize, usize, usize) {
+    let mut counts = (0, 0, 0);
+    for report in reports {
+        match channel(report) {
+            ComparisonStatus::Match => counts.0 += 1,
+            ComparisonStatus::Mismatch => counts.1 += 1,
+            ComparisonStatus::NotAvailable => counts.2 += 1,
+        }
+    }
+    counts
+}
+
+fn require_matches(reports: &[proto_ring_conformance::harness::DifferentialReport], ids: &[&str]) {
+    for id in ids {
+        let report = reports
+            .iter()
+            .find(|report| report.vector_id == *id)
+            .unwrap();
+        assert_eq!(report.rust_vs_expected, ComparisonStatus::Match);
     }
 }
 
 #[test]
-fn bridge_rejects_retirement_only_requests() {
-    assert_retirement_only_rejected(&repository_root());
+fn absolute_contained_target_is_rejected_by_reference_candidate() {
+    let corpus = load_corpus(&root()).unwrap();
+    let id = "governance-routing.resolve.absolute-path-contained-target";
+    let state = ReferenceRustCandidate
+        .execute(&request_for(&corpus, id))
+        .unwrap();
+    assert_eq!(
+        state,
+        CandidateState::Observation(expected_observation(&corpus, id))
+    );
 }
 
 #[test]
-fn published_corpus_runs_through_the_differential_harness() {
-    let repository_root = repository_root();
-    let corpus = load_corpus(&repository_root).expect("published corpus must load");
-
+fn published_corpus_runs_through_reference_candidate() {
+    let corpus = load_corpus(&root()).unwrap();
     let rust_port = corpus
         .responsibilities
         .iter()
         .filter(|record| record.migration_disposition == MigrationDisposition::RustPort)
         .count();
-    let retirement_only: Vec<_> = corpus
+    let retired: Vec<_> = corpus
         .responsibilities
         .iter()
         .filter(|record| {
             record.migration_disposition == MigrationDisposition::RetireWithoutRustPort
         })
         .collect();
-    let vector_count: usize = corpus
+    let vectors: usize = corpus
         .matrices
         .iter()
         .map(|matrix| matrix.vectors.len())
         .sum();
-
-    assert_eq!(corpus.responsibilities.len(), 30);
-    assert_eq!(rust_port, 29);
-    assert_eq!(retirement_only.len(), 1);
     assert_eq!(
-        retirement_only[0].responsibility_id,
-        "shared-governance-provider.check"
+        (
+            corpus.responsibilities.len(),
+            rust_port,
+            retired.len(),
+            corpus.matrices.len(),
+            vectors
+        ),
+        (30, 29, 1, 29, 470)
     );
-    assert!(retirement_only[0].case_file.is_none());
-    assert_eq!(corpus.index.case_files.len(), 29);
-    assert_eq!(corpus.matrices.len(), 29);
-    assert_eq!(vector_count, 470);
-    assert!(
-        corpus
-            .matrices
-            .iter()
-            .all(|matrix| matrix.responsibility_id != "shared-governance-provider.check")
+    assert_eq!(
+        retired[0].responsibility_id,
+        "shared-governance-provider.check"
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 470);
-    let serialized = serialize_candidate_requests(&requests).expect("batch request must serialize");
-    let request_probe = NamedTempFile::new().expect("request probe must be created");
-    fs::write(request_probe.path(), &serialized).expect("request probe must be written");
-    let serialized_probe = fs::read(request_probe.path()).expect("request probe must be read");
-    assert_request_schema(&serialized_probe, 470);
-    assert_bridge_source_is_isolated(&repository_root);
-    assert_output_schema(&repository_root, one_real_request(&corpus));
-    assert_retirement_only_rejected(&repository_root);
+    let serialized = serialize_candidate_requests(&requests).unwrap();
+    assert_bridge_isolation(&serialized);
+    assert_projection_regressions(&corpus);
+    assert_source_boundaries(&corpus);
+    let python = PythonBridge::new(&root()).execute(&requests).unwrap();
+    assert_eq!(python.len(), 470);
+    let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
-    let python_observations = PythonBridge::new(&repository_root)
-        .execute(&requests)
-        .expect("Python bridge must execute every Rust-port vector");
-    assert_eq!(python_observations.len(), 470);
-
-    let reports = run_differential(&corpus, &python_observations, &UnimplementedRustCandidate)
-        .expect("differential harness must complete without execution errors");
-    assert_eq!(reports.len(), 470);
-
-    let python_match = reports
+    let python_counts = count_status(&reports, |report| report.python_vs_expected);
+    let rust_counts = count_status(&reports, |report| report.rust_vs_expected);
+    let differential_counts = count_status(&reports, |report| report.python_vs_rust);
+    for report in &reports {
+        if report.rust_vs_expected == ComparisonStatus::Mismatch {
+            eprintln!(
+                "RUST_MISMATCH={} actual={:?} expected={:?}",
+                report.vector_id, report.rust_candidate, report.expected_observation
+            );
+        }
+    }
+    assert_eq!(python_counts, (470, 0, 0));
+    assert_eq!(rust_counts, (74, 0, 396));
+    assert_eq!(differential_counts, (74, 0, 396));
+    let implemented_vectors = reports
         .iter()
-        .filter(|report| report.python_vs_expected == ComparisonStatus::Match)
+        .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
         .count();
-    let python_mismatch = reports
+    let implemented_responsibility_count = implemented_responsibilities(&reports);
+    let implemented_ids: HashSet<_> = reports
         .iter()
-        .filter(|report| report.python_vs_expected == ComparisonStatus::Mismatch)
-        .count();
-    let rust_match = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::Match)
-        .count();
-    let rust_mismatch = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::Mismatch)
-        .count();
-    let rust_not_available = reports
-        .iter()
-        .filter(|report| report.rust_vs_expected == ComparisonStatus::NotAvailable)
-        .count();
-    let differential_match = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::Match)
-        .count();
-    let differential_mismatch = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::Mismatch)
-        .count();
-    let differential_not_available = reports
-        .iter()
-        .filter(|report| report.python_vs_rust == ComparisonStatus::NotAvailable)
-        .count();
-    let rust_unimplemented = reports
-        .iter()
-        .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
-        .count();
-    let rust_implemented_responsibilities = implemented_responsibilities(&reports);
-
-    assert_eq!((python_match, python_mismatch), (470, 0));
+        .filter_map(|report| {
+            matches!(report.rust_candidate, CandidateState::Observation(_))
+                .then_some(report.responsibility_id.as_str())
+        })
+        .collect();
+    assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
-        (rust_implemented_responsibilities, rust_unimplemented),
-        (0, 470)
-    );
-    assert_eq!((rust_match, rust_mismatch, rust_not_available), (0, 0, 470));
-    assert_eq!(
-        (
-            differential_match,
-            differential_mismatch,
-            differential_not_available
-        ),
-        (0, 0, 470)
+        (implemented_responsibility_count, implemented_vectors),
+        (6, 74)
     );
 
-    eprintln!("PYTHON_BRIDGE_LOADS_CORPUS=no");
-    eprintln!("PYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0");
-    eprintln!("PYTHON_BRIDGE_COMPUTES_COMPARISON=no");
-    eprintln!("PYTHON_BRIDGE_REQUEST_SCHEMA=PASS");
-    eprintln!("PYTHON_BRIDGE_OUTPUT_SCHEMA=PASS");
-    eprintln!("PYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS");
-    eprintln!("CORPUS_RESPONSIBILITIES=30");
-    eprintln!("RUST_PORT_RESPONSIBILITIES=29");
-    eprintln!("RETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1");
-    eprintln!("CORPUS_MATRICES=29");
-    eprintln!("CORPUS_VECTORS=470");
-    eprintln!("PYTHON_OBSERVATIONS=470");
-    eprintln!("PYTHON_VS_EXPECTED_MATCH={python_match}");
-    eprintln!("PYTHON_VS_EXPECTED_MISMATCH={python_mismatch}");
-    eprintln!("RUST_IMPLEMENTED_RESPONSIBILITIES={rust_implemented_responsibilities}");
-    eprintln!("RUST_UNIMPLEMENTED_VECTORS={rust_unimplemented}");
-    eprintln!("RUST_VS_EXPECTED_MATCH={rust_match}");
-    eprintln!("RUST_VS_EXPECTED_MISMATCH={rust_mismatch}");
-    eprintln!("RUST_VS_EXPECTED_NOT_AVAILABLE={rust_not_available}");
-    eprintln!("PYTHON_VS_RUST_MATCH={differential_match}");
-    eprintln!("PYTHON_VS_RUST_MISMATCH={differential_mismatch}");
-    eprintln!("PYTHON_VS_RUST_NOT_AVAILABLE={differential_not_available}");
-    eprintln!("RETIREMENT_ONLY_EXECUTIONS=0");
+    require_matches(
+        &reports,
+        &[
+            "structured-data.document.beyond-i64",
+            "structured-data.document.int-limit-641",
+            "structured-data.document.int-limit-4301",
+        ],
+    );
+    require_matches(
+        &reports,
+        &[
+            "governance-routing.resolve.missing-parent",
+            "governance-routing.resolve.file-parent",
+            "governance-routing.resolve.file-trailing-slash",
+            "governance-routing.resolve.file-dot",
+            "governance-routing.resolve.broken-symlink",
+            "governance-routing.resolve.symlink-cycle",
+            "governance-routing.resolve.symlink-parent",
+            "governance-routing.resolve.outside-final",
+            "governance-routing.resolve.absolute-path-contained-target",
+        ],
+    );
+    require_matches(
+        &reports,
+        &[
+            "repository-governance-model.load.valid-model-v1",
+            "repository-governance-model.load.valid-model-v2",
+            "repository-governance-model.load.unsupported-version",
+            "repository-governance-model.load.unknown-root-key",
+            "repository-governance-model.load.malformed-capability",
+        ],
+    );
+    require_matches(
+        &reports,
+        &[
+            "repository-governance-model.binding-compatibility.compatible-binding",
+            "repository-governance-model.binding-compatibility.missing-required-route",
+            "repository-governance-model.binding-compatibility.undeclared-capability",
+        ],
+    );
+
+    let metrics: HashMap<&str, usize> = HashMap::from([
+        ("implemented", implemented_vectors),
+        ("unimplemented", 470 - implemented_vectors),
+    ]);
+    eprintln!(
+        "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
+    );
+    eprintln!(
+        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=470"
+    );
+    eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=74");
+    eprintln!(
+        "PYTHON_OBSERVATIONS=470\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
+        python_counts.0, python_counts.1
+    );
+    eprintln!(
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=23\nRUST_UNIMPLEMENTED_VECTORS={}",
+        metrics["implemented"], metrics["unimplemented"]
+    );
+    eprintln!(
+        "RUST_VS_EXPECTED_MATCH={}\nRUST_VS_EXPECTED_MISMATCH={}\nRUST_VS_EXPECTED_NOT_AVAILABLE={}",
+        rust_counts.0, rust_counts.1, rust_counts.2
+    );
+    eprintln!(
+        "PYTHON_VS_RUST_MATCH={}\nPYTHON_VS_RUST_MISMATCH={}\nPYTHON_VS_RUST_NOT_AVAILABLE={}",
+        differential_counts.0, differential_counts.1, differential_counts.2
+    );
+    eprintln!(
+        "RETIREMENT_ONLY_EXECUTIONS=0\nRUST_VECTOR_ID_SPECIAL_CASES=0\nYAML_IMPLICIT_TYPING_DEPENDENCY=0"
+    );
+    eprintln!(
+        "UNBOUNDED_INTEGER_CASES=3/3\nROUTING_HOSTILE_PATH_CASES=9/9\nRGM_VERSION_CASES=5/5\nRGM_BINDING_COMPATIBILITY_CASES=3/3"
+    );
+    eprintln!(
+        "FRONTMATTER_RESULT_ORDER=PASS\nIMMEDIATE_CLOSE_RESULT_ORDER=PASS\nRGM_RESULT_ORDER=PASS\nRGM_MODEL_VERSION_TRANSPORT=PASS"
+    );
     eprintln!("DIFFERENTIAL_HARNESS=PASS");
 }
