@@ -42,7 +42,16 @@
       "vector_refs": [
         "governed-objects.catalog.valid-model",
         "governed-objects.catalog.invalid-version",
-        "governed-objects.catalog.missing-structure"
+        "governed-objects.catalog.invalid-version-boolean",
+        "governed-objects.catalog.invalid-version-string",
+        "governed-objects.catalog.invalid-version-float-like",
+        "governed-objects.catalog.invalid-version-null",
+        "governed-objects.catalog.missing-structure",
+        "governed-objects.catalog.unknown-key",
+        "governed-objects.catalog.unknown-key-interface",
+        "governed-objects.catalog.unknown-key-object",
+        "governed-objects.catalog.unknown-key-relation",
+        "governed-objects.catalog.unknown-key-target"
       ]
     },
     {
@@ -56,7 +65,10 @@
       ],
       "vector_refs": [
         "governed-objects.catalog.case-distinct",
-        "governed-objects.catalog.empty-identity"
+        "governed-objects.catalog.empty-identity",
+        "governed-objects.catalog.empty-object-identity",
+        "governed-objects.catalog.empty-responsibility-identity",
+        "governed-objects.catalog.empty-relation-identity"
       ]
     },
     {
@@ -100,6 +112,7 @@
       "vector_refs": [
         "governed-objects.catalog.source-ownership",
         "governed-objects.catalog.missing-target",
+        "governed-objects.catalog.missing-target-interface",
         "governed-objects.catalog.self-relation",
         "governed-objects.catalog.cycle"
       ]
