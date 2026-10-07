@@ -1,4 +1,28 @@
 {
+  "authority_snapshot_files": [
+    "fixtures/authorities/0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f/docs/contracts/canonical-governance-routing.md",
+    "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-governance-state.md",
+    "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-integrity.md",
+    "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-state.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/authoritative-ref-monotonicity.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/evidence-requirements.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/exact-evidence-binding.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/git-whitespace-validation.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/governance-authority.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/governance-bootstrap.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/governed-objects.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/projection-integrity.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/repository-governance-model.md",
+    "fixtures/authorities/662d86d445cefed4e17aa3cfa897ac36344cba89/docs/contracts/shared-governance-provider.md",
+    "fixtures/authorities/85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3/docs/contracts/portable-pattern.md",
+    "fixtures/authorities/e6da07c0961683cddfcfa5e7a3641333c7d79d20/docs/contracts/accepted-adr-body-immutability.md",
+    "fixtures/authorities/e6da07c0961683cddfcfa5e7a3641333c7d79d20/docs/contracts/adr-metadata-primitives.md",
+    "fixtures/authorities/e6da07c0961683cddfcfa5e7a3641333c7d79d20/docs/contracts/canonical-adr-identity.md",
+    "fixtures/authorities/e6da07c0961683cddfcfa5e7a3641333c7d79d20/docs/contracts/governance-bootstrap.md",
+    "fixtures/authorities/e6da07c0961683cddfcfa5e7a3641333c7d79d20/docs/contracts/structured-data.md",
+    "fixtures/authorities/f1cc389ccbd468165b877fa1b14e468110545113/docs/contracts/normative-terminology.md"
+  ],
   "case_files": [
     "cases/accepted-adr-body.immutability.matrix.json",
     "cases/adr-metadata.parse.matrix.json",
