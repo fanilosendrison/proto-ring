@@ -15,16 +15,16 @@ use proto_ring_conformance::model::{MigrationDisposition, Observation};
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use serde_json::{Value, json};
 use tempfile::NamedTempFile;
-
 const IMPLEMENTED: &[&str] = &[
+    "governance-authority.profile",
     "governance-bootstrap.root",
     "governance-routing.resolve",
+    "governed-objects.catalog",
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
     "structured-data.document",
     "structured-data.frontmatter",
 ];
-
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .parent()
@@ -160,15 +160,27 @@ fn assert_projection_regressions(corpus: &LoadedCorpus) {
 
 fn assert_source_boundaries(corpus: &LoadedCorpus) {
     let repository = root();
-    let candidate =
-        fs::read_to_string(repository.join("crates/proto-ring-conformance/src/rust_candidate.rs"))
-            .unwrap();
+    let candidate = [
+        "rust_candidate.rs",
+        "rust_candidate/authority_objects.rs",
+        "rust_candidate/authority_objects/support.rs",
+        "rust_candidate/foundation.rs",
+        "rust_candidate/transport.rs",
+    ]
+    .iter()
+    .map(|path| {
+        let source = repository.join("crates/proto-ring-conformance/src");
+        fs::read_to_string(source.join(path)).unwrap()
+    })
+    .collect::<String>();
     let engine_paths = [
         "lib.rs",
         "structured_data.rs",
         "structured_data_yaml.rs",
+        "governance_authority.rs",
         "governance_bootstrap.rs",
         "governance_routing.rs",
+        "governed_objects.rs",
         "repository_governance_model.rs",
     ];
     let engine = engine_paths
@@ -286,8 +298,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (596, 0, 0));
-    assert_eq!(rust_counts, (74, 0, 522));
-    assert_eq!(differential_counts, (74, 0, 522));
+    assert_eq!(rust_counts, (239, 0, 357));
+    assert_eq!(differential_counts, (239, 0, 357));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -303,7 +315,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (6, 74)
+        (8, 239)
     );
 
     require_matches(
@@ -358,12 +370,13 @@ fn published_corpus_runs_through_reference_candidate() {
         "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=596"
     );
     eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=74");
+    eprintln!("ISSUE65_RESPONSIBILITIES=2\nISSUE65_VECTORS=165");
     eprintln!(
         "PYTHON_OBSERVATIONS=596\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=23\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=21\nRUST_UNIMPLEMENTED_VECTORS={}",
         metrics["implemented"], metrics["unimplemented"]
     );
     eprintln!(
