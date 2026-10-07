@@ -19760,15 +19760,7 @@
                                       "name": "roles",
                                       "value": {
                                         "type": "record",
-                                        "value": [
-                                          {
-                                            "name": "registry",
-                                            "value": {
-                                              "type": "string",
-                                              "value": "authority"
-                                            }
-                                          }
-                                        ]
+                                        "value": []
                                       }
                                     }
                                   ]

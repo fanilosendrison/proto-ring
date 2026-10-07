@@ -2074,7 +2074,7 @@
       "later_python_observation": null,
       "resolution": null,
       "state_distinctions": [
-        "transitive precedence establishes outranking without removing authority"
+        "transitive precedence establishes outranking"
       ],
       "vector_id": "governance-authority.profile.transitive-outranking"
     },
@@ -2113,7 +2113,171 @@
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
           ],
-          "reason": "The exact operational input for governance-authority.profile.undeclared-endpoint yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Precedence through its concrete input and exact result."
+          "reason": "The exact operational input for governance-authority.profile.precedence-preserves-authority yields the encoded observation under the cited responsibility clauses; Python execution is comparison evidence only. The authority_sources query directly observes that all lower sources remain authority after precedence edges are applied."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            },
+            {
+              "name": "query_result",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  },
+                  {
+                    "type": "string",
+                    "value": "c"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "responsibilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "r"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sources",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "a"
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  },
+                  {
+                    "type": "string",
+                    "value": "c"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "operation",
+                    "value": {
+                      "type": "string",
+                      "value": "authority_sources"
+                    }
+                  },
+                  {
+                    "name": "responsibility",
+                    "value": {
+                      "type": "string",
+                      "value": "r"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n    c: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: authority\n        c: authority\n      precedence:\n      - higher_source: a\n        lower_source: b\n      - higher_source: b\n        lower_source: c\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "precedence does not remove authority from lower sources"
+      ],
+      "vector_id": "governance-authority.profile.precedence-preserves-authority"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.undeclared-endpoint yields the encoded controlled rejection under the cited responsibility clauses; Python execution is comparison evidence only. The precedence lower endpoint names a source absent from the declared sources mapping."
         },
         "kind": "controlled_rejection",
         "value": {
@@ -2171,9 +2335,308 @@
       "later_python_observation": null,
       "resolution": null,
       "state_distinctions": [
-        "a precedence endpoint not declared as authority is rejected"
+        "a precedence endpoint naming an undeclared source is rejected"
       ],
       "vector_id": "governance-authority.profile.undeclared-endpoint"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence-endpoint-without-role yields the encoded controlled rejection under the cited responsibility clauses; Python execution is comparison evidence only. The precedence higher endpoint is a declared source with no responsibility-scoped role."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n      precedence:\n      - higher_source: b\n        lower_source: a\n    r2:\n      roles:\n        b: authority\n      precedence: []\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a declared precedence endpoint without a role for the responsibility is rejected"
+      ],
+      "vector_id": "governance-authority.profile.precedence-endpoint-without-role"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Secondary representations",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Secondary representations"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence-secondary-endpoint yields the encoded controlled rejection under the cited responsibility clauses; Python execution is comparison evidence only. The precedence lower endpoint has the otherwise-valid secondary_representation role rather than authority."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: secondary_representation\n      precedence:\n      - higher_source: a\n        lower_source: b\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a secondary-representation precedence endpoint is rejected"
+      ],
+      "vector_id": "governance-authority.profile.precedence-secondary-endpoint"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Repository target",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Precedence",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Source roles",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/governance-authority.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Repository target",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Precedence",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/governance-authority.md#Source roles"
+          ],
+          "reason": "The exact operational input for governance-authority.profile.precedence-non-authoritative-endpoint yields the encoded controlled rejection under the cited responsibility clauses; Python execution is comparison evidence only. The precedence higher endpoint has the responsibility-scoped non_authoritative role rather than authority."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "governance-authority.profile.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_authority"
+              }
+            },
+            {
+              "name": "path",
+              "value": {
+                "type": "string",
+                "value": "authority.md"
+              }
+            },
+            {
+              "name": "query",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "authority.md",
+            "text": "---\ngovernance_authority:\n  model_version: 1\n  sources:\n    a: {}\n    b: {}\n  responsibilities:\n    r:\n      roles:\n        a: authority\n        b: non_authoritative\n      precedence:\n      - higher_source: b\n        lower_source: a\n---\n# Carrier\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a non-authoritative precedence endpoint is rejected"
+      ],
+      "vector_id": "governance-authority.profile.precedence-non-authoritative-endpoint"
     },
     {
       "authorities": [
