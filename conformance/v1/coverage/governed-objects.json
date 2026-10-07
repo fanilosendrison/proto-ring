@@ -27,7 +27,8 @@
       ],
       "vector_refs": [
         "governed-objects.catalog.valid-model",
-        "governed-objects.catalog.unknown-key"
+        "governed-objects.catalog.unknown-key",
+        "governed-objects.catalog.body-prose"
       ]
     },
     {
@@ -51,7 +52,26 @@
         "governed-objects.catalog.unknown-key-interface",
         "governed-objects.catalog.unknown-key-object",
         "governed-objects.catalog.unknown-key-relation",
-        "governed-objects.catalog.unknown-key-target"
+        "governed-objects.catalog.unknown-key-target",
+        "governed-objects.catalog.missing-model-version",
+        "governed-objects.catalog.missing-interface-objects",
+        "governed-objects.catalog.missing-object-responsibilities",
+        "governed-objects.catalog.missing-object-relations",
+        "governed-objects.catalog.missing-relation-id",
+        "governed-objects.catalog.missing-relation-responsibility",
+        "governed-objects.catalog.missing-relation-target",
+        "governed-objects.catalog.missing-target-interface-key",
+        "governed-objects.catalog.missing-target-object-key",
+        "governed-objects.catalog.root-non-mapping",
+        "governed-objects.catalog.interfaces-non-mapping",
+        "governed-objects.catalog.interface-declaration-non-mapping",
+        "governed-objects.catalog.objects-non-mapping",
+        "governed-objects.catalog.object-declaration-non-mapping",
+        "governed-objects.catalog.responsibilities-non-sequence",
+        "governed-objects.catalog.relations-non-sequence",
+        "governed-objects.catalog.relation-declaration-non-mapping",
+        "governed-objects.catalog.target-non-mapping",
+        "governed-objects.catalog.serialized-source-field"
       ]
     },
     {
@@ -68,11 +88,31 @@
         "governed-objects.catalog.empty-identity",
         "governed-objects.catalog.empty-object-identity",
         "governed-objects.catalog.empty-responsibility-identity",
-        "governed-objects.catalog.empty-relation-identity"
+        "governed-objects.catalog.empty-relation-identity",
+        "governed-objects.catalog.interface-identity-whitespace",
+        "governed-objects.catalog.interface-identity-unicode-normalization",
+        "governed-objects.catalog.object-identity-whitespace",
+        "governed-objects.catalog.object-identity-unicode-normalization",
+        "governed-objects.catalog.responsibility-identity-whitespace",
+        "governed-objects.catalog.responsibility-identity-unicode-normalization",
+        "governed-objects.catalog.relation-identity-whitespace",
+        "governed-objects.catalog.relation-identity-unicode-normalization",
+        "governed-objects.catalog.same-object-id-different-interfaces",
+        "governed-objects.catalog.interface-identity-non-string",
+        "governed-objects.catalog.object-identity-non-string",
+        "governed-objects.catalog.object-responsibility-identity-non-string",
+        "governed-objects.catalog.relation-identity-non-string",
+        "governed-objects.catalog.relation-responsibility-identity-non-string",
+        "governed-objects.catalog.target-interface-identity-non-string",
+        "governed-objects.catalog.target-object-identity-non-string",
+        "governed-objects.catalog.responsibility-identity-case",
+        "governed-objects.catalog.relation-identity-case",
+        "governed-objects.catalog.object-identity-case-same-interface",
+        "governed-objects.catalog.opaque-structured-spelling"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Cardinalities and its expected derivation binds this exact clause.",
+      "coverage_assertion": "The explicit-empty profile semantics are local to governed-objects.catalog. Absence of the governed_objects capability is Repository Governance Model state and is verified by the repository-governance-model.load responsibility.",
       "disposition": "covered",
       "heading_path": "Cardinalities",
       "level": 2,
@@ -97,7 +137,13 @@
       ],
       "vector_refs": [
         "governed-objects.catalog.unknown-responsibility",
-        "governed-objects.catalog.foreign-authority-profile"
+        "governed-objects.catalog.foreign-authority-profile",
+        "governed-objects.catalog.responsibility-identity-whitespace",
+        "governed-objects.catalog.responsibility-identity-unicode-normalization",
+        "governed-objects.catalog.responsibility-identity-case",
+        "governed-objects.catalog.target-responsibility-independent",
+        "governed-objects.catalog.responsibility-order-r-r2",
+        "governed-objects.catalog.responsibility-order-r2-r"
       ]
     },
     {
@@ -114,7 +160,17 @@
         "governed-objects.catalog.missing-target",
         "governed-objects.catalog.missing-target-interface",
         "governed-objects.catalog.self-relation",
-        "governed-objects.catalog.cycle"
+        "governed-objects.catalog.cycle",
+        "governed-objects.catalog.same-object-id-different-interfaces",
+        "governed-objects.catalog.distinct-relation-by-responsibility",
+        "governed-objects.catalog.distinct-relation-by-target-interface",
+        "governed-objects.catalog.distinct-relation-by-target-object",
+        "governed-objects.catalog.opaque-structured-spelling",
+        "governed-objects.catalog.target-responsibility-independent",
+        "governed-objects.catalog.relation-order-alpha-beta",
+        "governed-objects.catalog.relation-order-beta-alpha",
+        "governed-objects.catalog.relation-no-universal-transitivity",
+        "governed-objects.catalog.relation-diamond"
       ]
     },
     {
@@ -129,7 +185,17 @@
       "vector_refs": [
         "governed-objects.catalog.duplicate-responsibility",
         "governed-objects.catalog.duplicate-relation",
-        "governed-objects.catalog.different-relation"
+        "governed-objects.catalog.different-relation",
+        "governed-objects.catalog.relation-identity-whitespace",
+        "governed-objects.catalog.relation-identity-unicode-normalization",
+        "governed-objects.catalog.distinct-relation-by-responsibility",
+        "governed-objects.catalog.distinct-relation-by-target-interface",
+        "governed-objects.catalog.distinct-relation-by-target-object",
+        "governed-objects.catalog.relation-identity-case",
+        "governed-objects.catalog.responsibility-order-r-r2",
+        "governed-objects.catalog.responsibility-order-r2-r",
+        "governed-objects.catalog.relation-order-alpha-beta",
+        "governed-objects.catalog.relation-order-beta-alpha"
       ]
     },
     {
@@ -142,7 +208,8 @@
         "governed-objects.catalog"
       ],
       "vector_refs": [
-        "governed-objects.catalog.different-relation"
+        "governed-objects.catalog.different-relation",
+        "governed-objects.catalog.serialized-source-field"
       ]
     },
     {
@@ -155,17 +222,13 @@
       "vector_refs": []
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Catalog authority boundary and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Catalog authority boundary",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "governed-objects.catalog"
-      ],
-      "vector_refs": [
-        "governed-objects.catalog.foreign-authority-profile"
-      ]
+      "reason": "Governed Objects defines no SourceRole field or catalog-authority output. SourceRole assignment remains external in Canonical Governance Authority. This heading is an ownership boundary rather than an independently executable governed-objects.catalog loader predicate.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": null,
