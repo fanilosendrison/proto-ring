@@ -15,6 +15,16 @@ from proto_ring.exact_evidence_binding import EvidenceBinding, EvidenceRequireme
 from proto_ring.governance_routing import ResolvedGovernanceRoute
 
 from conformance_corpus_test_support import decode_transport, observation
+from conformance_python_adapter_66_evidence import binding_status
+from conformance_python_adapter_66_support import (
+    binding_observation,
+    binding_registry,
+    integrity_profile,
+    projection_observation,
+    repository_snapshot,
+    requirement_observation,
+    validation_observation,
+)
 
 OWNED_RESPONSIBILITIES = frozenset({
     "governance-authority.profile", "governed-objects.catalog",
@@ -55,47 +65,6 @@ def _catalog(root: Path, data: dict[str, object]) -> governed_objects.GovernedOb
     return governed_objects.GovernedObjectCatalog(root, root / data["carrier"], 1, interfaces)
 
 
-def _integrity(root: Path, data: dict[str, object]):
-    definitions = {}
-    for item in data["validations"]:
-        definitions[item["id"]] = repository_integrity.ValidationDefinition(
-            item["id"], item["responsibility"], tuple(item["prerequisites"]), None,
-            repository_integrity.ValidationInstances("single"),
-            repository_integrity.CommandBinding(
-                item["environment"], tuple(item["arguments"]),
-                frozenset(item["undetermined_exit_codes"]),
-            ),
-        )
-    authority = data["authority"]
-    return repository_integrity.ConsumerIntegrityProfile(
-        root, root / data["carrier"], 1,
-        repository_integrity.ProfileAuthority(authority["responsibility"], authority["source"]),
-        frozenset(data["environments"]), data["continue_after_non_satisfied"],
-        definitions, tuple(data["order"]), data["identity"],
-    )
-
-
-def _bindings(root: Path, data: dict[str, object]):
-    values = {}
-    for item in data["bindings"]:
-        kind = governance_bindings.BindingKind(item["kind"])
-        if kind is governance_bindings.BindingKind.EXECUTABLE_PROVIDER:
-            identity = governance_bindings.ExecutableProviderIdentity(item["repository"], item["commit"])
-        else:
-            identity = governance_bindings.GovernanceContractIdentity(item["repository"], item["commit"], item["path"])
-        values[item["id"]] = governance_bindings.GovernanceBinding(
-            item["id"], kind,
-            governance_bindings.GovernanceBindingScope(
-                governance_bindings.ScopeKind(item["scope_kind"]), item.get("capability")
-            ),
-            identity,
-            governance_bindings.BindingAuthority(item["responsibility"], item["source"]),
-        )
-    return governance_bindings.GovernanceBindingRegistry(
-        root, root / data["carrier"], 1, data["source"], values
-    )
-
-
 def _success(value: object):
     return observation("result", value)
 
@@ -105,7 +74,11 @@ def _rejection(responsibility_id: str):
 
 
 def _authority_result(root: Path, arguments: dict[str, object]):
-    loaded = governance_authority.load(root, _route(root, arguments["path"], "governance_authority"))
+    route = _route(root, arguments["path"], "governance_authority")
+    try:
+        loaded = governance_authority.load(root, route)
+    except governance_authority.GovernanceAuthorityError:
+        return _rejection("governance-authority.profile")
     query = arguments.get("query")
     result = None
     if query:
@@ -134,7 +107,11 @@ def _objects_result(root: Path, arguments: dict[str, object]):
     authority = _authority(root, arguments["semantic_inputs"]["authority"])
     if arguments.get("foreign_authority"):
         authority = replace(authority, repository=root.parent / "foreign")
-    loaded = governed_objects.load(root, _route(root, arguments["path"], "governed_objects"), authority)
+    route = _route(root, arguments["path"], "governed_objects")
+    try:
+        loaded = governed_objects.load(root, route, authority)
+    except governed_objects.GovernedObjectsError:
+        return _rejection("governed-objects.catalog")
     result = {
         "model_version": loaded.model_version,
         "interfaces": {key: sorted(value.objects) for key, value in sorted(loaded.interfaces.items())},
@@ -168,47 +145,75 @@ def _objects_result(root: Path, arguments: dict[str, object]):
 
 def _bindings_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
-    carrier = root / str(arguments["path"])
-    before = carrier.read_bytes() if arguments.get("observe_read_only") else None
-    loaded = governance_bindings.load(
-        root, _route(root, arguments["path"], "governance_bindings"),
-        _authority(root, support["authority"]),
-        _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None,
-    )
+    authority = _authority(root, support["authority"])
+    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    route = _route(root, arguments["path"], "governance_bindings")
+    before = repository_snapshot(root) if arguments.get("observe_read_only") else None
+    try:
+        loaded = governance_bindings.load(root, route, authority, catalog)
+    except governance_bindings.GovernanceBindingsError:
+        return _rejection("governance-bindings.registry")
     value = {
         "model_version": loaded.model_version, "source": loaded.source_id,
         "bindings": sorted(loaded.bindings),
         "kinds": {key: item.kind.value for key, item in sorted(loaded.bindings.items())},
     }
+    observed = arguments.get("observe_binding_id")
+    if observed is not None:
+        value["loaded_binding"] = binding_observation(loaded.bindings[observed])
     if before is not None:
-        value["carrier_unchanged"] = carrier.read_bytes() == before
+        value["repository_unchanged"] = repository_snapshot(root) == before
     return _success(value)
 
 
 def _integrity_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
-    loaded = repository_integrity.load(
-        root, _route(root, arguments["path"], "repository_integrity"),
-        _authority(root, support["authority"]),
-        _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None,
-    )
+    authority = _authority(root, support["authority"])
+    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    route = _route(root, arguments["path"], "repository_integrity")
+    before = repository_snapshot(root) if arguments.get("observe_read_only") else None
+    try:
+        loaded = repository_integrity.load(root, route, authority, catalog)
+    except repository_integrity.RepositoryIntegrityError:
+        return _rejection("repository-integrity.profile")
     if arguments.get("identity_only"):
         return _success({"identity": loaded.identity})
-    return _success({
+    value = {
         "model_version": loaded.model_version, "environments": sorted(loaded.environments),
         "order": list(loaded.order), "validations": sorted(loaded.validations),
         "continue_after_non_satisfied": loaded.continue_after_non_satisfied,
         "identity_present": bool(loaded.identity),
-    })
+        "profile_authority": {
+            "responsibility": loaded.authority.responsibility,
+            "source": loaded.authority.source,
+        },
+    }
+    observed = arguments.get("observe_validation_id")
+    if observed is not None:
+        value["loaded_validation"] = validation_observation(loaded.validations[observed])
+    observed_many = arguments.get("observe_validation_ids")
+    if observed_many is not None:
+        value["loaded_validations"] = {
+            validation_id: validation_observation(loaded.validations[validation_id])
+            for validation_id in observed_many
+        }
+    if before is not None:
+        value["repository_unchanged"] = repository_snapshot(root) == before
+    if arguments.get("observe_execution_sentinel"):
+        value["execution_sentinel_absent"] = not (root / "execution-sentinel.txt").exists()
+    return _success(value)
 
 
 def _evidence_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
-    loaded = evidence_requirements.load(
-        root, _route(root, arguments["path"], "evidence_requirements"),
-        _authority(root, support["authority"]),
-        _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None,
-    )
+    authority = _authority(root, support["authority"])
+    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    route = _route(root, arguments["path"], "evidence_requirements")
+    before = repository_snapshot(root) if arguments.get("observe_read_only") else None
+    try:
+        loaded = evidence_requirements.load(root, route, authority, catalog)
+    except evidence_requirements.EvidenceRequirementsError:
+        return _rejection("evidence-requirements.registry")
     if arguments["operation"] == "load_and_evaluate_unknown_context":
         persistent = loaded.requirements[arguments["requirement_id"]]
         resolution = arguments["consumer_resolution"]
@@ -234,48 +239,51 @@ def _evidence_result(root: Path, arguments: dict[str, object]):
             "resolved_context_known": context["known"],
             "binding_status": evaluate(requirement, binding).value,
         })
-    return _success({
+    value = {
         "model_version": loaded.model_version, "requirements": sorted(loaded.requirements),
         "authority_source": loaded.authority.source_id,
-    })
-
-
-def _binding_status(requirement_data, binding_data):
-    requirement = EvidenceRequirement(
-        frozenset(requirement_data["admitted_classes"]),
-        None if requirement_data["subject_hex"] is None else bytes.fromhex(requirement_data["subject_hex"]),
-        None if requirement_data["context_hex"] is None else bytes.fromhex(requirement_data["context_hex"]),
-        requirement_data["context_required"],
-    )
-    binding = None
-    if binding_data is not None:
-        binding = EvidenceBinding(
-            binding_data["evidence_class"],
-            None if binding_data["subject_hex"] is None else bytes.fromhex(binding_data["subject_hex"]),
-            None if binding_data["context_hex"] is None else bytes.fromhex(binding_data["context_hex"]),
-        )
-    return evaluate(requirement, binding).value
+        "registry_authority": {
+            "responsibility": loaded.authority.responsibility_id,
+            "source": loaded.authority.source_id,
+        },
+    }
+    observed = arguments.get("observe_requirement_id")
+    if observed is not None:
+        value["loaded_requirement"] = requirement_observation(loaded.requirements[observed])
+    if before is not None:
+        value["repository_unchanged"] = repository_snapshot(root) == before
+    return _success(value)
 
 
 def _exact_binding(arguments: dict[str, object]):
     if arguments["operation"] == "evaluate_requirement_history":
         comparisons = arguments.get("comparisons", [arguments])
-        return _success({"comparisons": [{
+        values = [{
             "label": item["label"],
-            "historical": _binding_status(item["historical_requirement"], item["binding"]),
-            "current": _binding_status(item["current_requirement"], item["binding"]),
-        } for item in comparisons]})
-    return _success({"status": _binding_status(arguments["requirement"], arguments["binding"])})
+            "historical": binding_status(item["historical_requirement"], item["binding"]),
+            "current": binding_status(item["current_requirement"], item["binding"]),
+        } for item in comparisons]
+        if any(item["historical"] is None or item["current"] is None for item in values):
+            return _rejection("exact-evidence-binding.evaluate")
+        return _success({"comparisons": values})
+    status = binding_status(arguments["requirement"], arguments["binding"])
+    return _rejection("exact-evidence-binding.evaluate") if status is None else _success({"status": status})
 
 
 def _projection_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
-    loaded = projection_registry.load(
-        root, _route(root, arguments["path"], "projection_registry"),
-        _authority(root, support["authority"]), _integrity(root, support["integrity_profile"]),
-        _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None,
-        _bindings(root, support["bindings"]) if arguments.get("with_bindings") else None,
-    )
+    authority = _authority(root, support["authority"])
+    integrity = integrity_profile(root, support["integrity_profile"])
+    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    bindings = binding_registry(root, support["bindings"]) if arguments.get("with_bindings") else None
+    route = _route(root, arguments["path"], "projection_registry")
+    before = repository_snapshot(root) if arguments.get("observe_read_only") else None
+    try:
+        loaded = projection_registry.load(
+            root, route, authority, integrity, catalog, bindings
+        )
+    except projection_registry.ProjectionRegistryError:
+        return _rejection("projection-registry.registry")
     value = {
         "model_version": loaded.model_version, "projections": sorted(loaded.projections),
         "modes": {key: item.mode.value for key, item in sorted(loaded.projections.items())},
@@ -286,27 +294,59 @@ def _projection_result(root: Path, arguments: dict[str, object]):
             key: {"canonical_source": item.canonical_source_id, "secondary_source": item.secondary_source_id, "mode": item.mode.value}
             for key, item in sorted(loaded.projections.items())
         }
+    if arguments.get("observe_registry_authority"):
+        value["registry_authority"] = {
+            "responsibility": loaded.authority.responsibility_id,
+            "source": loaded.authority.source_id,
+        }
+    observed = arguments.get("observe_projection_id")
+    if observed is not None:
+        value["loaded_projection"] = projection_observation(loaded.projections[observed])
+    if before is not None:
+        value["repository_unchanged"] = repository_snapshot(root) == before
     return _success(value)
 
 
+def precheck_support(
+    responsibility_id: str, root: Path | None, arguments: dict[str, object]
+) -> None:
+    if responsibility_id == "exact-evidence-binding.evaluate":
+        return
+    support = arguments["semantic_inputs"]
+    authority = _authority(root, support["authority"])
+    if responsibility_id in {
+        "governance-bindings.registry",
+        "repository-integrity.profile",
+        "evidence-requirements.registry",
+    }:
+        if arguments.get("with_catalog"):
+            _catalog(root, support["catalog"])
+        return
+    if responsibility_id == "projection-registry.registry":
+        integrity_profile(root, support["integrity_profile"])
+        if arguments.get("with_catalog"):
+            _catalog(root, support["catalog"])
+        if arguments.get("with_bindings"):
+            binding_registry(root, support["bindings"])
+        return
+    raise ValueError(f"unsupported #66 responsibility: {responsibility_id}")
+
+
 def _dispatch(responsibility_id: str, root: Path | None, arguments: dict[str, object]):
-    try:
-        if responsibility_id == "governance-authority.profile":
-            return _authority_result(root, arguments)
-        if responsibility_id == "governed-objects.catalog":
-            return _objects_result(root, arguments)
-        if responsibility_id == "governance-bindings.registry":
-            return _bindings_result(root, arguments)
-        if responsibility_id == "projection-registry.registry":
-            return _projection_result(root, arguments)
-        if responsibility_id == "repository-integrity.profile":
-            return _integrity_result(root, arguments)
-        if responsibility_id == "evidence-requirements.registry":
-            return _evidence_result(root, arguments)
-        if responsibility_id == "exact-evidence-binding.evaluate":
-            return _exact_binding(arguments)
-    except (ValueError, OSError, TypeError):
-        return _rejection(responsibility_id)
+    if responsibility_id == "governance-authority.profile":
+        return _authority_result(root, arguments)
+    if responsibility_id == "governed-objects.catalog":
+        return _objects_result(root, arguments)
+    if responsibility_id == "governance-bindings.registry":
+        return _bindings_result(root, arguments)
+    if responsibility_id == "projection-registry.registry":
+        return _projection_result(root, arguments)
+    if responsibility_id == "repository-integrity.profile":
+        return _integrity_result(root, arguments)
+    if responsibility_id == "evidence-requirements.registry":
+        return _evidence_result(root, arguments)
+    if responsibility_id == "exact-evidence-binding.evaluate":
+        return _exact_binding(arguments)
     raise ValueError(f"unsupported responsibility: {responsibility_id}")
 
 
