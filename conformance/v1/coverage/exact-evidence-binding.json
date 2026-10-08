@@ -169,18 +169,13 @@
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Fail-closed use of mandatory binding and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Fail-closed use of mandatory binding",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "exact-evidence-binding.evaluate"
-      ],
-      "vector_refs": [
-        "exact-evidence-binding.evaluate.match-not-proof",
-        "exact-evidence-binding.evaluate.evidence-absent"
-      ]
+      "reason": "The evaluator returns MATCH, MISMATCH, or UNDETERMINED. Higher-level prerequisite interpretation is consumer-owned composition.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": null,
@@ -205,7 +200,7 @@
       "disposition": "context",
       "heading_path": "Explicit exclusions",
       "level": 2,
-      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "reason": "MATCH establishes exact binding equality only; proof, evidence truth, qualification, and higher-level validation meaning remain ownership context and are not additional evaluator outputs.",
       "responsibility_ids": [],
       "vector_refs": []
     }

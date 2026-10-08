@@ -8,18 +8,13 @@
   },
   "headings": [
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Derivation baselines and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Derivation baselines",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "repository-integrity.profile"
-      ],
-      "vector_refs": [
-        "repository-integrity.profile.valid-profile",
-        "repository-integrity.profile.authoritative-carrier"
-      ]
+      "reason": "Derivation provenance constrains contract establishment and is not a separately returned repository-integrity.profile loader state.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": null,
@@ -83,7 +78,21 @@
       ],
       "vector_refs": [
         "repository-integrity.profile.valid-profile",
-        "repository-integrity.profile.authoritative-carrier"
+        "repository-integrity.profile.authoritative-carrier",
+        "repository-integrity.profile.validation-missing-instances",
+        "repository-integrity.profile.empty-selectors",
+        "repository-integrity.profile.exit-code-boolean",
+        "repository-integrity.profile.exit-code-negative",
+        "repository-integrity.profile.exit-code-arbitrary-precision",
+        "repository-integrity.profile.identity-selector-order",
+        "repository-integrity.profile.identity-command-argument-order",
+        "repository-integrity.profile.identity-environment-value",
+        "repository-integrity.profile.identity-validation-id",
+        "repository-integrity.profile.identity-prerequisite-value",
+        "repository-integrity.profile.identity-target-value",
+        "repository-integrity.profile.identity-exit-code-value",
+        "repository-integrity.profile.identity-authority-responsibility-value",
+        "repository-integrity.profile.identity-instance-kind-value"
       ]
     },
     {
@@ -105,7 +114,11 @@
         "repository-integrity.evaluate.selector-sort",
         "repository-integrity.evaluate.absent-literal",
         "repository-integrity.evaluate.for-each-zero",
-        "repository-integrity.evaluate.append-all-zero"
+        "repository-integrity.evaluate.append-all-zero",
+        "repository-integrity.profile.selector-kind-unknown",
+        "repository-integrity.profile.selector-kind-empty",
+        "repository-integrity.profile.selector-kind-non-string",
+        "repository-integrity.profile.empty-selectors"
       ]
     },
     {

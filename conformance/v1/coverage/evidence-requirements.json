@@ -27,7 +27,12 @@
       ],
       "vector_refs": [
         "evidence-requirements.registry.single-instance",
-        "evidence-requirements.registry.empty-registry"
+        "evidence-requirements.registry.empty-registry",
+        "evidence-requirements.registry.requirement-missing-context",
+        "evidence-requirements.registry.authority-responsibility-empty",
+        "evidence-requirements.registry.authority-responsibility-non-string",
+        "evidence-requirements.registry.authority-source-empty",
+        "evidence-requirements.registry.authority-source-non-string"
       ]
     },
     {
@@ -41,7 +46,9 @@
       ],
       "vector_refs": [
         "evidence-requirements.registry.single-instance",
-        "evidence-requirements.registry.source-instance"
+        "evidence-requirements.registry.source-instance",
+        "evidence-requirements.registry.instance-kind-empty",
+        "evidence-requirements.registry.instance-kind-non-string"
       ]
     },
     {
@@ -55,7 +62,11 @@
       ],
       "vector_refs": [
         "evidence-requirements.registry.explicit-class",
-        "evidence-requirements.registry.source-class"
+        "evidence-requirements.registry.source-class",
+        "evidence-requirements.registry.evidence-class-kind-unknown",
+        "evidence-requirements.registry.evidence-class-kind-empty",
+        "evidence-requirements.registry.evidence-class-kind-non-string",
+        "evidence-requirements.registry.explicit-multi-class-reversed"
       ]
     },
     {
@@ -74,17 +85,13 @@
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Mechanically significant embedded assertions and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Mechanically significant embedded assertions",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "evidence-requirements.registry"
-      ],
-      "vector_refs": [
-        "evidence-requirements.registry.invalid-combination"
-      ]
+      "reason": "Assertion truth and qualification meaning are ownership/context boundaries; the registry loader only preserves the contract-owned requirement declarations.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": "Each referenced concrete fixture exercises Candidate binding and its expected derivation binds this exact clause.",
@@ -96,7 +103,8 @@
         "evidence-requirements.registry"
       ],
       "vector_refs": [
-        "evidence-requirements.registry.source-existence"
+        "evidence-requirements.registry.candidate-source-unknown",
+        "evidence-requirements.registry.loaded-explicit-no-context"
       ]
     },
     {
@@ -156,7 +164,7 @@
       "disposition": "context",
       "heading_path": "Explicit exclusions",
       "level": 2,
-      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "reason": "Universal absence of subject/context/candidate dereference, source-target reads, consumer identity resolution, evidence production, replay, provider/network contact, and process execution is a mandatory #66 source audit, not a finite loader output.",
       "responsibility_ids": [],
       "vector_refs": []
     }

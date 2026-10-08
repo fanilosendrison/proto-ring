@@ -140,47 +140,31 @@
       "vector_refs": []
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Authority and evidence boundaries and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Authority and evidence boundaries",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "governance-bindings.registry",
-        "projection-registry.registry"
-      ],
-      "vector_refs": [
-        "governance-bindings.registry.authority-reference",
-        "projection-registry.registry.direct-sources"
-      ]
+      "reason": "This heading constrains authority, evidence truth, and qualification boundaries, not a separately returned Projection Registry loader output.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Mechanically significant embedded assertions and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Mechanically significant embedded assertions",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "projection-registry.registry"
-      ],
-      "vector_refs": [
-        "projection-registry.registry.mode-fields"
-      ]
+      "reason": "This heading constrains assertion authority and truth boundaries, not a separately returned Projection Registry loader output.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Governed identity boundary and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Governed identity boundary",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "governance-bindings.registry",
-        "projection-registry.registry"
-      ],
-      "vector_refs": [
-        "governance-bindings.registry.object-scope",
-        "projection-registry.registry.optional-target"
-      ]
+      "reason": "This heading constrains consumer-owned identity and currentness boundaries, not a separately returned Projection Registry loader output.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": "Each referenced concrete fixture exercises Persistent Projection Registry and its expected derivation binds this exact clause.",
@@ -192,7 +176,22 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
-        "projection-registry.registry.reference-mode"
+        "projection-registry.registry.reference-mode",
+        "projection-registry.registry.empty-registry",
+        "projection-registry.registry.authority-responsibility-empty",
+        "projection-registry.registry.authority-responsibility-non-string",
+        "projection-registry.registry.authority-source-empty",
+        "projection-registry.registry.authority-source-non-string",
+        "projection-registry.registry.responsibility-empty",
+        "projection-registry.registry.responsibility-non-string",
+        "projection-registry.registry.canonical-source-empty",
+        "projection-registry.registry.canonical-source-non-string",
+        "projection-registry.registry.secondary-source-empty",
+        "projection-registry.registry.secondary-source-non-string",
+        "projection-registry.registry.mode-empty",
+        "projection-registry.registry.mode-non-string",
+        "projection-registry.registry.validation-empty",
+        "projection-registry.registry.validation-non-string"
       ]
     },
     {
@@ -209,7 +208,7 @@
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Persistent mode fields and its expected derivation binds this exact clause.",
+      "coverage_assertion": "The referenced vector exercises only the exact reference-mode forbidden generator_source combination it cites.",
       "disposition": "covered",
       "heading_path": "Persistent mode fields",
       "level": 2,
@@ -218,20 +217,27 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
-        "projection-registry.registry.mode-fields"
+        "projection-registry.registry.mode-fields",
+        "projection-registry.registry.generator-source-empty",
+        "projection-registry.registry.generator-source-non-string",
+        "projection-registry.registry.boundary-source-empty",
+        "projection-registry.registry.boundary-source-non-string"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Repository Integrity validation binding and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Projection Registry vectors exercise ValidationId membership and two Repository Governance Model vectors exercise the cross-capability dependency while citing this exact clause.",
       "disposition": "covered",
       "heading_path": "Repository Integrity validation binding",
       "level": 2,
       "reason": null,
       "responsibility_ids": [
-        "projection-registry.registry"
+        "projection-registry.registry",
+        "repository-governance-model.load"
       ],
       "vector_refs": [
-        "projection-registry.registry.validation-reference"
+        "projection-registry.registry.validation-reference",
+        "repository-governance-model.load.projection-integrity-requires-repository-integrity",
+        "repository-governance-model.load.projection-integrity-with-repository-integrity"
       ]
     },
     {
@@ -244,7 +250,11 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
-        "projection-registry.registry.optional-target"
+        "projection-registry.registry.optional-target",
+        "projection-registry.registry.target-interface-empty",
+        "projection-registry.registry.target-interface-non-string",
+        "projection-registry.registry.target-object-empty",
+        "projection-registry.registry.target-object-non-string"
       ]
     },
     {
@@ -257,7 +267,9 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
-        "projection-registry.registry.optional-binding"
+        "projection-registry.registry.optional-binding",
+        "projection-registry.registry.binding-empty",
+        "projection-registry.registry.binding-non-string"
       ]
     },
     {
@@ -281,7 +293,11 @@
       "vector_refs": [
         "projection-registry.registry.active-ambiguity",
         "projection-registry.registry.distinct-direct-sources",
-        "projection-registry.registry.historical-no-conflict"
+        "projection-registry.registry.historical-no-conflict",
+        "projection-registry.registry.ambiguity-distinct-targets",
+        "projection-registry.registry.ambiguity-same-target",
+        "projection-registry.registry.ambiguity-distinct-bindings",
+        "projection-registry.registry.ambiguity-same-binding"
       ]
     },
     {
@@ -307,7 +323,7 @@
       "disposition": "context",
       "heading_path": "Relationship to Repository Integrity",
       "level": 2,
-      "reason": "The heading is explanatory contract context and defines no additional independently executable observation beyond its covered child headings.",
+      "reason": "The capability-presence rule is Repository Governance Model state and is covered by the two explicit repository-governance-model.load witnesses cited under Repository Integrity validation binding.",
       "responsibility_ids": [],
       "vector_refs": []
     }

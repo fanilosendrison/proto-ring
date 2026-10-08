@@ -41,8 +41,10 @@
         "repository-governance-model.load"
       ],
       "vector_refs": [
-        "repository-governance-model.load.valid-model-v2",
-        "repository-governance-model.binding-compatibility.compatible-binding"
+        "repository-governance-model.binding-compatibility.compatible-binding",
+        "repository-governance-model.load.projection-integrity-requires-repository-integrity",
+        "repository-governance-model.load.projection-integrity-with-repository-integrity",
+        "repository-governance-model.load.valid-model-v2"
       ]
     },
     {

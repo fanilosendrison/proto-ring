@@ -94,7 +94,17 @@
       ],
       "vector_refs": [
         "governance-bindings.registry.binding-kinds",
-        "governance-bindings.registry.scope-kinds"
+        "governance-bindings.registry.scope-kinds",
+        "governance-bindings.registry.binding-kind-empty",
+        "governance-bindings.registry.binding-kind-non-string",
+        "governance-bindings.registry.scope-kind-empty",
+        "governance-bindings.registry.scope-kind-non-string",
+        "governance-bindings.registry.capability-empty",
+        "governance-bindings.registry.capability-non-string",
+        "governance-bindings.registry.scope-interface-empty",
+        "governance-bindings.registry.scope-interface-non-string",
+        "governance-bindings.registry.scope-object-empty",
+        "governance-bindings.registry.scope-object-non-string"
       ]
     },
     {
@@ -122,7 +132,13 @@
       ],
       "vector_refs": [
         "governance-bindings.registry.authority-reference",
-        "governance-bindings.registry.registry-source"
+        "governance-bindings.registry.registry-source",
+        "governance-bindings.registry.registry-source-empty",
+        "governance-bindings.registry.registry-source-non-string",
+        "governance-bindings.registry.authority-responsibility-empty",
+        "governance-bindings.registry.authority-responsibility-non-string",
+        "governance-bindings.registry.authority-source-empty",
+        "governance-bindings.registry.authority-source-non-string"
       ]
     },
     {
@@ -140,17 +156,13 @@
       ]
     },
     {
-      "coverage_assertion": "Each referenced Governance Binding Registry vector materially exercises Governance Binding Registry / Read-only provider and installation boundary and binds its exact authority clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Governance Binding Registry / Read-only provider and installation boundary",
       "level": 3,
-      "reason": null,
-      "responsibility_ids": [
-        "governance-bindings.registry"
-      ],
-      "vector_refs": [
-        "governance-bindings.registry.valid-registry"
-      ]
+      "reason": "The fixture proves repository non-mutation only. Universal absence of provider discovery, module import, installation scanning, provisioning, repair, upgrade, network/provider contact, and process execution is a mandatory #66 source audit.",
+      "responsibility_ids": [],
+      "vector_refs": []
     },
     {
       "coverage_assertion": null,
