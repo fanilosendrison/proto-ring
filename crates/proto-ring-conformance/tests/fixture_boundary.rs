@@ -130,7 +130,7 @@ fn every_issue_63_fixture_materializes() {
         }
     }
     assert!(failures.is_empty(), "{}", failures.join("\n"));
-    assert_eq!(materialized, 74);
-    eprintln!("ISSUE63_FIXTURES_MATERIALIZED={materialized}/74");
+    assert_eq!(materialized, 76);
+    eprintln!("ISSUE63_FIXTURES_MATERIALIZED={materialized}/76");
     eprintln!("ISSUE63_FIXTURE_MATERIALIZATION_ERRORS={}", failures.len());
 }

@@ -97,9 +97,9 @@ fn issue63_and_issue65_vectors_are_exact_candidate_matches() {
             }
         }
     }
-    assert_eq!(issue63_matches, 74);
+    assert_eq!(issue63_matches, 76);
     assert_eq!(issue65_matches, 165);
-    eprintln!("ISSUE63_RUST_MATCH=74\nISSUE63_RUST_MISMATCH=0");
+    eprintln!("ISSUE63_RUST_MATCH=76\nISSUE63_RUST_MISMATCH=0");
     eprintln!("ISSUE65_RUST_MATCH=165\nISSUE65_RUST_MISMATCH=0");
 }
 
