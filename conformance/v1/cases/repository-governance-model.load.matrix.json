@@ -551,6 +551,314 @@
     {
       "authorities": [
         {
+          "clause": "Model-version-2 structural composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Repository Integrity validation binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model-version-2 structural composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Repository Integrity validation binding"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.projection-integrity-requires-repository-integrity yields the encoded observation under the cited Repository Governance Model and Projection Integrity clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-governance-model.load.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n    projection_integrity:\n      configuration: {}\n      routes:\n        registry: \"config/projections.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/projections.md",
+            "text": "# projections\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "model-version-2 projection_integrity capability requires repository_integrity capability"
+      ],
+      "vector_id": "repository-governance-model.load.projection-integrity-requires-repository-integrity"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Model-version-2 structural composition",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Repository Integrity validation binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/projection-integrity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model-version-2 structural composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/projection-integrity.md#Repository Integrity validation binding"
+          ],
+          "reason": "The exact operational input for repository-governance-model.load.projection-integrity-with-repository-integrity yields the encoded observation under the cited Repository Governance Model and Projection Integrity clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "capabilities",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "governance_authority"
+                  },
+                  {
+                    "type": "string",
+                    "value": "projection_integrity"
+                  },
+                  {
+                    "type": "string",
+                    "value": "repository_integrity"
+                  },
+                  {
+                    "type": "string",
+                    "value": "shared_governance_provider"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "model_version",
+              "value": {
+                "type": "integer",
+                "value": "2"
+              }
+            },
+            {
+              "name": "provider_binding_capability",
+              "value": {
+                "type": "string",
+                "value": "shared_governance_provider"
+              }
+            },
+            {
+              "name": "provider_binding_route",
+              "value": {
+                "type": "string",
+                "value": "registry"
+              }
+            },
+            {
+              "name": "provider_id",
+              "value": {
+                "type": "string",
+                "value": "proto-ring"
+              }
+            },
+            {
+              "name": "required_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "governance_authority",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "projection_integrity",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "registry"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "repository_integrity",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "registry"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding_capability",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_model"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n    projection_integrity:\n      configuration: {}\n      routes:\n        registry: \"config/projections.md\"\n    repository_integrity:\n      configuration: {}\n      routes:\n        profile: \"config/integrity.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/authority.md",
+            "text": "# authority\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/projections.md",
+            "text": "# projections\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/integrity.md",
+            "text": "# integrity\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "model-version-2 projection_integrity and repository_integrity capabilities compose validly"
+      ],
+      "vector_id": "repository-governance-model.load.projection-integrity-with-repository-integrity"
+    },
+    {
+      "authorities": [
+        {
           "clause": "Repository root",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/repository-governance-model.md",
