@@ -228,7 +228,7 @@ def _audit_arguments(responsibility_id: str, arguments: object) -> None:
         "observe_projection_id", "observe_read_only", "observe_registry_authority",
         "observe_requirement_id", "observe_validation_id", "observe_validation_ids",
         "qualified_observation", "requirement_id",
-        "consumer_resolution", "with_bindings",
+        "consumer_resolution", "foreign_support_repository", "with_bindings",
     }
     required = set(common)
     if responsibility_id == "projection-registry.registry":
@@ -240,7 +240,14 @@ def _audit_arguments(responsibility_id: str, arguments: object) -> None:
         raise AssertionError("with_catalog must be boolean")
     if "with_bindings" in arguments and type(arguments["with_bindings"]) is not bool:
         raise AssertionError("with_bindings must be boolean")
-    for key in optional & set(arguments) - {"requirement_id", "consumer_resolution"}:
+    if "foreign_support_repository" in arguments:
+        if responsibility_id != "projection-registry.registry" or arguments[
+            "foreign_support_repository"
+        ] not in {"integrity_profile", "catalog", "bindings"}:
+            raise AssertionError("invalid foreign support transport selection")
+    for key in optional & set(arguments) - {
+        "requirement_id", "consumer_resolution", "foreign_support_repository"
+    }:
         if key == "observe_validation_ids":
             _strings(arguments[key])
         elif key.startswith("observe_") and key not in {

@@ -270,12 +270,36 @@ def _exact_binding(arguments: dict[str, object]):
     return _rejection("exact-evidence-binding.evaluate") if status is None else _success({"status": status})
 
 
+def _projection_support_roots(
+    root: Path, arguments: dict[str, object]
+) -> dict[str, Path]:
+    selected = arguments.get("foreign_support_repository")
+    allowed = {"integrity_profile", "catalog", "bindings"}
+    if selected is not None and (
+        not isinstance(selected, str) or selected not in allowed
+    ):
+        raise ValueError("invalid foreign_support_repository transport value")
+    return {
+        name: root / "foreign" if selected == name else root
+        for name in allowed
+    }
+
+
 def _projection_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
+    support_roots = _projection_support_roots(root, arguments)
     authority = _authority(root, support["authority"])
-    integrity = integrity_profile(root, support["integrity_profile"])
-    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
-    bindings = binding_registry(root, support["bindings"]) if arguments.get("with_bindings") else None
+    integrity = integrity_profile(
+        support_roots["integrity_profile"], support["integrity_profile"]
+    )
+    catalog = (
+        _catalog(support_roots["catalog"], support["catalog"])
+        if arguments.get("with_catalog") else None
+    )
+    bindings = (
+        binding_registry(support_roots["bindings"], support["bindings"])
+        if arguments.get("with_bindings") else None
+    )
     route = _route(root, arguments["path"], "projection_registry")
     before = repository_snapshot(root) if arguments.get("observe_read_only") else None
     try:
@@ -323,11 +347,14 @@ def precheck_support(
             _catalog(root, support["catalog"])
         return
     if responsibility_id == "projection-registry.registry":
-        integrity_profile(root, support["integrity_profile"])
+        support_roots = _projection_support_roots(root, arguments)
+        integrity_profile(
+            support_roots["integrity_profile"], support["integrity_profile"]
+        )
         if arguments.get("with_catalog"):
-            _catalog(root, support["catalog"])
+            _catalog(support_roots["catalog"], support["catalog"])
         if arguments.get("with_bindings"):
-            binding_registry(root, support["bindings"])
+            binding_registry(support_roots["bindings"], support["bindings"])
         return
     raise ValueError(f"unsupported #66 responsibility: {responsibility_id}")
 
