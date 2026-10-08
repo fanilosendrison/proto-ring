@@ -6,7 +6,9 @@ import argparse
 import ast
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+import contextlib
 from dataclasses import dataclass, replace
+import fcntl
 import io
 import json
 import os
@@ -23,30 +25,23 @@ TESTS_DIR = REPO_ROOT / "tests"
 SRC_DIR = REPO_ROOT / "src"
 CONFORMANCE_MODULE = "test_conformance_corpus"
 AUTO_WORKER_CAP = 4
-STATEFUL_METHODS = (
-    "test_08_every_vector_executes_and_current_python_conforms",
+STATEFUL_METHODS = ("test_08_every_vector_executes_and_current_python_conforms",
     "test_09_historical_resolution_transport_and_projection_audits",
     "test_10_execution_evidence_and_final_metrics",
 )
-STATEFUL_TEST_IDS = tuple(
-    f"{CONFORMANCE_MODULE}.ConformanceCorpusTest.{method}"
-    for method in STATEFUL_METHODS
-)
-SHARED_ARTIFACTS = (
-    Path("/tmp/proto-ring-61-actual-observations.json"),
-    Path("/tmp/proto-ring-61-execution-metrics.txt"),
-)
+STATEFUL_TEST_IDS = tuple(f"{CONFORMANCE_MODULE}.ConformanceCorpusTest.{method}" for method in STATEFUL_METHODS)
+SHARED_ARTIFACTS = (Path("/tmp/proto-ring-61-actual-observations.json"),
+                    Path("/tmp/proto-ring-61-execution-metrics.txt"))
+SHARED_ARTIFACT_LOCK = Path("/tmp/proto-ring-61-shared-artifacts.lock")
 FAILURE_KINDS = frozenset({"NONE", "TEST_FAILURE", "INVENTORY_FAILURE", "PROCESS_FAILURE", "RUNNER_FAILURE"})
 EXIT_CODES = {"PASS": 0, "TEST_FAILURE": 1, "INVENTORY_FAILURE": 2, "PROCESS_FAILURE": 3, "RUNNER_FAILURE": 3}
 
 class InventoryError(Exception):
     """The discovered and scheduled test inventories are not equivalent."""
-
 @dataclass(frozen=True)
 class AtomicTask:
     task_id: str
     test_ids: tuple[str, ...]
-
 @dataclass(frozen=True)
 class TaskProcessResult:
     task_id: str
@@ -60,7 +55,6 @@ class TaskProcessResult:
     duration_seconds: float
     output: str
     failure_kind: str
-
 @dataclass(frozen=True)
 class RunSummary:
     workers: int
@@ -70,14 +64,12 @@ class RunSummary:
     wall_seconds: float
     status: str
     failed_tasks: tuple[str, ...]
-
 def _flatten_suite(suite: unittest.TestSuite):
     for item in suite:
         if isinstance(item, unittest.TestSuite):
             yield from _flatten_suite(item)
         else:
             yield item
-
 def discover_test_ids() -> tuple[str, ...]:
     previous_path = list(sys.path)
     try:
@@ -118,11 +110,8 @@ def build_tasks(discovered_test_ids: tuple[str, ...]) -> tuple[AtomicTask, ...]:
         AtomicTask(f"module:{module}", tuple(sorted(grouped[module])))
         for module in sorted(grouped)
     )
-    return (
-        AtomicTask("corpus-stateful", STATEFUL_TEST_IDS),
-        AtomicTask("corpus-static", static_ids),
-        *module_tasks,
-    )
+    return (AtomicTask("corpus-stateful", STATEFUL_TEST_IDS),
+            AtomicTask("corpus-static", static_ids), *module_tasks)
 
 def validate_partition(discovered_test_ids: tuple[str, ...], tasks: tuple[AtomicTask, ...]) -> None:
     scheduled = [test_id for task in tasks for test_id in task.test_ids]
@@ -186,6 +175,15 @@ def validate_worker_count(value: int) -> int:
     if value < 1:
         raise ValueError("worker count must be at least 1")
     return value
+
+@contextlib.contextmanager
+def _shared_artifact_lock():
+    with SHARED_ARTIFACT_LOCK.open("a+b") as stream:
+        fcntl.flock(stream.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 
 def _atomic_write_json(path: Path, payload: dict[str, object]) -> None:
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
@@ -251,6 +249,18 @@ def _execute_subprocess(task: AtomicTask, directory: Path) -> TaskProcessResult:
     except Exception:
         return TaskProcessResult(task.task_id, 3, False, 0, 0, 0, 0, False, 0.0,
                                  traceback.format_exc(), "RUNNER_FAILURE")
+
+def _execute_atomic_task(task: AtomicTask, directory: Path) -> TaskProcessResult:
+    if task.task_id != "corpus-stateful":
+        return _execute_subprocess(task, directory)
+    with _shared_artifact_lock():
+        for artifact in SHARED_ARTIFACTS:
+            artifact.unlink(missing_ok=True)
+        result = _execute_subprocess(task, directory)
+        if (result.failure_kind == "NONE" and result.returncode == 0 and result.successful
+                and not all(artifact.is_file() for artifact in SHARED_ARTIFACTS)):
+            return replace(result, successful=False, failure_kind="RUNNER_FAILURE")
+        return result
 
 def _execute_subprocess_inner(task: AtomicTask, directory: Path) -> TaskProcessResult:
     safe_name = task.task_id.replace(":", "-")
@@ -339,23 +349,14 @@ def run_controller(workers: int) -> int:
         _print_summary(RunSummary(workers, 0, 0, 0, time.perf_counter() - started,
                                   "INVENTORY_FAILURE", ()))
         return 2
-    for artifact in SHARED_ARTIFACTS:
-        artifact.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory(prefix="proto-ring-test-runner-") as temporary:
         with ThreadPoolExecutor(max_workers=min(workers, len(tasks))) as executor:
-            futures = [executor.submit(_execute_subprocess, task, Path(temporary)) for task in tasks]
+            futures = [executor.submit(_execute_atomic_task, task, Path(temporary)) for task in tasks]
             results = tuple(future.result() for future in futures)
     for result in results:
         print(f"===== TASK {result.task_id} =====")
         print(result.output, end="" if result.output.endswith("\n") else "\n")
         print(f"===== END TASK {result.task_id} =====")
-    stateful_index = next(index for index, task in enumerate(tasks) if task.task_id == "corpus-stateful")
-    if results[stateful_index].failure_kind == "NONE" and not all(path.is_file() for path in SHARED_ARTIFACTS):
-        results = tuple(
-            replace(result, successful=False, failure_kind="RUNNER_FAILURE")
-            if index == stateful_index else result
-            for index, result in enumerate(results)
-        )
     status, exit_code, executed, failed = classify_results(len(discovered), tasks, results)
     _print_summary(RunSummary(workers, len(tasks), len(discovered), executed,
                               time.perf_counter() - started, status, failed))

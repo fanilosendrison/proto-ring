@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from collections import Counter
+from contextlib import contextmanager
 import importlib.util
+import os
 from pathlib import Path
 import sys
+import tempfile
 import unittest
+from unittest import mock
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 RUNNER_PATH = REPOSITORY_ROOT / "tools" / "run_python_tests.py"
@@ -138,6 +142,120 @@ class PythonTestRunnerTests(unittest.TestCase):
             },
         )
         self.assertTrue(owners.issubset(runner.STATEFUL_METHODS))
+
+    def test_non_stateful_task_bypasses_shared_artifact_lock(self) -> None:
+        task = runner.AtomicTask("module:synthetic", ("synthetic.Case.test_one",))
+        expected = process_result(task.task_id)
+
+        @contextmanager
+        def forbidden_lock():
+            raise AssertionError("non-stateful task entered artifact lock")
+            yield
+
+        lock_factory = mock.Mock(side_effect=forbidden_lock)
+        with (
+            mock.patch.object(runner, "_shared_artifact_lock", lock_factory),
+            mock.patch.object(runner, "_execute_subprocess", return_value=expected) as execute,
+        ):
+            actual = runner._execute_atomic_task(task, Path("unused"))
+        self.assertIs(actual, expected)
+        execute.assert_called_once_with(task, Path("unused"))
+        lock_factory.assert_not_called()
+
+    def test_stateful_artifact_lifecycle_is_inside_lock(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            artifacts = (Path(temporary) / "observations.json", Path(temporary) / "metrics.txt")
+            for artifact in artifacts:
+                artifact.write_text("stale", encoding="utf-8")
+            events = []
+            state = {"inside": False}
+            expected = process_result("corpus-stateful", tests_run=3)
+
+            @contextmanager
+            def tracked_lock():
+                events.append("lock-enter")
+                state["inside"] = True
+                try:
+                    yield
+                finally:
+                    self.assertTrue(all(artifact.is_file() for artifact in artifacts))
+                    events.append("lock-exit")
+                    state["inside"] = False
+                    for artifact in artifacts:
+                        artifact.unlink()
+
+            def execute(task, directory):
+                self.assertTrue(state["inside"])
+                self.assertFalse(any(artifact.exists() for artifact in artifacts))
+                for artifact in artifacts:
+                    artifact.write_text("fresh", encoding="utf-8")
+                return expected
+
+            task = runner.AtomicTask("corpus-stateful", runner.STATEFUL_TEST_IDS)
+            with (
+                mock.patch.object(runner, "SHARED_ARTIFACTS", artifacts),
+                mock.patch.object(runner, "_shared_artifact_lock", tracked_lock),
+                mock.patch.object(runner, "_execute_subprocess", side_effect=execute),
+            ):
+                actual = runner._execute_atomic_task(task, Path(temporary))
+            self.assertIs(actual, expected)
+            self.assertEqual(events, ["lock-enter", "lock-exit"])
+
+    def test_stateful_missing_artifact_fails_closed_inside_lock(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            artifacts = (Path(temporary) / "observations.json", Path(temporary) / "metrics.txt")
+            state = {"inside": False}
+            checks = []
+            expected = process_result("corpus-stateful", tests_run=3)
+            original_is_file = Path.is_file
+
+            @contextmanager
+            def tracked_lock():
+                state["inside"] = True
+                try:
+                    yield
+                finally:
+                    state["inside"] = False
+
+            def execute(task, directory):
+                artifacts[0].write_text("fresh", encoding="utf-8")
+                return expected
+
+            def checked_is_file(path):
+                self.assertTrue(state["inside"])
+                checks.append(path)
+                return original_is_file(path)
+
+            task = runner.AtomicTask("corpus-stateful", runner.STATEFUL_TEST_IDS)
+            with (
+                mock.patch.object(runner, "SHARED_ARTIFACTS", artifacts),
+                mock.patch.object(runner, "_shared_artifact_lock", tracked_lock),
+                mock.patch.object(runner, "_execute_subprocess", side_effect=execute),
+                mock.patch.object(Path, "is_file", autospec=True, side_effect=checked_is_file),
+            ):
+                actual = runner._execute_atomic_task(task, Path(temporary))
+            self.assertFalse(actual.successful)
+            self.assertEqual(actual.failure_kind, "RUNNER_FAILURE")
+            self.assertEqual(checks, list(artifacts))
+
+    def test_shared_artifact_lock_uses_exclusive_flock(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            lock_path = Path(temporary) / "shared.lock"
+            calls = []
+
+            def record_flock(file_descriptor, operation):
+                os.fstat(file_descriptor)
+                calls.append((file_descriptor, operation))
+
+            with (
+                mock.patch.object(runner, "SHARED_ARTIFACT_LOCK", lock_path),
+                mock.patch.object(runner.fcntl, "flock", side_effect=record_flock),
+            ):
+                with runner._shared_artifact_lock():
+                    self.assertTrue(lock_path.is_file())
+            self.assertEqual([operation for _, operation in calls], [runner.fcntl.LOCK_EX, runner.fcntl.LOCK_UN])
+            self.assertEqual(calls[0][0], calls[1][0])
+            self.assertTrue(lock_path.is_file())
 
 
 if __name__ == "__main__":
