@@ -235,6 +235,7 @@
         "repository-governance-model.load"
       ],
       "vector_refs": [
+        "projection-registry.registry.foreign-integrity-repository",
         "projection-registry.registry.validation-reference",
         "repository-governance-model.load.projection-integrity-requires-repository-integrity",
         "repository-governance-model.load.projection-integrity-with-repository-integrity"
@@ -250,11 +251,13 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
+        "projection-registry.registry.foreign-catalog-repository",
         "projection-registry.registry.optional-target",
         "projection-registry.registry.target-interface-empty",
         "projection-registry.registry.target-interface-non-string",
         "projection-registry.registry.target-object-empty",
-        "projection-registry.registry.target-object-non-string"
+        "projection-registry.registry.target-object-non-string",
+        "projection-registry.registry.target-without-responsibility-participation"
       ]
     },
     {
@@ -267,9 +270,10 @@
         "projection-registry.registry"
       ],
       "vector_refs": [
-        "projection-registry.registry.optional-binding",
         "projection-registry.registry.binding-empty",
-        "projection-registry.registry.binding-non-string"
+        "projection-registry.registry.binding-non-string",
+        "projection-registry.registry.foreign-bindings-repository",
+        "projection-registry.registry.optional-binding"
       ]
     },
     {

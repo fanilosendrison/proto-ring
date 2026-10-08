@@ -273,7 +273,11 @@
     "unknown projection mode is rejected",
     "validation must be a nonempty string identity",
     "validation rejects non-string scalars without coercion",
-    "every projection ValidationId exists in Repository Integrity"
+    "every projection ValidationId exists in Repository Integrity",
+    "Projection Registry rejects a Repository Integrity profile from another repository",
+    "Projection Registry rejects a Governed Objects catalog from another repository",
+    "Projection Registry rejects a Governance Binding Registry from another repository",
+    "an existing projection target is admitted without requiring participation in the projection responsibility"
   ],
   "responsibility_id": "projection-registry.registry",
   "rust_owner_issue": 66,

@@ -183,19 +183,20 @@
         "governed-objects.catalog"
       ],
       "vector_refs": [
-        "governed-objects.catalog.duplicate-responsibility",
-        "governed-objects.catalog.duplicate-relation",
         "governed-objects.catalog.different-relation",
-        "governed-objects.catalog.relation-identity-whitespace",
-        "governed-objects.catalog.relation-identity-unicode-normalization",
         "governed-objects.catalog.distinct-relation-by-responsibility",
         "governed-objects.catalog.distinct-relation-by-target-interface",
         "governed-objects.catalog.distinct-relation-by-target-object",
+        "governed-objects.catalog.duplicate-relation",
+        "governed-objects.catalog.duplicate-responsibility",
+        "governed-objects.catalog.projection-target-nonparticipation-support",
         "governed-objects.catalog.relation-identity-case",
-        "governed-objects.catalog.responsibility-order-r-r2",
-        "governed-objects.catalog.responsibility-order-r2-r",
+        "governed-objects.catalog.relation-identity-unicode-normalization",
+        "governed-objects.catalog.relation-identity-whitespace",
         "governed-objects.catalog.relation-order-alpha-beta",
-        "governed-objects.catalog.relation-order-beta-alpha"
+        "governed-objects.catalog.relation-order-beta-alpha",
+        "governed-objects.catalog.responsibility-order-r-r2",
+        "governed-objects.catalog.responsibility-order-r2-r"
       ]
     },
     {
