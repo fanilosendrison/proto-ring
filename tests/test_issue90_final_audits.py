@@ -126,8 +126,9 @@ class Issue90FinalAuditTest(unittest.TestCase):
         function = source.split("def _projection_result", 1)[1].split("def precheck_support", 1)[0]
         self.assertNotIn("repository_integrity.load", function)
         self.assertNotIn("governance_bindings.load", function)
-        self.assertIn("integrity_profile(root, support[\"integrity_profile\"])", function)
-        self.assertIn("binding_registry(root, support[\"bindings\"])", function)
+        self.assertIn("support_roots = _projection_support_roots", function)
+        self.assertIn("integrity_profile(\n        support_roots[\"integrity_profile\"]", function)
+        self.assertIn("binding_registry(support_roots[\"bindings\"]", function)
 
     def test_duplicate_nonmapping_claims_are_collapsed(self) -> None:
         integrity_ids = {

@@ -187,7 +187,7 @@ fn published_corpus_runs_through_reference_candidate() {
             corpus.matrices.len(),
             vectors
         ),
-        (30, 29, 1, 29, 1071)
+        (30, 29, 1, 29, 1076)
     );
     assert_eq!(
         retired[0].responsibility_id,
@@ -203,14 +203,14 @@ fn published_corpus_runs_through_reference_candidate() {
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 1071);
+    assert_eq!(requests.len(), 1076);
     assert_projection_regressions(&corpus);
     assert_source_boundaries(&corpus);
     let python = PythonBridge::new(&root()).execute(&requests).unwrap();
-    assert_eq!(python.len(), 1071);
+    assert_eq!(python.len(), 1076);
 
     let baseline_reports = run_differential(&corpus, &python, &UnimplementedRustCandidate).unwrap();
-    assert_eq!(baseline_reports.len(), 1071);
+    assert_eq!(baseline_reports.len(), 1076);
     let baseline_python_counts =
         count_status(&baseline_reports, |report| report.python_vs_expected);
     let baseline_rust_counts = count_status(&baseline_reports, |report| report.rust_vs_expected);
@@ -221,16 +221,16 @@ fn published_corpus_runs_through_reference_candidate() {
         .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
         .count();
     let baseline_implemented_responsibilities = implemented_responsibilities(&baseline_reports);
-    assert_eq!(baseline_python_counts, (1071, 0, 0));
+    assert_eq!(baseline_python_counts, (1076, 0, 0));
     assert_eq!(
         (
             baseline_implemented_responsibilities,
             baseline_unimplemented
         ),
-        (0, 1071)
+        (0, 1076)
     );
-    assert_eq!(baseline_rust_counts, (0, 0, 1071));
-    assert_eq!(baseline_differential_counts, (0, 0, 1071));
+    assert_eq!(baseline_rust_counts, (0, 0, 1076));
+    assert_eq!(baseline_differential_counts, (0, 0, 1076));
 
     let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
@@ -245,9 +245,9 @@ fn published_corpus_runs_through_reference_candidate() {
             );
         }
     }
-    assert_eq!(python_counts, (1071, 0, 0));
-    assert_eq!(rust_counts, (241, 0, 830));
-    assert_eq!(differential_counts, (241, 0, 830));
+    assert_eq!(python_counts, (1076, 0, 0));
+    assert_eq!(rust_counts, (242, 0, 834));
+    assert_eq!(differential_counts, (242, 0, 834));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -263,7 +263,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (8, 241)
+        (8, 242)
     );
 
     require_matches(
@@ -302,6 +302,10 @@ fn published_corpus_runs_through_reference_candidate() {
     );
     require_matches(
         &reports,
+        &["governed-objects.catalog.projection-target-nonparticipation-support"],
+    );
+    require_matches(
+        &reports,
         &[
             "repository-governance-model.binding-compatibility.compatible-binding",
             "repository-governance-model.binding-compatibility.missing-required-route",
@@ -311,18 +315,18 @@ fn published_corpus_runs_through_reference_candidate() {
 
     let metrics: HashMap<&str, usize> = HashMap::from([
         ("implemented", implemented_vectors),
-        ("unimplemented", 1071 - implemented_vectors),
+        ("unimplemented", 1076 - implemented_vectors),
     ]);
     eprintln!(
         "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
     );
     eprintln!(
-        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1071"
+        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1076"
     );
     eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=76");
-    eprintln!("ISSUE65_RESPONSIBILITIES=2\nISSUE65_VECTORS=165");
+    eprintln!("ISSUE65_RESPONSIBILITIES=2\nISSUE65_VECTORS=166");
     eprintln!(
-        "PYTHON_OBSERVATIONS=1071\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
+        "PYTHON_OBSERVATIONS=1076\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(

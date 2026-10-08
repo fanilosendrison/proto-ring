@@ -59,12 +59,12 @@ fn all_issue65_fixtures_materialize_without_semantic_execution() {
         .filter(|matrix| ISSUE65.contains(&matrix.responsibility_id.as_str()))
         .flat_map(|matrix| &matrix.vectors)
         .collect();
-    assert_eq!(fixtures.len(), 165);
+    assert_eq!(fixtures.len(), 166);
     for vector in fixtures {
         fixture::materialize(&vector.fixture)
             .unwrap_or_else(|error| panic!("{}: {error}", vector.vector_id));
     }
-    eprintln!("ISSUE65_FIXTURES_MATERIALIZED=165/165\nISSUE65_FIXTURE_MATERIALIZATION_ERRORS=0");
+    eprintln!("ISSUE65_FIXTURES_MATERIALIZED=166/166\nISSUE65_FIXTURE_MATERIALIZATION_ERRORS=0");
 }
 
 #[test]
@@ -98,9 +98,9 @@ fn issue63_and_issue65_vectors_are_exact_candidate_matches() {
         }
     }
     assert_eq!(issue63_matches, 76);
-    assert_eq!(issue65_matches, 165);
+    assert_eq!(issue65_matches, 166);
     eprintln!("ISSUE63_RUST_MATCH=76\nISSUE63_RUST_MISMATCH=0");
-    eprintln!("ISSUE65_RUST_MATCH=165\nISSUE65_RUST_MISMATCH=0");
+    eprintln!("ISSUE65_RUST_MATCH=166\nISSUE65_RUST_MISMATCH=0");
 }
 
 #[test]

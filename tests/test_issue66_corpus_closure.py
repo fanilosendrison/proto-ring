@@ -29,7 +29,7 @@ EXPECTED_COUNTS = {
     "exact-evidence-binding.evaluate": 40,
     "evidence-requirements.registry": 119,
     "governance-bindings.registry": 108,
-    "projection-registry.registry": 105,
+    "projection-registry.registry": 109,
     "repository-integrity.profile": 172,
 }
 
@@ -45,13 +45,13 @@ class Issue66CorpusClosureTest(unittest.TestCase):
             for responsibility_id in ISSUE66_RESPONSIBILITIES
         }
         self.assertEqual(counts, EXPECTED_COUNTS)
-        self.assertEqual(issue66_vector_count(self.cases), 544)
+        self.assertEqual(issue66_vector_count(self.cases), 548)
         total = sum(len(matrix["vectors"]) for matrix in self.cases.values())
-        self.assertEqual(total, 1071)
+        self.assertEqual(total, 1076)
 
     def test_02_every_raw_support_shape_is_strict(self) -> None:
         audited, errors = audit_raw_support_shapes(self.cases)
-        self.assertEqual(audited, 544, "\n".join(errors))
+        self.assertEqual(audited, 548, "\n".join(errors))
         self.assertEqual(errors, [])
 
     def test_03_raw_duplicate_names_are_detected_before_decode(self) -> None:
@@ -60,7 +60,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
         invocation = vector["fixture"]["invocation"]
         invocation["value"].append(copy.deepcopy(invocation["value"][0]))
         audited, errors = audit_raw_support_shapes(synthetic)
-        self.assertEqual(audited, 543)
+        self.assertEqual(audited, 547)
         self.assertEqual(len(errors), 1)
         self.assertIn("duplicate RecordEntry name", errors[0])
 
@@ -162,7 +162,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                 except Exception as error:
                     rejection_failures += 1
                     errors.append(f"precheck {vector['vector_id']}: {error}")
-        self.assertEqual(materialized, 544, "\n".join(errors))
+        self.assertEqual(materialized, 548, "\n".join(errors))
         self.assertEqual(rejection_failures, 0, "\n".join(errors))
         self.assertGreater(rejection_count, 0)
         type(self).rejection_count = rejection_count
@@ -183,7 +183,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                     vector["vector_id"],
                 )
                 matched += 1
-        self.assertEqual(matched, 544)
+        self.assertEqual(matched, 548)
 
     def test_09_metadata_and_coverage_are_exact(self) -> None:
         metrics = audit_issue66_metadata(
@@ -201,7 +201,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                 "gb_read_only_heading_classification": "MIXED_CONTEXT",
                 "coverage_authority_violations": 0,
                 "coverage_authority": "PASS",
-                "coverage_full_vector_map_size": 1071,
+                "coverage_full_vector_map_size": 1076,
                 "coverage_relevant_headings": 43,
                 "open_domain_source_audit_required": "yes",
                 "required_uncovered": 0,
