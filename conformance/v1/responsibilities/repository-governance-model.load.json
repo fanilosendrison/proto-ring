@@ -118,7 +118,9 @@
     "required routes are present and resolved through Canonical Governance Routing",
     "an unknown direct repository_governance key is rejected",
     "a capability missing configuration or routes is rejected",
-    "malformed or unsupported state fails through a controlled boundary"
+    "malformed or unsupported state fails through a controlled boundary",
+    "model-version-2 projection_integrity capability requires repository_integrity capability",
+    "model-version-2 projection_integrity and repository_integrity capabilities compose validly"
   ],
   "responsibility_id": "repository-governance-model.load",
   "rust_owner_issue": 63,
