@@ -41,6 +41,8 @@ def binding_status(
         not isinstance(item, str) for item in classes
     ):
         raise TypeError("requirement.admitted_classes must be a sequence of strings")
+    if len(set(classes)) != len(classes):
+        return None
     context_required = requirement_data["context_required"]
     if type(context_required) is not bool:
         raise TypeError("requirement.context_required must be a boolean")
