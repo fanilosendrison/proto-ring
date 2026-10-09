@@ -1297,6 +1297,142 @@
     {
       "authorities": [
         {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED / MATCH",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED / MATCH"
+          ],
+          "reason": "exact-evidence-binding.evaluate.empty-context-ignored-when-not-required derives its exact expected observation from the cited contract clauses."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "MATCH"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "empty candidate context is ignored completely when context is not required"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.empty-context-ignored-when-not-required"
+    },
+    {
+      "authorities": [
+        {
           "clause": "Composition with Exact Evidence Binding",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/evidence-requirements.md",
@@ -4044,6 +4180,146 @@
     {
       "authorities": [
         {
+          "clause": "Explicit evidence-class admission",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Evidence-class admission",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/evidence-requirements.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Explicit evidence-class admission",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/evidence-requirements.md#Evidence-class admission"
+          ],
+          "reason": "exact-evidence-binding.evaluate.requirement-duplicate-classes derives its exact expected observation from the cited contract clauses."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "exact-evidence-binding.evaluate.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": "check"
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        },
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "duplicate admitted evidence classes are rejected rather than silently deduplicated"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.requirement-duplicate-classes"
+    },
+    {
+      "authorities": [
+        {
           "clause": "Exact subject binding",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/exact-evidence-binding.md",
@@ -5383,6 +5659,150 @@
     {
       "authorities": [
         {
+          "clause": "Requirement authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Requirement authority",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED"
+          ],
+          "reason": "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate derives its exact expected observation from the cited contract clauses."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": true
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": "7375626a656374"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unknown required current context remains UNDETERMINED with semantically malformed candidate evidence"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate"
+    },
+    {
+      "authorities": [
+        {
           "clause": "MATCH / MISMATCH / UNDETERMINED",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/exact-evidence-binding.md",
@@ -5515,6 +5935,158 @@
         "unknown current subject yields UNDETERMINED"
       ],
       "vector_id": "exact-evidence-binding.evaluate.unknown-current-subject"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Requirement authority",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact subject binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "MATCH / MISMATCH / UNDETERMINED",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Optional-but-explicit context binding",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/exact-evidence-binding.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Requirement authority",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Exact subject binding",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#MATCH / MISMATCH / UNDETERMINED",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/exact-evidence-binding.md#Optional-but-explicit context binding"
+          ],
+          "reason": "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate derives its exact expected observation from the cited contract clauses."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "UNDETERMINED"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "binding",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  },
+                  {
+                    "name": "evidence_class",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "string",
+                      "value": ""
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "evaluate_binding"
+              }
+            },
+            {
+              "name": "requirement",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "admitted_classes",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "check"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "context_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  },
+                  {
+                    "name": "context_required",
+                    "value": {
+                      "type": "boolean",
+                      "value": false
+                    }
+                  },
+                  {
+                    "name": "subject_hex",
+                    "value": {
+                      "type": "null",
+                      "value": null
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unknown current subject remains UNDETERMINED with semantically malformed candidate evidence"
+      ],
+      "vector_id": "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate"
     },
     {
       "authorities": [

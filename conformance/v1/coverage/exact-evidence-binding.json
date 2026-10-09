@@ -27,7 +27,9 @@
       ],
       "vector_refs": [
         "exact-evidence-binding.evaluate.unknown-current-subject",
-        "exact-evidence-binding.evaluate.historical-change"
+        "exact-evidence-binding.evaluate.historical-change",
+        "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate",
+        "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate"
       ]
     },
     {
@@ -55,7 +57,8 @@
       ],
       "vector_refs": [
         "exact-evidence-binding.evaluate.class-unadmitted",
-        "exact-evidence-binding.evaluate.class-missing"
+        "exact-evidence-binding.evaluate.class-missing",
+        "exact-evidence-binding.evaluate.requirement-duplicate-classes"
       ]
     },
     {
@@ -69,7 +72,8 @@
       ],
       "vector_refs": [
         "exact-evidence-binding.evaluate.subject-mismatch",
-        "exact-evidence-binding.evaluate.match-no-context"
+        "exact-evidence-binding.evaluate.match-no-context",
+        "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate"
       ]
     },
     {
@@ -86,7 +90,10 @@
         "exact-evidence-binding.evaluate.context-missing",
         "exact-evidence-binding.evaluate.context-mismatch",
         "exact-evidence-binding.evaluate.match-context",
-        "evidence-requirements.registry.required-unknown-context"
+        "evidence-requirements.registry.required-unknown-context",
+        "exact-evidence-binding.evaluate.empty-context-ignored-when-not-required",
+        "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate",
+        "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate"
       ]
     },
     {
@@ -99,7 +106,9 @@
         "exact-evidence-binding.evaluate"
       ],
       "vector_refs": [
-        "exact-evidence-binding.evaluate.match-context"
+        "exact-evidence-binding.evaluate.match-context",
+        "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate",
+        "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate"
       ]
     },
     {
@@ -112,7 +121,8 @@
         "exact-evidence-binding.evaluate"
       ],
       "vector_refs": [
-        "exact-evidence-binding.evaluate.match-context"
+        "exact-evidence-binding.evaluate.match-context",
+        "exact-evidence-binding.evaluate.empty-context-ignored-when-not-required"
       ]
     },
     {
