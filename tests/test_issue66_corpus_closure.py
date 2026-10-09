@@ -27,7 +27,7 @@ from conformance_issue66_audit import (
 METRICS = Path("/tmp/proto-ring-90-issue66-audit-metrics.txt")
 EXPECTED_COUNTS = {
     "exact-evidence-binding.evaluate": 44,
-    "evidence-requirements.registry": 119,
+    "evidence-requirements.registry": 120,
     "governance-bindings.registry": 109,
     "projection-registry.registry": 109,
     "repository-integrity.profile": 173,
@@ -45,13 +45,13 @@ class Issue66CorpusClosureTest(unittest.TestCase):
             for responsibility_id in ISSUE66_RESPONSIBILITIES
         }
         self.assertEqual(counts, EXPECTED_COUNTS)
-        self.assertEqual(issue66_vector_count(self.cases), 554)
+        self.assertEqual(issue66_vector_count(self.cases), 555)
         total = sum(len(matrix["vectors"]) for matrix in self.cases.values())
-        self.assertEqual(total, 1082)
+        self.assertEqual(total, 1083)
 
     def test_02_every_raw_support_shape_is_strict(self) -> None:
         audited, errors = audit_raw_support_shapes(self.cases)
-        self.assertEqual(audited, 554, "\n".join(errors))
+        self.assertEqual(audited, 555, "\n".join(errors))
         self.assertEqual(errors, [])
 
     def test_03_raw_duplicate_names_are_detected_before_decode(self) -> None:
@@ -165,7 +165,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                 except Exception as error:
                     rejection_failures += 1
                     errors.append(f"precheck {vector['vector_id']}: {error}")
-        self.assertEqual(materialized, 554, "\n".join(errors))
+        self.assertEqual(materialized, 555, "\n".join(errors))
         self.assertEqual(rejection_failures, 0, "\n".join(errors))
         self.assertGreater(rejection_count, 0)
         type(self).rejection_count = rejection_count
@@ -186,7 +186,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                     vector["vector_id"],
                 )
                 matched += 1
-        self.assertEqual(matched, 554)
+        self.assertEqual(matched, 555)
 
     def test_09_metadata_and_coverage_are_exact(self) -> None:
         metrics = audit_issue66_metadata(
@@ -204,7 +204,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                 "gb_read_only_heading_classification": "MIXED_CONTEXT",
                 "coverage_authority_violations": 0,
                 "coverage_authority": "PASS",
-                "coverage_full_vector_map_size": 1082,
+                "coverage_full_vector_map_size": 1083,
                 "coverage_relevant_headings": 43,
                 "open_domain_source_audit_required": "yes",
                 "required_uncovered": 0,
