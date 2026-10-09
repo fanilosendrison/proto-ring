@@ -247,6 +247,7 @@ def _audit_arguments(responsibility_id: str, arguments: object) -> None:
             and selection in {"integrity_profile", "catalog", "bindings"}
         ) or (
             responsibility_id in {
+                "evidence-requirements.registry",
                 "governance-bindings.registry",
                 "repository-integrity.profile",
             }

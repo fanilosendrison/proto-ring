@@ -216,7 +216,7 @@ def _integrity_result(root: Path, arguments: dict[str, object]):
 def _evidence_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
     authority = _authority(root, support["authority"])
-    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    catalog = _catalog(_catalog_support_root(root, arguments), support["catalog"]) if arguments.get("with_catalog") else None
     route = _route(root, arguments["path"], "evidence_requirements")
     before = repository_snapshot(root) if arguments.get("observe_read_only") else None
     try:
@@ -355,7 +355,7 @@ def precheck_support(
         return
     if responsibility_id == "evidence-requirements.registry":
         if arguments.get("with_catalog"):
-            _catalog(root, support["catalog"])
+            _catalog(_catalog_support_root(root, arguments), support["catalog"])
         return
     if responsibility_id == "projection-registry.registry":
         support_roots = _projection_support_roots(root, arguments)
