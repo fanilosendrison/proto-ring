@@ -241,9 +241,15 @@ def _audit_arguments(responsibility_id: str, arguments: object) -> None:
     if "with_bindings" in arguments and type(arguments["with_bindings"]) is not bool:
         raise AssertionError("with_bindings must be boolean")
     if "foreign_support_repository" in arguments:
-        if responsibility_id != "projection-registry.registry" or arguments[
-            "foreign_support_repository"
-        ] not in {"integrity_profile", "catalog", "bindings"}:
+        selection = arguments["foreign_support_repository"]
+        valid = (
+            responsibility_id == "projection-registry.registry"
+            and selection in {"integrity_profile", "catalog", "bindings"}
+        ) or (
+            responsibility_id == "governance-bindings.registry"
+            and selection == "catalog"
+        )
+        if not valid:
             raise AssertionError("invalid foreign support transport selection")
     for key in optional & set(arguments) - {
         "requirement_id", "consumer_resolution", "foreign_support_repository"
