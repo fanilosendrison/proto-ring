@@ -168,6 +168,7 @@
     "model_version rejects null",
     "model_version rejects string one",
     "a governed-object scope resolves through the object catalog",
+    "governed-object scope rejects a Governed Objects catalog from another repository",
     "governed_object scope must resolve through the catalog",
     "governed_object scope requires an already-loaded catalog",
     "every common Projection binding support value is reachable through its owning loader",

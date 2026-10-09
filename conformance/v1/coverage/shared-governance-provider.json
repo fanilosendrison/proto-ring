@@ -132,13 +132,14 @@
       ],
       "vector_refs": [
         "governance-bindings.registry.authority-reference",
-        "governance-bindings.registry.registry-source",
-        "governance-bindings.registry.registry-source-empty",
-        "governance-bindings.registry.registry-source-non-string",
         "governance-bindings.registry.authority-responsibility-empty",
         "governance-bindings.registry.authority-responsibility-non-string",
         "governance-bindings.registry.authority-source-empty",
-        "governance-bindings.registry.authority-source-non-string"
+        "governance-bindings.registry.authority-source-non-string",
+        "governance-bindings.registry.foreign-catalog-repository",
+        "governance-bindings.registry.registry-source",
+        "governance-bindings.registry.registry-source-empty",
+        "governance-bindings.registry.registry-source-non-string"
       ]
     },
     {
