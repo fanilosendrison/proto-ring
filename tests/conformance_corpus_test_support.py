@@ -1,54 +1,29 @@
 from __future__ import annotations
 
-from dataclasses import fields, is_dataclass
+from concurrent.futures import ProcessPoolExecutor
+from dataclasses import dataclass, fields, is_dataclass
 from enum import Enum
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
-
 from jsonschema import Draft202012Validator
-
+from jsonschema.exceptions import ValidationError
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CORPUS_ROOT = REPOSITORY_ROOT / "conformance" / "v1"
 BASE_SHA = "662d86d445cefed4e17aa3cfa897ac36344cba89"
 FROZEN_SHA = "dedb01a3a9b7a18930c9da75afa3773b5ad67f69"
-PLACEHOLDER_KEYS = {
-    "scenario", "semantic_vector", "placeholder", "description_only",
-    "expected", "expected_result",
-}
-GENERIC_HISTORY = (
-    "differs from or predates", "conforms to the contract-derived expectation",
-    "matches corrected semantics", "python differed", "python agreed",
-)
+PLACEHOLDER_KEYS = {"scenario", "semantic_vector", "placeholder", "description_only", "expected", "expected_result"}
+GENERIC_HISTORY = ("differs from or predates", "conforms to the contract-derived expectation", "matches corrected semantics", "python differed", "python agreed")
 OWNER_GROUPS = {
-    63: {
-        "structured-data.document", "structured-data.frontmatter",
-        "governance-bootstrap.root", "governance-routing.resolve",
-        "repository-governance-model.load",
-        "repository-governance-model.binding-compatibility",
-    },
-    64: {
-        "adr-metadata.parse", "adr-metadata.validation",
-        "adr-metadata.repository-path", "portable-pattern.full-match",
-        "canonical-adr.resolve", "accepted-adr-body.immutability",
-        "normative-terminology.registry", "normative-terminology.markdown",
-        "normative-terminology.definition-discovery",
-        "normative-terminology.fingerprint", "normative-terminology.inventory",
-    },
+    63: {"structured-data.document", "structured-data.frontmatter", "governance-bootstrap.root", "governance-routing.resolve", "repository-governance-model.load", "repository-governance-model.binding-compatibility"},
+    64: {"adr-metadata.parse", "adr-metadata.validation", "adr-metadata.repository-path", "portable-pattern.full-match", "canonical-adr.resolve", "accepted-adr-body.immutability", "normative-terminology.registry", "normative-terminology.markdown", "normative-terminology.definition-discovery", "normative-terminology.fingerprint", "normative-terminology.inventory"},
     65: {"governance-authority.profile", "governed-objects.catalog"},
-    66: {
-        "governance-bindings.registry", "projection-registry.registry",
-        "repository-integrity.profile", "evidence-requirements.registry",
-        "exact-evidence-binding.evaluate",
-    },
-    67: {"repository-state.capture"},
-    68: {"repository-governance-state.compose"},
-    69: {
-        "repository-integrity.evaluate", "git-whitespace.validate",
-        "github-authoritative-ref-monotonicity.observe",
-    },
+    66: {"governance-bindings.registry", "projection-registry.registry", "repository-integrity.profile", "evidence-requirements.registry", "exact-evidence-binding.evaluate"},
+    67: {"repository-state.capture"}, 68: {"repository-governance-state.compose"},
+    69: {"repository-integrity.evaluate", "git-whitespace.validate", "github-authoritative-ref-monotonicity.observe"},
 }
 OWNER_BY_ID = {
     responsibility_id: owner
@@ -61,7 +36,13 @@ CLASSIFICATIONS = {
     "missing_contract_responsibility",
     "consumer_specific_behavior",
 }
-
+SCHEMA_WORKER_CAP = 3
+@dataclass(frozen=True)
+class SchemaValidationJob:
+    index: int
+    category: str
+    schema: object
+    value: object
 def _integer_decimal(value: int) -> str:
     if value == 0:
         return "0"
@@ -72,7 +53,6 @@ def _integer_decimal(value: int) -> str:
         remaining, chunk = divmod(remaining, 1_000_000_000)
         chunks.append(chunk)
     return sign + str(chunks[-1]) + "".join(f"{chunk:09d}" for chunk in reversed(chunks[:-1]))
-
 def transport(value: object):
     if isinstance(value, dict) and set(value) == {"type", "value"} and value["type"] in {
         "null", "boolean", "integer", "string", "bytes", "sequence", "record"
@@ -108,7 +88,6 @@ def transport(value: object):
             ],
         }
     raise TypeError(f"cannot encode transport value: {type(value).__name__}")
-
 def decode_transport(value: dict[str, object]):
     kind = value["type"]
     payload = value["value"]
@@ -127,10 +106,8 @@ def decode_transport(value: dict[str, object]):
     if kind == "record":
         return {entry["name"]: decode_transport(entry["value"]) for entry in payload}
     raise ValueError(f"unknown transport type: {kind}")
-
 def observation(kind: str, value: object):
     return {"kind": kind, "value": transport(value)}
-
 def authority_key(authority: dict[str, object]) -> str:
     if authority["source_kind"] == "repository":
         return (
@@ -141,7 +118,6 @@ def authority_key(authority: dict[str, object]) -> str:
         f"external:{authority['source_id']}@{authority['version']}:"
         f"{authority['locator']}#{authority['clause']}"
     )
-
 def read_json(path: Path):
     data = path.read_bytes()
     if data.startswith(b"\xef\xbb\xbf") or b"\r" in data:
@@ -152,7 +128,6 @@ def read_json(path: Path):
     if decoded != canonical:
         raise AssertionError(f"noncanonical JSON formatting: {path}")
     return value
-
 def load_corpus():
     index = read_json(CORPUS_ROOT / "index.json")
     responsibilities = {
@@ -165,25 +140,59 @@ def load_corpus():
     }
     coverage = [read_json(CORPUS_ROOT / path) for path in index["coverage_files"]]
     return index, responsibilities, cases, coverage
-
+def _load_conformance_schemas():
+    names = ("index.schema.json", "responsibility.schema.json",
+             "case.schema.json", "coverage.schema.json")
+    return {name: read_json(CORPUS_ROOT / "schemas" / name) for name in names}
+def schema_validation_worker_count(logical_cpu_count: int | None = None) -> int:
+    count = os.cpu_count() if logical_cpu_count is None else logical_cpu_count
+    if count is None or count < 1:
+        count = 1
+    return min(count, SCHEMA_WORKER_CAP)
+def _schema_validation_jobs(schemas, index, responsibilities, cases, coverage):
+    groups = (
+        ("index", schemas["index.schema.json"], (index,)),
+        ("responsibility", schemas["responsibility.schema.json"], responsibilities.values()),
+        ("case", schemas["case.schema.json"], cases.values()),
+        ("coverage", schemas["coverage.schema.json"], coverage),
+    )
+    jobs = []
+    for category, schema, values in groups:
+        for value in values:
+            jobs.append(SchemaValidationJob(len(jobs), category, schema, value))
+    return tuple(jobs)
+def _portable_validation_error(error: ValidationError) -> ValidationError:
+    return ValidationError(
+        error.message, validator=error.validator, path=tuple(error.path),
+        context=tuple(_portable_validation_error(child) for child in error.context),
+        validator_value=error.validator_value, instance=error.instance,
+        schema=error.schema, schema_path=tuple(error.schema_path),
+    )
+def _validate_schema_job(job_index: int, schema: object, value: object) -> int:
+    try:
+        Draft202012Validator(schema).validate(value)
+    except ValidationError as error:
+        raise _portable_validation_error(error) from None
+    return job_index
+def _run_schema_validation_jobs(
+    jobs: tuple[SchemaValidationJob, ...], *, logical_cpu_count: int | None = None,
+    executor_factory=ProcessPoolExecutor,
+) -> None:
+    workers = schema_validation_worker_count(logical_cpu_count)
+    with executor_factory(max_workers=workers) as executor:
+        futures = [executor.submit(
+            _validate_schema_job, job.index, job.schema, job.value) for job in jobs]
+        for job, future in zip(jobs, futures):
+            returned_index = future.result()
+            if returned_index != job.index:
+                raise RuntimeError(f"schema validation worker result mismatch: "
+                                   f"expected {job.index}, got {returned_index!r}")
 def validate_schemas(index, responsibilities, cases, coverage):
-    schemas = {
-        name: read_json(CORPUS_ROOT / "schemas" / name)
-        for name in (
-            "index.schema.json", "responsibility.schema.json",
-            "case.schema.json", "coverage.schema.json",
-        )
-    }
+    schemas = _load_conformance_schemas()
     for schema in schemas.values():
         Draft202012Validator.check_schema(schema)
-    Draft202012Validator(schemas["index.schema.json"]).validate(index)
-    for value in responsibilities.values():
-        Draft202012Validator(schemas["responsibility.schema.json"]).validate(value)
-    for value in cases.values():
-        Draft202012Validator(schemas["case.schema.json"]).validate(value)
-    for value in coverage:
-        Draft202012Validator(schemas["coverage.schema.json"]).validate(value)
-
+    jobs = _schema_validation_jobs(schemas, index, responsibilities, cases, coverage)
+    _run_schema_validation_jobs(jobs)
 def walk(value):
     yield value
     if isinstance(value, dict):
@@ -192,7 +201,6 @@ def walk(value):
     elif isinstance(value, list):
         for nested in value:
             yield from walk(nested)
-
 def validate_no_placeholders(cases):
     count = 0
     for case in cases.values():
@@ -211,7 +219,6 @@ def validate_no_placeholders(cases):
     if count:
         raise AssertionError(f"PLACEHOLDER_FIXTURES={count}")
     return count
-
 def validate_vector_qualification(cases):
     historical_placeholders = 0
     matrix_classifications = 0
@@ -247,7 +254,6 @@ def validate_vector_qualification(cases):
             f"HISTORICAL_GENERIC_OBSERVATION_PLACEHOLDERS={historical_placeholders}"
         )
     return len(vector_ids)
-
 def compare(actual: dict[str, object], expected: dict[str, object], rule: dict[str, object]):
     if rule["kind"] != "exact":
         raise AssertionError(f"unsupported comparison kind: {rule['kind']}")
@@ -265,7 +271,6 @@ def git_show(commit: str, path: str) -> bytes:
     if completed.returncode == 0 and completed.stdout != expected:
         raise AssertionError(f"authority snapshot mismatch: {commit}:{path}")
     return expected
-
 def _heading_paths(markdown: str) -> set[str]:
     paths = set()
     parent = None
@@ -276,7 +281,6 @@ def _heading_paths(markdown: str) -> set[str]:
         elif line.startswith("### "):
             paths.add(f"{parent} / {line[4:].strip()}")
     return paths
-
 def validate_authorities(cases):
     repository_sources = {}
     for case in cases.values():
@@ -299,7 +303,6 @@ def validate_authorities(cases):
                     r"[0-9a-f]{64}", authority["sha256"]
                 ):
                     raise AssertionError(authority)
-
 def validate_coverage(coverage, responsibilities, cases):
     vectors = {
         vector["vector_id"]: (case["responsibility_id"], vector)
@@ -325,14 +328,12 @@ def validate_coverage(coverage, responsibilities, cases):
                     raise AssertionError(f"coverage authority mismatch: {vector_id}")
                 if exact_key not in vector["expected_observation"]["derivation"]["authority_keys"]:
                     raise AssertionError(f"coverage derivation mismatch: {vector_id}")
-
 def _walk_identity_values(value, path=()):
     if isinstance(value, dict):
         for key, item in value.items(): yield from _walk_identity_values(item, (*path, key))
     elif isinstance(value, list):
         for index, item in enumerate(value): yield from _walk_identity_values(item, (*path, index))
     else: yield path, value
-
 def validate_opaque_identity(responsibilities, cases):
     affected = {"repository-state.capture", "repository-governance-state.compose", "repository-integrity.profile", "repository-integrity.evaluate"}
     lengths = digests = without_authority = current_compatibility = 0
@@ -366,7 +367,6 @@ def validate_opaque_identity(responsibilities, cases):
     if context["identity_relations"] != [{"left": "one", "right": "two", "relation": "EQUAL"}, {"left": "one", "right": "three", "relation": "NOT_EQUAL"}]: raise AssertionError("context identity relations incomplete")
     if (lengths, digests, without_authority, current_compatibility) != (0, 0, 0, 0): raise AssertionError("unsupported exact identity representation remains")
     return {"identity_lengths": lengths, "identity_digests": digests, "identity_without_authority": without_authority, "identity_compatibility": current_compatibility, "opaque_identity_relations": "PASS"}
-
 def validate_migration_accounting(index, responsibilities, cases, coverage):
     retired_id = "shared-governance-provider.check"; rust_ids = {key for key, value in responsibilities.items() if value["migration_disposition"] == "rust_port"}; retired = {key for key, value in responsibilities.items() if value["migration_disposition"] == "retire_without_rust_port"}
     if (len(responsibilities), len(rust_ids), retired) != (30, 29, {retired_id}) or set(cases) != rust_ids or set(OWNER_BY_ID) != rust_ids or len(index["case_files"]) != 29: raise AssertionError("invalid migration disposition partition")
