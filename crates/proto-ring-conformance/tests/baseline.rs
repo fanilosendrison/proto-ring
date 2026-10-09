@@ -233,7 +233,7 @@ fn published_corpus_bridge_contract_is_oracle_free() {
     assert!(retirement_only[0].case_file.is_none());
     assert_eq!(corpus.index.case_files.len(), 29);
     assert_eq!(corpus.matrices.len(), 29);
-    assert_eq!(vector_count, 1076);
+    assert_eq!(vector_count, 1080);
     assert!(
         corpus
             .matrices
@@ -242,12 +242,12 @@ fn published_corpus_bridge_contract_is_oracle_free() {
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 1076);
+    assert_eq!(requests.len(), 1080);
     let serialized = serialize_candidate_requests(&requests).expect("batch request must serialize");
     let request_probe = NamedTempFile::new().expect("request probe must be created");
     fs::write(request_probe.path(), &serialized).expect("request probe must be written");
     let serialized_probe = fs::read(request_probe.path()).expect("request probe must be read");
-    assert_request_schema(&serialized_probe, 1076);
+    assert_request_schema(&serialized_probe, 1080);
     assert_bridge_source_is_isolated(&repository_root);
     assert_output_schema(&repository_root, one_real_request(&corpus));
 
@@ -261,5 +261,5 @@ fn published_corpus_bridge_contract_is_oracle_free() {
     eprintln!("RUST_PORT_RESPONSIBILITIES=29");
     eprintln!("RETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1");
     eprintln!("CORPUS_MATRICES=29");
-    eprintln!("CORPUS_VECTORS=1076");
+    eprintln!("CORPUS_VECTORS=1080");
 }
