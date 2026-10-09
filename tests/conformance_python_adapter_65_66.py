@@ -143,7 +143,7 @@ def _objects_result(root: Path, arguments: dict[str, object]):
     return _success(result)
 
 
-def _bindings_catalog_root(root: Path, arguments: dict[str, object]) -> Path:
+def _catalog_support_root(root: Path, arguments: dict[str, object]) -> Path:
     selected = arguments.get("foreign_support_repository")
     if selected is None:
         return root
@@ -155,11 +155,7 @@ def _bindings_catalog_root(root: Path, arguments: dict[str, object]) -> Path:
 def _bindings_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
     authority = _authority(root, support["authority"])
-    catalog = (
-        _catalog(_bindings_catalog_root(root, arguments), support["catalog"])
-        if arguments.get("with_catalog")
-        else None
-    )
+    catalog = _catalog(_catalog_support_root(root, arguments), support["catalog"]) if arguments.get("with_catalog") else None
     route = _route(root, arguments["path"], "governance_bindings")
     before = repository_snapshot(root) if arguments.get("observe_read_only") else None
     try:
@@ -182,7 +178,7 @@ def _bindings_result(root: Path, arguments: dict[str, object]):
 def _integrity_result(root: Path, arguments: dict[str, object]):
     support = arguments["semantic_inputs"]
     authority = _authority(root, support["authority"])
-    catalog = _catalog(root, support["catalog"]) if arguments.get("with_catalog") else None
+    catalog = _catalog(_catalog_support_root(root, arguments), support["catalog"]) if arguments.get("with_catalog") else None
     route = _route(root, arguments["path"], "repository_integrity")
     before = repository_snapshot(root) if arguments.get("observe_read_only") else None
     try:
@@ -352,13 +348,12 @@ def precheck_support(
     support = arguments["semantic_inputs"]
     authority = _authority(root, support["authority"])
     if responsibility_id == "governance-bindings.registry":
-        if arguments.get("with_catalog"):
-            _catalog(_bindings_catalog_root(root, arguments), support["catalog"])
+        if arguments.get("with_catalog"): _catalog(_catalog_support_root(root, arguments), support["catalog"])
         return
-    if responsibility_id in {
-        "repository-integrity.profile",
-        "evidence-requirements.registry",
-    }:
+    if responsibility_id == "repository-integrity.profile":
+        if arguments.get("with_catalog"): _catalog(_catalog_support_root(root, arguments), support["catalog"])
+        return
+    if responsibility_id == "evidence-requirements.registry":
         if arguments.get("with_catalog"):
             _catalog(root, support["catalog"])
         return
