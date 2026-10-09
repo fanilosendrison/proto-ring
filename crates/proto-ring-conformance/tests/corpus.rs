@@ -179,6 +179,38 @@ fn published_corpus_runs_through_reference_candidate() {
         .iter()
         .map(|matrix| matrix.vectors.len())
         .sum();
+    let issue66_responsibilities: HashSet<_> = [
+        "evidence-requirements.registry",
+        "exact-evidence-binding.evaluate",
+        "governance-bindings.registry",
+        "projection-registry.registry",
+        "repository-integrity.profile",
+    ]
+    .into_iter()
+    .collect();
+    let issue66_vectors: usize = corpus
+        .matrices
+        .iter()
+        .filter(|matrix| issue66_responsibilities.contains(matrix.responsibility_id.as_str()))
+        .map(|matrix| matrix.vectors.len())
+        .sum();
+    let governance_bindings_vectors = corpus
+        .matrices
+        .iter()
+        .find(|matrix| matrix.responsibility_id == "governance-bindings.registry")
+        .unwrap()
+        .vectors
+        .len();
+    let exact_evidence_binding_vectors = corpus
+        .matrices
+        .iter()
+        .find(|matrix| matrix.responsibility_id == "exact-evidence-binding.evaluate")
+        .unwrap()
+        .vectors
+        .len();
+    assert_eq!(issue66_vectors, 553);
+    assert_eq!(governance_bindings_vectors, 109);
+    assert_eq!(exact_evidence_binding_vectors, 44);
     assert_eq!(
         (
             corpus.responsibilities.len(),
@@ -187,7 +219,7 @@ fn published_corpus_runs_through_reference_candidate() {
             corpus.matrices.len(),
             vectors
         ),
-        (30, 29, 1, 29, 1080)
+        (30, 29, 1, 29, 1081)
     );
     assert_eq!(
         retired[0].responsibility_id,
@@ -203,14 +235,14 @@ fn published_corpus_runs_through_reference_candidate() {
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 1080);
+    assert_eq!(requests.len(), 1081);
     assert_projection_regressions(&corpus);
     assert_source_boundaries(&corpus);
     let python = PythonBridge::new(&root()).execute(&requests).unwrap();
-    assert_eq!(python.len(), 1080);
+    assert_eq!(python.len(), 1081);
 
     let baseline_reports = run_differential(&corpus, &python, &UnimplementedRustCandidate).unwrap();
-    assert_eq!(baseline_reports.len(), 1080);
+    assert_eq!(baseline_reports.len(), 1081);
     let baseline_python_counts =
         count_status(&baseline_reports, |report| report.python_vs_expected);
     let baseline_rust_counts = count_status(&baseline_reports, |report| report.rust_vs_expected);
@@ -221,16 +253,16 @@ fn published_corpus_runs_through_reference_candidate() {
         .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
         .count();
     let baseline_implemented_responsibilities = implemented_responsibilities(&baseline_reports);
-    assert_eq!(baseline_python_counts, (1080, 0, 0));
+    assert_eq!(baseline_python_counts, (1081, 0, 0));
     assert_eq!(
         (
             baseline_implemented_responsibilities,
             baseline_unimplemented
         ),
-        (0, 1080)
+        (0, 1081)
     );
-    assert_eq!(baseline_rust_counts, (0, 0, 1080));
-    assert_eq!(baseline_differential_counts, (0, 0, 1080));
+    assert_eq!(baseline_rust_counts, (0, 0, 1081));
+    assert_eq!(baseline_differential_counts, (0, 0, 1081));
 
     let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
@@ -245,9 +277,9 @@ fn published_corpus_runs_through_reference_candidate() {
             );
         }
     }
-    assert_eq!(python_counts, (1080, 0, 0));
-    assert_eq!(rust_counts, (242, 0, 838));
-    assert_eq!(differential_counts, (242, 0, 838));
+    assert_eq!(python_counts, (1081, 0, 0));
+    assert_eq!(rust_counts, (242, 0, 839));
+    assert_eq!(differential_counts, (242, 0, 839));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -315,18 +347,22 @@ fn published_corpus_runs_through_reference_candidate() {
 
     let metrics: HashMap<&str, usize> = HashMap::from([
         ("implemented", implemented_vectors),
-        ("unimplemented", 1080 - implemented_vectors),
+        ("unimplemented", 1081 - implemented_vectors),
     ]);
     eprintln!(
         "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
     );
     eprintln!(
-        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1080"
+        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1081"
     );
     eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=76");
     eprintln!("ISSUE65_RESPONSIBILITIES=2\nISSUE65_VECTORS=166");
     eprintln!(
-        "PYTHON_OBSERVATIONS=1080\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
+        "ISSUE66_RESPONSIBILITIES={}\nISSUE66_VECTORS={issue66_vectors}\nGOVERNANCE_BINDINGS_VECTORS={governance_bindings_vectors}\nEXACT_EVIDENCE_BINDING_VECTORS={exact_evidence_binding_vectors}",
+        issue66_responsibilities.len()
+    );
+    eprintln!(
+        "PYTHON_OBSERVATIONS=1081\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
