@@ -111,6 +111,7 @@
     "boolean is not an undetermined exit-code integer",
     "negative nonzero mathematical integer is admitted",
     "repository_paths for_each mode is admitted and preserved",
+    "validation target rejects a Governed Objects catalog from another repository",
     "parent path components are rejected",
     "glob selector must not be empty",
     "glob selector must be a nonempty string",

@@ -77,22 +77,23 @@
         "repository-integrity.profile"
       ],
       "vector_refs": [
-        "repository-integrity.profile.valid-profile",
         "repository-integrity.profile.authoritative-carrier",
-        "repository-integrity.profile.validation-missing-instances",
         "repository-integrity.profile.empty-selectors",
+        "repository-integrity.profile.exit-code-arbitrary-precision",
         "repository-integrity.profile.exit-code-boolean",
         "repository-integrity.profile.exit-code-negative",
-        "repository-integrity.profile.exit-code-arbitrary-precision",
-        "repository-integrity.profile.identity-selector-order",
+        "repository-integrity.profile.foreign-catalog-repository",
+        "repository-integrity.profile.identity-authority-responsibility-value",
         "repository-integrity.profile.identity-command-argument-order",
         "repository-integrity.profile.identity-environment-value",
-        "repository-integrity.profile.identity-validation-id",
-        "repository-integrity.profile.identity-prerequisite-value",
-        "repository-integrity.profile.identity-target-value",
         "repository-integrity.profile.identity-exit-code-value",
-        "repository-integrity.profile.identity-authority-responsibility-value",
-        "repository-integrity.profile.identity-instance-kind-value"
+        "repository-integrity.profile.identity-instance-kind-value",
+        "repository-integrity.profile.identity-prerequisite-value",
+        "repository-integrity.profile.identity-selector-order",
+        "repository-integrity.profile.identity-target-value",
+        "repository-integrity.profile.identity-validation-id",
+        "repository-integrity.profile.valid-profile",
+        "repository-integrity.profile.validation-missing-instances"
       ]
     },
     {
