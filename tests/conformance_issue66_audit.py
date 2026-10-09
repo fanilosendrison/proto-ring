@@ -246,7 +246,10 @@ def _audit_arguments(responsibility_id: str, arguments: object) -> None:
             responsibility_id == "projection-registry.registry"
             and selection in {"integrity_profile", "catalog", "bindings"}
         ) or (
-            responsibility_id == "governance-bindings.registry"
+            responsibility_id in {
+                "governance-bindings.registry",
+                "repository-integrity.profile",
+            }
             and selection == "catalog"
         )
         if not valid:
