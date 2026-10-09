@@ -230,6 +230,7 @@
     "evidence requirement target must be an exact mapping",
     "target object reference must be a string without coercion",
     "evidence target must participate in its responsibility",
+    "evidence target rejects a Governed Objects catalog from another repository",
     "evidence requirement target rejects unknown structural keys"
   ],
   "responsibility_id": "evidence-requirements.registry",

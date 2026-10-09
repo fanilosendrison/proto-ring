@@ -26,13 +26,14 @@
         "evidence-requirements.registry"
       ],
       "vector_refs": [
-        "evidence-requirements.registry.single-instance",
-        "evidence-requirements.registry.empty-registry",
-        "evidence-requirements.registry.requirement-missing-context",
         "evidence-requirements.registry.authority-responsibility-empty",
         "evidence-requirements.registry.authority-responsibility-non-string",
         "evidence-requirements.registry.authority-source-empty",
-        "evidence-requirements.registry.authority-source-non-string"
+        "evidence-requirements.registry.authority-source-non-string",
+        "evidence-requirements.registry.empty-registry",
+        "evidence-requirements.registry.foreign-catalog-repository",
+        "evidence-requirements.registry.requirement-missing-context",
+        "evidence-requirements.registry.single-instance"
       ]
     },
     {
