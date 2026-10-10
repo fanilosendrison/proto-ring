@@ -29,16 +29,26 @@ class RepositoryStateContractTests(unittest.TestCase):
             "exact regular-file bytes",
             "exact symbolic-link target",
             "Historical Python digest vectors or platform-specific mode integers do not become universal cross-language identity representations",
-            "mutation-isolation interval",
+            "A coherence basis is a mechanism",
+            "not a new serialized RepositoryState field or API primitive",
+            "Successful ordinary capture alone MUST NOT be represented as proof",
+            "only when a coherence basis has been established",
+            "mutation isolation",
+            "examples are non-exclusive and non-normative",
+            "does not require a specific realization",
             "content-only change after an earlier governed-path observation",
             "Local per-path guards alone are insufficient",
-            "does not establish that a mutation-isolation interval existed",
+            "does not prove that a coherence basis existed",
             "arbitrary mutation/restore or ABA scheduling",
             "RepositoryState is observational",
         )
         for requirement in requirements:
             with self.subTest(requirement=requirement):
                 self.assertIn(requirement, self.normalized)
+        self.assertNotIn(
+            "global coherence requires an explicit mutation-isolation interval",
+            self.normalized,
+        )
 
     def test_readme_indexes_canonical_repository_state(self) -> None:
         readme = README.read_text(encoding="utf-8")

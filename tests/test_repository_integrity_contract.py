@@ -83,17 +83,25 @@ class RepositoryIntegrityContractTests(unittest.TestCase):
         self.assertNotIn("sys.executable", self.model)
         self.assertIn("_context_identity", self.evaluation)
 
-    def test_exact_state_inherits_isolation_without_hiding_obligation_drift(self) -> None:
+    def test_exact_state_requires_unambiguous_binding_without_hiding_obligation_drift(self) -> None:
         normalized = " ".join(self.contract.split())
         required = (
-            "inherits RepositoryState's mutation-isolation requirement with respect to uncoordinated external writers",
+            "MUST NOT be ambiguous because of unaccounted contract-relevant mutation",
+            "requires a coherence basis sufficient for the claims made by the evaluation",
+            "does not require total repository immobility",
+            "through isolation, versioning, snapshots, or another mechanism",
+            "identity equality remains mandatory drift detection; it is not proof that a coherence basis existed",
             "currently evaluated obligation remains observable as a possible mutator",
-            "detected through the existing before/after RepositoryState comparison",
+            "state change MUST continue to participate in the existing before/after RepositoryState comparison, state relation",
             "`SATISFIED`, `VIOLATED`, `UNDETERMINED`, `PASS`, and `NON_PASS` semantics",
         )
         for text in required:
             with self.subTest(text=text):
                 self.assertIn(text, normalized)
+        self.assertNotIn(
+            "inherits RepositoryState's mutation-isolation requirement",
+            normalized,
+        )
 
     def test_implementation_exposes_persistent_profile_without_new_statuses(self) -> None:
         required = (

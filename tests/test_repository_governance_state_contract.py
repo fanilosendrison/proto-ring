@@ -61,16 +61,23 @@ name: "Canonical RepositoryGovernanceState contract"
 
     def test_exact_observation_is_normative_and_provider_neutral(self) -> None:
         required = (
-            "A `RepositoryGovernanceState` MUST NOT be returned unless every contained governance value belongs to one stable exact repository observation and one stable observation scope.",
+            "A `RepositoryGovernanceState` MUST NOT be returned unless every contained governance value was composed between mandatory initial and final RepositoryState captures for one explicit observation scope and those captures compare equal.",
             "Repository-state drift or observation-scope drift during construction fails closed.",
-            "identity equality is mandatory drift detection, not proof that mutation isolation existed",
-            "mutation-isolation interval across discovery, first capture, authoritative composition, and final capture",
+            "initial RepositoryState → authoritative composition → final RepositoryState → state/scope drift comparison",
+            "identity equality is mandatory drift detection, not proof that a coherence basis existed",
+            "only when a coherence basis covers the authoritative construction boundary",
+            "isolation, a snapshot or version substrate, an immutable execution workspace, or an equivalent mechanism",
+            "does not require a specific realization",
             "read-only, non-executing, and provider-neutral",
             "does not prescribe a programming language, digest algorithm, Git command, implementation structure, or exact number of observation passes",
         )
         for text in required:
             with self.subTest(text=text):
                 self.assertIn(text, self.normalized)
+        self.assertNotIn(
+            "inherits RepositoryState's mutation-isolation interval",
+            self.normalized,
+        )
 
     def test_model_only_capabilities_do_not_trigger_execution(self) -> None:
         self.assertIn("must not eagerly enumerate an ADR corpus", self.contract)
