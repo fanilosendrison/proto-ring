@@ -16,9 +16,7 @@ use super::transport::{
     exact_record, fixture_failure, record, rejection, result, string_value, unique_dynamic_record,
 };
 
-mod support;
-
-use support::support_authority;
+use super::support::support_authority;
 
 type Fields<'a> = BTreeMap<&'a str, &'a TransportValue>;
 
@@ -372,13 +370,6 @@ fn require_string(
         Ok(())
     } else {
         Err(fixture_failure(format!("unsupported {name}")))
-    }
-}
-fn require_nonempty(value: &str, label: &str) -> Result<(), fixture::FixtureError> {
-    if value.is_empty() {
-        Err(fixture_failure(format!("{label} must be nonempty")))
-    } else {
-        Ok(())
     }
 }
 fn strings<'a>(values: impl IntoIterator<Item = &'a String>) -> TransportValue {
