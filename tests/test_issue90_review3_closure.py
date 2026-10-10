@@ -159,7 +159,7 @@ class Issue90Review3ClosureTest(unittest.TestCase):
         self.assertEqual(metrics["gb_read_only_heading_classification"], "MIXED_CONTEXT")
         self.assertEqual(metrics["coverage_authority_violations"], 0)
         self.assertEqual(metrics["coverage_authority"], "PASS")
-        self.assertEqual(metrics["coverage_full_vector_map_size"], 1083)
+        self.assertEqual(metrics["coverage_full_vector_map_size"], 1109)
         self.assertEqual(metrics["coverage_relevant_headings"], 43)
         self.assertEqual(metrics["open_domain_source_audit_required"], "yes")
         print("ISSUE66_CONTEXT_ONLY_RUNTIME_DERIVATION_OVERCLAIMS=0")
@@ -169,7 +169,7 @@ class Issue90Review3ClosureTest(unittest.TestCase):
         print("GB_READ_ONLY_HEADING_CLASSIFICATION=MIXED_CONTEXT")
         print("ISSUE66_COVERAGE_AUTHORITY_BINDING_VIOLATIONS=0")
         print("ISSUE66_COVERAGE_AUTHORITY_BINDING=PASS")
-        print("COVERAGE_AUDIT_FULL_VECTOR_MAP_SIZE=1083")
+        print("COVERAGE_AUDIT_FULL_VECTOR_MAP_SIZE=1109")
         print("ISSUE66_RELEVANT_COVERED_HEADINGS=43")
         print("ISSUE66_OPEN_DOMAIN_SOURCE_AUDIT_REQUIRED=yes")
 
