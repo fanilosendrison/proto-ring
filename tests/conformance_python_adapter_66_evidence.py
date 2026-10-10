@@ -41,8 +41,7 @@ def binding_status(
         not isinstance(item, str) for item in classes
     ):
         raise TypeError("requirement.admitted_classes must be a sequence of strings")
-    if len(set(classes)) != len(classes):
-        return None
+    duplicate_classes = len(set(classes)) != len(classes)
     context_required = requirement_data["context_required"]
     if type(context_required) is not bool:
         raise TypeError("requirement.context_required must be a boolean")
@@ -52,16 +51,6 @@ def binding_status(
     context_identity = _optional_hex(
         requirement_data["context_hex"], "requirement.context"
     )
-    try:
-        requirement = EvidenceRequirement(
-            frozenset(classes),
-            subject_identity,
-            context_identity,
-            context_required,
-        )
-    except ValueError:
-        return None
-
     binding = None
     if binding_value is not None:
         binding_data = _exact_mapping(binding_value, _BINDING_FIELDS, "binding")
@@ -73,4 +62,16 @@ def binding_status(
             _optional_hex(binding_data["subject_hex"], "binding.subject"),
             _optional_hex(binding_data["context_hex"], "binding.context"),
         )
+
+    if duplicate_classes:
+        return None
+    try:
+        requirement = EvidenceRequirement(
+            frozenset(classes),
+            subject_identity,
+            context_identity,
+            context_required,
+        )
+    except ValueError:
+        return None
     return evaluate(requirement, binding).value
