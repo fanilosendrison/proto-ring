@@ -1,3 +1,4 @@
+import json
 import pickle
 import unittest
 from unittest import mock
@@ -163,21 +164,60 @@ class ConformanceSchemaParallelTest(unittest.TestCase):
         )
         pickle.dumps(nested_error)
 
-    def test_job_results_are_observed_in_submission_order(self):
+    def test_document_size_metric_matches_profile_encoding(self):
+        value = {
+            "ascii": "plain text",
+            "non_ascii": "café 東京",
+            "values": [7, True, None, {"nested": "value"}],
+        }
+        expected = len((json.dumps(
+            value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+        self.assertEqual(support._schema_validation_document_size(value), expected)
+
+    def test_submission_order_is_descending_size_then_index(self):
+        small = {"value": "a"}
+        large = {"value": "x" * 100}
+        medium = {"value": "x" * 20}
+        equal_a = {"value": "same"}
+        equal_b = {"value": "same"}
+        jobs = (
+            support.SchemaValidationJob(5, "small", object(), small),
+            support.SchemaValidationJob(9, "large", object(), large),
+            support.SchemaValidationJob(7, "medium", object(), medium),
+            support.SchemaValidationJob(4, "equal-a", object(), equal_a),
+            support.SchemaValidationJob(2, "equal-b", object(), equal_b),
+        )
+        original_jobs = tuple(jobs)
+        original_values = tuple(job.value for job in jobs)
+
+        positions = support._schema_validation_submission_positions(jobs)
+
+        self.assertEqual(positions, (1, 2, 4, 3, 0))
+        self.assertEqual(sorted(positions), list(range(len(jobs))))
+        self.assertEqual(jobs, original_jobs)
+        for job, value in zip(jobs, original_values):
+            self.assertIs(job.value, value)
+
+    def test_job_results_are_observed_in_semantic_order_after_size_sorted_submission(self):
+        jobs = (
+            support.SchemaValidationJob(0, "small", object(), {"value": "a"}),
+            support.SchemaValidationJob(1, "large", object(), {"value": "x" * 100}),
+            support.SchemaValidationJob(2, "medium", object(), {"value": "x" * 20}),
+        )
         events = []
         executor = _Executor(
             [
-                _Future(error=RuntimeError("first-submitted-failure"), events=events, label=0),
-                _Future(error=RuntimeError("later-failure"), events=events, label=1),
+                _Future(error=RuntimeError("semantic-job-1-failure"), events=events, label=1),
                 _Future(value=2, events=events, label=2),
+                _Future(error=RuntimeError("semantic-job-0-failure"), events=events, label=0),
             ],
             events=events,
         )
-        with self.assertRaisesRegex(RuntimeError, "first-submitted-failure"):
+        with self.assertRaisesRegex(RuntimeError, "semantic-job-0-failure"):
             support._run_schema_validation_jobs(
-                _jobs()[:3], logical_cpu_count=3, executor_factory=executor.factory
+                jobs, logical_cpu_count=3, executor_factory=executor.factory
             )
-        self.assertEqual(events, ["submit:0", "submit:1", "submit:2", "result:0"])
+        self.assertEqual(events, ["submit:1", "submit:2", "submit:0", "result:0"])
 
     def test_executor_initialization_failure_propagates(self):
         def failing_factory(*, max_workers):
@@ -250,16 +290,20 @@ class ConformanceSchemaParallelTest(unittest.TestCase):
         jobs = _jobs()[:3]
         worker_counts = []
         executor = _Executor(
-            [_Future(value=job.index) for job in jobs], worker_counts=worker_counts
+            [_Future(value=jobs[position].index) for position in (1, 2, 0)],
+            worker_counts=worker_counts,
         )
         support._run_schema_validation_jobs(
             jobs, logical_cpu_count=1, executor_factory=executor.factory
         )
         self.assertEqual(worker_counts, [1])
         self.assertEqual(
-            [arguments[0] for _, arguments in executor.submissions], [0, 1, 2]
+            [arguments[0] for _, arguments in executor.submissions], [1, 2, 0]
         )
         self.assertEqual(len(executor.submissions), 3)
+        self.assertEqual(
+            sorted(arguments[0] for _, arguments in executor.submissions), [0, 1, 2]
+        )
 
 
 if __name__ == "__main__":
