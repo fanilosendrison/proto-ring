@@ -83,6 +83,18 @@ class RepositoryIntegrityContractTests(unittest.TestCase):
         self.assertNotIn("sys.executable", self.model)
         self.assertIn("_context_identity", self.evaluation)
 
+    def test_exact_state_inherits_isolation_without_hiding_obligation_drift(self) -> None:
+        normalized = " ".join(self.contract.split())
+        required = (
+            "inherits RepositoryState's mutation-isolation requirement with respect to uncoordinated external writers",
+            "currently evaluated obligation remains observable as a possible mutator",
+            "detected through the existing before/after RepositoryState comparison",
+            "`SATISFIED`, `VIOLATED`, `UNDETERMINED`, `PASS`, and `NON_PASS` semantics",
+        )
+        for text in required:
+            with self.subTest(text=text):
+                self.assertIn(text, normalized)
+
     def test_implementation_exposes_persistent_profile_without_new_statuses(self) -> None:
         required = (
             "class ConsumerIntegrityProfile:",

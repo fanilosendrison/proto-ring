@@ -29,6 +29,11 @@ class RepositoryStateContractTests(unittest.TestCase):
             "exact regular-file bytes",
             "exact symbolic-link target",
             "Historical Python digest vectors or platform-specific mode integers do not become universal cross-language identity representations",
+            "mutation-isolation interval",
+            "content-only change after an earlier governed-path observation",
+            "Local per-path guards alone are insufficient",
+            "does not establish that a mutation-isolation interval existed",
+            "arbitrary mutation/restore or ABA scheduling",
             "RepositoryState is observational",
         )
         for requirement in requirements:

@@ -124,7 +124,6 @@ class RepositoryStateTests(unittest.TestCase):
     def test_ordinary_existing_explicit_scope_path_is_accepted(self) -> None:
         temporary, repository = self.repository()
         self.addCleanup(temporary.cleanup)
-
         state = repository_state.capture(repository, ("tracked.txt",))
 
         self.assertIn("tracked.txt", state.scope_paths)
@@ -132,7 +131,6 @@ class RepositoryStateTests(unittest.TestCase):
     def test_explicit_scope_duplicate_and_order_variation_is_canonical(self) -> None:
         temporary, repository = self.repository()
         self.addCleanup(temporary.cleanup)
-
         first = repository_state.capture(
             repository, ("tracked.txt", "missing.txt", "tracked.txt")
         )
@@ -166,7 +164,6 @@ class RepositoryStateTests(unittest.TestCase):
     def test_absent_final_explicit_path_is_observed(self) -> None:
         temporary, repository = self.repository()
         self.addCleanup(temporary.cleanup)
-
         absent = repository_state.capture(repository, ("missing.txt",))
         self.assertIn("missing.txt", absent.scope_paths)
         (repository / "missing.txt").write_text("now present\n", encoding="utf-8")
@@ -203,7 +200,6 @@ class RepositoryStateTests(unittest.TestCase):
         outside = Path(outside_temporary.name)
         (outside / "outside.txt").write_text("outside\n", encoding="utf-8")
         (repository / "escape-dir").symlink_to(outside, target_is_directory=True)
-
         with self.assertRaises(repository_state.StateCaptureError):
             repository_state.capture(repository, ("escape-dir/outside.txt",))
 
@@ -213,7 +209,6 @@ class RepositoryStateTests(unittest.TestCase):
         directory = repository / "routed"
         directory.mkdir()
         baseline = repository_state.capture(repository, ("routed",)).identity
-
         os.chmod(directory, 0o700)
         mode_changed = repository_state.capture(repository, ("routed",)).identity
         self.assertNotEqual(baseline, mode_changed)
@@ -307,7 +302,6 @@ class RepositoryStateTests(unittest.TestCase):
         )
         self.git(repository, "commit", "-q", "-m", "submodule")
         self.assertIn("submod", repository_state.discover_repository_paths(repository))
-
         with self.assertRaisesRegex(
             repository_state.StateCaptureError,
             "unsupported filesystem object kind",
@@ -345,6 +339,55 @@ class RepositoryStateTests(unittest.TestCase):
             repository_state._discovered_path_identity(b"nested//"),
         )
         self.assertEqual(b"/", repository_state._discovered_path_identity(b"/"))
+
+    def test_content_change_after_first_path_observation_fails_closed(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+        tracked = repository / "tracked.txt"
+        real_capture = repository_state._capture_path_records
+        calls = 0
+
+        def capture_then_mutate(*arguments, **keywords):
+            nonlocal calls
+            records = real_capture(*arguments, **keywords)
+            calls += 1
+            if calls == 1:
+                tracked.write_bytes(b"changed after first observation\n")
+            return records
+
+        with mock.patch.object(
+            repository_state, "_capture_path_records", side_effect=capture_then_mutate
+        ), self.assertRaisesRegex(repository_state.StateCaptureError, "governed path state changed"):
+            repository_state.capture(repository)
+
+    def test_cross_path_nonexistent_combination_fails_closed(self) -> None:
+        temporary, repository = self.repository()
+        self.addCleanup(temporary.cleanup)
+        self.git(repository, "rm", "-q", "tracked.txt")
+        a_path, b_path = repository / "a.txt", repository / "b.txt"
+        a_path.write_bytes(b"A0")
+        b_path.write_bytes(b"B0")
+        self.git(repository, "add", "a.txt", "b.txt")
+        self.git(repository, "commit", "-q", "-m", "two tracked paths")
+        physical_states = [(a_path.read_bytes(), b_path.read_bytes())]
+        real_lstat = repository_state.os.lstat
+        triggered = False
+
+        def interleaving_lstat(path):
+            nonlocal triggered
+            if not triggered and os.path.basename(path) == b"b.txt":
+                triggered = True
+                a_path.write_bytes(b"A1")
+                physical_states.append((a_path.read_bytes(), b_path.read_bytes()))
+                b_path.write_bytes(b"B1")
+                physical_states.append((a_path.read_bytes(), b_path.read_bytes()))
+            return real_lstat(path)
+
+        with mock.patch.object(
+            repository_state.os, "lstat", side_effect=interleaving_lstat
+        ), self.assertRaises(repository_state.StateCaptureError):
+            repository_state.capture(repository)
+        self.assertEqual([(b"A0", b"B0"), (b"A1", b"B0"), (b"A1", b"B1")], physical_states)
 
     def test_old_repository_integrity_state_module_is_removed(self) -> None:
         old_module = Path(repository_state.__file__).with_name(

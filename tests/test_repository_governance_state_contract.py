@@ -63,6 +63,8 @@ name: "Canonical RepositoryGovernanceState contract"
         required = (
             "A `RepositoryGovernanceState` MUST NOT be returned unless every contained governance value belongs to one stable exact repository observation and one stable observation scope.",
             "Repository-state drift or observation-scope drift during construction fails closed.",
+            "identity equality is mandatory drift detection, not proof that mutation isolation existed",
+            "mutation-isolation interval across discovery, first capture, authoritative composition, and final capture",
             "read-only, non-executing, and provider-neutral",
             "does not prescribe a programming language, digest algorithm, Git command, implementation structure, or exact number of observation passes",
         )
