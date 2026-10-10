@@ -1,6 +1,7 @@
 {
   "authority_snapshot_files": [
     "fixtures/authorities/0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f/docs/contracts/canonical-governance-routing.md",
+    "fixtures/authorities/1f103322d6816effcc102e35cbdd1e14bd33ba84/docs/contracts/repository-state.md",
     "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-governance-state.md",
     "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-integrity.md",
     "fixtures/authorities/5ba3ef457786b09fd51430418b3b62ed4dc991b9/docs/contracts/repository-state.md",
