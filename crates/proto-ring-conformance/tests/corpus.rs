@@ -1,150 +1,21 @@
 #![forbid(unsafe_code)]
 
+#[path = "corpus/support.rs"]
+mod support;
+
 use std::collections::{HashMap, HashSet};
-use std::fs;
-use std::path::{Path, PathBuf};
 
 use proto_ring_conformance::harness::{
-    CandidateExecutor, CandidateRequest, CandidateState, ComparisonStatus, PythonBridge,
-    UnimplementedRustCandidate, candidate_requests, implemented_responsibilities, run_differential,
+    CandidateExecutor, CandidateState, ComparisonStatus, PythonBridge, UnimplementedRustCandidate,
+    candidate_requests, implemented_responsibilities, run_differential,
 };
-use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
-use proto_ring_conformance::model::{MigrationDisposition, Observation};
+use proto_ring_conformance::loader::load_corpus;
+use proto_ring_conformance::model::MigrationDisposition;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
-const IMPLEMENTED: &[&str] = &[
-    "governance-authority.profile",
-    "governance-bootstrap.root",
-    "governance-routing.resolve",
-    "governed-objects.catalog",
-    "repository-governance-model.binding-compatibility",
-    "repository-governance-model.load",
-    "structured-data.document",
-    "structured-data.frontmatter",
-];
-fn root() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .and_then(Path::parent)
-        .unwrap()
-        .to_path_buf()
-}
-
-fn vector<'a>(
-    corpus: &'a LoadedCorpus,
-    id: &str,
-) -> (&'a str, &'a proto_ring_conformance::model::Vector) {
-    corpus
-        .matrices
-        .iter()
-        .find_map(|matrix| {
-            matrix
-                .vectors
-                .iter()
-                .find(|vector| vector.vector_id == id)
-                .map(|vector| (matrix.responsibility_id.as_str(), vector))
-        })
-        .unwrap()
-}
-
-fn request_for(corpus: &LoadedCorpus, id: &str) -> CandidateRequest {
-    let (responsibility_id, vector) = vector(corpus, id);
-    CandidateRequest {
-        responsibility_id: responsibility_id.to_owned(),
-        vector_id: id.to_owned(),
-        fixture: vector.fixture.clone(),
-    }
-}
-
-fn expected_observation(corpus: &LoadedCorpus, id: &str) -> Observation {
-    vector(corpus, id).1.expected_observation.observation()
-}
-
-fn assert_projection_regressions(corpus: &LoadedCorpus) {
-    let candidate = ReferenceRustCandidate;
-    for id in [
-        "structured-data.frontmatter.valid-mapping",
-        "structured-data.frontmatter.immediate-close",
-        "repository-governance-model.load.valid-model-v1",
-        "repository-governance-model.load.valid-model-v2",
-    ] {
-        let state = candidate.execute(&request_for(corpus, id)).unwrap();
-        assert_eq!(
-            state,
-            CandidateState::Observation(expected_observation(corpus, id))
-        );
-    }
-}
-
-fn assert_source_boundaries(corpus: &LoadedCorpus) {
-    let repository = root();
-    let candidate = [
-        "rust_candidate.rs",
-        "rust_candidate/authority_objects.rs",
-        "rust_candidate/authority_objects/support.rs",
-        "rust_candidate/foundation.rs",
-        "rust_candidate/transport.rs",
-    ]
-    .iter()
-    .map(|path| {
-        let source = repository.join("crates/proto-ring-conformance/src");
-        fs::read_to_string(source.join(path)).unwrap()
-    })
-    .collect::<String>();
-    let engine_paths = [
-        "lib.rs",
-        "structured_data.rs",
-        "structured_data_yaml.rs",
-        "governance_authority.rs",
-        "governance_bootstrap.rs",
-        "governance_routing.rs",
-        "governed_objects.rs",
-        "repository_governance_model.rs",
-    ];
-    let engine = engine_paths
-        .iter()
-        .map(|path| {
-            fs::read_to_string(repository.join("crates/proto-ring-engine/src").join(path)).unwrap()
-        })
-        .collect::<String>();
-    for matrix in &corpus.matrices {
-        if IMPLEMENTED.contains(&matrix.responsibility_id.as_str()) {
-            for vector in &matrix.vectors {
-                assert!(!candidate.contains(&vector.vector_id));
-            }
-        }
-    }
-    for forbidden in ["YamlLoader", "Yaml::Integer", "Yaml::Boolean", "Yaml::Null"] {
-        assert!(!engine.contains(forbidden));
-    }
-    assert!(engine.contains("parse_frontmatter_bytes"));
-    assert!(engine.contains("governance_bootstrap::load"));
-    assert!(engine.contains("governance_routing::resolve"));
-}
-
-fn count_status(
-    reports: &[proto_ring_conformance::harness::DifferentialReport],
-    channel: fn(&proto_ring_conformance::harness::DifferentialReport) -> ComparisonStatus,
-) -> (usize, usize, usize) {
-    let mut counts = (0, 0, 0);
-    for report in reports {
-        match channel(report) {
-            ComparisonStatus::Match => counts.0 += 1,
-            ComparisonStatus::Mismatch => counts.1 += 1,
-            ComparisonStatus::NotAvailable => counts.2 += 1,
-        }
-    }
-    counts
-}
-
-fn require_matches(reports: &[proto_ring_conformance::harness::DifferentialReport], ids: &[&str]) {
-    for id in ids {
-        let report = reports
-            .iter()
-            .find(|report| report.vector_id == *id)
-            .unwrap();
-        assert_eq!(report.rust_vs_expected, ComparisonStatus::Match);
-    }
-}
+use support::{
+    IMPLEMENTED, assert_projection_regressions, assert_source_boundaries, count_status,
+    expected_observation, request_for, require_matches, root,
+};
 
 #[test]
 fn absolute_contained_target_is_rejected_by_reference_candidate() {
@@ -281,8 +152,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1083, 0, 0));
-    assert_eq!(rust_counts, (242, 0, 841));
-    assert_eq!(differential_counts, (242, 0, 841));
+    assert_eq!(rust_counts, (797, 0, 286));
+    assert_eq!(differential_counts, (797, 0, 286));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -298,8 +169,48 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (8, 242)
+        (13, 797)
     );
+    let issue66_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            issue66_responsibilities.contains(report.responsibility_id.as_str())
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    let governance_bindings_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            report.responsibility_id == "governance-bindings.registry"
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    let repository_integrity_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            report.responsibility_id == "repository-integrity.profile"
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    let evidence_requirements_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            report.responsibility_id == "evidence-requirements.registry"
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    let exact_evidence_binding_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            report.responsibility_id == "exact-evidence-binding.evaluate"
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    assert_eq!(issue66_rust_matches, 555);
+    assert_eq!(governance_bindings_rust_matches, 109);
+    assert_eq!(repository_integrity_rust_matches, 173);
+    assert_eq!(evidence_requirements_rust_matches, 120);
+    assert_eq!(exact_evidence_binding_rust_matches, 44);
 
     require_matches(
         &reports,
@@ -342,6 +253,23 @@ fn published_corpus_runs_through_reference_candidate() {
     require_matches(
         &reports,
         &[
+            "exact-evidence-binding.evaluate.requirement-duplicate-classes",
+            "exact-evidence-binding.evaluate.empty-context-ignored-when-not-required",
+            "exact-evidence-binding.evaluate.unknown-current-subject-precedes-malformed-candidate",
+            "exact-evidence-binding.evaluate.unknown-current-context-precedes-malformed-candidate",
+        ],
+    );
+    require_matches(
+        &reports,
+        &[
+            "evidence-requirements.registry.foreign-catalog-repository",
+            "governance-bindings.registry.foreign-catalog-repository",
+            "repository-integrity.profile.foreign-catalog-repository",
+        ],
+    );
+    require_matches(
+        &reports,
+        &[
             "repository-governance-model.binding-compatibility.compatible-binding",
             "repository-governance-model.binding-compatibility.missing-required-route",
             "repository-governance-model.binding-compatibility.undeclared-capability",
@@ -369,7 +297,7 @@ fn published_corpus_runs_through_reference_candidate() {
         python_counts.0, python_counts.1
     );
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=21\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=16\nRUST_UNIMPLEMENTED_VECTORS={}",
         metrics["implemented"], metrics["unimplemented"]
     );
     eprintln!(
@@ -381,7 +309,13 @@ fn published_corpus_runs_through_reference_candidate() {
         differential_counts.0, differential_counts.1, differential_counts.2
     );
     eprintln!(
+        "ISSUE66_RUST_MATCH={issue66_rust_matches}\nGOVERNANCE_BINDINGS_RUST_MATCH={governance_bindings_rust_matches}\nREPOSITORY_INTEGRITY_RUST_MATCH={repository_integrity_rust_matches}\nEVIDENCE_REQUIREMENTS_RUST_MATCH={evidence_requirements_rust_matches}\nEXACT_EVIDENCE_BINDING_RUST_MATCH={exact_evidence_binding_rust_matches}"
+    );
+    eprintln!(
         "RETIREMENT_ONLY_EXECUTIONS=0\nRUST_VECTOR_ID_SPECIAL_CASES=0\nYAML_IMPLICIT_TYPING_DEPENDENCY=0"
+    );
+    eprintln!(
+        "NEW_S1_GAP_RUST_MATCH=1/1\nNEW_S3_GAP_RUST_MATCH=1/1\nNEW_S4_GAP_RUST_MATCH=1/1\nNEW_S5_GAP_RUST_MATCH=4/4"
     );
     eprintln!(
         "UNBOUNDED_INTEGER_CASES=3/3\nROUTING_HOSTILE_PATH_CASES=9/9\nRGM_VERSION_CASES=5/5\nRGM_BINDING_COMPATIBILITY_CASES=3/3"
