@@ -1,6 +1,8 @@
 #![forbid(unsafe_code)]
 
 use std::collections::{BTreeMap, BTreeSet};
+use std::fs;
+use std::path::{Path, PathBuf};
 
 use proto_ring_engine::structured_data::StructuredValue;
 
@@ -129,6 +131,43 @@ pub(super) fn record(entries: Vec<(&str, TransportValue)>) -> TransportValue {
 
 pub(super) fn string_value(value: &str) -> TransportValue {
     TransportValue::String(value.to_owned())
+}
+
+pub(super) fn repository_snapshot(
+    root: &Path,
+) -> Result<Vec<(PathBuf, Vec<u8>)>, fixture::FixtureError> {
+    fn visit(
+        root: &Path,
+        current: &Path,
+        output: &mut Vec<(PathBuf, Vec<u8>)>,
+    ) -> Result<(), fixture::FixtureError> {
+        let mut entries = fs::read_dir(current)
+            .map_err(|error| fixture_failure(error.to_string()))?
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(|error| fixture_failure(error.to_string()))?;
+        entries.sort_by_key(std::fs::DirEntry::file_name);
+        for entry in entries {
+            let path = entry.path();
+            if entry
+                .file_type()
+                .map_err(|error| fixture_failure(error.to_string()))?
+                .is_dir()
+            {
+                visit(root, &path, output)?;
+            } else {
+                output.push((
+                    path.strip_prefix(root)
+                        .expect("visited path is contained")
+                        .to_path_buf(),
+                    fs::read(path).map_err(|error| fixture_failure(error.to_string()))?,
+                ));
+            }
+        }
+        Ok(())
+    }
+    let mut output = Vec::new();
+    visit(root, root, &mut output)?;
+    Ok(output)
 }
 
 pub(super) fn fixture_failure(message: impl Into<String>) -> fixture::FixtureError {
