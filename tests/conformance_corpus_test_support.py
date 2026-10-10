@@ -174,14 +174,32 @@ def _validate_schema_job(job_index: int, schema: object, value: object) -> int:
     except ValidationError as error:
         raise _portable_validation_error(error) from None
     return job_index
+def _schema_validation_document_size(value: object) -> int:
+    return len((json.dumps(
+        value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+def _schema_validation_submission_positions(
+    jobs: tuple[SchemaValidationJob, ...],
+) -> tuple[int, ...]:
+    return tuple(sorted(
+        range(len(jobs)),
+        key=lambda position: (
+            -_schema_validation_document_size(jobs[position].value),
+            jobs[position].index,
+            position,
+        ),
+    ))
 def _run_schema_validation_jobs(
     jobs: tuple[SchemaValidationJob, ...], *, logical_cpu_count: int | None = None,
     executor_factory=ProcessPoolExecutor,
 ) -> None:
     workers = schema_validation_worker_count(logical_cpu_count)
     with executor_factory(max_workers=workers) as executor:
-        futures = [executor.submit(
-            _validate_schema_job, job.index, job.schema, job.value) for job in jobs]
+        submission_positions = _schema_validation_submission_positions(jobs)
+        futures = [None] * len(jobs)
+        for position in submission_positions:
+            job = jobs[position]
+            futures[position] = executor.submit(
+                _validate_schema_job, job.index, job.schema, job.value)
         for job, future in zip(jobs, futures):
             returned_index = future.result()
             if returned_index != job.index:
