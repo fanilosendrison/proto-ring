@@ -132,16 +132,29 @@ satisfied for that state.
 
 ## Capture coherence
 
-One returned RepositoryState must describe one coherent observation.
+One returned RepositoryState describes one globally coexisting exact local
+observation under an explicit mutation-isolation interval. Throughout that
+interval, no uncoordinated actor may mutate the contract-relevant Git or
+worktree state covered by the observation.
 
-Capture MUST fail closed when required Git state cannot be established, a
-governed path cannot be read deterministically, an unsupported governed object
-prevents exact observation, or structural/path discovery changes during the
-capture.
+RepositoryState is a portable read-only observer. It neither establishes nor
+proves exclusion from arbitrary uncoordinated writers, and a successful capture
+MUST NOT be treated as disproving arbitrary mutation/restore or ABA scheduling.
+
+The mutation-isolation precondition does not permit weak observation. Capture
+MUST fail closed when required Git state cannot be established, a governed path
+cannot be read deterministically, an unsupported governed object prevents exact
+observation, or contract-relevant structural, path-membership, or content drift
+is observed during capture.
 
 When regular-file bytes or a symbolic-link target are read, concurrent mutation
-that prevents those bytes/that target from belonging to the same observed
-filesystem object state MUST be detected and fail closed.
+that prevents those bytes or that target from belonging to the same observed
+filesystem object state MUST be detected and fail closed. A content-only change
+after an earlier governed-path observation that remains changed through a later
+whole-capture validation MUST prevent successful return of the stale
+observation, even when HEAD, the index, and governed path membership are
+unchanged. Local per-path guards alone are insufficient to establish
+whole-capture coherence.
 
 An implementation may use multiple internal reads or structural checks. This
 contract does not prescribe an exact number of passes or a particular command
@@ -150,7 +163,10 @@ sequence.
 ## Opaque exact identity
 
 A successful observation exposes one opaque exact-state identity together with
-its explicit observation scope.
+its explicit observation scope. Identity equality means that successful
+captures encode equal contract-relevant observed state; it does not establish
+that a mutation-isolation interval existed, that no concurrent writer existed,
+or that arbitrary ABA scheduling was absent.
 
 The identity representation and digest algorithm are implementation-defined
 unless a separate immutable interoperability authority explicitly requires a

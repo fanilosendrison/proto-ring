@@ -114,8 +114,14 @@ Successful construction establishes all of the following:
 - no observation-scope change across authoritative construction.
 
 Repository-state drift or observation-scope drift during construction fails
-closed. Values obtained from an observation that did not survive the coherence
-check must not be returned.
+closed. Initial/final RepositoryState identity equality is mandatory drift
+detection, not proof that mutation isolation existed. Values obtained from an
+observation that did not survive the coherence check must not be returned.
+
+The stable exact-governance-state guarantee inherits RepositoryState's
+mutation-isolation interval across discovery, first capture, authoritative
+composition, and final capture. No uncoordinated external writer may mutate
+contract-relevant state during that interval.
 
 The observation scope covers the root bootstrap carrier and the
 consumer-declared governance targets actually used to construct the state. It

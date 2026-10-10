@@ -344,6 +344,17 @@ A consumer may use, for example:
 - a committed content manifest;
 - another mechanism that establishes the required exact-state binding.
 
+Repository Integrity inherits RepositoryState's mutation-isolation requirement
+with respect to uncoordinated external writers across exact-state observation
+and evaluation. Before/after RepositoryState identity equality is mandatory
+drift detection; it is not proof that mutation isolation existed.
+
+The currently evaluated obligation remains observable as a possible mutator; it
+is not hidden by the external-writer isolation precondition. Its mutation MUST
+continue to be detected through the existing before/after RepositoryState
+comparison and the existing `SATISFIED`, `VIOLATED`, `UNDETERMINED`, `PASS`, and
+`NON_PASS` semantics.
+
 ## Evaluation purity
 
 Repository Integrity is evaluation, not repair.
