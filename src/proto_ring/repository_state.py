@@ -79,8 +79,17 @@ def _frame(digest, data: bytes) -> None:
     digest.update(data)
 
 
-def _stat_guard(st: os.stat_result) -> tuple[int, int, int, int]:
-    return (st.st_mode, st.st_size, st.st_mtime_ns, st.st_ctime_ns)
+def _stat_guard(
+    st: os.stat_result,
+) -> tuple[int, int, int, int, int | None, int | None]:
+    return (
+        st.st_mode,
+        st.st_size,
+        st.st_mtime_ns,
+        st.st_ctime_ns,
+        getattr(st, "st_dev", None),
+        getattr(st, "st_ino", None),
+    )
 
 
 def _internal_git_environment() -> dict[str, str]:
@@ -309,9 +318,13 @@ def capture(repository: Path, scope_paths: tuple[str, ...] = ()) -> RepositorySt
     canonical_scope = tuple(sorted(set(validated_scope)))
     additional_paths = tuple(os.fsencode(path) for path in canonical_scope)
     structural = _capture_structural(root, additional_paths)
-    records = _capture_path_records(
-        root, structural.paths, frozenset(additional_paths)
+    explicit_paths = frozenset(additional_paths)
+    records = _capture_path_records(root, structural.paths, explicit_paths)
+    validation_records = _capture_path_records(
+        root, structural.paths, explicit_paths
     )
+    if validation_records != records:
+        raise StateCaptureError("governed path state changed during state capture")
     final_structural = _capture_structural(root, additional_paths)
     if final_structural != structural:
         raise StateCaptureError("repository structure changed during state capture")
