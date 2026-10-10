@@ -168,7 +168,7 @@ fn issue65_source_has_no_vector_branches_or_identity_transformations() {
     let candidate = [
         "rust_candidate.rs",
         "rust_candidate/authority_objects.rs",
-        "rust_candidate/authority_objects/support.rs",
+        "rust_candidate/support.rs",
         "rust_candidate/foundation.rs",
         "rust_candidate/transport.rs",
     ]
@@ -217,8 +217,7 @@ fn production_routing_and_support_rehydration_remain_separate() {
         fs::read_to_string(repository.join("crates/proto-ring-engine/src/governance_authority.rs"))
             .unwrap();
     let support = fs::read_to_string(
-        repository
-            .join("crates/proto-ring-conformance/src/rust_candidate/authority_objects/support.rs"),
+        repository.join("crates/proto-ring-conformance/src/rust_candidate/support.rs"),
     )
     .unwrap();
     assert!(production.contains("governance_routing::resolve("));
