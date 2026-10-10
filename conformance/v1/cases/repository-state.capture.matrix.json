@@ -10,14 +10,14 @@
       "authorities": [
         {
           "clause": "Exact path identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -30,8 +30,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact path identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -173,14 +173,14 @@
       "authorities": [
         {
           "clause": "Observation scope",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -193,8 +193,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Observation scope",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -335,15 +335,22 @@
     {
       "authorities": [
         {
-          "clause": "Composition boundaries",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -356,10 +363,540 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Composition boundaries",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
           ],
-          "reason": "The adapter performs control and polluted captures against the same repository while an actual ambient GIT_INDEX_FILE redirect is present only for the second; RepositoryState isolates its Git observations, so identities are equal."
+          "reason": "The exact operational input for repository-state.capture.ambient-global-ignore-config yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "ambient",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GIT_CONFIG_GLOBAL",
+                    "value": {
+                      "type": "string",
+                      "value": "${root}/global-config"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_with_ambient"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "--show-toplevel"
+            ],
+            "capture_stdout_as": "root",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "global-ignore",
+            "text": "loose.txt\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "global-config",
+            "text": "[core]\n    excludesFile = ${root}/global-ignore\n"
+          },
+          {
+            "argv": [
+              "add",
+              "global-ignore",
+              "global-config"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "global config fixture"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "loose.txt",
+            "text": "visible\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "user-global Git ignore configuration cannot silently remove a generic governed untracked path"
+      ],
+      "vector_id": "repository-state.capture.ambient-global-ignore-config"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.ambient-namespace-redirect yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "ambient",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GIT_NAMESPACE",
+                    "value": {
+                      "type": "string",
+                      "value": "shadow"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_with_ambient"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "ambient Git namespace redirection cannot alter RepositoryState observation"
+      ],
+      "vector_id": "repository-state.capture.ambient-namespace-redirect"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.ambient-object-database-redirect yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "ambient",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GIT_OBJECT_DIRECTORY",
+                    "value": {
+                      "type": "string",
+                      "value": "${root}/../object-store/objects"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_with_ambient"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "--show-toplevel"
+            ],
+            "capture_stdout_as": "root",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "init",
+              "--bare",
+              "-q",
+              "../object-store"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "ambient object-database redirection cannot replace the explicit repository observation"
+      ],
+      "vector_id": "repository-state.capture.ambient-object-database-redirect"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "Ambient Git index redirection cannot redirect observation away from the explicit repository, and the same exact state therefore retains equal opaque identity."
         },
         "kind": "result",
         "value": {
@@ -488,22 +1025,15 @@
     {
       "authorities": [
         {
-          "clause": "Content-sensitive distinction",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Opaque exact identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
-          "path": "docs/contracts/repository-state.md",
-          "repository": "fanilosendrison/proto-ring",
-          "source_kind": "repository"
-        },
-        {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -516,9 +1046,213 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Content-sensitive distinction",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Opaque exact identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.ambient-worktree-redirect yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "ambient",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "GIT_DIR",
+                    "value": {
+                      "type": "string",
+                      "value": "${root}/../alternate/.git"
+                    }
+                  },
+                  {
+                    "name": "GIT_WORK_TREE",
+                    "value": {
+                      "type": "string",
+                      "value": "${root}/../alternate"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_with_ambient"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "--show-toplevel"
+            ],
+            "capture_stdout_as": "root",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "clone",
+              "-q",
+              ".",
+              "../alternate"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "-C",
+              "../alternate",
+              "commit",
+              "--allow-empty",
+              "-q",
+              "-m",
+              "alternate"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "ambient GIT_DIR/GIT_WORK_TREE cannot redirect observation to another repository/worktree"
+      ],
+      "vector_id": "repository-state.capture.ambient-worktree-redirect"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Content-sensitive distinction",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.bytes-change yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Content-sensitive distinction through its concrete input and exact result. The fixture directly exercises Opaque exact identity through its concrete input and exact result."
         },
@@ -715,14 +1449,14 @@
       "authorities": [
         {
           "clause": "Capture coherence",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -735,8 +1469,186 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Capture coherence",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Capture coherence",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
+          ],
+          "reason": "The exact operational input for repository-state.capture.concurrent-content-only-mutation yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "CONTROLLED_FAILURE"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "base": {
+          "environment": {},
+          "faults": [],
+          "invocation": {
+            "type": "record",
+            "value": [
+              {
+                "name": "operation",
+                "value": {
+                  "type": "string",
+                  "value": "capture_state"
+                }
+              },
+              {
+                "name": "scope_paths",
+                "value": {
+                  "type": "sequence",
+                  "value": [
+                    {
+                      "type": "string",
+                      "value": "tracked.txt"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "kind": "repository_plan",
+          "steps": [
+            {
+              "argv": [
+                "init",
+                "-q",
+                "-b",
+                "main"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.name",
+                "Corpus Author"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.email",
+                "corpus@example.invalid"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "op": "write_utf8",
+              "path": "tracked.txt",
+              "text": "original\n"
+            },
+            {
+              "argv": [
+                "add",
+                "-A"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "commit",
+                "-q",
+                "-m",
+                "baseline"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            }
+          ]
+        },
+        "condition": {
+          "kind": "repository_mutation_during_capture",
+          "mutation": {
+            "action": "write_utf8",
+            "path": "tracked.txt",
+            "text": "changed-during-capture\n"
+          }
+        },
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "tracked.txt"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "procedural_requirement"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "content-only drift after an earlier governed-path observation prevents successful identity even when HEAD, index, and path membership remain unchanged"
+      ],
+      "vector_id": "repository-state.capture.concurrent-content-only-mutation"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Capture coherence",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Capture coherence",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.concurrent-mutation yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Capture coherence through its concrete input and exact result."
         },
@@ -899,8 +1811,15 @@
     {
       "authorities": [
         {
+          "clause": "Capture coherence",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -913,7 +1832,168 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Capture coherence",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
+          ],
+          "reason": "The exact operational input for repository-state.capture.concurrent-path-membership-mutation yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "CONTROLLED_FAILURE"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "base": {
+          "environment": {},
+          "faults": [],
+          "invocation": {
+            "type": "record",
+            "value": [
+              {
+                "name": "operation",
+                "value": {
+                  "type": "string",
+                  "value": "capture_state"
+                }
+              },
+              {
+                "name": "scope_paths",
+                "value": {
+                  "type": "sequence",
+                  "value": []
+                }
+              }
+            ]
+          },
+          "kind": "repository_plan",
+          "steps": [
+            {
+              "argv": [
+                "init",
+                "-q",
+                "-b",
+                "main"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.name",
+                "Corpus Author"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "config",
+                "user.email",
+                "corpus@example.invalid"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "op": "write_utf8",
+              "path": "tracked.txt",
+              "text": "original\n"
+            },
+            {
+              "argv": [
+                "add",
+                "-A"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            },
+            {
+              "argv": [
+                "commit",
+                "-q",
+                "-m",
+                "baseline"
+              ],
+              "capture_stdout_as": null,
+              "environment": {},
+              "op": "git",
+              "stdin_hex": null
+            }
+          ]
+        },
+        "condition": {
+          "kind": "repository_mutation_during_capture",
+          "mutation": {
+            "action": "write_utf8",
+            "path": "appeared-during-capture.txt",
+            "text": "new\n"
+          }
+        },
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "procedural_requirement"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "governed path membership changing during capture prevents successful identity"
+      ],
+      "vector_id": "repository-state.capture.concurrent-path-membership-mutation"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The first capture observes symbolic HEAD and the second observes detached HEAD at the same commit; the required local HEAD dimension makes the states unequal."
         },
@@ -1102,14 +2182,14 @@
       "authorities": [
         {
           "clause": "Exact path identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -1122,8 +2202,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact path identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -1273,15 +2353,15 @@
     {
       "authorities": [
         {
-          "clause": "Composition boundaries",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Content-sensitive distinction",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -1294,10 +2374,227 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Composition boundaries",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction"
           ],
-          "reason": "The explicit directory identity is captured twice while only an ignored descendant changes; explicit directory observation is nonrecursive, so identities remain equal."
+          "reason": "The exact operational input for repository-state.capture.directory-mode-change yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "mkdir",
+            "path": "observed"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "observed"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "mode": "0700",
+            "op": "chmod",
+            "path": "observed"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "observed"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "relevant explicit-directory mode metadata participates in state"
+      ],
+      "vector_id": "repository-state.capture.directory-mode-change"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
+          ],
+          "reason": "The explicit directory identity is captured twice while only an ignored descendant changes; Observation scope and Required local state dimensions require nonrecursive explicit-directory observation."
         },
         "kind": "result",
         "value": {
@@ -1528,14 +2825,14 @@
       "authorities": [
         {
           "clause": "Content-sensitive distinction",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -1548,8 +2845,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Content-sensitive distinction",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The path is already dirty with value one before the first capture and is changed to dirty value two before the second; content-sensitive exact states differ."
         },
@@ -1736,21 +3033,21 @@
       "authorities": [
         {
           "clause": "Exact repository root",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Opaque exact identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -1763,9 +3060,9 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact repository root",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Opaque exact identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -1896,8 +3193,29 @@
     {
       "authorities": [
         {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Content-sensitive distinction",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -1910,7 +3228,466 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction"
+          ],
+          "reason": "The exact operational input for repository-state.capture.final-symlink-outside-observed yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": ".gitignore",
+            "text": "external-link\n"
+          },
+          {
+            "argv": [
+              "add",
+              ".gitignore"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "ignore link"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "symlink",
+            "path": "external-link",
+            "target": "../outside-a",
+            "target_is_directory": false
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "external-link"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "argv": [
+              "clean",
+              "-q",
+              "-f",
+              "-x",
+              "--",
+              "external-link"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "symlink",
+            "path": "external-link",
+            "target": "../outside-b",
+            "target_is_directory": false
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "external-link"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "the final in-repository symlink object is observed exactly without following its outside target"
+      ],
+      "vector_id": "repository-state.capture.final-symlink-outside-observed"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.git-internal-unrelated-change yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": ".git/proto-ring-unrelated-probe",
+            "text": "changed\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "unrelated .git implementation-directory bytes are not recursively hashed as worktree content"
+      ],
+      "vector_id": "repository-state.capture.git-internal-unrelated-change"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "Two actual captures remain on the same symbolic branch while an empty commit changes the HEAD object identity; exact RepositoryState identities must differ."
         },
@@ -2100,7 +3877,7 @@
       "authorities": [
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -2113,7 +3890,7 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.index yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Required local state dimensions through its concrete input and exact result."
         },
@@ -2304,15 +4081,1367 @@
     {
       "authorities": [
         {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.index-mode-only yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "argv": [
+              "update-index",
+              "--chmod=+x",
+              "tracked.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "index mode participates independently from worktree mode"
+      ],
+      "vector_id": "repository-state.capture.index-mode-only"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.index-object-only yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "staged\n"
+          },
+          {
+            "argv": [
+              "add",
+              "tracked.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "index object identity participates independently from current worktree bytes"
+      ],
+      "vector_id": "repository-state.capture.index-object-only"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.index-path-binding yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "a.txt",
+            "text": "A"
+          },
+          {
+            "op": "write_utf8",
+            "path": "b.txt",
+            "text": "B"
+          },
+          {
+            "argv": [
+              "add",
+              "a.txt",
+              "b.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              ":a.txt"
+            ],
+            "capture_stdout_as": "a_oid",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              ":b.txt"
+            ],
+            "capture_stdout_as": "b_oid",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "argv": [
+              "update-index",
+              "--cacheinfo",
+              "100644",
+              "${b_oid}",
+              "a.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "update-index",
+              "--cacheinfo",
+              "100644",
+              "${a_oid}",
+              "b.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Git index object identity remains bound to its exact index path identity"
+      ],
+      "vector_id": "repository-state.capture.index-path-binding"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.index-stage-nonzero yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "base"
+          },
+          {
+            "argv": [
+              "add",
+              "tracked.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "base"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "base",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "checkout",
+              "-q",
+              "-b",
+              "theirs"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "theirs"
+          },
+          {
+            "argv": [
+              "add",
+              "tracked.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "theirs"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "theirs",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "checkout",
+              "-q",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "ours"
+          },
+          {
+            "argv": [
+              "add",
+              "tracked.txt"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "ours"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "HEAD"
+            ],
+            "capture_stdout_as": "ours",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "argv": [
+              "read-tree",
+              "-m",
+              "${base}",
+              "${ours}",
+              "${theirs}"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "non-stage-zero Git index stage identity participates in RepositoryState"
+      ],
+      "vector_id": "repository-state.capture.index-stage-nonzero"
+    },
+    {
+      "authorities": [
+        {
           "clause": "Observation scope",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
+          ],
+          "reason": "The exact operational input for repository-state.capture.info-exclude-untracked-still-governed yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": ".git/info/exclude",
+            "text": "loose.txt\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": "loose.txt",
+            "text": "governed\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        ".git/info/exclude cannot silently remove a generic governed untracked path"
+      ],
+      "vector_id": "repository-state.capture.info-exclude-untracked-still-governed"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.intermediate-symlink-escape-rejected yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-state.capture.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "escape/outside.txt"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "symlink",
+            "path": "escape",
+            "target": "..",
+            "target_is_directory": true
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an intermediate parent symlink that escapes the exact worktree root makes the explicit scope inadmissible"
+      ],
+      "vector_id": "repository-state.capture.intermediate-symlink-escape-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -2325,8 +5454,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Observation scope",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.invalid-scope yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Observation scope through its concrete input and exact result."
         },
@@ -2523,14 +5652,14 @@
       "authorities": [
         {
           "clause": "Content-sensitive distinction",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -2543,8 +5672,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Content-sensitive distinction",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.mode-change yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Content-sensitive distinction through its concrete input and exact result."
         },
@@ -2740,15 +5869,15 @@
     {
       "authorities": [
         {
-          "clause": "Composition boundaries",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -2761,10 +5890,10 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Composition boundaries",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
-          "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
+          "reason": "The nested repository path is observed under the outer repository Observation scope and Required local state dimensions without recursive Git substitution."
         },
         "kind": "result",
         "value": {
@@ -2923,15 +6052,8 @@
     {
       "authorities": [
         {
-          "clause": "Read-only boundary",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
-          "path": "docs/contracts/repository-state.md",
-          "repository": "fanilosendrison/proto-ring",
-          "source_kind": "repository"
-        },
-        {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -2944,8 +6066,737 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Read-only boundary",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root"
+          ],
+          "reason": "The exact operational input for repository-state.capture.non-git-root yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-state.capture.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "ordinary\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an existing plain non-Git directory is rejected as a RepositoryState root"
+      ],
+      "vector_id": "repository-state.capture.non-git-root"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope"
+          ],
+          "reason": "The exact operational input for repository-state.capture.path-case-distinct yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "upper"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "lower"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "Case"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "upper",
+            "op": "invoke"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "case"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "lower",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "RepositoryState does not create path equivalence by case folding"
+      ],
+      "vector_id": "repository-state.capture.path-case-distinct"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope"
+          ],
+          "reason": "The exact operational input for repository-state.capture.path-unicode-normalization-distinct yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "nfc"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "nfd"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "é"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "nfc",
+            "op": "invoke"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "é"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "nfd",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "RepositoryState does not create path equivalence by Unicode normalization"
+      ],
+      "vector_id": "repository-state.capture.path-unicode-normalization-distinct"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope"
+          ],
+          "reason": "The exact operational input for repository-state.capture.path-whitespace-distinct yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "plain"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "leading"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "name"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "plain",
+            "op": "invoke"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": " name"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "leading",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "path identity is not created by trimming"
+      ],
+      "vector_id": "repository-state.capture.path-whitespace-distinct"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Read-only boundary",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Read-only boundary",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "Status, HEAD, staged index, local config and exact participating bytes are observed before and after actual capture; every corresponding dimension remains byte-identical."
         },
@@ -3122,14 +6973,14 @@
       "authorities": [
         {
           "clause": "Exact path identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3142,8 +6993,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact path identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -3285,14 +7136,14 @@
       "authorities": [
         {
           "clause": "Observation scope",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3305,8 +7156,391 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Observation scope",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.repository-ignore-untracked-excluded yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": ".gitignore",
+            "text": "ignored.txt\n"
+          },
+          {
+            "argv": [
+              "add",
+              ".gitignore"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "ignore untracked"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": "ignored.txt",
+            "text": "ignored\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "repository-owned tracked .gitignore policy may exclude an untracked environment artifact"
+      ],
+      "vector_id": "repository-state.capture.repository-ignore-untracked-excluded"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.scope-absolute-rejected yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-state.capture.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "${root}/tracked.txt"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "rev-parse",
+              "--show-toplevel"
+            ],
+            "capture_stdout_as": "root",
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an absolute explicit scope spelling is rejected rather than normalized"
+      ],
+      "vector_id": "repository-state.capture.scope-absolute-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -3460,14 +7694,14 @@
       "authorities": [
         {
           "clause": "Observation scope",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3480,8 +7714,151 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Observation scope",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.scope-dot-segment-rejected yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-state.capture.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "./tracked.txt"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a dot-segment explicit scope spelling is rejected rather than normalized"
+      ],
+      "vector_id": "repository-state.capture.scope-dot-segment-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -3634,15 +8011,15 @@
     {
       "authorities": [
         {
-          "clause": "Exact repository root",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
-          "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Opaque exact identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3655,8 +8032,379 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact repository root",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Opaque exact identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.scope-order-duplicate-identity yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "first"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "second"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "tracked.txt"
+                      },
+                      {
+                        "type": "string",
+                        "value": "missing.txt"
+                      },
+                      {
+                        "type": "string",
+                        "value": "tracked.txt"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "first",
+            "op": "invoke"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": [
+                      {
+                        "type": "string",
+                        "value": "missing.txt"
+                      },
+                      {
+                        "type": "string",
+                        "value": "tracked.txt"
+                      },
+                      {
+                        "type": "string",
+                        "value": "missing.txt"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "invocation_id": "second",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "scope order and duplicate spelling have no semantic identity effect when the effective observed path set is identical"
+      ],
+      "vector_id": "repository-state.capture.scope-order-duplicate-identity"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact path identity",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity"
+          ],
+          "reason": "The exact operational input for repository-state.capture.scope-parent-segment-rejected yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "repository-state.capture.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "dir/../tracked.txt"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "mkdir",
+            "path": "dir"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a parent-traversal spelling is rejected even when normalization would end inside the repository"
+      ],
+      "vector_id": "repository-state.capture.scope-parent-segment-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact repository root",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact repository root",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.subdirectory-root yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Exact repository root through its concrete input and exact result."
         },
@@ -3776,15 +8524,15 @@
     {
       "authorities": [
         {
-          "clause": "Composition boundaries",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "clause": "Capture coherence",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3797,10 +8545,10 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Composition boundaries",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Capture coherence",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
-          "reason": "The plan creates a real Git submodule/gitlink. Implicit discovered capture encounters the unsupported submodule filesystem object and fails in a controlled category."
+          "reason": "A real Git submodule/gitlink is an unsupported governed filesystem object for implicit capture, so Required local state dimensions and Capture coherence require controlled fail-closed observation."
         },
         "kind": "result",
         "value": {
@@ -3954,7 +8702,7 @@
       "authorities": [
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -3967,7 +8715,7 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "Two captures retain the same commit while git branch -m changes symbolic HEAD identity from main to renamed, so exact states differ."
         },
@@ -4155,14 +8903,14 @@
       "authorities": [
         {
           "clause": "Exact path identity",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -4175,8 +8923,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Exact path identity",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Exact path identity",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The cited contract requires this successful RepositoryState capture to expose an opaque exact-state identity together with the vector-specific contract observations; identity representation is not constrained."
         },
@@ -4338,14 +9086,14 @@
       "authorities": [
         {
           "clause": "Content-sensitive distinction",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
         },
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -4358,8 +9106,8 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Content-sensitive distinction",
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.symlink-target-change yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Content-sensitive distinction through its concrete input and exact result."
         },
@@ -4581,7 +9329,7 @@
       "authorities": [
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -4594,7 +9342,7 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.tracked yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Required local state dimensions through its concrete input and exact result."
         },
@@ -4775,8 +9523,22 @@
     {
       "authorities": [
         {
+          "clause": "Observation scope",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Content-sensitive distinction",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -4789,7 +9551,231 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Observation scope",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction"
+          ],
+          "reason": "The exact operational input for repository-state.capture.tracked-repository-ignore yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": ".gitignore",
+            "text": "tracked.txt\n"
+          },
+          {
+            "argv": [
+              "add",
+              ".gitignore"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "ignore tracked"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "changed\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a tracked path remains governed even when repository-owned .gitignore matches it"
+      ],
+      "vector_id": "repository-state.capture.tracked-repository-ignore"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The named captures compare an unborn symbolic branch with the first committed HEAD state, so their exact HEAD dimensions differ."
         },
@@ -4966,7 +9952,7 @@
       "authorities": [
         {
           "clause": "Required local state dimensions",
-          "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
           "path": "docs/contracts/repository-state.md",
           "repository": "fanilosendrison/proto-ring",
           "source_kind": "repository"
@@ -4979,7 +9965,7 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
-            "repo:fanilosendrison/proto-ring@5ba3ef457786b09fd51430418b3b62ed4dc991b9:docs/contracts/repository-state.md#Required local state dimensions"
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions"
           ],
           "reason": "The exact operational input for repository-state.capture.untracked yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Required local state dimensions through its concrete input and exact result."
         },
@@ -5156,6 +10142,214 @@
         "repository-nonignored untracked paths participate"
       ],
       "vector_id": "repository-state.capture.untracked"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Required local state dimensions",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Content-sensitive distinction",
+          "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
+          "path": "docs/contracts/repository-state.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Required local state dimensions",
+            "repo:fanilosendrison/proto-ring@1f103322d6816effcc102e35cbdd1e14bd33ba84:docs/contracts/repository-state.md#Content-sensitive distinction"
+          ],
+          "reason": "The exact operational input for repository-state.capture.untracked-content-mutation yields the encoded observation under the cited Canonical RepositoryState clauses; Python execution is comparison evidence only."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "left",
+              "value": {
+                "type": "string",
+                "value": "before"
+              }
+            },
+            {
+              "name": "relation",
+              "value": {
+                "type": "string",
+                "value": "NOT_EQUAL"
+              }
+            },
+            {
+              "name": "right",
+              "value": {
+                "type": "string",
+                "value": "after"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "capture_state"
+              }
+            },
+            {
+              "name": "scope_paths",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "tracked.txt",
+            "text": "original\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "baseline"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "loose.txt",
+            "text": "one\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "before",
+            "op": "invoke"
+          },
+          {
+            "op": "write_utf8",
+            "path": "loose.txt",
+            "text": "two\n"
+          },
+          {
+            "arguments": {
+              "type": "record",
+              "value": [
+                {
+                  "name": "operation",
+                  "value": {
+                    "type": "string",
+                    "value": "capture_state"
+                  }
+                },
+                {
+                  "name": "scope_paths",
+                  "value": {
+                    "type": "sequence",
+                    "value": []
+                  }
+                }
+              ]
+            },
+            "invocation_id": "after",
+            "op": "invoke"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "mutation of an already-untracked governed path changes exact state"
+      ],
+      "vector_id": "repository-state.capture.untracked-content-mutation"
     }
   ]
 }

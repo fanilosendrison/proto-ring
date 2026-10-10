@@ -7,7 +7,7 @@
   "authorities": [
     {
       "clause": "Capture coherence",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -15,7 +15,7 @@
     },
     {
       "clause": "Composition boundaries",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -23,7 +23,7 @@
     },
     {
       "clause": "Content-sensitive distinction",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -31,7 +31,7 @@
     },
     {
       "clause": "Exact path identity",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -39,7 +39,7 @@
     },
     {
       "clause": "Exact repository root",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -47,7 +47,7 @@
     },
     {
       "clause": "Observation scope",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -55,7 +55,7 @@
     },
     {
       "clause": "Opaque exact identity",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -63,7 +63,7 @@
     },
     {
       "clause": "Read-only boundary",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -71,7 +71,7 @@
     },
     {
       "clause": "Required local state dimensions",
-      "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+      "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
       "path": "docs/contracts/repository-state.md",
       "repository": "fanilosendrison/proto-ring",
       "role": "normative",
@@ -122,10 +122,49 @@
     "a submodule Git index/path identity participates without recursive ambient substitution",
     "mutation of already-dirty or already-untracked content changes state",
     "capture does not mutate repository or Git state",
-    "concurrent structural or content mutation prevents successful identity"
+    "concurrent structural or content mutation prevents successful identity",
+    "plain non-Git directory is rejected as root",
+    "ambient worktree/repository redirection cannot redirect observation",
+    "ambient index redirection cannot redirect observation",
+    "ambient object-database redirection cannot redirect observation",
+    "ambient namespace redirection cannot redirect observation",
+    "tracked paths remain governed when repository ignore matches",
+    "repository-owned .gitignore may exclude untracked paths",
+    ".git/info/exclude cannot remove generic governed untracked paths",
+    "user-global ignore configuration cannot remove generic governed untracked paths",
+    "absolute explicit scope is rejected",
+    "dot-segment explicit scope is rejected",
+    "parent-traversal explicit scope is rejected even when its normalized target is inside",
+    "final in-repository symlink object remains observable without following an outside target",
+    "intermediate-parent symlink escape is rejected",
+    "path identity is not created through trimming",
+    "path identity is not created through case folding",
+    "path identity is not created through Unicode normalization",
+    "index object identity participates",
+    "index mode participates",
+    "non-stage-zero index stage participates",
+    "index object-to-path association participates",
+    "unrelated .git implementation bytes do not participate",
+    "explicit directory relevant mode participates",
+    "already-untracked content mutation changes state",
+    "same exact state/effective observed path set yields equal opaque identity",
+    "scope order/duplicate metadata does not alter identity when effective scope is equal",
+    "content-only concurrent drift fails closed",
+    "path-membership concurrent drift fails closed"
   ],
   "responsibility_id": "repository-state.capture",
   "rust_owner_issue": 67,
   "schema_version": "1.0",
+  "source_test_accounting": [
+    {
+      "disposition": "bootstrap_evidence_only",
+      "methods": [
+        "test_content_change_after_first_path_observation_fails_closed",
+        "test_cross_path_nonexistent_combination_fails_closed"
+      ],
+      "path": "tests/test_repository_state.py",
+      "reason": "These are Python implementation evidence for the #83 torn-read/drift failure and its whole-capture correction. They are not normative authority, do not prescribe Rust implementation structure, do not prove arbitrary ABA exclusion, and do not establish that a coherence basis existed. The language-neutral corpus separately requires observable drift to fail closed."
+    }
+  ],
   "title": "Canonical RepositoryState capture"
 }

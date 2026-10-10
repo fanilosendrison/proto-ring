@@ -1,7 +1,7 @@
 {
   "contract": {
     "clause": "Purpose",
-    "commit": "5ba3ef457786b09fd51430418b3b62ed4dc991b9",
+    "commit": "1f103322d6816effcc102e35cbdd1e14bd33ba84",
     "path": "docs/contracts/repository-state.md",
     "repository": "fanilosendrison/proto-ring",
     "source_kind": "repository"
@@ -17,7 +17,7 @@
       "vector_refs": []
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Exact repository root and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Each referenced concrete fixture operationally exercises Exact repository root and binds its expected derivation to the exact #111 authority clause.",
       "disposition": "covered",
       "heading_path": "Exact repository root",
       "level": 2,
@@ -27,11 +27,17 @@
       ],
       "vector_refs": [
         "repository-state.capture.exact-root",
-        "repository-state.capture.subdirectory-root"
+        "repository-state.capture.non-git-root",
+        "repository-state.capture.subdirectory-root",
+        "repository-state.capture.ambient-redirect",
+        "repository-state.capture.ambient-worktree-redirect",
+        "repository-state.capture.ambient-object-database-redirect",
+        "repository-state.capture.ambient-namespace-redirect",
+        "repository-state.capture.ambient-global-ignore-config"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Observation scope and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Each referenced concrete fixture operationally exercises Observation scope and binds its expected derivation to the exact #111 authority clause.",
       "disposition": "covered",
       "heading_path": "Observation scope",
       "level": 2,
@@ -43,15 +49,27 @@
         "repository-state.capture.scope-canonical",
         "repository-state.capture.scope-order-duplicate",
         "repository-state.capture.invalid-scope",
-        "repository-state.capture.absent-explicit"
+        "repository-state.capture.absent-explicit",
+        "repository-state.capture.tracked-repository-ignore",
+        "repository-state.capture.repository-ignore-untracked-excluded",
+        "repository-state.capture.info-exclude-untracked-still-governed",
+        "repository-state.capture.ambient-global-ignore-config",
+        "repository-state.capture.scope-absolute-rejected",
+        "repository-state.capture.scope-dot-segment-rejected",
+        "repository-state.capture.scope-parent-segment-rejected",
+        "repository-state.capture.final-symlink-outside-observed",
+        "repository-state.capture.intermediate-symlink-escape-rejected",
+        "repository-state.capture.scope-order-duplicate-identity",
+        "repository-state.capture.directory-nonrecursive",
+        "repository-state.capture.nested-repository"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Exact path identity and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Finite representative fixtures are combined with the mandatory #67 source audit for open-domain path-equivalence prohibitions.",
       "disposition": "covered",
       "heading_path": "Exact path identity",
       "level": 2,
-      "reason": null,
+      "reason": "The finite whitespace, case, and Unicode witnesses falsify common shortcuts without claiming exhaustive enumeration of every host path identity.",
       "responsibility_ids": [
         "repository-state.capture"
       ],
@@ -59,11 +77,19 @@
         "repository-state.capture.regular-file",
         "repository-state.capture.symlink",
         "repository-state.capture.directory",
-        "repository-state.capture.absent"
+        "repository-state.capture.absent",
+        "repository-state.capture.scope-absolute-rejected",
+        "repository-state.capture.scope-dot-segment-rejected",
+        "repository-state.capture.scope-parent-segment-rejected",
+        "repository-state.capture.final-symlink-outside-observed",
+        "repository-state.capture.intermediate-symlink-escape-rejected",
+        "repository-state.capture.path-whitespace-distinct",
+        "repository-state.capture.path-case-distinct",
+        "repository-state.capture.path-unicode-normalization-distinct"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Required local state dimensions and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Each referenced concrete fixture operationally exercises Required local state dimensions and binds its expected derivation to the exact #111 authority clause.",
       "disposition": "covered",
       "heading_path": "Required local state dimensions",
       "level": 2,
@@ -78,11 +104,20 @@
         "repository-state.capture.head-object",
         "repository-state.capture.index",
         "repository-state.capture.tracked",
-        "repository-state.capture.untracked"
+        "repository-state.capture.untracked",
+        "repository-state.capture.index-object-only",
+        "repository-state.capture.index-mode-only",
+        "repository-state.capture.index-stage-nonzero",
+        "repository-state.capture.index-path-binding",
+        "repository-state.capture.git-internal-unrelated-change",
+        "repository-state.capture.directory-mode-change",
+        "repository-state.capture.untracked-content-mutation",
+        "repository-state.capture.concurrent-content-only-mutation",
+        "repository-state.capture.concurrent-path-membership-mutation"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Content-sensitive distinction and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Each referenced concrete fixture operationally exercises Content-sensitive distinction and binds its expected derivation to the exact #111 authority clause.",
       "disposition": "covered",
       "heading_path": "Content-sensitive distinction",
       "level": 2,
@@ -94,38 +129,49 @@
         "repository-state.capture.bytes-change",
         "repository-state.capture.mode-change",
         "repository-state.capture.symlink-target-change",
-        "repository-state.capture.dirty-mutation"
+        "repository-state.capture.dirty-mutation",
+        "repository-state.capture.tracked-repository-ignore",
+        "repository-state.capture.final-symlink-outside-observed",
+        "repository-state.capture.directory-mode-change",
+        "repository-state.capture.untracked-content-mutation"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Capture coherence and its expected derivation binds this exact clause.",
+      "coverage_assertion": "These fixtures establish required fail-closed behavior for observable structural, content, path-state, and unsupported-object instability.",
       "disposition": "covered",
       "heading_path": "Capture coherence",
       "level": 2,
-      "reason": null,
+      "reason": "They do not prove that a coherence basis existed and do not prove absence of arbitrary ABA scheduling. Global coherent-cut reliance is conditional on a separately established coherence basis under the #111 authority. Mutation isolation is one sufficient realization of a coherence basis, not the normative mechanism.",
       "responsibility_ids": [
         "repository-state.capture"
       ],
       "vector_refs": [
-        "repository-state.capture.concurrent-mutation"
+        "repository-state.capture.concurrent-mutation",
+        "repository-state.capture.concurrent-content-only-mutation",
+        "repository-state.capture.concurrent-path-membership-mutation",
+        "repository-state.capture.submodule"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Opaque exact identity and its expected derivation binds this exact clause.",
+      "coverage_assertion": "The references distinguish equal identity for the same exact governed state and effective observed path set, unequal identity for contract-relevant differences, and no successful identity when capture fails.",
       "disposition": "covered",
       "heading_path": "Opaque exact identity",
       "level": 2,
-      "reason": null,
+      "reason": "Identity equality does not prove that a coherence basis existed and does not prove absence of arbitrary ABA scheduling. The identity representation remains opaque and implementation-defined.",
       "responsibility_ids": [
         "repository-state.capture"
       ],
       "vector_refs": [
         "repository-state.capture.exact-root",
-        "repository-state.capture.bytes-change"
+        "repository-state.capture.bytes-change",
+        "repository-state.capture.scope-order-duplicate-identity",
+        "repository-state.capture.path-whitespace-distinct",
+        "repository-state.capture.path-case-distinct",
+        "repository-state.capture.path-unicode-normalization-distinct"
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Read-only boundary and its expected derivation binds this exact clause.",
+      "coverage_assertion": "Each referenced concrete fixture operationally exercises Read-only boundary and binds its expected derivation to the exact #111 authority clause.",
       "disposition": "covered",
       "heading_path": "Read-only boundary",
       "level": 2,
@@ -138,20 +184,13 @@
       ]
     },
     {
-      "coverage_assertion": "Each referenced concrete fixture exercises Composition boundaries and its expected derivation binds this exact clause.",
-      "disposition": "covered",
+      "coverage_assertion": null,
+      "disposition": "context",
       "heading_path": "Composition boundaries",
       "level": 2,
-      "reason": null,
-      "responsibility_ids": [
-        "repository-state.capture"
-      ],
-      "vector_refs": [
-        "repository-state.capture.ambient-redirect",
-        "repository-state.capture.nested-repository",
-        "repository-state.capture.submodule",
-        "repository-state.capture.directory-nonrecursive"
-      ]
+      "reason": "This heading assigns ownership between RepositoryState, Repository Integrity, and RepositoryGovernanceState and prohibits competing exact-state primitives. It does not define an additional independently executable repository-state.capture observation. Consumer composition evidence belongs to the corresponding consumer responsibilities and must not be fabricated from unrelated RepositoryState vectors.",
+      "responsibility_ids": [],
+      "vector_refs": []
     }
   ],
   "schema_version": "1.0"
