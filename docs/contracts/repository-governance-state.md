@@ -102,8 +102,9 @@ coherence of that scope across composition; it does not define a competing
 RepositoryState identity algorithm.
 
 A `RepositoryGovernanceState` MUST NOT be returned unless every contained
-governance value belongs to one stable exact repository observation and one
-stable observation scope.
+governance value was composed between mandatory initial and final
+RepositoryState captures for one explicit observation scope and those captures
+compare equal.
 
 Successful construction establishes all of the following:
 
@@ -114,14 +115,26 @@ Successful construction establishes all of the following:
 - no observation-scope change across authoritative construction.
 
 Repository-state drift or observation-scope drift during construction fails
-closed. Initial/final RepositoryState identity equality is mandatory drift
-detection, not proof that mutation isolation existed. Values obtained from an
-observation that did not survive the coherence check must not be returned.
+closed. Construction preserves this observation sequence:
 
-The stable exact-governance-state guarantee inherits RepositoryState's
-mutation-isolation interval across discovery, first capture, authoritative
-composition, and final capture. No uncoordinated external writer may mutate
-contract-relevant state during that interval.
+```text
+initial RepositoryState
+→ authoritative composition
+→ final RepositoryState
+→ state/scope drift comparison
+```
+
+Initial/final RepositoryState identity equality is mandatory drift detection,
+not proof that a coherence basis existed. Values obtained from an observation
+that did not survive the coherence check must not be returned.
+
+A RepositoryGovernanceState may be relied upon as one coherent exact governance
+state only when a coherence basis covers the authoritative construction
+boundary sufficiently to prevent the composed values from being bound to an
+ambiguous or torn repository version. The basis may be isolation, a snapshot or
+version substrate, an immutable execution workspace, or an equivalent
+mechanism. These examples are non-exclusive; this contract does not require a
+specific realization.
 
 The observation scope covers the root bootstrap carrier and the
 consumer-declared governance targets actually used to construct the state. It

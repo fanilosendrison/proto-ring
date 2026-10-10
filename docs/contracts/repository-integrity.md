@@ -344,16 +344,20 @@ A consumer may use, for example:
 - a committed content manifest;
 - another mechanism that establishes the required exact-state binding.
 
-Repository Integrity inherits RepositoryState's mutation-isolation requirement
-with respect to uncoordinated external writers across exact-state observation
-and evaluation. Before/after RepositoryState identity equality is mandatory
-drift detection; it is not proof that mutation isolation existed.
+The relation between an integrity verdict and the exact repository state or
+states to which that verdict applies MUST NOT be ambiguous because of
+unaccounted contract-relevant mutation. Repository Integrity therefore requires
+a coherence basis sufficient for the claims made by the evaluation. The
+contract does not require total repository immobility. An execution substrate
+may establish the required coherence through isolation, versioning, snapshots,
+or another mechanism that prevents state/verdict ambiguity.
 
-The currently evaluated obligation remains observable as a possible mutator; it
-is not hidden by the external-writer isolation precondition. Its mutation MUST
-continue to be detected through the existing before/after RepositoryState
-comparison and the existing `SATISFIED`, `VIOLATED`, `UNDETERMINED`, `PASS`, and
-`NON_PASS` semantics.
+Before/after RepositoryState identity equality remains mandatory drift
+detection; it is not proof that a coherence basis existed. The currently
+evaluated obligation remains observable as a possible mutator. Its state change
+MUST continue to participate in the existing before/after RepositoryState
+comparison, state relation, and `SATISFIED`, `VIOLATED`, `UNDETERMINED`, `PASS`,
+and `NON_PASS` semantics.
 
 ## Evaluation purity
 

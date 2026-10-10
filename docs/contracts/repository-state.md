@@ -132,20 +132,35 @@ satisfied for that state.
 
 ## Capture coherence
 
-One returned RepositoryState describes one globally coexisting exact local
-observation under an explicit mutation-isolation interval. Throughout that
-interval, no uncoordinated actor may mutate the contract-relevant Git or
-worktree state covered by the observation.
+A coherence basis is a mechanism, internal to capture or supplied by its
+execution environment, sufficient to establish that the contract-relevant
+dimensions relied upon as one coherent RepositoryState belong to one coherent
+repository version or cut. It is a conceptual prerequisite for that reliance,
+not a new serialized RepositoryState field or API primitive.
 
-RepositoryState is a portable read-only observer. It neither establishes nor
-proves exclusion from arbitrary uncoordinated writers, and a successful capture
-MUST NOT be treated as disproving arbitrary mutation/restore or ABA scheduling.
+A successful ordinary capture guarantees that its required observations
+succeeded, the implementation performed its required drift and torn-read
+checks, any contract-relevant drift it actually observed caused capture to fail
+closed, and one opaque exact-state identity was produced for the observed
+state. Successful ordinary capture alone MUST NOT be represented as proof that
+no concurrent writer existed, no ABA mutation occurred, or a globally coherent
+cut was established.
 
-The mutation-isolation precondition does not permit weak observation. Capture
-MUST fail closed when required Git state cannot be established, a governed path
-cannot be read deterministically, an unsupported governed object prevents exact
-observation, or contract-relevant structural, path-membership, or content drift
-is observed during capture.
+A caller may rely on a returned RepositoryState as one globally coherent
+repository observation only when a coherence basis has been established. The
+observation mechanism itself or its surrounding execution environment may
+establish that basis. Admissible realizations include mutation isolation, an
+atomic filesystem or repository snapshot, a copy-on-write snapshot, an
+immutable workspace generation, a transaction or version primitive, or another
+equivalent mechanism that establishes one coherent version or cut. These
+examples are non-exclusive and non-normative; this contract does not require a
+specific realization.
+
+A coherence basis does not permit weak observation. Capture MUST fail closed
+when required Git state cannot be established, a governed path cannot be read
+deterministically, an unsupported governed object prevents exact observation,
+or contract-relevant structural, path-membership, or content drift is observed
+during capture.
 
 When regular-file bytes or a symbolic-link target are read, concurrent mutation
 that prevents those bytes or that target from belonging to the same observed
@@ -156,6 +171,10 @@ observation, even when HEAD, the index, and governed path membership are
 unchanged. Local per-path guards alone are insufficient to establish
 whole-capture coherence.
 
+RepositoryState is a portable read-only observer. Identity equality does not
+prove that a coherence basis existed, that no concurrent writer existed, or
+that arbitrary mutation/restore or ABA scheduling was absent.
+
 An implementation may use multiple internal reads or structural checks. This
 contract does not prescribe an exact number of passes or a particular command
 sequence.
@@ -165,8 +184,8 @@ sequence.
 A successful observation exposes one opaque exact-state identity together with
 its explicit observation scope. Identity equality means that successful
 captures encode equal contract-relevant observed state; it does not establish
-that a mutation-isolation interval existed, that no concurrent writer existed,
-or that arbitrary ABA scheduling was absent.
+that a coherence basis existed, that no concurrent writer existed, or that
+arbitrary ABA scheduling was absent.
 
 The identity representation and digest algorithm are implementation-defined
 unless a separate immutable interoperability authority explicitly requires a
