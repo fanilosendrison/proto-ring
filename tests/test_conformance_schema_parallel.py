@@ -3,9 +3,14 @@ import pickle
 import unittest
 from unittest import mock
 
-from jsonschema import ValidationError
+from jsonschema import Draft202012Validator, ValidationError
 
 import conformance_corpus_test_support as support
+from conformance_schema_test_support import (
+    discriminated_branches as _discriminated_branches,
+    first_validation_error as _first_validation_error,
+    normalize_validation_error as _normalize_validation_error,
+)
 
 
 class _Future:
@@ -129,8 +134,12 @@ class ConformanceSchemaParallelTest(unittest.TestCase):
                     self.assertEqual(support.schema_validation_worker_count(), expected)
 
     def test_valid_document_passes_through_real_process_pool(self):
+        schema = {
+            "$schema": support._DRAFT_2020_12_SCHEMA_URI,
+            "oneOf": _discriminated_branches(),
+        }
         job = support.SchemaValidationJob(
-            0, "index", {"type": "object", "required": ["value"]}, {"value": 1}
+            0, "index", schema, {"kind": "B", "b": 2}
         )
         self.assertIsNone(
             support._run_schema_validation_jobs((job,), logical_cpu_count=1)
@@ -163,6 +172,26 @@ class ConformanceSchemaParallelTest(unittest.TestCase):
             all(isinstance(child, ValidationError) for child in nested_error.context)
         )
         pickle.dumps(nested_error)
+
+        discriminated_schema = {
+            "$schema": support._DRAFT_2020_12_SCHEMA_URI,
+            "oneOf": _discriminated_branches(),
+        }
+        discriminated_job = support.SchemaValidationJob(
+            0, "index", discriminated_schema, {"kind": "B"}
+        )
+        expected_error = _first_validation_error(
+            Draft202012Validator, discriminated_schema, {"kind": "B"}
+        )
+        with self.assertRaises(ValidationError) as discriminated_raised:
+            support._run_schema_validation_jobs(
+                (discriminated_job,), logical_cpu_count=1
+            )
+        self.assertEqual(
+            _normalize_validation_error(discriminated_raised.exception),
+            _normalize_validation_error(expected_error),
+        )
+        pickle.dumps(discriminated_raised.exception)
 
     def test_document_size_metric_matches_profile_encoding(self):
         value = {
