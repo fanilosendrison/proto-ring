@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
-
+use crate::model::{RecordEntry, TransportValue};
+use serde_json::Value;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fmt::{Display, Formatter};
@@ -7,11 +8,7 @@ use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
-
-use serde_json::Value;
 use tempfile::TempDir;
-
-use crate::model::{RecordEntry, TransportValue};
 
 #[derive(Debug)]
 pub struct FixtureError(String);
@@ -29,12 +26,10 @@ impl Display for FixtureError {
 }
 
 impl Error for FixtureError {}
-
 pub struct MaterializedFixture {
     temporary: Option<TempDir>,
     arguments: TransportValue,
 }
-
 impl MaterializedFixture {
     pub fn root(&self) -> Option<&Path> {
         self.temporary.as_ref().map(|temporary| temporary.path())
@@ -111,7 +106,7 @@ pub fn record(value: &TransportValue) -> Result<&[RecordEntry], FixtureError> {
     }
 }
 
-fn apply_step(
+pub(crate) fn apply_step(
     root: &Path,
     step: &Value,
     captures: &mut HashMap<String, String>,
@@ -147,6 +142,26 @@ fn apply_step(
             }
             create_symlink(target, &path, target_is_directory)
         }
+        "remove" => {
+            let path = checked_path(root, string_field(object, "path")?)?;
+            match fs::symlink_metadata(&path) {
+                Ok(metadata) if metadata.file_type().is_dir() => fs::remove_dir_all(&path)
+                    .map_err(|error| failure(format!("remove directory failed: {error}"))),
+                Ok(_) => fs::remove_file(&path)
+                    .map_err(|error| failure(format!("remove file failed: {error}"))),
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(()),
+                Err(error) => Err(failure(format!("remove inspection failed: {error}"))),
+            }
+        }
+        "chmod" => {
+            let path = checked_path(root, string_field(object, "path")?)?;
+            let mode = u32::from_str_radix(string_field(object, "mode")?, 8)
+                .map_err(|_| failure("chmod mode must be octal"))?;
+            if mode > 0o7777 {
+                return Err(failure("chmod mode is outside POSIX permission range"));
+            }
+            apply_chmod(&path, mode)
+        }
         "git" => apply_git_step(root, object, captures),
         _ => Err(failure(format!(
             "unsupported fixture operation: {operation}"
@@ -166,7 +181,10 @@ fn checked_path(root: &Path, relative: &str) -> Result<PathBuf, FixtureError> {
     Ok(root.join(path))
 }
 
-fn interpolate(value: &Value, captures: &HashMap<String, String>) -> Result<Value, FixtureError> {
+pub(crate) fn interpolate(
+    value: &Value,
+    captures: &HashMap<String, String>,
+) -> Result<Value, FixtureError> {
     Ok(match value {
         Value::String(value) => Value::String(interpolate_string(value, captures)?),
         Value::Array(values) => Value::Array(
@@ -322,6 +340,22 @@ fn git_environment() -> [(&'static str, &'static str); 6] {
 }
 
 #[cfg(unix)]
+fn apply_chmod(path: &Path, mode: u32) -> Result<(), FixtureError> {
+    use std::os::unix::fs::PermissionsExt;
+    fs::set_permissions(path, fs::Permissions::from_mode(mode))
+        .map_err(|error| failure(format!("chmod failed: {error}")))
+}
+#[cfg(windows)]
+fn apply_chmod(path: &Path, mode: u32) -> Result<(), FixtureError> {
+    let mut permissions = fs::metadata(path)
+        .map_err(|error| failure(format!("chmod metadata failed: {error}")))?
+        .permissions();
+    permissions.set_readonly(mode & 0o222 == 0);
+    fs::set_permissions(path, permissions)
+        .map_err(|error| failure(format!("chmod failed: {error}")))
+}
+
+#[cfg(unix)]
 fn create_symlink(target: &str, path: &Path, _directory: bool) -> Result<(), FixtureError> {
     std::os::unix::fs::symlink(target, path)
         .map_err(|error| failure(format!("symlink failed: {error}")))
@@ -337,7 +371,7 @@ fn create_symlink(target: &str, path: &Path, directory: bool) -> Result<(), Fixt
     result.map_err(|error| failure(format!("symlink failed: {error}")))
 }
 
-fn decode_transport(value: &Value) -> Result<TransportValue, FixtureError> {
+pub(crate) fn decode_transport(value: &Value) -> Result<TransportValue, FixtureError> {
     serde_json::from_value(value.clone())
         .map_err(|error| failure(format!("invalid fixture transport: {error}")))
 }

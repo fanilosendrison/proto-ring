@@ -6,7 +6,7 @@ rust-version.workspace = true
 publish.workspace = true
 
 [dependencies]
-proto-ring-engine = { path = "../proto-ring-engine" }
+proto-ring-engine = { path = "../proto-ring-engine", features = ["conformance-internal"] }
 serde.workspace = true
 serde_json.workspace = true
 tempfile.workspace = true

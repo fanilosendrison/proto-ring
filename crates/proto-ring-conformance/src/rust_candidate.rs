@@ -7,6 +7,7 @@ mod foundation;
 mod governance_bindings;
 mod projection_registry;
 mod repository_integrity;
+mod repository_state;
 mod support;
 mod transport;
 
@@ -28,6 +29,7 @@ const IMPLEMENTED: &[&str] = &[
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
     "repository-integrity.profile",
+    "repository-state.capture",
     "structured-data.document",
     "structured-data.frontmatter",
 ];
@@ -39,6 +41,11 @@ impl CandidateExecutor for ReferenceRustCandidate {
         }
         let fixture_error =
             |error| HarnessError::new(format!("fixture failed for {}: {error}", request.vector_id));
+        if request.responsibility_id == "repository-state.capture" {
+            return repository_state::execute(&request.fixture)
+                .map(CandidateState::Observation)
+                .map_err(fixture_error);
+        }
         if request.responsibility_id == "repository-integrity.profile"
             && let Some(observation) = repository_integrity::execute_identity_plan(&request.fixture)
                 .map_err(fixture_error)?
