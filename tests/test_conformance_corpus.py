@@ -8,9 +8,6 @@ import unittest
 from unittest import mock
 
 from jsonschema import Draft202012Validator
-import conformance_python_adapter_63_64 as adapter_63_64
-import conformance_python_adapter_65_66 as adapter_65_66
-import conformance_python_adapter_67_69 as adapter_67_69
 import conformance_corpus_test_support as corpus_support
 from conformance_corpus_test_support import (
     CORPUS_ROOT,
@@ -29,6 +26,7 @@ from conformance_corpus_test_support import (
     validate_vector_qualification,
 )
 from conformance_fixture_runner import materialize
+from conformance_vector_execution import ADAPTERS, VectorExecutionJob, execute_vector_jobs
 ACTUAL_OBSERVATIONS_PATH = Path("/tmp/proto-ring-61-actual-observations.json")
 COMMAND_ACTIONS = {
     "exit", "write_utf8", "append_utf8", "remove", "touch", "chmod", "git",
@@ -55,15 +53,6 @@ HISTORICAL_NOT_COMPARABLE = {
     "structured-data.frontmatter.body-cannot-repair",
     "structured-data.frontmatter.document-start-marker",
     "structured-data.frontmatter.document-end-marker",
-}
-ADAPTERS = {
-    63: adapter_63_64,
-    64: adapter_63_64,
-    65: adapter_65_66,
-    66: adapter_65_66,
-    67: adapter_67_69,
-    68: adapter_67_69,
-    69: adapter_67_69,
 }
 class ConformanceCorpusTest(unittest.TestCase):
     @classmethod
@@ -203,28 +192,39 @@ class ConformanceCorpusTest(unittest.TestCase):
                     else:
                         self.assertEqual((realized.root, realized._temporary), (None, None))
     def test_08_every_vector_executes_and_current_python_conforms(self) -> None:
-        actual_records = []
+        jobs, oracle_vectors = [], []
         for responsibility_id, matrix in sorted(self.cases.items()):
-            adapter = ADAPTERS[OWNER_BY_ID[responsibility_id]]
             for vector in matrix["vectors"]:
-                vector_id = vector["vector_id"]
-                with self.subTest(vector_id=vector_id):
-                    with materialize(vector["fixture"]) as realized:
-                        actual = adapter.execute(responsibility_id, realized)
-                    comparison_result = compare(
-                        actual,
-                        vector["expected_observation"],
-                        vector["comparison"],
+                jobs.append(
+                    VectorExecutionJob(
+                        canonical_ordinal=len(jobs),
+                        vector_id=vector["vector_id"],
+                        responsibility_id=responsibility_id,
+                        fixture=vector["fixture"],
                     )
-                    self.assertEqual(comparison_result, "MATCH")
-                    actual_records.append(
-                        {
-                            "actual_observation": actual,
-                            "comparison_result": comparison_result,
-                            "responsibility_id": responsibility_id,
-                            "vector_id": vector_id,
-                        }
-                    )
+                )
+                oracle_vectors.append(vector)
+        results = execute_vector_jobs(jobs)
+        actual_records = []
+        for result, vector in zip(results, oracle_vectors, strict=True):
+            vector_id = result.vector_id
+            responsibility_id = result.responsibility_id
+            actual = result.actual_observation
+            with self.subTest(vector_id=vector_id):
+                comparison_result = compare(
+                    actual,
+                    vector["expected_observation"],
+                    vector["comparison"],
+                )
+                self.assertEqual(comparison_result, "MATCH")
+                actual_records.append(
+                    {
+                        "actual_observation": actual,
+                        "comparison_result": comparison_result,
+                        "responsibility_id": responsibility_id,
+                        "vector_id": vector_id,
+                    }
+                )
         type(self).actual_observations = actual_records
         type(self).executed = len(actual_records)
         ACTUAL_OBSERVATIONS_PATH.write_text(
