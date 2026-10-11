@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
-from dataclasses import dataclass, fields, is_dataclass
-from enum import Enum
+from dataclasses import dataclass
 import hashlib
 import json
 import os
@@ -11,6 +10,22 @@ import re
 import subprocess
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
+
+from conformance_discriminated_oneof import (
+    _DRAFT_2020_12_SCHEMA_URI,
+    _DiscriminatedDraft202012Validator,
+    _ORIGINAL_ONEOF,
+    _discriminator_aware_one_of,
+    _json_equal,
+    _oneof_const_discriminator,
+    _schema_allows_discriminated_oneof_fastpath,
+)
+from conformance_transport import (
+    _integer_decimal,
+    decode_transport,
+    observation,
+    transport,
+)
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CORPUS_ROOT = REPOSITORY_ROOT / "conformance" / "v1"
 BASE_SHA = "662d86d445cefed4e17aa3cfa897ac36344cba89"
@@ -43,71 +58,6 @@ class SchemaValidationJob:
     category: str
     schema: object
     value: object
-def _integer_decimal(value: int) -> str:
-    if value == 0:
-        return "0"
-    sign = "-" if value < 0 else ""
-    remaining = -value if value < 0 else value
-    chunks = []
-    while remaining:
-        remaining, chunk = divmod(remaining, 1_000_000_000)
-        chunks.append(chunk)
-    return sign + str(chunks[-1]) + "".join(f"{chunk:09d}" for chunk in reversed(chunks[:-1]))
-def transport(value: object):
-    if isinstance(value, dict) and set(value) == {"type", "value"} and value["type"] in {
-        "null", "boolean", "integer", "string", "bytes", "sequence", "record"
-    }:
-        return value
-    if value is None:
-        return {"type": "null", "value": None}
-    if isinstance(value, bool):
-        return {"type": "boolean", "value": value}
-    if isinstance(value, int):
-        return {"type": "integer", "value": _integer_decimal(value)}
-    if isinstance(value, bytes):
-        return {"type": "bytes", "value": value.hex()}
-    if isinstance(value, str):
-        return {"type": "string", "value": value}
-    if isinstance(value, Enum):
-        return transport(value.value)
-    if isinstance(value, Path):
-        return transport(value.as_posix())
-    if is_dataclass(value):
-        return transport({field.name: getattr(value, field.name) for field in fields(value)})
-    if isinstance(value, (list, tuple)):
-        return {"type": "sequence", "value": [transport(item) for item in value]}
-    if isinstance(value, (set, frozenset)):
-        ordered = sorted(value, key=lambda item: repr(item))
-        return {"type": "sequence", "value": [transport(item) for item in ordered]}
-    if isinstance(value, dict):
-        return {
-            "type": "record",
-            "value": [
-                {"name": str(key), "value": transport(item)}
-                for key, item in sorted(value.items(), key=lambda pair: str(pair[0]))
-            ],
-        }
-    raise TypeError(f"cannot encode transport value: {type(value).__name__}")
-def decode_transport(value: dict[str, object]):
-    kind = value["type"]
-    payload = value["value"]
-    if kind == "null":
-        return None
-    if kind == "boolean":
-        return payload
-    if kind == "integer":
-        return int(payload)
-    if kind == "string":
-        return payload
-    if kind == "bytes":
-        return bytes.fromhex(payload)
-    if kind == "sequence":
-        return [decode_transport(item) for item in payload]
-    if kind == "record":
-        return {entry["name"]: decode_transport(entry["value"]) for entry in payload}
-    raise ValueError(f"unknown transport type: {kind}")
-def observation(kind: str, value: object):
-    return {"kind": kind, "value": transport(value)}
 def authority_key(authority: dict[str, object]) -> str:
     if authority["source_kind"] == "repository":
         return (
@@ -169,8 +119,13 @@ def _portable_validation_error(error: ValidationError) -> ValidationError:
         schema=error.schema, schema_path=tuple(error.schema_path),
     )
 def _validate_schema_job(job_index: int, schema: object, value: object) -> int:
+    validator_class = (
+        _DiscriminatedDraft202012Validator
+        if _schema_allows_discriminated_oneof_fastpath(schema)
+        else Draft202012Validator
+    )
     try:
-        Draft202012Validator(schema).validate(value)
+        validator_class(schema).validate(value)
     except ValidationError as error:
         raise _portable_validation_error(error) from None
     return job_index
