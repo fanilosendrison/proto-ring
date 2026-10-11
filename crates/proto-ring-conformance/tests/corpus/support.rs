@@ -20,6 +20,7 @@ pub(super) const IMPLEMENTED: &[&str] = &[
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
     "repository-integrity.profile",
+    "repository-state.capture",
     "structured-data.document",
     "structured-data.frontmatter",
 ];
@@ -90,6 +91,9 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "rust_candidate/governance_bindings.rs",
         "rust_candidate/projection_registry.rs",
         "rust_candidate/repository_integrity.rs",
+        "rust_candidate/repository_state.rs",
+        "rust_candidate/repository_state/observe.rs",
+        "rust_candidate/repository_state/plan.rs",
         "rust_candidate/transport.rs",
     ]
     .iter()
@@ -107,6 +111,10 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "governance_routing.rs",
         "governed_objects.rs",
         "repository_governance_model.rs",
+        "repository_state/mod.rs",
+        "repository_state/git.rs",
+        "repository_state/path.rs",
+        "repository_state/capture.rs",
     ];
     let engine = engine_paths
         .iter()
