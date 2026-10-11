@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Run the complete Python test inventory in isolated atomic subprocesses."""
 from __future__ import annotations
-
 import argparse
 import ast
 from collections import Counter
@@ -19,7 +18,7 @@ import tempfile
 import time
 import traceback
 import unittest
-
+import python_test_runner_evidence as evidence
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TESTS_DIR = REPO_ROOT / "tests"
 SRC_DIR = REPO_ROOT / "src"
@@ -75,8 +74,7 @@ def discover_test_ids() -> tuple[str, ...]:
     try:
         sys.path[:0] = [str(SRC_DIR), str(TESTS_DIR)]
         suite = unittest.defaultTestLoader.discover(
-            start_dir=str(TESTS_DIR), pattern="test_*.py", top_level_dir=str(TESTS_DIR)
-        )
+            start_dir=str(TESTS_DIR), pattern="test_*.py", top_level_dir=str(TESTS_DIR))
     finally:
         sys.path[:] = previous_path
     tests = list(_flatten_suite(suite))
@@ -90,29 +88,24 @@ def discover_test_ids() -> tuple[str, ...]:
     if not identifiers:
         raise InventoryError("discovery produced zero tests")
     return tuple(sorted(identifiers))
-
 def build_tasks(discovered_test_ids: tuple[str, ...]) -> tuple[AtomicTask, ...]:
     discovered = set(discovered_test_ids)
     missing_stateful = sorted(set(STATEFUL_TEST_IDS) - discovered)
     if missing_stateful:
         raise InventoryError(f"missing stateful IDs: {missing_stateful}")
     prefix = f"{CONFORMANCE_MODULE}."
-    static_ids = tuple(sorted(
-        test_id for test_id in discovered_test_ids
-        if test_id.startswith(prefix) and test_id not in STATEFUL_TEST_IDS
-    ))
+    static_ids = tuple(sorted(test_id for test_id in discovered_test_ids
+                              if test_id.startswith(prefix)
+                              and test_id not in STATEFUL_TEST_IDS))
     grouped: dict[str, list[str]] = {}
     for test_id in discovered_test_ids:
         module = test_id.split(".", 1)[0]
         if module != CONFORMANCE_MODULE:
             grouped.setdefault(module, []).append(test_id)
-    module_tasks = tuple(
-        AtomicTask(f"module:{module}", tuple(sorted(grouped[module])))
-        for module in sorted(grouped)
-    )
+    module_tasks = tuple(AtomicTask(f"module:{module}", tuple(sorted(grouped[module])))
+                         for module in sorted(grouped))
     return (AtomicTask("corpus-stateful", STATEFUL_TEST_IDS),
             AtomicTask("corpus-static", static_ids), *module_tasks)
-
 def validate_partition(discovered_test_ids: tuple[str, ...], tasks: tuple[AtomicTask, ...]) -> None:
     scheduled = [test_id for task in tasks for test_id in task.test_ids]
     counts = Counter(scheduled)
@@ -132,7 +125,6 @@ def validate_partition(discovered_test_ids: tuple[str, ...], tasks: tuple[Atomic
         problems.append(f"empty atomic tasks: {empty}")
     if problems:
         raise InventoryError("; ".join(problems))
-
 def validate_shared_artifact_ownership() -> frozenset[str]:
     literals = tuple(str(path) for path in SHARED_ARTIFACTS)
     conformance_path = TESTS_DIR / f"{CONFORMANCE_MODULE}.py"
@@ -149,33 +141,27 @@ def validate_shared_artifact_ownership() -> frozenset[str]:
             for method in node.body:
                 if not isinstance(method, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     continue
-                references_name = any(
-                    isinstance(child, ast.Name) and child.id == "ACTUAL_OBSERVATIONS_PATH"
-                    for child in ast.walk(method)
-                )
-                references_metrics = any(
-                    isinstance(child, ast.Constant)
-                    and child.value == str(SHARED_ARTIFACTS[1])
-                    for child in ast.walk(method)
-                )
+                references_name = any(isinstance(child, ast.Name)
+                                      and child.id == "ACTUAL_OBSERVATIONS_PATH"
+                                      for child in ast.walk(method))
+                references_metrics = any(isinstance(child, ast.Constant)
+                                         and child.value == str(SHARED_ARTIFACTS[1])
+                                         for child in ast.walk(method))
                 if references_name or references_metrics:
                     owners.add(method.name)
     unexpected = sorted(owners - set(STATEFUL_METHODS))
     if unexpected:
         raise InventoryError(f"shared artifact ownership outside stateful methods: {unexpected}")
     return frozenset(owners)
-
 def default_worker_count(logical_cpu_count: int | None = None) -> int:
     count = os.cpu_count() if logical_cpu_count is None else logical_cpu_count
     if count is None or count < 1:
         count = 1
     return min(count, AUTO_WORKER_CAP)
-
 def validate_worker_count(value: int) -> int:
     if value < 1:
         raise ValueError("worker count must be at least 1")
     return value
-
 @contextlib.contextmanager
 def _shared_artifact_lock():
     with SHARED_ARTIFACT_LOCK.open("a+b") as stream:
@@ -184,12 +170,10 @@ def _shared_artifact_lock():
             yield
         finally:
             fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
-
 def _atomic_write_json(path: Path, payload: dict[str, object]) -> None:
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     temporary.write_text(json.dumps(payload, sort_keys=True) + "\n", encoding="utf-8")
     os.replace(temporary, path)
-
 def _worker_payload(task_id: str, expected: int, result: unittest.TestResult | None,
                     duration: float, failure_kind: str) -> dict[str, object]:
     return {
@@ -203,7 +187,6 @@ def _worker_payload(task_id: str, expected: int, result: unittest.TestResult | N
         "successful": False if result is None else result.wasSuccessful(),
         "duration_seconds": duration, "failure_kind": failure_kind,
     }
-
 def execute_task_spec(spec_path: Path) -> int:
     started = time.perf_counter()
     result_path: Path | None = None
@@ -226,42 +209,43 @@ def execute_task_spec(spec_path: Path) -> int:
         output = stream.getvalue()
         sys.stdout.write(output)
         kind = "NONE" if result.wasSuccessful() else "TEST_FAILURE"
-        _atomic_write_json(
-            result_path, _worker_payload(task_id, expected, result,
-                                         time.perf_counter() - started, kind)
-        )
+        _atomic_write_json(result_path, _worker_payload(
+            task_id, expected, result, time.perf_counter() - started, kind))
         return 0 if result.wasSuccessful() else 1
     except Exception:
         traceback.print_exc(file=sys.stderr)
         if result_path is not None:
             try:
-                _atomic_write_json(
-                    result_path, _worker_payload(task_id, expected, None,
-                                                 time.perf_counter() - started, "RUNNER_FAILURE")
-                )
+                _atomic_write_json(result_path, _worker_payload(
+                    task_id, expected, None, time.perf_counter() - started, "RUNNER_FAILURE"))
             except Exception:
                 traceback.print_exc(file=sys.stderr)
         return 3
-
 def _execute_subprocess(task: AtomicTask, directory: Path) -> TaskProcessResult:
     try:
         return _execute_subprocess_inner(task, directory)
     except Exception:
         return TaskProcessResult(task.task_id, 3, False, 0, 0, 0, 0, False, 0.0,
                                  traceback.format_exc(), "RUNNER_FAILURE")
-
-def _execute_atomic_task(task: AtomicTask, directory: Path) -> TaskProcessResult:
+def _execute_atomic_task(task: AtomicTask, directory: Path,
+                         evidence_run: evidence.EvidenceRun | None = None) -> TaskProcessResult:
     if task.task_id != "corpus-stateful":
         return _execute_subprocess(task, directory)
     with _shared_artifact_lock():
         for artifact in SHARED_ARTIFACTS:
             artifact.unlink(missing_ok=True)
         result = _execute_subprocess(task, directory)
-        if (result.failure_kind == "NONE" and result.returncode == 0 and result.successful
-                and not all(artifact.is_file() for artifact in SHARED_ARTIFACTS)):
+        succeeded = result.failure_kind == "NONE" and result.returncode == 0 and result.successful
+        if succeeded and not all(artifact.is_file() for artifact in SHARED_ARTIFACTS):
             return replace(result, successful=False, failure_kind="RUNNER_FAILURE")
+        if succeeded and evidence_run is not None:
+            try:
+                sources = dict(zip(evidence.ARTIFACT_FILENAMES, SHARED_ARTIFACTS, strict=True))
+                evidence.export_artifacts(evidence_run, sources)
+            except Exception:
+                return replace(result, successful=False, failure_kind="RUNNER_FAILURE",
+                               output=result.output + traceback.format_exc())
         return result
-
 def _execute_subprocess_inner(task: AtomicTask, directory: Path) -> TaskProcessResult:
     safe_name = task.task_id.replace(":", "-")
     spec_path = directory / f"{safe_name}.spec.json"
@@ -276,8 +260,7 @@ def _execute_subprocess_inner(task: AtomicTask, directory: Path) -> TaskProcessR
     started = time.perf_counter()
     completed = subprocess.run(
         [sys.executable, "-B", str(Path(__file__).resolve()), "--_execute-task", str(spec_path)],
-        cwd=REPO_ROOT, env=environment, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
-    )
+        cwd=REPO_ROOT, env=environment, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     duration = time.perf_counter() - started
     if completed.returncode < 0 or not result_path.is_file():
         return TaskProcessResult(task.task_id, completed.returncode, False, 0, 0, 0, 0,
@@ -294,16 +277,14 @@ def _execute_subprocess_inner(task: AtomicTask, directory: Path) -> TaskProcessR
                 or completed.returncode != result_exit_codes[kind]
                 or bool(payload["successful"]) != (kind == "NONE")):
             raise ValueError("inconsistent structured result")
-        return TaskProcessResult(
-            task.task_id, completed.returncode, True, int(payload["tests_run"]),
-            int(payload["failures"]), int(payload["errors"]), int(payload["skipped"]),
-            bool(payload["successful"]), duration, completed.stdout, kind,
-        )
+        return TaskProcessResult(task.task_id, completed.returncode, True,
+                                 int(payload["tests_run"]), int(payload["failures"]),
+                                 int(payload["errors"]), int(payload["skipped"]),
+                                 bool(payload["successful"]), duration, completed.stdout, kind)
     except Exception:
         return TaskProcessResult(task.task_id, completed.returncode, True, 0, 0, 0, 0,
                                  False, duration, completed.stdout + traceback.format_exc(),
                                  "RUNNER_FAILURE")
-
 def classify_results(discovered_count: int, tasks: tuple[AtomicTask, ...],
                      results: tuple[TaskProcessResult, ...]) -> tuple[str, int, int, tuple[str, ...]]:
     expected_ids = [task.task_id for task in tasks]
@@ -336,9 +317,16 @@ def classify_results(discovered_count: int, tasks: tuple[AtomicTask, ...],
     }
     failed = tuple(sorted(set(expected_ids) - passed))
     return status, EXIT_CODES[status], executed, failed
-
-def run_controller(workers: int) -> int:
+def run_controller(workers: int, evidence_dir: Path | None = None) -> int:
     started = time.perf_counter()
+    try:
+        evidence_run = evidence.prepare_evidence_run(evidence_dir)
+    except evidence.EvidenceError as error:
+        print(f"EVIDENCE_ERROR={error}")
+        summary = RunSummary(workers, 0, 0, 0, time.perf_counter() - started,
+                             "RUNNER_FAILURE", ())
+        _print_summary(summary, None, None)
+        return EXIT_CODES["RUNNER_FAILURE"]
     try:
         discovered = discover_test_ids()
         tasks = build_tasks(discovered)
@@ -346,23 +334,34 @@ def run_controller(workers: int) -> int:
         validate_shared_artifact_ownership()
     except InventoryError as error:
         print(f"INVENTORY_ERROR={error}")
-        _print_summary(RunSummary(workers, 0, 0, 0, time.perf_counter() - started,
-                                  "INVENTORY_FAILURE", ()))
-        return 2
+        summary = RunSummary(workers, 0, 0, 0, time.perf_counter() - started,
+                             "INVENTORY_FAILURE", ())
+        _print_summary(summary, None if evidence_run is None else evidence_run.run_id, None)
+        return EXIT_CODES["INVENTORY_FAILURE"]
     with tempfile.TemporaryDirectory(prefix="proto-ring-test-runner-") as temporary:
         with ThreadPoolExecutor(max_workers=min(workers, len(tasks))) as executor:
-            futures = [executor.submit(_execute_atomic_task, task, Path(temporary)) for task in tasks]
+            futures = [executor.submit(_execute_atomic_task, task, Path(temporary), evidence_run)
+                       for task in tasks]
             results = tuple(future.result() for future in futures)
     for result in results:
         print(f"===== TASK {result.task_id} =====")
         print(result.output, end="" if result.output.endswith("\n") else "\n")
         print(f"===== END TASK {result.task_id} =====")
     status, exit_code, executed, failed = classify_results(len(discovered), tasks, results)
-    _print_summary(RunSummary(workers, len(tasks), len(discovered), executed,
-                              time.perf_counter() - started, status, failed))
+    handoff = None
+    if evidence_run is not None and set(evidence_run.artifacts) == set(evidence.ARTIFACT_FILENAMES):
+        try:
+            record = evidence.RunnerRecord(status, workers, len(tasks), len(discovered), executed, failed)
+            handoff = evidence.finalize_handoff(evidence_run, record)
+        except evidence.EvidenceError as error:
+            print(f"EVIDENCE_ERROR={error}")
+            status, exit_code = "RUNNER_FAILURE", EXIT_CODES["RUNNER_FAILURE"]
+    summary = RunSummary(workers, len(tasks), len(discovered), executed,
+                         time.perf_counter() - started, status, failed)
+    _print_summary(summary, None if evidence_run is None else evidence_run.run_id, handoff)
     return exit_code
 
-def _print_summary(summary: RunSummary) -> None:
+def _print_summary(summary: RunSummary, run_id: str | None, handoff: Path | None) -> None:
     print(f"PROTO_RING_TEST_RUNNER={summary.status}")
     print(f"WORKERS={summary.workers}")
     print(f"ATOMIC_TASKS={summary.atomic_tasks}")
@@ -370,7 +369,8 @@ def _print_summary(summary: RunSummary) -> None:
     print(f"EXECUTED_TESTS={summary.executed_tests}")
     print(f"WALL_SECONDS={summary.wall_seconds:.6f}")
     print(f"FAILED_TASKS={','.join(summary.failed_tasks) if summary.failed_tasks else 'NONE'}")
-
+    print(f"RUN_ID={run_id if run_id is not None else 'NONE'}")
+    print(f"EVIDENCE_HANDOFF={handoff if handoff is not None else 'NONE'}")
 def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=("Process-isolated local full-suite runner with exact unittest inventory. "
@@ -380,6 +380,7 @@ def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         "--workers", type=int, default=None,
         help="child-process worker count (default: min(logical CPUs, 4))",
     )
+    parser.add_argument("--evidence-dir", type=Path, default=None)
     parser.add_argument("--_execute-task", type=Path, help=argparse.SUPPRESS)
     arguments = parser.parse_args(argv)
     if arguments.workers is not None:
@@ -388,13 +389,12 @@ def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
         except ValueError as error:
             parser.error(str(error))
     return arguments
-
 def main(argv: list[str] | None = None) -> int:
     arguments = parse_arguments(argv)
     if arguments._execute_task is not None:
         return execute_task_spec(arguments._execute_task)
     workers = default_worker_count() if arguments.workers is None else arguments.workers
-    return run_controller(workers)
+    return run_controller(workers, arguments.evidence_dir)
 
 if __name__ == "__main__":
     raise SystemExit(main())
