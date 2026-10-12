@@ -13,6 +13,7 @@ publish = false
 
 [workspace.dependencies]
 cap-std = { version = "=4.0.3", default-features = false }
+prikk-ffi = "=0.45.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tempfile = "3.23"
