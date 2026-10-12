@@ -53,11 +53,46 @@ pub(super) fn open_protected_git_admin(
     }
 }
 
+pub(super) fn same_protected_object(
+    root_dir: &Dir,
+    literal_lookup: &Path,
+    exact_entry: &Path,
+) -> Result<bool, StateCaptureError> {
+    let lookup = root_dir
+        .symlink_metadata(literal_lookup)
+        .map_err(identity_error)?;
+    let candidate = root_dir
+        .symlink_metadata(exact_entry)
+        .map_err(identity_error)?;
+    if lookup.file_type().is_dir() != candidate.file_type().is_dir()
+        || lookup.file_type().is_file() != candidate.file_type().is_file()
+    {
+        return Ok(false);
+    }
+    Ok(object_identity(&lookup) == object_identity(&candidate))
+}
+
+pub(super) fn reject_if_ambiguous(
+    root_dir: &Dir,
+    resolved: &Path,
+    protected: &ProtectedGitAdmin,
+) -> Result<bool, StateCaptureError> {
+    match protected {
+        ProtectedGitAdmin::Directory { identity, .. } => {
+            physical_ancestor_is_protected(root_dir, resolved, *identity)
+        }
+        ProtectedGitAdmin::File { identity } => {
+            let candidate = root_dir.metadata(resolved).map_err(identity_error)?;
+            Ok(candidate.is_file() && object_identity(&candidate) == *identity)
+        }
+    }
+}
+
 pub(super) fn reject_if_protected(
     root_dir: &Dir,
     exact_final_candidate: &Path,
     resolved: &Path,
-    _protected_relative_path: &Path,
+    protected_relative_path: &Path,
     protected: &ProtectedGitAdmin,
     role: ClassificationRole,
 ) -> Result<(), StateCaptureError> {
@@ -72,8 +107,11 @@ pub(super) fn reject_if_protected(
         }
         ProtectedGitAdmin::File { identity } => {
             let candidate = root_dir.metadata(resolved).map_err(identity_error)?;
-            if object_identity(&candidate) == *identity
+            let aliases_protected_file = object_identity(&candidate) == *identity;
+            let exact_protected_entry = exact_final_candidate == protected_relative_path;
+            if aliases_protected_file
                 && (matches!(role, ClassificationRole::IntermediateTraversal)
+                    || exact_protected_entry
                     || !exact_directory_entry_exists(root_dir, exact_final_candidate)?)
             {
                 return Err(protected_file_traversal());

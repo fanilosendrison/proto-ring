@@ -83,6 +83,45 @@ fn resolved_ancestor_is_protected(
     Ok(false)
 }
 
+pub(super) fn same_protected_object(
+    root_dir: &Dir,
+    literal_lookup: &Path,
+    exact_entry: &Path,
+) -> Result<bool, StateCaptureError> {
+    let lookup = root_dir
+        .symlink_metadata(literal_lookup)
+        .map_err(identity_error)?;
+    let candidate = root_dir
+        .symlink_metadata(exact_entry)
+        .map_err(identity_error)?;
+    if lookup.file_type().is_dir() && candidate.file_type().is_dir() {
+        return Ok(directory_identity(root_dir, literal_lookup)?
+            == directory_identity(root_dir, exact_entry)?);
+    }
+    if lookup.file_type().is_file() && candidate.file_type().is_file() {
+        return Ok(
+            file_identity(root_dir, literal_lookup)? == file_identity(root_dir, exact_entry)?
+        );
+    }
+    Ok(false)
+}
+
+pub(super) fn reject_if_ambiguous(
+    root_dir: &Dir,
+    resolved: &Path,
+    protected: &ProtectedGitAdmin,
+) -> Result<bool, StateCaptureError> {
+    match protected {
+        ProtectedGitAdmin::Directory(identity) => {
+            resolved_ancestor_is_protected(root_dir, resolved, identity)
+        }
+        ProtectedGitAdmin::File(identity) => {
+            let candidate = root_dir.metadata(resolved).map_err(identity_error)?;
+            Ok(candidate.is_file() && file_identity(root_dir, resolved)? == *identity)
+        }
+    }
+}
+
 pub(super) fn reject_if_protected(
     root_dir: &Dir,
     exact_final_candidate: &Path,
@@ -110,8 +149,10 @@ pub(super) fn reject_if_protected(
             if *identity != current_file_identity(root_dir, protected_relative_path)? {
                 return Err(protected_changed());
             }
+            let exact_protected_entry = exact_final_candidate == protected_relative_path;
             if aliases_protected_file
                 && (matches!(role, ClassificationRole::IntermediateTraversal)
+                    || exact_protected_entry
                     || !exact_final_entry_exists(root_dir, exact_final_candidate)?)
             {
                 return Err(protected_traversal());
