@@ -2497,6 +2497,11 @@
             "path": "observed"
           },
           {
+            "mode": "0755",
+            "op": "chmod",
+            "path": "observed"
+          },
+          {
             "arguments": {
               "type": "record",
               "value": [
@@ -2525,7 +2530,7 @@
             "op": "invoke"
           },
           {
-            "mode": "0700",
+            "mode": "0555",
             "op": "chmod",
             "path": "observed"
           },
@@ -5774,6 +5779,11 @@
             "text": "original\n"
           },
           {
+            "mode": "0644",
+            "op": "chmod",
+            "path": "tracked.txt"
+          },
+          {
             "argv": [
               "add",
               "-A"
@@ -5824,7 +5834,7 @@
             "op": "invoke"
           },
           {
-            "mode": "0755",
+            "mode": "0444",
             "op": "chmod",
             "path": "tracked.txt"
           },
