@@ -144,7 +144,16 @@ fn issue67_windows_case_variant_git_environment_is_sanitized() {
     initialize_repository(&target);
     initialize_repository(&alternate);
 
+    let canonical_target = target
+        .canonicalize()
+        .expect("target repository canonicalizes");
+    let canonical_alternate = alternate
+        .canonicalize()
+        .expect("alternate repository canonicalizes");
+    assert_ne!(canonical_target, canonical_alternate);
+
     let ordinary = repository_state::capture(&target, &[]).expect("ordinary capture succeeds");
+    assert_eq!(ordinary.repository, canonical_target);
     let ambient = [
         (
             OsString::from("git_dir"),
@@ -161,7 +170,8 @@ fn issue67_windows_case_variant_git_environment_is_sanitized() {
     ];
     let sanitized = conformance_internal::capture_with_ambient_environment(&target, &[], &ambient)
         .expect("case-variant ambient Git environment is neutralized");
-    assert_eq!(sanitized.repository, target);
+    assert_eq!(sanitized.repository, ordinary.repository);
+    assert_ne!(sanitized.repository, canonical_alternate);
     assert_eq!(sanitized.identity, ordinary.identity);
     assert!(!trace_target.exists());
 
