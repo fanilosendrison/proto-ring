@@ -2,9 +2,12 @@
 
 mod capture;
 mod git;
+mod git_admin;
 mod git_discovery;
 mod git_environment;
 mod path;
+#[cfg(unix)]
+mod unix_identity;
 #[cfg(windows)]
 mod windows_identity;
 

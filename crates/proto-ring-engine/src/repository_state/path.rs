@@ -1,6 +1,5 @@
 use super::StateCaptureError;
-#[cfg(windows)]
-use super::windows_identity::{ProtectedGitAdmin, open_protected_git_admin, reject_if_protected};
+use super::git_admin::{self, ClassificationRole};
 use cap_std::fs::{Dir, Metadata};
 use std::collections::BTreeSet;
 use std::io::{ErrorKind, Read};
@@ -41,16 +40,6 @@ pub(crate) fn reject_git_implementation_path(relative: &Path) -> Result<(), Stat
     }
     Ok(())
 }
-#[cfg(unix)]
-struct ProtectedGitAdmin(PathBuf, u64, u64);
-#[cfg(unix)]
-fn open_protected_git_admin(root_dir: &Dir) -> Result<ProtectedGitAdmin, StateCaptureError> {
-    use cap_std::fs::MetadataExt;
-    root_dir.symlink_metadata(".git").map_err(git_guard_error)?;
-    let location = root_dir.canonicalize(".git").map_err(git_guard_error)?;
-    let metadata = root_dir.metadata(".git").map_err(git_guard_error)?;
-    Ok(ProtectedGitAdmin(location, metadata.dev(), metadata.ino()))
-}
 enum Traversal {
     Safe,
     Missing,
@@ -59,13 +48,16 @@ pub(crate) fn reject_git_admin(root: &Dir, path: &Path) -> Result<(), StateCaptu
     classify_git_path(root, path).map(|_| ())
 }
 fn classify_git_path(root_dir: &Dir, relative: &Path) -> Result<Traversal, StateCaptureError> {
-    let protected = open_protected_git_admin(root_dir)?;
     let components: Vec<_> = relative.iter().collect();
     let mut prefix = PathBuf::new();
     for component in components.iter().take(components.len().saturating_sub(1)) {
         prefix.push(component);
         match root_dir.symlink_metadata(&prefix) {
-            Ok(_) => classify_git_admin_traversal(root_dir, &prefix, &protected)?,
+            Ok(_) => classify_git_admin_traversal(
+                root_dir,
+                &prefix,
+                ClassificationRole::IntermediateTraversal,
+            )?,
             Err(error) if error.kind() == ErrorKind::NotFound => return Ok(Traversal::Missing),
             Err(error) => return Err(git_guard_error(error)),
         }
@@ -74,7 +66,11 @@ fn classify_git_path(root_dir: &Dir, relative: &Path) -> Result<Traversal, State
         prefix.push(component);
         match root_dir.symlink_metadata(&prefix) {
             Ok(metadata) if metadata.file_type().is_symlink() => {}
-            Ok(_) => classify_git_admin_traversal(root_dir, &prefix, &protected)?,
+            Ok(_) => classify_git_admin_traversal(
+                root_dir,
+                &prefix,
+                ClassificationRole::FinalNonSymlinkEntry,
+            )?,
             Err(error) if error.kind() == ErrorKind::NotFound => {}
             Err(error) => return Err(git_guard_error(error)),
         }
@@ -84,41 +80,10 @@ fn classify_git_path(root_dir: &Dir, relative: &Path) -> Result<Traversal, State
 fn classify_git_admin_traversal(
     root_dir: &Dir,
     candidate: &Path,
-    protected: &ProtectedGitAdmin,
+    role: ClassificationRole,
 ) -> Result<(), StateCaptureError> {
     let resolved = root_dir.canonicalize(candidate).map_err(git_guard_error)?;
-    #[cfg(windows)]
-    return reject_if_protected(root_dir, &resolved, protected);
-    #[cfg(unix)]
-    {
-        let inside = resolved == protected.0
-            || resolved.strip_prefix(&protected.0).is_ok()
-            || physical_ancestor_is_protected(root_dir, &resolved, protected)?;
-        if inside {
-            return Err(StateCaptureError::new(
-                "governed path enters protected Git administrative subtree",
-            ));
-        }
-        Ok(())
-    }
-}
-#[cfg(unix)]
-fn physical_ancestor_is_protected(
-    root_dir: &Dir,
-    resolved: &Path,
-    protected: &ProtectedGitAdmin,
-) -> Result<bool, StateCaptureError> {
-    use cap_std::fs::MetadataExt;
-    for ancestor in resolved
-        .ancestors()
-        .filter(|path| !path.as_os_str().is_empty())
-    {
-        let metadata = root_dir.metadata(ancestor).map_err(git_guard_error)?;
-        if metadata.dev() == protected.1 && metadata.ino() == protected.2 {
-            return Ok(true);
-        }
-    }
-    Ok(false)
+    git_admin::reject_resolved_git_admin_traversal(root_dir, candidate, &resolved, role)
 }
 fn git_guard_error(_: std::io::Error) -> StateCaptureError {
     StateCaptureError::new("cannot classify Git administrative traversal")
