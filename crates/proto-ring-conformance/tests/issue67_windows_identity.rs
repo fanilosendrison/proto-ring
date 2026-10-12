@@ -48,6 +48,23 @@ fn assert_protected_admin_rejection(error: repository_state::StateCaptureError) 
     );
 }
 
+fn rename_dot_git_to_stored_case_variant(repository: &Path) {
+    let temporary_name = repository.join(".proto-ring-git-admin-rename");
+    fs::rename(repository.join(".git"), &temporary_name)
+        .expect("Git administrative entry is moved through an intermediate name");
+    fs::rename(&temporary_name, repository.join(".GIT"))
+        .expect("Git administrative entry receives stored case-variant spelling");
+    let names: Vec<_> = fs::read_dir(repository)
+        .expect("repository root is enumerable")
+        .map(|entry| entry.expect("directory entry is readable").file_name())
+        .collect();
+    assert!(names.iter().any(|name| name == ".GIT"));
+    assert!(!names.iter().any(|name| name == ".git"));
+    fs::symlink_metadata(repository.join(".git"))
+        .expect("host-native literal .git lookup still resolves");
+    git(repository, &["rev-parse", "--show-toplevel"]);
+}
+
 fn add_linked_worktree(main: &Path, linked: &Path) {
     let output = Command::new("git")
         .arg("-C")
@@ -68,6 +85,25 @@ fn add_linked_worktree(main: &Path, linked: &Path) {
             .file_type()
             .is_file()
     );
+}
+
+#[test]
+fn issue67_windows_stored_case_variant_git_admin_is_protected() {
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    rename_dot_git_to_stored_case_variant(repository);
+
+    let error = repository_state::capture(repository, &[PathBuf::from(".GIT/config")])
+        .expect_err("actual stored case-variant Git-admin directory is rejected");
+    assert_protected_admin_rejection(error);
+    if fs::symlink_metadata(repository.join(".GiT")).is_ok() {
+        let error = repository_state::capture(repository, &[PathBuf::from(".GiT/config")])
+            .expect_err("host-resolved Git-admin directory spelling alias is rejected");
+        assert_protected_admin_rejection(error);
+    }
+    repository_state::capture(repository, &[PathBuf::from(".gitignore")])
+        .expect("Git-admin prefix lookalike remains admissible");
+    eprintln!("ISSUE67_WINDOWS_STORED_CASE_VARIANT_DIRECTORY_ADMIN=PASS");
 }
 
 #[test]
