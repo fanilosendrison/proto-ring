@@ -89,3 +89,36 @@ jobs:
 
       - name: Check patch whitespace
         run: git diff --check
+
+  rust-windows-repository-state:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install and verify Rust 1.99.0
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.99.0 --profile minimal
+          rustup default 1.99.0
+          $version = (rustc --version).Split()[1]
+          if ($version -ne "1.99.0") { throw "Expected rustc 1.99.0, got $version" }
+
+      - name: Test RepositoryState engine
+        run: cargo test -p proto-ring-engine --all-features --locked
+
+      - name: Test Windows RepositoryState identity
+        run: cargo test -p proto-ring-conformance --test issue67_windows_identity --locked
+
+      - name: Test Git-file worktree roots
+        run: cargo test -p proto-ring-conformance --test issue67_git_file_roots --locked
+
+      - name: Test RepositoryState Rust port
+        run: cargo test -p proto-ring-conformance --test issue67_rust_port --locked
+
+      - name: Test Git discovery transport
+        run: cargo test -p proto-ring-conformance --test issue67_git_discovery --locked
+
+      - name: Test RepositoryState path boundaries
+        run: cargo test -p proto-ring-conformance --test issue67_path_boundaries --locked
