@@ -70,11 +70,15 @@ fn assert_git_file_root_is_observable(repository: &Path) {
     let git_metadata = fs::symlink_metadata(repository.join(".git"))
         .expect("worktree root Git administrative entry exists");
     assert!(git_metadata.file_type().is_file());
+    let canonical_repository = repository
+        .canonicalize()
+        .expect("requested Git worktree root canonicalizes");
     assert_eq!(
         repository_state::resolve_worktree_root(repository).expect("exact Git root resolves"),
-        repository
+        canonical_repository
     );
-    repository_state::capture(repository, &[]).expect("Git-file-root capture succeeds");
+    let state = repository_state::capture(repository, &[]).expect("Git-file-root capture succeeds");
+    assert_eq!(state.repository, canonical_repository);
     repository_state::discover_repository_paths(repository, &[])
         .expect("Git-file-root discovery succeeds");
 }
@@ -82,10 +86,7 @@ fn assert_git_file_root_is_observable(repository: &Path) {
 #[test]
 fn issue67_linked_worktree_git_file_root_is_supported() {
     let temporary = tempfile::tempdir().expect("temporary root exists");
-    let root = temporary
-        .path()
-        .canonicalize()
-        .expect("temporary root is exact");
+    let root = temporary.path();
     let main = root.join("main");
     let linked = root.join("linked");
     initialize_committed_repository(&main, "tracked.txt");
@@ -104,10 +105,7 @@ fn issue67_linked_worktree_git_file_root_is_supported() {
 #[test]
 fn issue67_submodule_git_file_root_is_supported() {
     let temporary = tempfile::tempdir().expect("temporary root exists");
-    let root = temporary
-        .path()
-        .canonicalize()
-        .expect("temporary root is exact");
+    let root = temporary.path();
     let source = root.join("source");
     let superproject = root.join("super");
     initialize_committed_repository(&source, "source.txt");
