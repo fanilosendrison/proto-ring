@@ -1,4 +1,6 @@
 #![forbid(unsafe_code)]
+#[path = "issue67_rust_port/diagnostics.rs"]
+mod diagnostics;
 use proto_ring_conformance::harness::{CandidateExecutor, CandidateRequest, CandidateState};
 use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
 use proto_ring_conformance::model::Observation;
@@ -316,12 +318,7 @@ fn issue67_rust_port_matches_all_published_vectors() {
     let expected = repository_state_expected(&corpus);
     let actual = execute_repository_state(&corpus);
     assert_eq!(requests.len(), 53);
-    let matching = actual
-        .iter()
-        .zip(&expected)
-        .filter(|(state, expected)| **state == CandidateState::Observation((*expected).clone()))
-        .count();
-    assert_eq!(matching, 53);
+    diagnostics::assert_all_match(&requests, &actual, &expected);
     eprintln!("ISSUE67_RUST_VECTORS=53");
     eprintln!("ISSUE67_RUST_MATCH=53");
     eprintln!("ISSUE67_RUST_MISMATCH=0");
