@@ -33,6 +33,38 @@ fn initialized_repository() -> tempfile::TempDir {
     temporary
 }
 
+#[cfg(unix)]
+fn ignore_nested_repository(repository: &Path) {
+    fs::write(repository.join(".gitignore"), b"nested/\n")
+        .expect("outer nested-repository ignore policy is written");
+    git(repository, &["add", ".gitignore"]);
+    git(
+        repository,
+        &["commit", "-q", "-m", "ignore nested repository"],
+    );
+}
+
+#[cfg(unix)]
+fn initialize_nested_repository(repository: &Path) -> PathBuf {
+    let nested = repository.join("nested");
+    git(repository, &["init", "-q", "-b", "main", "nested"]);
+    git(&nested, &["config", "user.name", "Nested Author"]);
+    git(&nested, &["config", "user.email", "nested@example.invalid"]);
+    fs::write(nested.join("tracked.txt"), b"nested\n").expect("nested file is written");
+    git(&nested, &["add", "tracked.txt"]);
+    git(&nested, &["commit", "-q", "-m", "nested baseline"]);
+    assert!(nested.join(".git").is_dir());
+    nested
+}
+
+#[cfg(unix)]
+fn assert_protected_admin_rejection(error: repository_state::StateCaptureError) {
+    assert!(
+        error.to_string().contains("protected Git administrative"),
+        "unexpected rejection boundary: {error}",
+    );
+}
+
 #[test]
 fn issue67_explicit_scope_admission_is_lexical_only() {
     let temporary = initialized_repository();
@@ -49,9 +81,69 @@ fn issue67_explicit_scope_admission_is_lexical_only() {
 #[cfg(unix)]
 fn same_filesystem_object(left: &Path, right: &Path) -> bool {
     use std::os::unix::fs::MetadataExt;
-    let left = fs::metadata(left).expect("left metadata exists");
-    let right = fs::metadata(right).expect("right metadata exists");
-    left.dev() == right.dev() && left.ino() == right.ino()
+    match (fs::metadata(left), fs::metadata(right)) {
+        (Ok(left), Ok(right)) => left.dev() == right.dev() && left.ino() == right.ino(),
+        _ => false,
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn issue67_nested_git_admin_case_alias_respects_physical_identity() {
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    ignore_nested_repository(repository);
+    let nested = initialize_nested_repository(repository);
+    let aliases = same_filesystem_object(&nested.join(".git"), &nested.join(".GIT"));
+    eprintln!(
+        "HOST_NESTED_DOT_GIT_CASE_ALIAS={}",
+        if aliases { "yes" } else { "no" }
+    );
+
+    if aliases {
+        repository_state::capture(repository, &[PathBuf::from("nested/tracked.txt")])
+            .expect("nested repository content remains governed when explicit");
+        for relative in ["nested/.GIT/config", "nested/.GiT/config"] {
+            let error = repository_state::capture(repository, &[PathBuf::from(relative)])
+                .expect_err("physical nested Git-admin alias must reject");
+            assert_protected_admin_rejection(error);
+        }
+        eprintln!("ISSUE67_NESTED_PHYSICAL_DOT_GIT_ALIAS_REJECTED=PASS");
+    } else {
+        fs::create_dir(nested.join(".GIT")).expect("distinct case directory is created");
+        let ordinary = nested.join(".GIT/config");
+        fs::write(&ordinary, b"alpha").expect("ordinary case-variant file is written");
+        let scope = [PathBuf::from("nested/.GIT/config")];
+        let before = repository_state::capture(repository, &scope)
+            .expect("distinct stored case variant remains governed");
+        fs::write(&ordinary, b"beta").expect("ordinary case-variant file is changed");
+        let after = repository_state::capture(repository, &scope)
+            .expect("changed distinct case variant remains governed");
+        assert_ne!(before.identity, after.identity);
+        eprintln!("ISSUE67_NESTED_DISTINCT_CASE_VARIANT_OBSERVABLE=PASS");
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn issue67_symlink_into_sibling_nested_git_admin_is_rejected() {
+    use std::os::unix::fs::symlink;
+
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    ignore_nested_repository(repository);
+    initialize_nested_repository(repository);
+    fs::create_dir(repository.join("other")).expect("sibling directory is created");
+    symlink("../nested/.git/objects", repository.join("other/link"))
+        .expect("sibling Git-admin symlink is created");
+    git(repository, &["add", "other/link"]);
+    git(repository, &["commit", "-q", "-m", "track sibling symlink"]);
+
+    let error =
+        repository_state::capture(repository, &[PathBuf::from("other/link/definitely-absent")])
+            .expect_err("resolved traversal into sibling nested Git admin must reject");
+    assert_protected_admin_rejection(error);
+    eprintln!("ISSUE67_SIBLING_NESTED_GIT_ADMIN_SYMLINK_REJECTED=PASS");
 }
 
 #[cfg(unix)]
