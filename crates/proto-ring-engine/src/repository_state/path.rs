@@ -1,21 +1,17 @@
-use std::collections::BTreeSet;
-use std::ffi::OsStr;
-use std::fs;
-use std::io::{ErrorKind, Read};
-use std::path::{Path, PathBuf};
-#[cfg(windows)]
-use std::time::{SystemTime, UNIX_EPOCH};
-
-use cap_std::fs::{Dir, Metadata};
-
 use super::StateCaptureError;
-
+#[cfg(windows)]
+use super::windows_identity::{ProtectedGitAdmin, open_protected_git_admin, reject_if_protected};
+use cap_std::fs::{Dir, Metadata};
+use std::collections::BTreeSet;
+use std::io::{ErrorKind, Read};
+use std::path::{Component, Path, PathBuf};
+#[cfg(windows)]
+use {cap_std::time::SystemTime, std::time::UNIX_EPOCH};
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct ObservedPath {
     pub(crate) path: PathBuf,
     pub(crate) object: ObservedObject,
 }
-
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) enum ObservedObject {
     Absent,
@@ -23,20 +19,110 @@ pub(crate) enum ObservedObject {
     Symlink { mode: u64, target: PathBuf },
     Directory { mode: u64 },
 }
-
 pub(crate) fn validate_explicit_scope(
-    root: &Path,
     entries: &[PathBuf],
 ) -> Result<BTreeSet<PathBuf>, StateCaptureError> {
     let mut validated = BTreeSet::new();
     for entry in entries {
         validate_spelling(entry)?;
-        validate_parent_containment(root, entry)?;
+        reject_git_implementation_path(entry)?;
         validated.insert(entry.clone());
     }
     Ok(validated)
 }
-
+pub(crate) fn reject_git_implementation_path(relative: &Path) -> Result<(), StateCaptureError> {
+    if relative
+        .components()
+        .any(|component| matches!(component, Component::Normal(value) if value == ".git"))
+    {
+        return Err(StateCaptureError::new(
+            "Git implementation path cannot enter RepositoryState observation",
+        ));
+    }
+    Ok(())
+}
+#[cfg(unix)]
+struct ProtectedGitAdmin(PathBuf, u64, u64);
+#[cfg(unix)]
+fn open_protected_git_admin(root_dir: &Dir) -> Result<ProtectedGitAdmin, StateCaptureError> {
+    use cap_std::fs::MetadataExt;
+    root_dir.symlink_metadata(".git").map_err(git_guard_error)?;
+    let location = root_dir.canonicalize(".git").map_err(git_guard_error)?;
+    let metadata = root_dir.metadata(".git").map_err(git_guard_error)?;
+    Ok(ProtectedGitAdmin(location, metadata.dev(), metadata.ino()))
+}
+enum Traversal {
+    Safe,
+    Missing,
+}
+pub(crate) fn reject_git_admin(root: &Dir, path: &Path) -> Result<(), StateCaptureError> {
+    classify_git_path(root, path).map(|_| ())
+}
+fn classify_git_path(root_dir: &Dir, relative: &Path) -> Result<Traversal, StateCaptureError> {
+    let protected = open_protected_git_admin(root_dir)?;
+    let components: Vec<_> = relative.iter().collect();
+    let mut prefix = PathBuf::new();
+    for component in components.iter().take(components.len().saturating_sub(1)) {
+        prefix.push(component);
+        match root_dir.symlink_metadata(&prefix) {
+            Ok(_) => classify_git_admin_traversal(root_dir, &prefix, &protected)?,
+            Err(error) if error.kind() == ErrorKind::NotFound => return Ok(Traversal::Missing),
+            Err(error) => return Err(git_guard_error(error)),
+        }
+    }
+    if let Some(component) = components.last() {
+        prefix.push(component);
+        match root_dir.symlink_metadata(&prefix) {
+            Ok(metadata) if metadata.file_type().is_symlink() => {}
+            Ok(_) => classify_git_admin_traversal(root_dir, &prefix, &protected)?,
+            Err(error) if error.kind() == ErrorKind::NotFound => {}
+            Err(error) => return Err(git_guard_error(error)),
+        }
+    }
+    Ok(Traversal::Safe)
+}
+fn classify_git_admin_traversal(
+    root_dir: &Dir,
+    candidate: &Path,
+    protected: &ProtectedGitAdmin,
+) -> Result<(), StateCaptureError> {
+    let resolved = root_dir.canonicalize(candidate).map_err(git_guard_error)?;
+    #[cfg(windows)]
+    return reject_if_protected(root_dir, &resolved, protected);
+    #[cfg(unix)]
+    {
+        let inside = resolved == protected.0
+            || resolved.strip_prefix(&protected.0).is_ok()
+            || physical_ancestor_is_protected(root_dir, &resolved, protected)?;
+        if inside {
+            return Err(StateCaptureError::new(
+                "governed path enters protected Git administrative subtree",
+            ));
+        }
+        Ok(())
+    }
+}
+#[cfg(unix)]
+fn physical_ancestor_is_protected(
+    root_dir: &Dir,
+    resolved: &Path,
+    protected: &ProtectedGitAdmin,
+) -> Result<bool, StateCaptureError> {
+    use cap_std::fs::MetadataExt;
+    for ancestor in resolved
+        .ancestors()
+        .filter(|path| !path.as_os_str().is_empty())
+    {
+        let metadata = root_dir.metadata(ancestor).map_err(git_guard_error)?;
+        if metadata.dev() == protected.1 && metadata.ino() == protected.2 {
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+fn git_guard_error(_: std::io::Error) -> StateCaptureError {
+    StateCaptureError::new("cannot classify Git administrative traversal")
+}
 pub(crate) fn observe_paths(
     root_dir: &Dir,
     paths: &[PathBuf],
@@ -45,21 +131,21 @@ pub(crate) fn observe_paths(
     paths
         .iter()
         .map(|relative| {
-            observe_path(root_dir, relative, explicit.contains(relative)).map(|object| {
-                ObservedPath {
-                    path: relative.clone(),
-                    object,
-                }
+            Ok(ObservedPath {
+                path: relative.clone(),
+                object: observe_path(root_dir, relative, explicit.contains(relative))?,
             })
         })
         .collect()
 }
-
 fn observe_path(
     root_dir: &Dir,
     relative: &Path,
     explicitly_observed: bool,
 ) -> Result<ObservedObject, StateCaptureError> {
+    if let Traversal::Missing = classify_git_path(root_dir, relative)? {
+        return Ok(ObservedObject::Absent);
+    }
     let before = match root_dir.symlink_metadata(relative) {
         Ok(metadata) => metadata,
         Err(error) if error.kind() == ErrorKind::NotFound => return Ok(ObservedObject::Absent),
@@ -109,6 +195,7 @@ fn observe_path(
                 "governed regular file changed while being observed",
             ));
         }
+        reject_git_admin(root_dir, relative)?;
         return Ok(ObservedObject::Regular {
             mode: relevant_mode(&before),
             bytes,
@@ -131,6 +218,7 @@ fn observe_path(
                 "governed symbolic link changed while being observed",
             ));
         }
+        reject_git_admin(root_dir, relative)?;
         return Ok(ObservedObject::Symlink {
             mode: relevant_mode(&before),
             target,
@@ -138,6 +226,7 @@ fn observe_path(
     }
     if file_type.is_dir() {
         return if explicitly_observed {
+            reject_git_admin(root_dir, relative)?;
             Ok(ObservedObject::Directory {
                 mode: relevant_mode(&before),
             })
@@ -151,45 +240,6 @@ fn observe_path(
         "governed filesystem object kind is unsupported",
     ))
 }
-
-fn validate_parent_containment(root: &Path, relative: &Path) -> Result<(), StateCaptureError> {
-    let parent = relative.parent().unwrap_or_else(|| Path::new(""));
-    let mut candidate = root.join(parent);
-    loop {
-        match fs::symlink_metadata(&candidate) {
-            Ok(_) => {
-                let resolved = candidate.canonicalize().map_err(|error| {
-                    StateCaptureError::new(format!(
-                        "explicit scope parent cannot be resolved: {error}"
-                    ))
-                })?;
-                if !resolved.starts_with(root) {
-                    return Err(StateCaptureError::new(
-                        "explicit scope has an intermediate parent outside the worktree",
-                    ));
-                }
-                return Ok(());
-            }
-            Err(error) if error.kind() == ErrorKind::NotFound => {
-                if candidate == root {
-                    return Err(StateCaptureError::new(
-                        "exact worktree root disappeared during scope validation",
-                    ));
-                }
-                candidate = candidate
-                    .parent()
-                    .ok_or_else(|| StateCaptureError::new("scope parent escaped worktree"))?
-                    .to_path_buf();
-            }
-            Err(error) => {
-                return Err(StateCaptureError::new(format!(
-                    "explicit scope parent cannot be inspected: {error}"
-                )));
-            }
-        }
-    }
-}
-
 #[cfg(unix)]
 fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
     use std::os::unix::ffi::OsStrExt;
@@ -209,7 +259,6 @@ fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
     }
     Ok(())
 }
-
 #[cfg(windows)]
 fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
     use std::os::windows::ffi::OsStrExt;
@@ -237,95 +286,76 @@ fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
     }
     Ok(())
 }
-
-pub(crate) fn os_units(value: &OsStr) -> Vec<u8> {
+pub(crate) fn os_units(value: &std::ffi::OsStr) -> Vec<u8> {
     os_units_impl(value)
 }
-
 #[cfg(unix)]
-fn os_units_impl(value: &OsStr) -> Vec<u8> {
+fn os_units_impl(value: &std::ffi::OsStr) -> Vec<u8> {
     use std::os::unix::ffi::OsStrExt;
     value.as_bytes().to_vec()
 }
-
 #[cfg(windows)]
-fn os_units_impl(value: &OsStr) -> Vec<u8> {
+fn os_units_impl(value: &std::ffi::OsStr) -> Vec<u8> {
     use std::os::windows::ffi::OsStrExt;
     value
         .encode_wide()
         .flat_map(u16::to_be_bytes)
         .collect::<Vec<_>>()
 }
-
 #[cfg(unix)]
 fn relevant_mode(metadata: &Metadata) -> u64 {
     use cap_std::fs::MetadataExt;
     u64::from(metadata.mode())
 }
-
 #[cfg(windows)]
 fn relevant_mode(metadata: &Metadata) -> u64 {
     u64::from(metadata.permissions().readonly())
 }
-
 #[cfg(unix)]
 #[derive(Clone, Debug, Eq, PartialEq)]
-struct MetadataGuard {
-    mode: u32,
-    size: u64,
-    modified_seconds: i64,
-    modified_nanoseconds: i64,
-    changed_seconds: i64,
-    changed_nanoseconds: i64,
-    device: u64,
-    inode: u64,
-}
-
+struct MetadataGuard(u32, u64, i64, i64, i64, i64, u64, u64);
 #[cfg(unix)]
 impl From<&Metadata> for MetadataGuard {
     fn from(metadata: &Metadata) -> Self {
         use cap_std::fs::MetadataExt;
-        Self {
-            mode: metadata.mode(),
-            size: metadata.size(),
-            modified_seconds: metadata.mtime(),
-            modified_nanoseconds: metadata.mtime_nsec(),
-            changed_seconds: metadata.ctime(),
-            changed_nanoseconds: metadata.ctime_nsec(),
-            device: metadata.dev(),
-            inode: metadata.ino(),
-        }
+        Self(
+            metadata.mode(),
+            metadata.size(),
+            metadata.mtime(),
+            metadata.mtime_nsec(),
+            metadata.ctime(),
+            metadata.ctime_nsec(),
+            metadata.dev(),
+            metadata.ino(),
+        )
     }
 }
-
 #[cfg(windows)]
 #[derive(Clone, Debug, Eq, PartialEq)]
-struct MetadataGuard {
-    size: u64,
-    modified: Option<std::time::Duration>,
-    created: Option<std::time::Duration>,
-    readonly: bool,
-    file_type: (bool, bool, bool),
-}
-
+struct MetadataGuard(
+    u64,
+    Option<std::time::Duration>,
+    Option<std::time::Duration>,
+    bool,
+    (bool, bool, bool),
+);
 #[cfg(windows)]
 impl From<&Metadata> for MetadataGuard {
     fn from(metadata: &Metadata) -> Self {
-        Self {
-            size: metadata.len(),
-            modified: system_time(metadata.modified()),
-            created: system_time(metadata.created()),
-            readonly: metadata.permissions().readonly(),
-            file_type: (
+        Self(
+            metadata.len(),
+            system_time(metadata.modified()),
+            system_time(metadata.created()),
+            metadata.permissions().readonly(),
+            (
                 metadata.file_type().is_file(),
                 metadata.file_type().is_dir(),
                 metadata.file_type().is_symlink(),
             ),
-        }
+        )
     }
 }
-
 #[cfg(windows)]
 fn system_time(value: std::io::Result<SystemTime>) -> Option<std::time::Duration> {
-    value.ok()?.duration_since(UNIX_EPOCH).ok()
+    value.ok()?.into_std().duration_since(UNIX_EPOCH).ok()
 }

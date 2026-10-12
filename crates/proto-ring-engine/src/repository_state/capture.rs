@@ -46,11 +46,10 @@ where
     F: FnOnce(&Path) -> Result<(), StateCaptureError>,
 {
     let root = git::resolve_worktree_root_with_environment(repository, ambient)?;
+    let scope = path::validate_explicit_scope(explicit_scope)?;
     let root_dir = Dir::open_ambient_dir(&root, ambient_authority()).map_err(|error| {
         StateCaptureError::new(format!("cannot open exact worktree capability: {error}"))
     })?;
-    // Scope admission is a preflight; `root_dir` is the governed-I/O containment boundary.
-    let scope = path::validate_explicit_scope(&root, explicit_scope)?;
     let structure_before = git::capture_structure(&root, &scope, ambient)?;
     let records_first = path::observe_paths(&root_dir, &structure_before.paths, &scope)?;
     hook(&root)?;
@@ -186,7 +185,7 @@ mod tests {
     #[test]
     fn observation_rejects_explicit_parent_escape_after_scope_admission() {
         let (_tree, repository, relative) = escaping_tree();
-        let explicit = path::validate_explicit_scope(&repository, std::slice::from_ref(&relative))
+        let explicit = path::validate_explicit_scope(std::slice::from_ref(&relative))
             .expect("contained path is admitted before mutation");
         fs::remove_dir_all(repository.join("parent")).expect("remove contained parent");
         symlink("../outside", repository.join("parent")).expect("install escaping parent");

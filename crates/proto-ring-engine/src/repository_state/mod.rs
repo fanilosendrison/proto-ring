@@ -2,12 +2,19 @@
 
 mod capture;
 mod git;
+mod git_discovery;
+mod git_environment;
 mod path;
+#[cfg(windows)]
+mod windows_identity;
 
 use std::error::Error;
 use std::ffi::OsString;
 use std::fmt::{Display, Formatter};
 use std::path::{Path, PathBuf};
+
+use cap_std::ambient_authority;
+use cap_std::fs::Dir;
 
 pub use capture::capture;
 pub use git::resolve_worktree_root;
@@ -72,8 +79,15 @@ pub fn discover_repository_paths(
     explicit_scope: &[PathBuf],
 ) -> Result<Vec<PathBuf>, StateCaptureError> {
     let root = resolve_worktree_root(repository)?;
-    let scope = path::validate_explicit_scope(&root, explicit_scope)?;
-    git::capture_structure(&root, &scope, &[]).map(|structure| structure.paths)
+    let scope = path::validate_explicit_scope(explicit_scope)?;
+    let paths = git::capture_structure(&root, &scope, &[])?.paths;
+    let root_dir = Dir::open_ambient_dir(&root, ambient_authority()).map_err(|error| {
+        StateCaptureError::new(format!("cannot open exact worktree capability: {error}"))
+    })?;
+    for relative in &paths {
+        path::reject_git_admin(&root_dir, relative)?;
+    }
+    Ok(paths)
 }
 
 pub(crate) type AmbientEnvironment = [(OsString, OsString)];
