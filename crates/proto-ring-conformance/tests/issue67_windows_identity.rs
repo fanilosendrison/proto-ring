@@ -48,6 +48,23 @@ fn assert_protected_admin_rejection(error: repository_state::StateCaptureError) 
     );
 }
 
+fn rename_dot_git_to_stored_case_variant(repository: &Path) {
+    let temporary_name = repository.join(".proto-ring-git-admin-rename");
+    fs::rename(repository.join(".git"), &temporary_name)
+        .expect("Git administrative entry is moved through an intermediate name");
+    fs::rename(&temporary_name, repository.join(".GIT"))
+        .expect("Git administrative entry receives stored case-variant spelling");
+    let names: Vec<_> = fs::read_dir(repository)
+        .expect("repository root is enumerable")
+        .map(|entry| entry.expect("directory entry is readable").file_name())
+        .collect();
+    assert!(names.iter().any(|name| name == ".GIT"));
+    assert!(!names.iter().any(|name| name == ".git"));
+    fs::symlink_metadata(repository.join(".git"))
+        .expect("host-native literal .git lookup still resolves");
+    git(repository, &["rev-parse", "--show-toplevel"]);
+}
+
 fn add_linked_worktree(main: &Path, linked: &Path) {
     let output = Command::new("git")
         .arg("-C")
@@ -68,6 +85,90 @@ fn add_linked_worktree(main: &Path, linked: &Path) {
             .file_type()
             .is_file()
     );
+}
+
+#[test]
+fn issue67_windows_stored_case_variant_git_admin_is_protected() {
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    rename_dot_git_to_stored_case_variant(repository);
+
+    let error = repository_state::capture(repository, &[PathBuf::from(".GIT/config")])
+        .expect_err("actual stored case-variant Git-admin directory is rejected");
+    assert_protected_admin_rejection(error);
+    if fs::symlink_metadata(repository.join(".GiT")).is_ok() {
+        let error = repository_state::capture(repository, &[PathBuf::from(".GiT/config")])
+            .expect_err("host-resolved Git-admin directory spelling alias is rejected");
+        assert_protected_admin_rejection(error);
+    }
+    repository_state::capture(repository, &[PathBuf::from(".gitignore")])
+        .expect("Git-admin prefix lookalike remains admissible");
+    eprintln!("ISSUE67_WINDOWS_STORED_CASE_VARIANT_DIRECTORY_ADMIN=PASS");
+}
+
+#[test]
+fn issue67_windows_nested_stored_case_variant_git_admin_is_protected() {
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    let nested = repository.join("nested");
+    fs::write(repository.join(".gitignore"), b"nested/\n").expect("ignore policy is written");
+    git(repository, &["add", ".gitignore"]);
+    git(
+        repository,
+        &["commit", "-q", "-m", "ignore nested repository"],
+    );
+    initialize_repository(&nested);
+    rename_dot_git_to_stored_case_variant(&nested);
+
+    let error = repository_state::capture(repository, &[PathBuf::from("nested/.GIT/config")])
+        .expect_err("nested stored case-variant Git-admin directory is rejected");
+    assert_protected_admin_rejection(error);
+    eprintln!("ISSUE67_WINDOWS_NESTED_STORED_CASE_VARIANT_DIRECTORY_ADMIN=PASS");
+}
+
+#[test]
+fn issue67_windows_stored_case_variant_git_file_is_protected() {
+    let temporary = tempfile::tempdir().expect("temporary root exists");
+    let main = temporary.path().join("main");
+    let linked = temporary.path().join("linked");
+    initialize_repository(&main);
+    add_linked_worktree(&main, &linked);
+    rename_dot_git_to_stored_case_variant(&linked);
+
+    for scope in [".GIT", ".GiT"] {
+        if fs::symlink_metadata(linked.join(scope)).is_ok() {
+            let error = repository_state::capture(&linked, &[PathBuf::from(scope)])
+                .expect_err("stored Git file or host namespace alias is rejected");
+            assert_protected_admin_rejection(error);
+        }
+    }
+    eprintln!("ISSUE67_WINDOWS_STORED_CASE_VARIANT_GIT_FILE=PASS");
+}
+
+#[test]
+fn issue67_windows_stored_case_variant_git_file_hardlinks_fail_closed() {
+    let temporary = tempfile::tempdir().expect("temporary root exists");
+    let main = temporary.path().join("main");
+    let linked = temporary.path().join("linked");
+    initialize_repository(&main);
+    add_linked_worktree(&main, &linked);
+    fs::write(linked.join(".gitignore"), b"gitfile-hardlink\n").expect("ignore is written");
+    fs::write(linked.join("ordinary.txt"), b"ordinary\n").expect("ordinary file is written");
+    git(&linked, &["add", ".gitignore", "ordinary.txt"]);
+    git(&linked, &["commit", "-q", "-m", "add ambiguity controls"]);
+    rename_dot_git_to_stored_case_variant(&linked);
+    fs::hard_link(linked.join(".GIT"), linked.join("gitfile-hardlink"))
+        .expect("distinct hard-link entry is created");
+
+    repository_state::capture(&linked, &[PathBuf::from("ordinary.txt")])
+        .expect("unrelated exact path is unaffected by ambiguous Git-file aliases");
+    for scope in [".GIT", "gitfile-hardlink"] {
+        let error = repository_state::capture(&linked, &[PathBuf::from(scope)])
+            .expect_err("ambiguous native Git-file alias fails closed");
+        assert!(error.to_string().contains("cannot unambiguously classify"));
+    }
+    eprintln!("ISSUE67_WINDOWS_STORED_CASE_VARIANT_HARDLINK_AMBIGUITY_FAIL_CLOSED=PASS");
+    eprintln!("ISSUE67_WINDOWS_AMBIGUOUS_GIT_FILE_UNRELATED_PATH=PASS");
 }
 
 #[test]

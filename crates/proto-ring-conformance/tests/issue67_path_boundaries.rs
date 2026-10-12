@@ -126,6 +126,47 @@ fn issue67_nested_git_admin_case_alias_respects_physical_identity() {
 
 #[cfg(unix)]
 #[test]
+fn issue67_unix_stored_case_variant_git_admin_is_host_resolved() {
+    let temporary = initialized_repository();
+    let repository = temporary.path();
+    ignore_nested_repository(repository);
+    let nested = initialize_nested_repository(repository);
+    let intermediate = nested.join(".proto-ring-git-admin-rename");
+    fs::rename(nested.join(".git"), &intermediate)
+        .expect("nested Git directory is moved through an intermediate name");
+    fs::rename(&intermediate, nested.join(".GIT"))
+        .expect("nested Git directory receives stored case-variant spelling");
+    let names: Vec<_> = fs::read_dir(&nested)
+        .expect("nested repository is enumerable")
+        .map(|entry| entry.expect("directory entry is readable").file_name())
+        .collect();
+    assert!(names.iter().any(|name| name == ".GIT"));
+    assert!(!names.iter().any(|name| name == ".git"));
+
+    if fs::symlink_metadata(nested.join(".git")).is_ok() {
+        git(&nested, &["rev-parse", "--show-toplevel"]);
+        let error = repository_state::capture(repository, &[PathBuf::from("nested/.GIT/config")])
+            .expect_err("host-resolved stored Git-admin directory is rejected");
+        assert_protected_admin_rejection(error);
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_ADMIN=PASS");
+    } else {
+        let scope = [PathBuf::from("nested/.GIT/config")];
+        let before = repository_state::capture(repository, &scope)
+            .expect("case-sensitive distinct stored variant remains governed");
+        let config = nested.join(".GIT/config");
+        let mut bytes = fs::read(&config).expect("ordinary stored variant is readable");
+        bytes.extend_from_slice(b"\n# changed\n");
+        fs::write(&config, bytes).expect("ordinary stored variant is changed");
+        let after = repository_state::capture(repository, &scope)
+            .expect("changed distinct stored variant remains governed");
+        assert_ne!(before.identity, after.identity);
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_ADMIN=NOT_APPLICABLE");
+        eprintln!("ISSUE67_UNIX_DISTINCT_STORED_CASE_VARIANT_GOVERNED=PASS");
+    }
+}
+
+#[cfg(unix)]
+#[test]
 fn issue67_symlink_into_sibling_nested_git_admin_is_rejected() {
     use std::os::unix::fs::symlink;
 

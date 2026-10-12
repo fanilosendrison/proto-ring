@@ -226,6 +226,41 @@ fn issue67_unix_git_file_namespace_alias_respects_stored_entry_identity() {
 
 #[cfg(unix)]
 #[test]
+fn issue67_unix_stored_case_variant_git_file_is_host_resolved() {
+    let (_temporary, linked) = linked_worktree_fixture();
+    let intermediate = linked.join(".proto-ring-git-admin-rename");
+    fs::rename(linked.join(".git"), &intermediate)
+        .expect("linked-worktree Git file is moved through an intermediate name");
+    fs::rename(&intermediate, linked.join(".GIT"))
+        .expect("linked-worktree Git file receives stored case-variant spelling");
+    let names = exact_stored_names(&linked);
+    assert!(names.iter().any(|name| name == ".GIT"));
+    assert!(!names.iter().any(|name| name == ".git"));
+
+    if fs::symlink_metadata(linked.join(".git")).is_ok() {
+        git(&linked, &["rev-parse", "--show-toplevel"]);
+        repository_state::capture(&linked, &[PathBuf::from(".GIT")])
+            .expect_err("unique native stored Git file is rejected");
+        fs::hard_link(linked.join(".GIT"), linked.join("gitfile-hardlink"))
+            .expect("distinct Git-file hard-link entry is created");
+        for scope in [".GIT", "gitfile-hardlink"] {
+            let error = repository_state::capture(&linked, &[PathBuf::from(scope)])
+                .expect_err("ambiguous native Git-file alias fails closed");
+            assert!(error.to_string().contains("cannot unambiguously classify"));
+        }
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_GIT_FILE=PASS");
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_HARDLINK_AMBIGUITY=PASS");
+    } else {
+        fs::rename(linked.join(".GIT"), linked.join(".git"))
+            .expect("linked-worktree Git file spelling is restored");
+        git(&linked, &["rev-parse", "--show-toplevel"]);
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_GIT_FILE=NOT_APPLICABLE");
+        eprintln!("ISSUE67_UNIX_STORED_CASE_VARIANT_HARDLINK_AMBIGUITY=NOT_APPLICABLE");
+    }
+}
+
+#[cfg(unix)]
+#[test]
 fn issue67_unix_git_file_hardlink_cannot_be_traversed_as_parent() {
     let (_temporary, linked) = linked_worktree_fixture();
     fs::hard_link(linked.join(".git"), linked.join("gitfile-hardlink"))
