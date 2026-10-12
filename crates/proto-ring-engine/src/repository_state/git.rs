@@ -1,31 +1,21 @@
+use super::{
+    AmbientEnvironment, StateCaptureError,
+    git_discovery::{DiscoveredPath, DiscoverySource, parse_discovered_paths},
+    git_environment::removed_git_name,
+    path,
+};
 use std::collections::{BTreeMap, BTreeSet};
 use std::env;
 use std::ffi::{OsStr, OsString};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output, Stdio};
-
-use super::{AmbientEnvironment, StateCaptureError};
-
-const REMOVED_GIT_ENVIRONMENT: &str = concat!(
-    "GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_CONFIG GIT_CONFIG_PARAMETERS GIT_CONFIG_COUNT ",
-    "GIT_CONFIG_GLOBAL GIT_CONFIG_SYSTEM GIT_CONFIG_NOSYSTEM GIT_OBJECT_DIRECTORY ",
-    "GIT_DIR GIT_WORK_TREE GIT_IMPLICIT_WORK_TREE GIT_GRAFT_FILE GIT_INDEX_FILE ",
-    "GIT_NO_REPLACE_OBJECTS GIT_REPLACE_REF_BASE GIT_PREFIX GIT_SHALLOW_FILE ",
-    "GIT_COMMON_DIR GIT_NAMESPACE GIT_CEILING_DIRECTORIES GIT_DISCOVERY_ACROSS_FILESYSTEM",
-);
-
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct RepositoryStructure {
     pub(crate) symbolic_head: Option<Vec<u8>>,
     pub(crate) head_oid: Option<Vec<u8>>,
     pub(crate) index_raw: Vec<u8>,
     pub(crate) paths: Vec<PathBuf>,
-}
-#[derive(Clone, Debug)]
-struct DiscoveredPath {
-    git_bytes: Vec<u8>,
-    identity_bytes: Vec<u8>,
 }
 #[derive(Clone, Debug)]
 struct IgnoreMatch {
@@ -58,7 +48,6 @@ pub(crate) fn resolve_worktree_root_with_environment(
     }
     Ok(requested)
 }
-
 pub(crate) fn capture_structure(
     root: &Path,
     explicit_scope: &BTreeSet<PathBuf>,
@@ -79,29 +68,28 @@ pub(crate) fn capture_structure(
         paths: paths.into_iter().collect(),
     })
 }
-
 fn discover_governed_paths(
     root: &Path,
     ambient: &AmbientEnvironment,
 ) -> Result<BTreeSet<PathBuf>, StateCaptureError> {
     let tracked_output = run_git(root, &["ls-files", "-z", "--cached"], ambient)?;
     require_success(&tracked_output, "tracked path discovery")?;
-    let tracked = parse_discovered_paths(&tracked_output.stdout)?;
+    let tracked = parse_discovered_paths(&tracked_output.stdout, DiscoverySource::Tracked)?;
+    reject_discovered_git_paths(&tracked)?;
     let tracked_sources: BTreeSet<Vec<u8>> = tracked
         .iter()
         .map(|path| path.identity_bytes.clone())
         .collect();
-
     let untracked_output = run_git(root, &["ls-files", "-z", "--others"], ambient)?;
     require_success(&untracked_output, "untracked path discovery")?;
-    let untracked = parse_discovered_paths(&untracked_output.stdout)?;
+    let untracked = parse_discovered_paths(&untracked_output.stdout, DiscoverySource::Untracked)?;
+    reject_discovered_git_paths(&untracked)?;
     let mut query = Vec::new();
     for path in &untracked {
         query.extend_from_slice(&path.git_bytes);
         query.push(0);
     }
     let ignored = classify_ignored_paths(root, ambient, &query, &untracked)?;
-
     let mut governed = BTreeSet::new();
     for path in tracked {
         governed.insert(bytes_to_path(path.identity_bytes)?);
@@ -131,7 +119,12 @@ fn discover_governed_paths(
     }
     Ok(governed)
 }
-
+fn reject_discovered_git_paths(paths: &[DiscoveredPath]) -> Result<(), StateCaptureError> {
+    for discovered in paths {
+        path::reject_git_implementation_path(&bytes_to_path(discovered.identity_bytes.clone())?)?;
+    }
+    Ok(())
+}
 fn classify_ignored_paths(
     root: &Path,
     ambient: &AmbientEnvironment,
@@ -189,7 +182,6 @@ fn classify_ignored_paths(
     }
     Ok(matches)
 }
-
 fn repository_gitignore_source(source: &[u8]) -> Result<bool, StateCaptureError> {
     let path = bytes_to_path(source.to_vec())?;
     Ok(!path.is_absolute()
@@ -197,7 +189,6 @@ fn repository_gitignore_source(source: &[u8]) -> Result<bool, StateCaptureError>
             exact_os_bytes(name).is_ok_and(|bytes| bytes.as_slice() == b".gitignore")
         }))
 }
-
 fn run_git(
     root: &Path,
     arguments: &[&str],
@@ -213,7 +204,6 @@ fn run_git_with_input(
 ) -> Result<Output, StateCaptureError> {
     run_git_with_optional_input(root, arguments, ambient, Some(input))
 }
-
 fn run_git_with_optional_input(
     root: &Path,
     arguments: &[&str],
@@ -257,17 +247,6 @@ fn run_git_with_optional_input(
         .wait_with_output()
         .map_err(|error| StateCaptureError::new(format!("Git execution failed: {error}")))
 }
-
-fn removed_git_name(name: &OsStr) -> bool {
-    name.to_str().is_some_and(|name| {
-        REMOVED_GIT_ENVIRONMENT
-            .split_ascii_whitespace()
-            .any(|candidate| candidate == name)
-            || name.starts_with("GIT_CONFIG_KEY_")
-            || name.starts_with("GIT_CONFIG_VALUE_")
-    })
-}
-
 fn require_success(output: &Output, label: &str) -> Result<(), StateCaptureError> {
     if output.status.success() {
         Ok(())
@@ -279,7 +258,6 @@ fn require_success(output: &Output, label: &str) -> Result<(), StateCaptureError
         )))
     }
 }
-
 fn optional_line(output: Output, label: &str) -> Result<Option<Vec<u8>>, StateCaptureError> {
     match output.status.code() {
         Some(0) => line_value(output.stdout, label).map(Some),
@@ -290,7 +268,6 @@ fn optional_line(output: Output, label: &str) -> Result<Option<Vec<u8>>, StateCa
         ))),
     }
 }
-
 #[cfg(unix)]
 fn line_value(mut bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCaptureError> {
     if bytes.last() != Some(&b'\n') {
@@ -301,7 +278,6 @@ fn line_value(mut bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCaptureEr
     bytes.pop();
     validate_line_value(bytes, label)
 }
-
 #[cfg(windows)]
 fn line_value(mut bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCaptureError> {
     if bytes.ends_with(b"\r\n") {
@@ -315,7 +291,6 @@ fn line_value(mut bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCaptureEr
     }
     validate_line_value(bytes, label)
 }
-
 fn validate_line_value(bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCaptureError> {
     if bytes.is_empty() || bytes.contains(&0) {
         return Err(StateCaptureError::new(format!(
@@ -324,24 +299,6 @@ fn validate_line_value(bytes: Vec<u8>, label: &str) -> Result<Vec<u8>, StateCapt
     }
     Ok(bytes)
 }
-
-fn parse_discovered_paths(bytes: &[u8]) -> Result<Vec<DiscoveredPath>, StateCaptureError> {
-    nul_fields(bytes, "Git path discovery")?
-        .into_iter()
-        .map(|path| {
-            let identity = if path.len() > 1 && path.last() == Some(&b'/') {
-                path[..path.len() - 1].to_vec()
-            } else {
-                path.to_vec()
-            };
-            Ok(DiscoveredPath {
-                git_bytes: path.to_vec(),
-                identity_bytes: identity,
-            })
-        })
-        .collect()
-}
-
 fn nul_fields<'a>(bytes: &'a [u8], label: &str) -> Result<Vec<&'a [u8]>, StateCaptureError> {
     if bytes.is_empty() {
         return Ok(Vec::new());
