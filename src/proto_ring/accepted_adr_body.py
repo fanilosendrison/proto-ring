@@ -83,7 +83,14 @@ def _validate_repository(repository: Path) -> Path:
     top_result = _run_git(root, "rev-parse", "--show-toplevel")
     if top_result.returncode != 0:
         raise _CheckFailure("repository must be a Git worktree")
-    top_text = _decode_git_text(top_result.stdout, "Git worktree root").strip()
+    top_output = top_result.stdout
+    if not top_output.endswith(b"\n"):
+        raise _CheckFailure(
+            "Git worktree root output is not LF-terminated"
+        )
+    top_text = _decode_git_text(
+        top_output[:-1], "Git worktree root"
+    )
     if not top_text or Path(top_text).resolve() != root:
         raise _CheckFailure("repository must be the exact Git worktree root")
 

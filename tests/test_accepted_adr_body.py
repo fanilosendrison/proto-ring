@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from proto_ring.accepted_adr_body import check
 
@@ -132,10 +134,42 @@ class AcceptedAdrBodyTests(unittest.TestCase):
         errors = check(repository or self.repository.root)
         self.assertTrue(any(fragment in error for error in errors), errors)
 
+    def assert_suffix_root_passes(self, suffix: str) -> None:
+        if os.name != "posix":
+            self.skipTest("control-character suffix paths require a POSIX host")
+        repository = GitRepository(self.base / f"repository-suffix{suffix}")
+        repository.write_adr(status="accepted", body=b"A")
+        repository.commit("accepted")
+        output = repository.git("rev-parse", "--show-toplevel")
+        self.assertEqual(os.fsencode(repository.root.resolve()) + b"\n", output)
+        self.assert_passes(repository.root)
+        nested = repository.root / "nested"
+        nested.mkdir()
+        self.assert_fails("repository must be the exact Git worktree root", nested)
+
     def test_non_git_repository_fails(self) -> None:
         non_git = self.base / "non-git"
         non_git.mkdir()
         self.assert_fails("Git worktree", non_git)
+
+    def test_unborn_head_fails(self) -> None:
+        self.assert_fails("repository must have a committed HEAD")
+
+    def test_git_root_output_without_final_lf_fails_closed(self) -> None:
+        result = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=self.repository.root,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertTrue(result.stdout.endswith(b"\n"))
+        result.stdout = result.stdout[:-1]
+        with patch("proto_ring.accepted_adr_body._run_git", return_value=result):
+            self.assertEqual(
+                ["Git worktree root output is not LF-terminated"],
+                check(self.repository.root),
+            )
 
     def test_shallow_repository_fails(self) -> None:
         self.repository.write_adr(status="accepted", body=b"A")
@@ -161,6 +195,18 @@ class AcceptedAdrBodyTests(unittest.TestCase):
         self.repository.write_adr(status="accepted", body=b"A")
         self.repository.commit("accepted")
         self.assert_passes()
+
+    def test_exact_root_with_carriage_return_suffix_passes(self) -> None:
+        self.assert_suffix_root_passes("\r")
+
+    def test_exact_root_with_space_suffix_passes(self) -> None:
+        self.assert_suffix_root_passes(" ")
+
+    def test_exact_root_with_tab_suffix_passes(self) -> None:
+        self.assert_suffix_root_passes("\t")
+
+    def test_exact_root_with_line_feed_suffix_passes(self) -> None:
+        self.assert_suffix_root_passes("\n")
 
     def test_unrelated_non_utf8_path_after_acceptance_is_ignored(self) -> None:
         self.repository.write_adr(status="accepted", body=b"A")
