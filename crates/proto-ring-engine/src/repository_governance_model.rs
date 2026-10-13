@@ -51,6 +51,13 @@ pub fn load(
 ) -> Result<RepositoryGovernanceModel, RepositoryGovernanceModelError> {
     let bootstrap = governance_bootstrap::load(repository_root)
         .map_err(|error| failure(format!("bootstrap failed: {error}")))?;
+    from_bootstrap(repository_root, &bootstrap)
+}
+
+pub(crate) fn from_bootstrap(
+    repository_root: &Path,
+    bootstrap: &governance_bootstrap::GovernanceBootstrap,
+) -> Result<RepositoryGovernanceModel, RepositoryGovernanceModelError> {
     let root = &bootstrap.repository_governance;
     require_keys(root, &["capabilities", "model_version", "provider"])?;
     let model_version = match root.get("model_version") {
