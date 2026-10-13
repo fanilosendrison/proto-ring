@@ -47,7 +47,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
         self.assertEqual(counts, EXPECTED_COUNTS)
         self.assertEqual(issue66_vector_count(self.cases), 555)
         total = sum(len(matrix["vectors"]) for matrix in self.cases.values())
-        self.assertEqual(total, 1109)
+        self.assertEqual(total, 1153)
 
     def test_02_every_raw_support_shape_is_strict(self) -> None:
         audited, errors = audit_raw_support_shapes(self.cases)
@@ -204,7 +204,7 @@ class Issue66CorpusClosureTest(unittest.TestCase):
                 "gb_read_only_heading_classification": "MIXED_CONTEXT",
                 "coverage_authority_violations": 0,
                 "coverage_authority": "PASS",
-                "coverage_full_vector_map_size": 1109,
+                "coverage_full_vector_map_size": 1153,
                 "coverage_relevant_headings": 43,
                 "open_domain_source_audit_required": "yes",
                 "required_uncovered": 0,

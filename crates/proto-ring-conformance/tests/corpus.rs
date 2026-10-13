@@ -65,6 +65,27 @@ fn published_corpus_runs_through_reference_candidate() {
         .filter(|matrix| issue66_responsibilities.contains(matrix.responsibility_id.as_str()))
         .map(|matrix| matrix.vectors.len())
         .sum();
+    let issue64_responsibilities: HashSet<_> = [
+        "accepted-adr-body.immutability",
+        "adr-metadata.parse",
+        "adr-metadata.repository-path",
+        "adr-metadata.validation",
+        "canonical-adr.resolve",
+        "normative-terminology.definition-discovery",
+        "normative-terminology.fingerprint",
+        "normative-terminology.inventory",
+        "normative-terminology.markdown",
+        "normative-terminology.registry",
+        "portable-pattern.full-match",
+    ]
+    .into_iter()
+    .collect();
+    let issue64_vectors: usize = corpus
+        .matrices
+        .iter()
+        .filter(|matrix| issue64_responsibilities.contains(matrix.responsibility_id.as_str()))
+        .map(|matrix| matrix.vectors.len())
+        .sum();
     let responsibility_vector_count = |responsibility_id| {
         corpus
             .matrices
@@ -85,6 +106,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(repository_integrity_vectors, 173);
     assert_eq!(evidence_requirements_vectors, 120);
     assert_eq!(exact_evidence_binding_vectors, 44);
+    assert_eq!(issue64_vectors, 209);
     assert_eq!(
         (
             corpus.responsibilities.len(),
@@ -93,8 +115,37 @@ fn published_corpus_runs_through_reference_candidate() {
             corpus.matrices.len(),
             vectors
         ),
-        (30, 29, 1, 29, 1109)
+        (30, 29, 1, 29, 1153)
     );
+    let vector_ids: HashSet<_> = corpus
+        .matrices
+        .iter()
+        .flat_map(|matrix| matrix.vectors.iter())
+        .map(|vector| vector.vector_id.as_str())
+        .collect();
+    for mandatory_id in [
+        "accepted-adr-body.immutability.non-git-root",
+        "adr-metadata.parse.bare-cr-rejected",
+        "adr-metadata.parse.crlf-rejected",
+        "adr-metadata.parse.utf8-bom-rejected",
+        "adr-metadata.validation.both-valid-schemas-both-fail",
+        "adr-metadata.validation.duplicate-string-list",
+        "adr-metadata.validation.empty-string-rejected",
+        "adr-metadata.validation.malformed-base-overlay-still-evaluated",
+        "adr-metadata.validation.malformed-base-overlay-success",
+        "adr-metadata.validation.malformed-overlay-base-still-evaluated",
+        "adr-metadata.validation.malformed-overlay-base-success",
+        "normative-terminology.definition-discovery.equation-colon-equals",
+        "normative-terminology.definition-discovery.equation-double-equals-excluded",
+        "normative-terminology.definition-discovery.equation-single-equals",
+        "normative-terminology.registry.cross-entry-alias-reuse",
+        "normative-terminology.registry.intra-entry-casefold-duplicate",
+        "portable-pattern.full-match.bound-over-decimal-runtime-limit",
+        "portable-pattern.full-match.bound-over-u64",
+        "portable-pattern.full-match.end-anchor-trailing-lf",
+    ] {
+        assert!(vector_ids.contains(mandatory_id), "missing {mandatory_id}");
+    }
     assert_eq!(
         retired[0].responsibility_id,
         "shared-governance-provider.check"
@@ -109,14 +160,14 @@ fn published_corpus_runs_through_reference_candidate() {
     );
 
     let requests = candidate_requests(&corpus);
-    assert_eq!(requests.len(), 1109);
+    assert_eq!(requests.len(), 1153);
     assert_projection_regressions(&corpus);
     assert_source_boundaries(&corpus);
     let python = PythonBridge::new(&root()).execute(&requests).unwrap();
-    assert_eq!(python.len(), 1109);
+    assert_eq!(python.len(), 1153);
 
     let baseline_reports = run_differential(&corpus, &python, &UnimplementedRustCandidate).unwrap();
-    assert_eq!(baseline_reports.len(), 1109);
+    assert_eq!(baseline_reports.len(), 1153);
     let baseline_python_counts =
         count_status(&baseline_reports, |report| report.python_vs_expected);
     let baseline_rust_counts = count_status(&baseline_reports, |report| report.rust_vs_expected);
@@ -127,16 +178,16 @@ fn published_corpus_runs_through_reference_candidate() {
         .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
         .count();
     let baseline_implemented_responsibilities = implemented_responsibilities(&baseline_reports);
-    assert_eq!(baseline_python_counts, (1109, 0, 0));
+    assert_eq!(baseline_python_counts, (1153, 0, 0));
     assert_eq!(
         (
             baseline_implemented_responsibilities,
             baseline_unimplemented
         ),
-        (0, 1109)
+        (0, 1153)
     );
-    assert_eq!(baseline_rust_counts, (0, 0, 1109));
-    assert_eq!(baseline_differential_counts, (0, 0, 1109));
+    assert_eq!(baseline_rust_counts, (0, 0, 1153));
+    assert_eq!(baseline_differential_counts, (0, 0, 1153));
 
     let reports = run_differential(&corpus, &python, &ReferenceRustCandidate).unwrap();
 
@@ -151,9 +202,9 @@ fn published_corpus_runs_through_reference_candidate() {
             );
         }
     }
-    assert_eq!(python_counts, (1109, 0, 0));
-    assert_eq!(rust_counts, (850, 0, 259));
-    assert_eq!(differential_counts, (850, 0, 259));
+    assert_eq!(python_counts, (1153, 0, 0));
+    assert_eq!(rust_counts, (850, 0, 303));
+    assert_eq!(differential_counts, (850, 0, 303));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -278,13 +329,13 @@ fn published_corpus_runs_through_reference_candidate() {
 
     let metrics: HashMap<&str, usize> = HashMap::from([
         ("implemented", implemented_vectors),
-        ("unimplemented", 1109 - implemented_vectors),
+        ("unimplemented", 1153 - implemented_vectors),
     ]);
     eprintln!(
         "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
     );
     eprintln!(
-        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1109"
+        "CORPUS_RESPONSIBILITIES=30\nRUST_PORT_RESPONSIBILITIES=29\nRETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES=1\nCORPUS_MATRICES=29\nCORPUS_VECTORS=1153"
     );
     eprintln!("ISSUE63_RESPONSIBILITIES=6\nISSUE63_VECTORS=76");
     eprintln!("ISSUE65_RESPONSIBILITIES=2\nISSUE65_VECTORS=166");
@@ -293,7 +344,7 @@ fn published_corpus_runs_through_reference_candidate() {
         issue66_responsibilities.len()
     );
     eprintln!(
-        "PYTHON_OBSERVATIONS=1109\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
+        "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
