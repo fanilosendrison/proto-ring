@@ -16,6 +16,7 @@ pub mod governance_routing;
 pub mod governed_objects;
 pub mod projection_registry;
 pub mod repository_governance_model;
+pub mod repository_governance_state;
 pub mod repository_integrity;
 pub mod repository_state;
 pub mod structured_data;

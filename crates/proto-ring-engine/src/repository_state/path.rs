@@ -1,9 +1,10 @@
 use super::StateCaptureError;
 use super::git_admin::{self, ClassificationRole};
+pub(crate) use super::scope::{reject_git_implementation_path, validate_explicit_scope};
 use cap_std::fs::{Dir, Metadata};
 use std::collections::BTreeSet;
 use std::io::{ErrorKind, Read};
-use std::path::{Component, Path, PathBuf};
+use std::path::{Path, PathBuf};
 #[cfg(windows)]
 use {cap_std::time::SystemTime, std::time::UNIX_EPOCH};
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -17,28 +18,6 @@ pub(crate) enum ObservedObject {
     Regular { mode: u64, bytes: Vec<u8> },
     Symlink { mode: u64, target: PathBuf },
     Directory { mode: u64 },
-}
-pub(crate) fn validate_explicit_scope(
-    entries: &[PathBuf],
-) -> Result<BTreeSet<PathBuf>, StateCaptureError> {
-    let mut validated = BTreeSet::new();
-    for entry in entries {
-        validate_spelling(entry)?;
-        reject_git_implementation_path(entry)?;
-        validated.insert(entry.clone());
-    }
-    Ok(validated)
-}
-pub(crate) fn reject_git_implementation_path(relative: &Path) -> Result<(), StateCaptureError> {
-    if relative
-        .components()
-        .any(|component| matches!(component, Component::Normal(value) if value == ".git"))
-    {
-        return Err(StateCaptureError::new(
-            "Git implementation path cannot enter RepositoryState observation",
-        ));
-    }
-    Ok(())
 }
 enum Traversal {
     Safe,
@@ -204,52 +183,6 @@ fn observe_path(
     Err(StateCaptureError::new(
         "governed filesystem object kind is unsupported",
     ))
-}
-#[cfg(unix)]
-fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
-    use std::os::unix::ffi::OsStrExt;
-    let bytes = path.as_os_str().as_bytes();
-    if bytes.is_empty()
-        || bytes.contains(&0)
-        || bytes.first() == Some(&b'/')
-        || bytes.last() == Some(&b'/')
-        || bytes.windows(2).any(|pair| pair == b"//")
-        || bytes
-            .split(|byte| *byte == b'/')
-            .any(|component| component == b"." || component == b"..")
-    {
-        return Err(StateCaptureError::new(
-            "explicit scope path has inadmissible exact spelling",
-        ));
-    }
-    Ok(())
-}
-#[cfg(windows)]
-fn validate_spelling(path: &Path) -> Result<(), StateCaptureError> {
-    use std::os::windows::ffi::OsStrExt;
-    let units: Vec<u16> = path.as_os_str().encode_wide().collect();
-    let separator = |unit| unit == b'/' as u16 || unit == b'\\' as u16;
-    if units.is_empty()
-        || units.contains(&0)
-        || path.is_absolute()
-        || matches!(
-            path.components().next(),
-            Some(std::path::Component::Prefix(_))
-        )
-        || units.first().is_some_and(|unit| separator(*unit))
-        || units.last().is_some_and(|unit| separator(*unit))
-        || units
-            .windows(2)
-            .any(|pair| separator(pair[0]) && separator(pair[1]))
-        || units
-            .split(|unit| separator(*unit))
-            .any(|component| component == [b'.' as u16] || component == [b'.' as u16, b'.' as u16])
-    {
-        return Err(StateCaptureError::new(
-            "explicit scope path has inadmissible exact spelling",
-        ));
-    }
-    Ok(())
 }
 pub(crate) fn os_units(value: &std::ffi::OsStr) -> Vec<u8> {
     os_units_impl(value)

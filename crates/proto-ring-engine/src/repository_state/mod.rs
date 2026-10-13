@@ -6,6 +6,7 @@ mod git_admin;
 mod git_discovery;
 mod git_environment;
 mod path;
+mod scope;
 #[cfg(unix)]
 mod unix_identity;
 #[cfg(windows)]
@@ -82,7 +83,7 @@ pub fn discover_repository_paths(
     explicit_scope: &[PathBuf],
 ) -> Result<Vec<PathBuf>, StateCaptureError> {
     let root = resolve_worktree_root(repository)?;
-    let scope = path::validate_explicit_scope(explicit_scope)?;
+    let scope = scope::validate_explicit_scope(explicit_scope)?;
     let paths = git::capture_structure(&root, &scope, &[])?.paths;
     let root_dir = Dir::open_ambient_dir(&root, ambient_authority()).map_err(|error| {
         StateCaptureError::new(format!("cannot open exact worktree capability: {error}"))
@@ -91,6 +92,13 @@ pub fn discover_repository_paths(
         path::reject_git_admin(&root_dir, relative)?;
     }
     Ok(paths)
+}
+
+pub(crate) fn explicit_scope_path_identity(
+    repository: &Path,
+    declared: &str,
+) -> Result<Option<PathBuf>, StateCaptureError> {
+    scope::explicit_scope_path_identity(repository, declared)
 }
 
 pub(crate) type AmbientEnvironment = [(OsString, OsString)];
