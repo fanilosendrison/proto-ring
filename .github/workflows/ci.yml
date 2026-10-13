@@ -122,3 +122,6 @@ jobs:
 
       - name: Test RepositoryState path boundaries
         run: cargo test -p proto-ring-conformance --test issue67_path_boundaries --locked
+
+      - name: Test RepositoryGovernanceState Rust port
+        run: cargo test -p proto-ring-conformance --test issue68_rust_port --locked

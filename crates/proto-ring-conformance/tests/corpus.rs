@@ -101,12 +101,14 @@ fn published_corpus_runs_through_reference_candidate() {
         responsibility_vector_count("evidence-requirements.registry");
     let exact_evidence_binding_vectors =
         responsibility_vector_count("exact-evidence-binding.evaluate");
+    let issue68_vectors = responsibility_vector_count("repository-governance-state.compose");
     assert_eq!(issue66_vectors, 555);
     assert_eq!(governance_bindings_vectors, 109);
     assert_eq!(repository_integrity_vectors, 173);
     assert_eq!(evidence_requirements_vectors, 120);
     assert_eq!(exact_evidence_binding_vectors, 44);
     assert_eq!(issue64_vectors, 209);
+    assert_eq!(issue68_vectors, 25);
     assert_eq!(
         (
             corpus.responsibilities.len(),
@@ -203,8 +205,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (850, 0, 303));
-    assert_eq!(differential_counts, (850, 0, 303));
+    assert_eq!(rust_counts, (875, 0, 278));
+    assert_eq!(differential_counts, (875, 0, 278));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -220,7 +222,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (14, 850)
+        (15, 875)
     );
     let issue66_rust_matches = reports
         .iter()
@@ -262,6 +264,14 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(repository_integrity_rust_matches, 173);
     assert_eq!(evidence_requirements_rust_matches, 120);
     assert_eq!(exact_evidence_binding_rust_matches, 44);
+    let issue68_rust_matches = reports
+        .iter()
+        .filter(|report| {
+            report.responsibility_id == "repository-governance-state.compose"
+                && report.rust_vs_expected == ComparisonStatus::Match
+        })
+        .count();
+    assert_eq!(issue68_rust_matches, 25);
 
     require_matches(
         &reports,
@@ -344,11 +354,14 @@ fn published_corpus_runs_through_reference_candidate() {
         issue66_responsibilities.len()
     );
     eprintln!(
+        "ISSUE68_RESPONSIBILITIES=1\nISSUE68_VECTORS={issue68_vectors}\nISSUE68_RUST_MATCH={issue68_rust_matches}"
+    );
+    eprintln!(
         "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=15\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=14\nRUST_UNIMPLEMENTED_VECTORS={}",
         metrics["implemented"], metrics["unimplemented"]
     );
     eprintln!(
