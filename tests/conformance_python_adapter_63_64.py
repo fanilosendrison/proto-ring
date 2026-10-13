@@ -97,6 +97,11 @@ def _adr_parse(arguments: dict[str, object]):
         with mock.patch.object(Path, "read_bytes", return_value=data):
             value = adr_metadata.load_yaml(Path("fixture.yaml"))
         return _success(value)
+    if operation == "load_json":
+        text = data.decode("utf-8")
+        with mock.patch.object(Path, "read_text", return_value=text):
+            value = adr_metadata.load_json(Path("fixture.json"))
+        return _success(value)
     if operation == "parse_adr":
         metadata, body = adr_metadata.parse_adr_bytes(data)
         return _success({"metadata": metadata, "body_hex": body.hex()})
@@ -114,8 +119,13 @@ def _adr_parse(arguments: dict[str, object]):
 def _adr_validation(arguments: dict[str, object]):
     operation = arguments["operation"]
     value = arguments.get("value")
-    if operation in {"schema_errors", "schema_error_locations"}:
+    if operation in {"schema_errors", "schema_error_labels", "schema_error_locations"}:
         errors = adr_metadata.schema_errors(value, arguments["schema"], arguments["overlay_schema"])
+        if operation == "schema_error_labels":
+            return _success({
+                "base_has_error": any(error.startswith("base schema") for error in errors),
+                "overlay_has_error": any(error.startswith("overlay schema") for error in errors),
+            })
         if operation == "schema_error_locations":
             locations = []
             for error in errors:
