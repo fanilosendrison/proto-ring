@@ -5,6 +5,7 @@ mod evidence_requirements;
 mod exact_evidence_binding;
 mod foundation;
 mod governance_bindings;
+mod portable_pattern;
 mod projection_registry;
 mod repository_governance_state;
 mod repository_integrity;
@@ -26,6 +27,7 @@ const IMPLEMENTED: &[&str] = &[
     "governance-bootstrap.root",
     "governance-routing.resolve",
     "governed-objects.catalog",
+    "portable-pattern.full-match",
     "projection-registry.registry",
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
@@ -74,6 +76,7 @@ fn execute_responsibility(
         "evidence-requirements.registry" => evidence_requirements::execute(fixture),
         "exact-evidence-binding.evaluate" => exact_evidence_binding::execute(fixture.arguments()),
         "governance-bindings.registry" => governance_bindings::execute(fixture),
+        "portable-pattern.full-match" => portable_pattern::execute(fixture.arguments()),
         "projection-registry.registry" => projection_registry::execute(fixture),
         "repository-integrity.profile" => repository_integrity::execute(fixture),
         "governance-authority.profile" | "governed-objects.catalog" => {
