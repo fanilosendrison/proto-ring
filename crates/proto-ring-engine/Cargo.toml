@@ -11,6 +11,7 @@ conformance-internal = []
 
 [dependencies]
 cap-std.workspace = true
+num-bigint.workspace = true
 yaml-rust2.workspace = true
 
 [target.'cfg(windows)'.dependencies]
