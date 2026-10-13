@@ -9,6 +9,71 @@
     {
       "authorities": [
         {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "ADR exact-text primitives forbid every carriage-return byte, so a bare CR in otherwise valid authored text is rejected."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e0d20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a bare CR is rejected rather than normalized or preserved"
+      ],
+      "vector_id": "adr-metadata.parse.bare-cr-rejected"
+    },
+    {
+      "authorities": [
+        {
           "clause": "Canonical structured-data loading",
           "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
           "path": "docs/contracts/adr-metadata-primitives.md",
@@ -208,6 +273,71 @@
         "a heading containing Context text without exact level-two boundary does not redefine the body"
       ],
       "vector_id": "adr-metadata.parse.contextual-heading"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "ADR exact-text primitives forbid every carriage-return byte, so replacing one LF separator with CRLF causes controlled rejection."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "CRLF is rejected rather than normalized to LF"
+      ],
+      "vector_id": "adr-metadata.parse.crlf-rejected"
     },
     {
       "authorities": [
@@ -1070,6 +1200,629 @@
         "standalone canonical YAML mapping loads with Canonical Structured Data semantics"
       ],
       "vector_id": "adr-metadata.parse.standalone-mapping"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "ADR exact-text primitives forbid a UTF-8 byte-order mark, so otherwise valid ADR bytes fail through the controlled metadata boundary."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "efbbbf2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030313a204578616d706c650a0a232320436f6e746578740a0a4465636973696f6e20626f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a UTF-8 BOM is rejected rather than normalized away"
+      ],
+      "vector_id": "adr-metadata.parse.utf8-bom-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "Only a heading beginning with '## Context' followed by a space or end of line is a boundary; '## Contextual note' is not one, so the exact suffix starts at the later boundary."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "232320436f6e746578740a0a52696768742e0a"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030310a0a232320436f6e7465787475616c206e6f74650a0a57726f6e672e0a0a232320436f6e746578740a0a52696768742e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "decision_body"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A heading containing Context text without the exact boundary must not select the decision body."
+      ],
+      "vector_id": "adr-metadata.parse.context-like-heading-before-boundary"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "Exact ADR parsing returns authored decision-body bytes without adding a final LF."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "body_hex",
+              "value": {
+                "type": "string",
+                "value": "232320436f6e746578740a0a4e6f2066696e616c204c46"
+              }
+            },
+            {
+              "name": "metadata",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "id",
+                    "value": {
+                      "type": "string",
+                      "value": "ADR-001"
+                    }
+                  },
+                  {
+                    "name": "status",
+                    "value": {
+                      "type": "string",
+                      "value": "accepted"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d3030310a0a232320436f6e746578740a0a4e6f2066696e616c204c46"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "parse_adr"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Exact returned body/payload bytes preserve absence of a final newline."
+      ],
+      "vector_id": "adr-metadata.parse.final-newline-absent-preserved"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "The exact H1 text is every UTF-8 character after '# ' and is not trimmed, including the two trailing spaces."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "ADR-001  "
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "2d2d2d0a69643a20224144522d303031220a7374617475733a20226163636570746564220a2d2d2d0a0a23204144522d30303120200a0a232320436f6e746578740a0a426f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "h1"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "H1 text after '# ' is returned without trimming."
+      ],
+      "vector_id": "adr-metadata.parse.h1-trailing-space-preserved"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "Decision-body extraction requires exactly one Context boundary, so an input with none is rejected."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "23204144522d3030310a0a426f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "decision_body"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A missing exact Context boundary is rejected."
+      ],
+      "vector_id": "adr-metadata.parse.missing-context-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "Both headings begin with '## Context' followed respectively by end of line and a space, so the required unique boundary is absent and extraction is rejected."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "23204144522d3030310a0a232320436f6e746578740a410a232320436f6e74657874206d6f72650a420a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "decision_body"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Multiple exact Context boundaries are rejected rather than selecting first or last."
+      ],
+      "vector_id": "adr-metadata.parse.multiple-context-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing"
+          ],
+          "reason": "The preserved payload and H1 operation require a unique exact level-one heading, so two '# ' headings are rejected."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "232046697273740a0a23205365636f6e640a0a232320436f6e746578740a426f64792e0a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "h1"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Multiple exact level-one headings are rejected."
+      ],
+      "vector_id": "adr-metadata.parse.multiple-h1-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set"
+          ],
+          "reason": "Strict UTF-8 JSON loading preserves the concrete object and its integer value without adding YAML semantics."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "value",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "7b2276616c7565223a317d"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_json"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "The strict UTF-8 JSON loading operation is present and preserves structured values."
+      ],
+      "vector_id": "adr-metadata.parse.strict-json-object"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Canonical structured-data loading",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical operation set",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical structured-data loading",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Canonical operation set"
+          ],
+          "reason": "A truncated JSON object is not strict JSON and therefore fails through the controlled ADR metadata boundary."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.parse.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "bytes_hex",
+              "value": {
+                "type": "string",
+                "value": "7b"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "load_json"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "Malformed strict JSON fails through the controlled ADR metadata boundary."
+      ],
+      "vector_id": "adr-metadata.parse.malformed-json-rejected"
     }
   ]
 }

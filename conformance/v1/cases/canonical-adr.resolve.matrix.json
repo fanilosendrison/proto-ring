@@ -2552,6 +2552,123 @@
         "zero matching canonical candidates fail closed"
       ],
       "vector_id": "canonical-adr.resolve.zero-candidate"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Exact text and hashing",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Canonical corpus",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/canonical-adr-identity.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Exact text and hashing",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/canonical-adr-identity.md#Canonical corpus"
+          ],
+          "reason": "Only direct non-symlink regular files in the configured ADR directory participate; the sole matching file is nested, leaving zero canonical candidates and requiring rejection."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "canonical-adr.resolve.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "adr_id",
+              "value": {
+                "type": "string",
+                "value": "ADR-001"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "resolve_adr"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr/nested"
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/nested/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# ADR-001\n\n## Context\n\nNested.\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A matching nested file under the configured ADR directory does not participate."
+      ],
+      "vector_id": "canonical-adr.resolve.nested-candidate-ignored"
     }
   ]
 }

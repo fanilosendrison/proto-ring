@@ -25,6 +25,132 @@
           "authority_keys": [
             "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
           ],
+          "reason": "The empty metadata lacks both independently required properties, so each valid Draft 2020-12 schema has at least one labeled validation error."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "base_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "overlay_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_labels"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "name"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay schema checks execute independently and preserve their source labels"
+      ],
+      "vector_id": "adr-metadata.validation.both-valid-schemas-both-fail"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
           "reason": "The impossible 2025-02-29 instance satisfies the explicit overlay but the base Draft 2020-12 date format checker reports a base-schema error at $.date; diagnostic prose is not compared."
         },
         "kind": "result",
@@ -233,6 +359,593 @@
         "format checking rejects an impossible calendar date"
       ],
       "vector_id": "adr-metadata.validation.calendar-date"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The generic string-list requirement is duplicate-free, so two equal non-empty strings are rejected through the controlled ADR metadata boundary."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string_list"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  },
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "duplicate nonempty strings are rejected independently of element type and emptiness checks"
+      ],
+      "vector_id": "adr-metadata.validation.duplicate-string-list"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The generic string requirement admits only non-empty strings, so the exact empty string is rejected through the controlled ADR metadata boundary."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": ""
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "an empty string is rejected separately from a non-string value"
+      ],
+      "vector_id": "adr-metadata.validation.empty-string-rejected"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The base schema is malformed while the valid overlay independently rejects missing domain; the contract requires both labeled checks to contribute an error."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "base_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "overlay_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_labels"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "not-a-json-schema-type"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay schema checks execute independently and preserve their source labels"
+      ],
+      "vector_id": "adr-metadata.validation.malformed-base-overlay-still-evaluated"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The malformed base contributes a base error while the independently checked permissive overlay accepts the empty metadata."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "base_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "overlay_has_error",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_labels"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "not-a-json-schema-type"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay schema checks execute independently and preserve their source labels"
+      ],
+      "vector_id": "adr-metadata.validation.malformed-base-overlay-success"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The valid base independently rejects missing name while the overlay schema is malformed; the contract requires both labeled checks to contribute an error."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "base_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
+              "name": "overlay_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_labels"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "not-a-json-schema-type"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "required",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "name"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay schema checks execute independently and preserve their source labels"
+      ],
+      "vector_id": "adr-metadata.validation.malformed-overlay-base-still-evaluated"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "JSON Schema validation",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#JSON Schema validation"
+          ],
+          "reason": "The permissive base accepts the empty metadata while the independently checked malformed overlay contributes an overlay error."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "base_has_error",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            },
+            {
+              "name": "overlay_has_error",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "schema_error_labels"
+              }
+            },
+            {
+              "name": "overlay_schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "not-a-json-schema-type"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "schema",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "type",
+                    "value": {
+                      "type": "string",
+                      "value": "object"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": []
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "base and overlay schema checks execute independently and preserve their source labels"
+      ],
+      "vector_id": "adr-metadata.validation.malformed-overlay-base-success"
     },
     {
       "authorities": [
@@ -841,6 +1554,297 @@
         "base and overlay Draft 2020-12 schemas independently validate metadata"
       ],
       "vector_id": "adr-metadata.validation.valid-schema"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The generic mapping requirement admits this mapping unchanged, preventing blanket rejection from satisfying the negative fixture alone."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "alpha",
+              "value": {
+                "type": "integer",
+                "value": "1"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_mapping"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "alpha",
+                    "value": {
+                      "type": "integer",
+                      "value": "1"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A mapping is admitted by require_mapping."
+      ],
+      "vector_id": "adr-metadata.validation.valid-mapping"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The generic non-empty-string requirement admits this string unchanged, preventing blanket rejection from satisfying the negative fixtures."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "text",
+              "value": {
+                "type": "string",
+                "value": "alpha"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "string",
+                "value": "alpha"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A non-empty string is admitted by require_string."
+      ],
+      "vector_id": "adr-metadata.validation.valid-string"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "The generic string-list requirement admits this ordered duplicate-free list of non-empty strings."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "items",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  },
+                  {
+                    "type": "string",
+                    "value": "beta"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string_list"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "alpha"
+                  },
+                  {
+                    "type": "string",
+                    "value": "beta"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A duplicate-free list of non-empty strings is admitted."
+      ],
+      "vector_id": "adr-metadata.validation.valid-string-list"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Structured configuration requirements",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/adr-metadata-primitives.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/adr-metadata-primitives.md#Structured configuration requirements"
+          ],
+          "reason": "Every string-list element must be non-empty, so a one-element list containing the empty string is rejected independently of type and duplicate errors."
+        },
+        "kind": "controlled_rejection",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "adr-metadata.validation.rejected"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "require_string_list"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "type": "sequence",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "An empty string element is rejected independently of duplicate and non-string failures."
+      ],
+      "vector_id": "adr-metadata.validation.empty-string-list-item"
     }
   ]
 }

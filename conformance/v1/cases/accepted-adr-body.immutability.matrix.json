@@ -529,6 +529,80 @@
     {
       "authorities": [
         {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery"
+          ],
+          "reason": "Historical discovery requires the invocation directory itself to be an exact Git worktree root; this concrete directory has a file but no Git initialization, so historical state is invalid and the controlled overall result is NON_PASS."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "historical_state_invalid"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "op": "write_utf8",
+            "path": "note.txt",
+            "text": "not a Git repository\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a concrete non-Git directory fails the exact Git-worktree-root prerequisite"
+      ],
+      "vector_id": "accepted-adr-body.immutability.non-git-root"
+    },
+    {
+      "authorities": [
+        {
           "clause": "After acceptance",
           "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
           "path": "docs/contracts/accepted-adr-body-immutability.md",
@@ -4047,6 +4121,314 @@
         "a current uncommitted rewrite is rejected"
       ],
       "vector_id": "accepted-adr-body.immutability.uncommitted-rewrite"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery"
+          ],
+          "reason": "Historical discovery requires a committed HEAD; this exact Git worktree has an unborn branch and therefore yields the controlled historical-state failure."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "string",
+                "value": "historical_state_invalid"
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "NON_PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "A Git worktree root without committed HEAD is a controlled historical-state failure."
+      ],
+      "vector_id": "accepted-adr-body.immutability.unborn-head"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Historical discovery",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Current working state",
+          "commit": "e6da07c0961683cddfcfa5e7a3641333c7d79d20",
+          "path": "docs/contracts/accepted-adr-body-immutability.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Historical discovery",
+            "repo:fanilosendrison/proto-ring@e6da07c0961683cddfcfa5e7a3641333c7d79d20:docs/contracts/accepted-adr-body-immutability.md#Current working state"
+          ],
+          "reason": "Only first-parent history is authoritative. The accepted side-branch state is reachable solely through the merge's second parent, so it establishes no seal and the current first-acceptance candidate is not rejected."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "category",
+              "value": {
+                "type": "null",
+                "value": null
+              }
+            },
+            {
+              "name": "status",
+              "value": {
+                "type": "string",
+                "value": "PASS"
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "environment": {},
+        "faults": [],
+        "invocation": {
+          "type": "record",
+          "value": [
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "check_accepted_body"
+              }
+            }
+          ]
+        },
+        "kind": "repository_plan",
+        "steps": [
+          {
+            "argv": [
+              "init",
+              "-q",
+              "-b",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.name",
+              "Corpus Author"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "config",
+              "user.email",
+              "corpus@example.invalid"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "AGENTS.md",
+            "text": "---\nrepository_governance:\n  model_version: 1\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"binding\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/adr-profile.yaml\"\n    shared_governance_provider:\n      configuration:\n        required: true\n      routes:\n        binding: \"config/provider.md\"\n---\n# Directives\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "config"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/adr-profile.yaml",
+            "text": "repository:\n  adr_directory: docs/adr\n  filename_pattern: '^adr-(?P<number>[0-9]{3})-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$'\n  id_pattern: '^ADR-[0-9]{3}$'\n  id_width: 3\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/provider.md",
+            "text": "# provider\n"
+          },
+          {
+            "op": "mkdir",
+            "path": "docs/adr"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "base"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "checkout",
+              "-q",
+              "-b",
+              "side"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# ADR-001\n\n## Context\n\nSide body.\n"
+          },
+          {
+            "argv": [
+              "add",
+              "-A"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "commit",
+              "-q",
+              "-m",
+              "side accepted"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "checkout",
+              "-q",
+              "main"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "argv": [
+              "merge",
+              "-q",
+              "--no-ff",
+              "-s",
+              "ours",
+              "side",
+              "-m",
+              "merge side"
+            ],
+            "capture_stdout_as": null,
+            "environment": {},
+            "op": "git",
+            "stdin_hex": null
+          },
+          {
+            "op": "write_utf8",
+            "path": "docs/adr/adr-001-example.md",
+            "text": "---\nid: \"ADR-001\"\nstatus: \"accepted\"\n---\n\n# ADR-001\n\n## Context\n\nMain body.\n"
+          }
+        ]
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "An accepted state reachable only through a second parent does not establish the first-parent seal."
+      ],
+      "vector_id": "accepted-adr-body.immutability.second-parent-only-anchor-ignored"
     }
   ]
 }

@@ -145,6 +145,196 @@
           "source_kind": "repository"
         }
       ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The 4301-digit canonical decimal bound is a valid mathematical integer with no contract digit limit; finite input length proves no match without materializing the repetition count."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "a{10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000}"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a valid 4301-digit quantifier is not rejected because of host decimal-conversion limits"
+      ],
+      "vector_id": "portable-pattern.full-match.bound-over-decimal-runtime-limit"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Quantifiers",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The canonical decimal bound is a valid mathematical integer; one input scalar cannot satisfy that exact positive repetition count, yielding a valid-pattern non-match rather than parser rejection."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "a"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "a{18446744073709551616}"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "a valid quantifier one above u64 maximum is not rejected as an invalid pattern"
+      ],
+      "vector_id": "portable-pattern.full-match.bound-over-u64"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Admitted grammar / Quantifiers",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
       "behavior_classification": "missing_contract_responsibility",
       "comparison": {
         "kind": "exact"
@@ -1371,6 +1561,93 @@
         "$ denotes exact input end, not before a final LF"
       ],
       "vector_id": "portable-pattern.full-match.end-anchor"
+    },
+    {
+      "authorities": [
+        {
+          "clause": "Admitted grammar / Anchors",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Matching operation",
+          "commit": "85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3",
+          "path": "docs/contracts/portable-pattern.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        }
+      ],
+      "behavior_classification": "required_by_existing_normative_semantics",
+      "comparison": {
+        "kind": "exact"
+      },
+      "expected_observation": {
+        "derivation": {
+          "authority_keys": [
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Admitted grammar / Anchors",
+            "repo:fanilosendrison/proto-ring@85b0e1bfeebb4774c590c85ffbcb12b25ddf62e3:docs/contracts/portable-pattern.md#Matching operation"
+          ],
+          "reason": "The end anchor denotes only the exact end of input; after matching abc, the trailing LF remains, so no full match exists."
+        },
+        "kind": "result",
+        "value": {
+          "type": "record",
+          "value": [
+            {
+              "name": "captures",
+              "value": {
+                "type": "sequence",
+                "value": []
+              }
+            },
+            {
+              "name": "matched",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      },
+      "fixture": {
+        "input": {
+          "type": "record",
+          "value": [
+            {
+              "name": "candidate",
+              "value": {
+                "type": "string",
+                "value": "abc\n"
+              }
+            },
+            {
+              "name": "operation",
+              "value": {
+                "type": "string",
+                "value": "full_match"
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "type": "string",
+                "value": "abc$"
+              }
+            }
+          ]
+        },
+        "kind": "inline"
+      },
+      "frozen_python_observation": null,
+      "later_python_observation": null,
+      "resolution": null,
+      "state_distinctions": [
+        "$ has no native-regex before-final-LF interpretation"
+      ],
+      "vector_id": "portable-pattern.full-match.end-anchor-trailing-lf"
     },
     {
       "authorities": [
