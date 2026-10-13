@@ -16,6 +16,7 @@ pub(super) const IMPLEMENTED: &[&str] = &[
     "governance-bootstrap.root",
     "governance-routing.resolve",
     "governed-objects.catalog",
+    "portable-pattern.full-match",
     "projection-registry.registry",
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
@@ -90,6 +91,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "rust_candidate/exact_evidence_binding.rs",
         "rust_candidate/foundation.rs",
         "rust_candidate/governance_bindings.rs",
+        "rust_candidate/portable_pattern.rs",
         "rust_candidate/projection_registry.rs",
         "rust_candidate/repository_governance_state.rs",
         "rust_candidate/repository_governance_state/observe.rs",
@@ -114,6 +116,10 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "governance_bootstrap.rs",
         "governance_routing.rs",
         "governed_objects.rs",
+        "portable_pattern/mod.rs",
+        "portable_pattern/model.rs",
+        "portable_pattern/parser.rs",
+        "portable_pattern/matcher.rs",
         "repository_governance_model.rs",
         "repository_governance_state/mod.rs",
         "repository_governance_state/compose.rs",
@@ -131,10 +137,11 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
             fs::read_to_string(repository.join("crates/proto-ring-engine/src").join(path)).unwrap()
         })
         .collect::<String>();
+    let implementation = format!("{candidate}{engine}");
     for matrix in &corpus.matrices {
         if IMPLEMENTED.contains(&matrix.responsibility_id.as_str()) {
             for vector in &matrix.vectors {
-                assert!(!candidate.contains(&vector.vector_id));
+                assert!(!implementation.contains(&vector.vector_id));
             }
         }
     }

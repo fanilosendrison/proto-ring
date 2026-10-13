@@ -205,8 +205,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (875, 0, 278));
-    assert_eq!(differential_counts, (875, 0, 278));
+    assert_eq!(rust_counts, (912, 0, 241));
+    assert_eq!(differential_counts, (912, 0, 241));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -222,7 +222,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (15, 875)
+        (16, 912)
     );
     let issue66_rust_matches = reports
         .iter()
@@ -357,11 +357,14 @@ fn published_corpus_runs_through_reference_candidate() {
         "ISSUE68_RESPONSIBILITIES=1\nISSUE68_VECTORS={issue68_vectors}\nISSUE68_RUST_MATCH={issue68_rust_matches}"
     );
     eprintln!(
+        "ISSUE64_PORTABLE_PATTERN_RESPONSIBILITIES=1\nISSUE64_PORTABLE_PATTERN_VECTORS=37\nISSUE64_PORTABLE_PATTERN_RUST_MATCH=37"
+    );
+    eprintln!(
         "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=14\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=13\nRUST_UNIMPLEMENTED_VECTORS={}",
         metrics["implemented"], metrics["unimplemented"]
     );
     eprintln!(
