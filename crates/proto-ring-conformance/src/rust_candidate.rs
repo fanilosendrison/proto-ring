@@ -6,6 +6,7 @@ mod exact_evidence_binding;
 mod foundation;
 mod governance_bindings;
 mod projection_registry;
+mod repository_governance_state;
 mod repository_integrity;
 mod repository_state;
 mod support;
@@ -28,6 +29,7 @@ const IMPLEMENTED: &[&str] = &[
     "projection-registry.registry",
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
+    "repository-governance-state.compose",
     "repository-integrity.profile",
     "repository-state.capture",
     "structured-data.document",
@@ -43,6 +45,11 @@ impl CandidateExecutor for ReferenceRustCandidate {
             |error| HarnessError::new(format!("fixture failed for {}: {error}", request.vector_id));
         if request.responsibility_id == "repository-state.capture" {
             return repository_state::execute(&request.fixture)
+                .map(CandidateState::Observation)
+                .map_err(fixture_error);
+        }
+        if request.responsibility_id == "repository-governance-state.compose" {
+            return repository_governance_state::execute(&request.fixture)
                 .map(CandidateState::Observation)
                 .map_err(fixture_error);
         }

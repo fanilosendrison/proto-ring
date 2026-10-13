@@ -1,5 +1,9 @@
 #![forbid(unsafe_code)]
+
+mod platform;
+
 use crate::model::{RecordEntry, TransportValue};
+use platform::{apply_chmod, create_symlink};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::error::Error;
@@ -130,6 +134,15 @@ pub(crate) fn apply_step(
             fs::write(&path, text.as_bytes())
                 .map_err(|error| failure(format!("write_utf8 failed: {error}")))
         }
+        "write_hex" => {
+            let path = checked_path(root, string_field(object, "path")?)?;
+            let bytes = decode_hex(string_field(object, "hex")?)?;
+            if let Some(parent) = path.parent() {
+                fs::create_dir_all(parent)
+                    .map_err(|error| failure(format!("write_hex parent failed: {error}")))?;
+            }
+            fs::write(&path, bytes).map_err(|error| failure(format!("write_hex failed: {error}")))
+        }
         "symlink" => {
             let path = checked_path(root, string_field(object, "path")?)?;
             let target = string_field(object, "target")?;
@@ -250,6 +263,8 @@ fn apply_git_step(
 
     let mut command = Command::new("git");
     command
+        .arg("-c")
+        .arg("core.autocrlf=false")
         .current_dir(root)
         .args(argv)
         .stdout(Stdio::piped())
@@ -337,38 +352,6 @@ fn git_environment() -> [(&'static str, &'static str); 6] {
         ("GIT_AUTHOR_DATE", "2001-02-03T04:05:06+0000"),
         ("GIT_COMMITTER_DATE", "2001-02-03T04:05:06+0000"),
     ]
-}
-
-#[cfg(unix)]
-fn apply_chmod(path: &Path, mode: u32) -> Result<(), FixtureError> {
-    use std::os::unix::fs::PermissionsExt;
-    fs::set_permissions(path, fs::Permissions::from_mode(mode))
-        .map_err(|error| failure(format!("chmod failed: {error}")))
-}
-#[cfg(windows)]
-fn apply_chmod(path: &Path, mode: u32) -> Result<(), FixtureError> {
-    let mut permissions = fs::metadata(path)
-        .map_err(|error| failure(format!("chmod metadata failed: {error}")))?
-        .permissions();
-    permissions.set_readonly(mode & 0o222 == 0);
-    fs::set_permissions(path, permissions)
-        .map_err(|error| failure(format!("chmod failed: {error}")))
-}
-
-#[cfg(unix)]
-fn create_symlink(target: &str, path: &Path, _directory: bool) -> Result<(), FixtureError> {
-    std::os::unix::fs::symlink(target, path)
-        .map_err(|error| failure(format!("symlink failed: {error}")))
-}
-
-#[cfg(windows)]
-fn create_symlink(target: &str, path: &Path, directory: bool) -> Result<(), FixtureError> {
-    let result = if directory {
-        std::os::windows::fs::symlink_dir(target, path)
-    } else {
-        std::os::windows::fs::symlink_file(target, path)
-    };
-    result.map_err(|error| failure(format!("symlink failed: {error}")))
 }
 
 pub(crate) fn decode_transport(value: &Value) -> Result<TransportValue, FixtureError> {
