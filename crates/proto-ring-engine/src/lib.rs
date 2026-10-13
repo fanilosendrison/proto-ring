@@ -14,6 +14,7 @@ pub mod governance_bindings;
 pub mod governance_bootstrap;
 pub mod governance_routing;
 pub mod governed_objects;
+pub mod portable_pattern;
 pub mod projection_registry;
 pub mod repository_governance_model;
 pub mod repository_governance_state;
