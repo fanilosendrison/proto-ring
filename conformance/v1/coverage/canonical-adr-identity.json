@@ -72,7 +72,8 @@
       "vector_refs": [
         "canonical-adr.resolve.directory-missing",
         "canonical-adr.resolve.outside-corpus",
-        "canonical-adr.resolve.unrelated-symlink"
+        "canonical-adr.resolve.unrelated-symlink",
+        "canonical-adr.resolve.nested-candidate-ignored"
       ]
     },
     {

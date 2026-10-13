@@ -96,7 +96,8 @@
       ],
       "vector_refs": [
         "accepted-adr-body.immutability.uncommitted-rewrite",
-        "accepted-adr-body.immutability.first-uncommitted-acceptance"
+        "accepted-adr-body.immutability.first-uncommitted-acceptance",
+        "accepted-adr-body.immutability.second-parent-only-anchor-ignored"
       ]
     },
     {
@@ -113,7 +114,10 @@
         "accepted-adr-body.immutability.slug-rename-same",
         "accepted-adr-body.immutability.postacceptance-symlink",
         "accepted-adr-body.immutability.postacceptance-unstructured",
-        "accepted-adr-body.immutability.nonutf8-direct"
+        "accepted-adr-body.immutability.nonutf8-direct",
+        "accepted-adr-body.immutability.non-git-root",
+        "accepted-adr-body.immutability.unborn-head",
+        "accepted-adr-body.immutability.second-parent-only-anchor-ignored"
       ]
     },
     {

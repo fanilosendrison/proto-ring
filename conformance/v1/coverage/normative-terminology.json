@@ -56,11 +56,13 @@
       "level": 3,
       "reason": null,
       "responsibility_ids": [
-        "normative-terminology.definition-discovery"
+        "normative-terminology.definition-discovery",
+        "normative-terminology.registry"
       ],
       "vector_refs": [
         "normative-terminology.definition-discovery.strasse",
-        "normative-terminology.definition-discovery.no-normalization"
+        "normative-terminology.definition-discovery.no-normalization",
+        "normative-terminology.registry.intra-entry-casefold-duplicate"
       ]
     },
     {
@@ -94,7 +96,10 @@
         "normative-terminology.registry.anchor-pattern",
         "normative-terminology.registry.nonempty-destination",
         "normative-terminology.registry.nonempty-term",
-        "normative-terminology.registry.one-marker-pair"
+        "normative-terminology.registry.one-marker-pair",
+        "normative-terminology.registry.intra-entry-casefold-duplicate",
+        "normative-terminology.registry.cross-entry-alias-reuse",
+        "normative-terminology.registry.empty-term-structure"
       ]
     },
     {
@@ -111,7 +116,9 @@
         "normative-terminology.markdown.fenced-blocks",
         "normative-terminology.markdown.canonical-anchor",
         "normative-terminology.markdown.duplicate-anchor",
-        "normative-terminology.markdown.unregistered-anchor"
+        "normative-terminology.markdown.unregistered-anchor",
+        "normative-terminology.markdown.atx-three-space-closing-hashes",
+        "normative-terminology.markdown.tilde-fence"
       ]
     },
     {
@@ -127,7 +134,11 @@
         "normative-terminology.definition-discovery.cue-is",
         "normative-terminology.definition-discovery.cue-are-defined-by",
         "normative-terminology.definition-discovery.long-s-negative",
-        "normative-terminology.definition-discovery.boundary-underscore"
+        "normative-terminology.definition-discovery.boundary-underscore",
+        "normative-terminology.definition-discovery.equation-colon-equals",
+        "normative-terminology.definition-discovery.equation-single-equals",
+        "normative-terminology.definition-discovery.equation-double-equals-excluded",
+        "normative-terminology.definition-discovery.original-scalar-boundary"
       ]
     },
     {
@@ -173,7 +184,9 @@
       ],
       "vector_refs": [
         "normative-terminology.fingerprint.location-policy",
-        "normative-terminology.inventory.role-resolution"
+        "normative-terminology.inventory.role-resolution",
+        "normative-terminology.inventory.empty-allowed-roles",
+        "normative-terminology.inventory.role-multiset"
       ]
     },
     {
@@ -191,7 +204,9 @@
         "normative-terminology.inventory.unknown-concept",
         "normative-terminology.inventory.unreviewed",
         "normative-terminology.inventory.stale",
-        "normative-terminology.inventory.duplicate-copy"
+        "normative-terminology.inventory.duplicate-copy",
+        "normative-terminology.inventory.malformed-fingerprint",
+        "normative-terminology.inventory.role-multiset"
       ]
     },
     {
@@ -208,7 +223,8 @@
       "vector_refs": [
         "normative-terminology.registry.reversed-boundaries",
         "normative-terminology.markdown.duplicate-anchor",
-        "normative-terminology.inventory.invalid-role"
+        "normative-terminology.inventory.invalid-role",
+        "normative-terminology.inventory.empty-allowed-roles"
       ]
     },
     {

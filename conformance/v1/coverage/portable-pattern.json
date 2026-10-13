@@ -41,7 +41,10 @@
       ],
       "vector_refs": [
         "portable-pattern.full-match.exact-literal",
-        "portable-pattern.full-match.full-match-only"
+        "portable-pattern.full-match.full-match-only",
+        "portable-pattern.full-match.end-anchor-trailing-lf",
+        "portable-pattern.full-match.bound-over-u64",
+        "portable-pattern.full-match.bound-over-decimal-runtime-limit"
       ]
     },
     {
@@ -57,7 +60,9 @@
         "portable-pattern.full-match.exact-literal",
         "portable-pattern.full-match.ascii-range",
         "portable-pattern.full-match.named-capture",
-        "portable-pattern.full-match.bounded-nullable"
+        "portable-pattern.full-match.bounded-nullable",
+        "portable-pattern.full-match.bound-over-u64",
+        "portable-pattern.full-match.bound-over-decimal-runtime-limit"
       ]
     },
     {
@@ -135,7 +140,9 @@
         "portable-pattern.full-match.greedy-backtracking",
         "portable-pattern.full-match.last-repeated-capture",
         "portable-pattern.full-match.bounded-nullable",
-        "portable-pattern.full-match.unbounded-nullable"
+        "portable-pattern.full-match.unbounded-nullable",
+        "portable-pattern.full-match.bound-over-u64",
+        "portable-pattern.full-match.bound-over-decimal-runtime-limit"
       ]
     },
     {
@@ -149,7 +156,8 @@
       ],
       "vector_refs": [
         "portable-pattern.full-match.start-anchor",
-        "portable-pattern.full-match.end-anchor"
+        "portable-pattern.full-match.end-anchor",
+        "portable-pattern.full-match.end-anchor-trailing-lf"
       ]
     },
     {

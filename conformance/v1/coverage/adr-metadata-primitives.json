@@ -29,7 +29,16 @@
         "adr-metadata.parse.decision-body",
         "adr-metadata.parse.h1",
         "adr-metadata.parse.preserved-payload",
-        "adr-metadata.parse.sha256"
+        "adr-metadata.parse.sha256",
+        "adr-metadata.parse.utf8-bom-rejected",
+        "adr-metadata.parse.bare-cr-rejected",
+        "adr-metadata.parse.crlf-rejected",
+        "adr-metadata.parse.context-like-heading-before-boundary",
+        "adr-metadata.parse.final-newline-absent-preserved",
+        "adr-metadata.parse.h1-trailing-space-preserved",
+        "adr-metadata.parse.missing-context-rejected",
+        "adr-metadata.parse.multiple-context-rejected",
+        "adr-metadata.parse.multiple-h1-rejected"
       ]
     },
     {
@@ -45,7 +54,9 @@
         "adr-metadata.parse.standalone-mapping",
         "adr-metadata.parse.canonical-scalars",
         "adr-metadata.parse.document-markers",
-        "adr-metadata.parse.duplicate-key"
+        "adr-metadata.parse.duplicate-key",
+        "adr-metadata.parse.strict-json-object",
+        "adr-metadata.parse.malformed-json-rejected"
       ]
     },
     {
@@ -59,7 +70,12 @@
       ],
       "vector_refs": [
         "adr-metadata.validation.valid-schema",
-        "adr-metadata.validation.calendar-date"
+        "adr-metadata.validation.calendar-date",
+        "adr-metadata.validation.malformed-base-overlay-still-evaluated",
+        "adr-metadata.validation.malformed-overlay-base-still-evaluated",
+        "adr-metadata.validation.both-valid-schemas-both-fail",
+        "adr-metadata.validation.malformed-base-overlay-success",
+        "adr-metadata.validation.malformed-overlay-base-success"
       ]
     },
     {
@@ -75,7 +91,10 @@
         "adr-metadata.repository-path.contained-relative",
         "adr-metadata.repository-path.absolute",
         "adr-metadata.repository-path.escaping",
-        "adr-metadata.repository-path.contained-symlink"
+        "adr-metadata.repository-path.contained-symlink",
+        "adr-metadata.repository-path.escaping-symlink",
+        "adr-metadata.repository-path.empty-rejected",
+        "adr-metadata.repository-path.nonstring-rejected"
       ]
     },
     {
@@ -90,7 +109,13 @@
       "vector_refs": [
         "adr-metadata.validation.require-mapping",
         "adr-metadata.validation.require-string",
-        "adr-metadata.validation.require-string-list"
+        "adr-metadata.validation.require-string-list",
+        "adr-metadata.validation.duplicate-string-list",
+        "adr-metadata.validation.empty-string-rejected",
+        "adr-metadata.validation.valid-mapping",
+        "adr-metadata.validation.valid-string",
+        "adr-metadata.validation.valid-string-list",
+        "adr-metadata.validation.empty-string-list-item"
       ]
     },
     {
@@ -122,7 +147,9 @@
         "adr-metadata.parse.frontmatter",
         "adr-metadata.parse.decision-body",
         "adr-metadata.validation.valid-schema",
-        "adr-metadata.repository-path.contained-relative"
+        "adr-metadata.repository-path.contained-relative",
+        "adr-metadata.parse.strict-json-object",
+        "adr-metadata.parse.malformed-json-rejected"
       ]
     },
     {
