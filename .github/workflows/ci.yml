@@ -125,3 +125,6 @@ jobs:
 
       - name: Test RepositoryGovernanceState Rust port
         run: cargo test -p proto-ring-conformance --test issue68_rust_port --locked
+
+      - name: Test Portable Pattern Rust port
+        run: cargo test -p proto-ring-conformance --test issue64_portable_pattern --locked
