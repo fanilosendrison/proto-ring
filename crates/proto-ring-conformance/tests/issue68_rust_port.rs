@@ -132,6 +132,58 @@ fn carriage_return_count(bytes: &[u8]) -> usize {
 }
 
 #[test]
+fn issue68_native_relative_symlink_dereferences_sibling_carrier() {
+    let corpus = load_corpus(&root()).expect("corpus loads");
+    let vector = bootstrap_symlink_vector(&corpus);
+    let carrier = vector.fixture["steps"]
+        .as_array()
+        .expect("published fixture steps exist")
+        .iter()
+        .find(|step| {
+            step.get("op").and_then(Value::as_str) == Some("write_utf8")
+                && step.get("path").and_then(Value::as_str) == Some("AGENTS.md")
+        })
+        .and_then(|step| step.get("text"))
+        .and_then(Value::as_str)
+        .expect("published bootstrap carrier exists");
+    let plan = serde_json::json!({
+        "kind": "repository_plan",
+        "steps": [
+            {"op": "mkdir", "path": "repository"},
+            {"op": "mkdir", "path": "external-bootstrap"},
+            {"op": "write_utf8", "path": "external-bootstrap/AGENTS.md", "text": carrier},
+            {"op": "symlink", "path": "repository/AGENTS.md", "target": "../external-bootstrap/AGENTS.md", "target_is_directory": false}
+        ],
+        "invocation": {"type": "null", "value": null}
+    });
+    let realized = fixture::materialize(&plan).expect("sibling symlink plan materializes");
+    let temporary = realized.root().expect("repository fixture has a root");
+    let link = temporary.join("repository/AGENTS.md");
+    let external = temporary.join("external-bootstrap/AGENTS.md");
+    assert!(
+        fs::symlink_metadata(&link)
+            .expect("link metadata exists")
+            .file_type()
+            .is_symlink()
+    );
+    assert_eq!(
+        fs::canonicalize(&link).expect("link resolves"),
+        fs::canonicalize(&external).expect("external carrier resolves")
+    );
+    let through_link = fs::read(&link).expect("link is readable");
+    assert_eq!(
+        through_link,
+        fs::read(&external).expect("external carrier is readable")
+    );
+    assert_eq!(carriage_return_count(&through_link), 0);
+    eprintln!("SYMLINK_IS_SYMLINK=YES");
+    eprintln!("SYMLINK_CANONICALIZE=SUCCESS");
+    eprintln!("SYMLINK_READ=SUCCESS");
+    eprintln!("SYMLINK_READ_EQUALS_EXTERNAL_CARRIER=YES");
+    eprintln!("SYMLINK_READ_CR_COUNT=0");
+}
+
+#[test]
 fn issue68_hostile_autocrlf_preserves_bootstrap_symlink_observation() {
     let corpus = load_corpus(&root()).expect("corpus loads");
     let vector = bootstrap_symlink_vector(&corpus);
