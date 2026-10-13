@@ -51,8 +51,22 @@ fn issue68_rust_port_matches_all_published_vectors() {
     let matching = vectors
         .iter()
         .filter(|vector| {
-            candidate.execute(&request(vector)).expect("candidate runs")
-                == CandidateState::Observation(expected(vector))
+            let expected_observation = expected(vector);
+            let actual = candidate.execute(&request(vector)).expect("candidate runs");
+            let matches = actual == CandidateState::Observation(expected_observation.clone());
+            if !matches {
+                eprintln!("ISSUE68_WINDOWS_MISMATCH_VECTOR_ID={}", vector.vector_id);
+                eprintln!("ISSUE68_WINDOWS_EXPECTED={expected_observation:?}");
+                match &actual {
+                    CandidateState::Observation(actual_observation) => {
+                        eprintln!("ISSUE68_WINDOWS_ACTUAL={actual_observation:?}");
+                    }
+                    CandidateState::Unimplemented => {
+                        eprintln!("ISSUE68_WINDOWS_ACTUAL={actual:?}");
+                    }
+                }
+            }
+            matches
         })
         .count();
     assert_eq!(matching, 25);
