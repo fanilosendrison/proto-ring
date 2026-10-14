@@ -7,6 +7,7 @@
 //! Normative contracts and `conformance/v1` remain authority. The crate layout
 //! is not normative architecture, and #28 owns the later public agent-facing API.
 
+pub mod accepted_adr_body;
 pub mod adr_metadata;
 pub mod canonical_adr;
 pub mod evidence_requirements;

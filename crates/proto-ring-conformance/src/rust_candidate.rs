@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 
+mod accepted_adr_body;
 mod adr_metadata;
 mod authority_objects;
 mod canonical_adr;
@@ -23,6 +24,7 @@ use crate::model::Observation;
 pub struct ReferenceRustCandidate;
 
 const IMPLEMENTED: &[&str] = &[
+    "accepted-adr-body.immutability",
     "adr-metadata.parse",
     "adr-metadata.repository-path",
     "adr-metadata.validation",
@@ -85,6 +87,7 @@ fn execute_responsibility(
     fixture: &MaterializedFixture,
 ) -> Result<Observation, fixture::FixtureError> {
     match responsibility {
+        "accepted-adr-body.immutability" => accepted_adr_body::execute(fixture),
         "adr-metadata.parse" | "adr-metadata.repository-path" | "adr-metadata.validation" => {
             adr_metadata::execute(responsibility, fixture)
         }
