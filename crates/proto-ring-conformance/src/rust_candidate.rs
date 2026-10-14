@@ -1,6 +1,8 @@
 #![forbid(unsafe_code)]
 
+mod adr_metadata;
 mod authority_objects;
+mod canonical_adr;
 mod evidence_requirements;
 mod exact_evidence_binding;
 mod foundation;
@@ -20,6 +22,10 @@ use crate::model::Observation;
 pub struct ReferenceRustCandidate;
 
 const IMPLEMENTED: &[&str] = &[
+    "adr-metadata.parse",
+    "adr-metadata.repository-path",
+    "adr-metadata.validation",
+    "canonical-adr.resolve",
     "evidence-requirements.registry",
     "exact-evidence-binding.evaluate",
     "governance-authority.profile",
@@ -73,6 +79,10 @@ fn execute_responsibility(
     fixture: &MaterializedFixture,
 ) -> Result<Observation, fixture::FixtureError> {
     match responsibility {
+        "adr-metadata.parse" | "adr-metadata.repository-path" | "adr-metadata.validation" => {
+            adr_metadata::execute(responsibility, fixture)
+        }
+        "canonical-adr.resolve" => canonical_adr::execute(fixture),
         "evidence-requirements.registry" => evidence_requirements::execute(fixture),
         "exact-evidence-binding.evaluate" => exact_evidence_binding::execute(fixture.arguments()),
         "governance-bindings.registry" => governance_bindings::execute(fixture),
