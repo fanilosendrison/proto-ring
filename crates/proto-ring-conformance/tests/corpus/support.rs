@@ -9,6 +9,10 @@ use proto_ring_conformance::model::Observation;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 
 pub(super) const IMPLEMENTED: &[&str] = &[
+    "adr-metadata.parse",
+    "adr-metadata.repository-path",
+    "adr-metadata.validation",
+    "canonical-adr.resolve",
     "evidence-requirements.registry",
     "exact-evidence-binding.evaluate",
     "governance-authority.profile",
@@ -85,7 +89,9 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
     let repository = root();
     let candidate = [
         "rust_candidate.rs",
+        "rust_candidate/adr_metadata.rs",
         "rust_candidate/authority_objects.rs",
+        "rust_candidate/canonical_adr.rs",
         "rust_candidate/support.rs",
         "rust_candidate/evidence_requirements.rs",
         "rust_candidate/exact_evidence_binding.rs",
@@ -110,6 +116,11 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
     .collect::<String>();
     let engine_paths = [
         "lib.rs",
+        "adr_metadata/mod.rs",
+        "adr_metadata/exact_text.rs",
+        "adr_metadata/repository_path.rs",
+        "adr_metadata/validation.rs",
+        "canonical_adr/mod.rs",
         "structured_data.rs",
         "structured_data_yaml.rs",
         "governance_authority.rs",
