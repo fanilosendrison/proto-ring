@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -9,6 +10,7 @@ use proto_ring_conformance::model::Observation;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 
 pub(super) const IMPLEMENTED: &[&str] = &[
+    "accepted-adr-body.immutability",
     "adr-metadata.parse",
     "adr-metadata.repository-path",
     "adr-metadata.validation",
@@ -94,6 +96,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
     let repository = root();
     let candidate = [
         "rust_candidate.rs",
+        "rust_candidate/accepted_adr_body.rs",
         "rust_candidate/adr_metadata.rs",
         "rust_candidate/authority_objects.rs",
         "rust_candidate/canonical_adr.rs",
@@ -122,6 +125,9 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
     .collect::<String>();
     let engine_paths = [
         "lib.rs",
+        "accepted_adr_body/mod.rs",
+        "accepted_adr_body/git.rs",
+        "accepted_adr_body/history.rs",
         "adr_metadata/mod.rs",
         "adr_metadata/exact_text.rs",
         "adr_metadata/repository_path.rs",
@@ -176,8 +182,8 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
     assert!(engine.contains("governance_routing::resolve"));
 }
 
-pub(super) fn count_status(
-    reports: &[DifferentialReport],
+pub(super) fn count_status<'a>(
+    reports: impl IntoIterator<Item = &'a DifferentialReport>,
     channel: fn(&DifferentialReport) -> ComparisonStatus,
 ) -> (usize, usize, usize) {
     let mut counts = (0, 0, 0);
@@ -189,6 +195,25 @@ pub(super) fn count_status(
         }
     }
     counts
+}
+
+pub(super) fn count_rust_status_for_responsibilities(
+    reports: &[DifferentialReport],
+    responsibilities: &HashSet<&str>,
+) -> (usize, usize, usize) {
+    count_status(
+        reports
+            .iter()
+            .filter(|report| responsibilities.contains(report.responsibility_id.as_str())),
+        |report| report.rust_vs_expected,
+    )
+}
+
+pub(super) fn print_issue64_accounting(vector_count: usize, counts: (usize, usize, usize)) {
+    eprintln!(
+        "ISSUE64_VECTORS={vector_count}\nISSUE64_RUST_MATCH={}\nISSUE64_RUST_MISMATCH={}\nISSUE64_RUST_NOT_AVAILABLE={}",
+        counts.0, counts.1, counts.2
+    );
 }
 
 pub(super) fn require_matches(reports: &[DifferentialReport], ids: &[&str]) {

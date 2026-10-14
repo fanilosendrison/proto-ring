@@ -13,8 +13,9 @@ use proto_ring_conformance::loader::load_corpus;
 use proto_ring_conformance::model::MigrationDisposition;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use support::{
-    IMPLEMENTED, assert_projection_regressions, assert_source_boundaries, count_status,
-    expected_observation, request_for, require_matches, root,
+    IMPLEMENTED, assert_projection_regressions, assert_source_boundaries,
+    count_rust_status_for_responsibilities, count_status, expected_observation,
+    print_issue64_accounting, request_for, require_matches, root,
 };
 
 #[test]
@@ -205,8 +206,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (1062, 0, 91));
-    assert_eq!(differential_counts, (1062, 0, 91));
+    assert_eq!(rust_counts, (1084, 0, 69));
+    assert_eq!(differential_counts, (1084, 0, 69));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -222,7 +223,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (25, 1062)
+        (26, 1084)
     );
     let issue66_rust_matches = reports
         .iter()
@@ -272,7 +273,9 @@ fn published_corpus_runs_through_reference_candidate() {
         })
         .count();
     assert_eq!(issue68_rust_matches, 25);
-
+    let issue64_rust_counts =
+        count_rust_status_for_responsibilities(&reports, &issue64_responsibilities);
+    assert_eq!(issue64_rust_counts, (209, 0, 0));
     require_matches(
         &reports,
         &[
@@ -336,7 +339,6 @@ fn published_corpus_runs_through_reference_candidate() {
             "repository-governance-model.binding-compatibility.undeclared-capability",
         ],
     );
-
     let metrics: HashMap<&str, usize> = HashMap::from([
         ("implemented", implemented_vectors),
         ("unimplemented", 1153 - implemented_vectors),
@@ -359,12 +361,13 @@ fn published_corpus_runs_through_reference_candidate() {
     eprintln!(
         "ISSUE64_PORTABLE_PATTERN_RESPONSIBILITIES=1\nISSUE64_PORTABLE_PATTERN_VECTORS=37\nISSUE64_PORTABLE_PATTERN_RUST_MATCH=37"
     );
+    print_issue64_accounting(issue64_vectors, issue64_rust_counts);
     eprintln!(
         "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=4\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=3\nRUST_UNIMPLEMENTED_VECTORS={}",
         metrics["implemented"], metrics["unimplemented"]
     );
     eprintln!(
