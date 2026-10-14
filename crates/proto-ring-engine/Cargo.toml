@@ -11,7 +11,10 @@ conformance-internal = []
 
 [dependencies]
 cap-std.workspace = true
+jsonschema.workspace = true
 num-bigint.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
 yaml-rust2.workspace = true
 
 [target.'cfg(windows)'.dependencies]
