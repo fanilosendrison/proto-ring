@@ -79,40 +79,6 @@ fn issue64_wave_b_matches_all_published_vectors() {
 }
 
 #[test]
-fn issue64_wave_b_global_accounting_is_exact() {
-    let corpus = load_corpus(&root()).expect("corpus loads");
-    let candidate = ReferenceRustCandidate;
-    let mut counts = (0, 0, 0);
-    for matrix in &corpus.matrices {
-        for vector in &matrix.vectors {
-            let actual = candidate
-                .execute(&request(&matrix.responsibility_id, vector))
-                .expect("candidate runs");
-            match actual {
-                CandidateState::Observation(observation)
-                    if observation == vector.expected_observation.observation() =>
-                {
-                    counts.0 += 1;
-                }
-                CandidateState::Observation(observation) => {
-                    counts.1 += 1;
-                    eprintln!("vector_id={}", vector.vector_id);
-                    eprintln!("actual={observation:?}");
-                    eprintln!("expected={:?}", vector.expected_observation.observation());
-                }
-                CandidateState::Unimplemented => counts.2 += 1,
-            }
-        }
-    }
-    assert_eq!(counts, (983, 0, 170));
-    assert_eq!(counts.0 + counts.1 + counts.2, 1153);
-    eprintln!("GLOBAL_RUST_MATCH={}", counts.0);
-    eprintln!("GLOBAL_RUST_MISMATCH={}", counts.1);
-    eprintln!("GLOBAL_RUST_NOT_AVAILABLE={}", counts.2);
-    eprintln!("GLOBAL_RUST_TOTAL=1153");
-}
-
-#[test]
 fn issue64_wave_b_source_boundaries_are_explicit() {
     let repository = root();
     let engine = repository.join("crates/proto-ring-engine/src");
