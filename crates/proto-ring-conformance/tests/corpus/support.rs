@@ -22,6 +22,7 @@ pub(super) const IMPLEMENTED: &[&str] = &[
     "governance-bootstrap.root",
     "governance-routing.resolve",
     "governed-objects.catalog",
+    "git-whitespace.validate",
     "normative-terminology.definition-discovery",
     "normative-terminology.fingerprint",
     "normative-terminology.inventory",
@@ -106,6 +107,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "rust_candidate/exact_evidence_binding.rs",
         "rust_candidate/foundation.rs",
         "rust_candidate/governance_bindings.rs",
+        "rust_candidate/git_whitespace.rs",
         "rust_candidate/normative_terminology.rs",
         "rust_candidate/portable_pattern.rs",
         "rust_candidate/projection_registry.rs",
@@ -141,6 +143,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "governance_bootstrap.rs",
         "governance_routing.rs",
         "governed_objects.rs",
+        "git_whitespace.rs",
         "normative_terminology/mod.rs",
         "normative_terminology/unicode14.rs",
         "normative_terminology/registry.rs",
@@ -223,6 +226,23 @@ pub(super) fn print_issue64_accounting(vector_count: usize, counts: (usize, usiz
     );
 }
 
+pub(super) fn assert_only_remaining_rust_responsibility(
+    reports: &[DifferentialReport],
+    responsibility: &str,
+    vector_count: usize,
+) {
+    let unimplemented: Vec<_> = reports
+        .iter()
+        .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
+        .collect();
+    assert_eq!(unimplemented.len(), vector_count);
+    assert!(
+        unimplemented
+            .iter()
+            .all(|report| report.responsibility_id == responsibility)
+    );
+}
+
 pub(super) fn print_rust_accounting(
     responsibility_count: usize,
     implemented_vectors: usize,
@@ -230,7 +250,7 @@ pub(super) fn print_rust_accounting(
     differential: (usize, usize, usize),
 ) {
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={responsibility_count}\nRUST_IMPLEMENTED_VECTORS={implemented_vectors}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=2\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={responsibility_count}\nRUST_IMPLEMENTED_VECTORS={implemented_vectors}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=1\nRUST_UNIMPLEMENTED_VECTORS={}",
         1153 - implemented_vectors
     );
     eprintln!(

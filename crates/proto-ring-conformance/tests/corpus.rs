@@ -13,9 +13,10 @@ use proto_ring_conformance::loader::load_corpus;
 use proto_ring_conformance::model::MigrationDisposition;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use support::{
-    IMPLEMENTED, assert_projection_regressions, assert_source_boundaries,
-    count_rust_status_for_responsibilities, count_status, expected_observation,
-    print_issue64_accounting, print_rust_accounting, request_for, require_matches, root,
+    IMPLEMENTED, assert_only_remaining_rust_responsibility, assert_projection_regressions,
+    assert_source_boundaries, count_rust_status_for_responsibilities, count_status,
+    expected_observation, print_issue64_accounting, print_rust_accounting, request_for,
+    require_matches, root,
 };
 
 #[test]
@@ -206,8 +207,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (1118, 0, 35));
-    assert_eq!(differential_counts, (1118, 0, 35));
+    assert_eq!(rust_counts, (1133, 0, 20));
+    assert_eq!(differential_counts, (1133, 0, 20));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -223,7 +224,12 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (27, 1118)
+        (28, 1133)
+    );
+    assert_only_remaining_rust_responsibility(
+        &reports,
+        "github-authoritative-ref-monotonicity.observe",
+        20,
     );
     let issue66_rust_matches = reports
         .iter()
