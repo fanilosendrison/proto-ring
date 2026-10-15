@@ -1,0 +1,19 @@
+[package]
+name = "proto-ring-compat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[dependencies]
+proto-ring-engine = { path = "../proto-ring-engine" }
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+proto-ring-conformance = { path = "../proto-ring-conformance" }
+
+[[bin]]
+name = "proto-ring-compat"
+path = "src/main.rs"

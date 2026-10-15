@@ -710,6 +710,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "proto-ring-compat"
+version = "0.0.0"
+dependencies = [
+ "proto-ring-conformance",
+ "proto-ring-engine",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "proto-ring-conformance"
 version = "0.0.0"
 dependencies = [

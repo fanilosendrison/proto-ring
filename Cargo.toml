@@ -2,6 +2,7 @@
 members = [
     "crates/proto-ring-engine",
     "crates/proto-ring-conformance",
+    "crates/proto-ring-compat",
 ]
 resolver = "3"
 
