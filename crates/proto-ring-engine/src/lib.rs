@@ -12,6 +12,7 @@ pub mod adr_metadata;
 pub mod canonical_adr;
 pub mod evidence_requirements;
 pub mod exact_evidence_binding;
+pub mod git_whitespace;
 pub mod governance_authority;
 pub mod governance_bindings;
 pub mod governance_bootstrap;
