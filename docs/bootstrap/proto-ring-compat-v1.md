@@ -22,10 +22,13 @@ The transport is versioned, migration-local, and non-normative. Its JSON values
 project existing engine results for process interoperability; they do not become
 semantic authority and do not replace the language-neutral contracts.
 
-The executable exposes exactly three operations:
+The exact executable source exposes exactly six operations:
 
 ```text
+accepted-adr-body.immutability
 engine.identity
+git-whitespace.validate
+github-authoritative-ref-monotonicity.observe
 repository-governance-state.compose
 repository-integrity.evaluate
 ```
@@ -296,3 +299,84 @@ An unavailable exit code is `null`. Verdict, state relation, and obligation
 status spellings come from the existing typed engine serializers. Profile,
 evaluation-context, baseline-state, and final-state identities remain opaque
 and are not transported.
+
+## `accepted-adr-body.immutability`
+
+Request:
+
+```json
+{
+  "transport_version": 1,
+  "operation": "accepted-adr-body.immutability",
+  "input": { "repository": "<non-empty UTF-8 path>" }
+}
+```
+
+Result value is exactly one of:
+
+```json
+{ "status": "PASS", "category": null }
+{ "status": "NON_PASS", "category": "body_changed" }
+{ "status": "NON_PASS", "category": "historical_state_invalid" }
+```
+
+The operation delegates to `accepted_adr_body::check`. Empty diagnostics pass;
+any typed `BodyChanged` diagnostic selects `body_changed`; every other
+non-empty diagnostic set selects `historical_state_invalid`. Diagnostic prose,
+historical commits, and paths are not transported. Every valid request is a
+result with exit code `0`, including `NON_PASS`.
+
+## `git-whitespace.validate`
+
+Request:
+
+```json
+{
+  "transport_version": 1,
+  "operation": "git-whitespace.validate",
+  "input": {
+    "repository": "<non-empty UTF-8 path>",
+    "environment": { "NAME": "VALUE" }
+  }
+}
+```
+
+Result value:
+
+```json
+{ "status": "PASS", "domains": [] }
+```
+
+Status is derived only from `WhitespaceReport::passes`. Domains preserve typed
+diagnostic first-occurrence order while deduplicating and are limited to
+`unstaged`, `staged`, `push_committed_range`,
+`pull_request_committed_range`, `range_determination`, and `git_observation`.
+The operation delegates to `git_whitespace::check` with exactly the required
+request environment; it does not merge ambient event or CI variables. Git
+output and diagnostic internals are not transported. `NON_PASS` remains a
+result with exit code `0`.
+
+## `github-authoritative-ref-monotonicity.observe`
+
+Request:
+
+```json
+{
+  "transport_version": 1,
+  "operation": "github-authoritative-ref-monotonicity.observe",
+  "input": { "binding_path": "<non-empty UTF-8 path>" }
+}
+```
+
+Result value contains only the typed serialized status:
+
+```json
+{ "status": "SATISFIED" }
+{ "status": "VIOLATED" }
+{ "status": "UNDETERMINED" }
+```
+
+The operation delegates to `github_authoritative_ref_monotonicity::observe`.
+Binding parsing, provider addressing, HTTP behavior, and diagnostics remain
+engine-owned. No provider injection surface is exposed. Every valid status is
+a result with exit code `0`; later consumer wrappers own local exit mapping.
