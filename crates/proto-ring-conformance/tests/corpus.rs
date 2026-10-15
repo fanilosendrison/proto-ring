@@ -3,7 +3,7 @@
 #[path = "corpus/support.rs"]
 mod support;
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 use proto_ring_conformance::harness::{
     CandidateExecutor, CandidateState, ComparisonStatus, PythonBridge, UnimplementedRustCandidate,
@@ -15,7 +15,7 @@ use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use support::{
     IMPLEMENTED, assert_projection_regressions, assert_source_boundaries,
     count_rust_status_for_responsibilities, count_status, expected_observation,
-    print_issue64_accounting, request_for, require_matches, root,
+    print_issue64_accounting, print_rust_accounting, request_for, require_matches, root,
 };
 
 #[test]
@@ -206,8 +206,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (1084, 0, 69));
-    assert_eq!(differential_counts, (1084, 0, 69));
+    assert_eq!(rust_counts, (1118, 0, 35));
+    assert_eq!(differential_counts, (1118, 0, 35));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -223,7 +223,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (26, 1084)
+        (27, 1118)
     );
     let issue66_rust_matches = reports
         .iter()
@@ -339,10 +339,6 @@ fn published_corpus_runs_through_reference_candidate() {
             "repository-governance-model.binding-compatibility.undeclared-capability",
         ],
     );
-    let metrics: HashMap<&str, usize> = HashMap::from([
-        ("implemented", implemented_vectors),
-        ("unimplemented", 1153 - implemented_vectors),
-    ]);
     eprintln!(
         "PYTHON_BRIDGE_LOADS_CORPUS=no\nPYTHON_BRIDGE_ORACLE_FIELDS_IN_REQUEST=0\nPYTHON_BRIDGE_COMPUTES_COMPARISON=no\nPYTHON_BRIDGE_REQUEST_SCHEMA=PASS\nPYTHON_BRIDGE_OUTPUT_SCHEMA=PASS\nPYTHON_BRIDGE_RETIREMENT_ONLY_REJECTED=PASS"
     );
@@ -366,17 +362,11 @@ fn published_corpus_runs_through_reference_candidate() {
         "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1
     );
-    eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={implemented_responsibility_count}\nRUST_IMPLEMENTED_VECTORS={}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=3\nRUST_UNIMPLEMENTED_VECTORS={}",
-        metrics["implemented"], metrics["unimplemented"]
-    );
-    eprintln!(
-        "RUST_VS_EXPECTED_MATCH={}\nRUST_VS_EXPECTED_MISMATCH={}\nRUST_VS_EXPECTED_NOT_AVAILABLE={}",
-        rust_counts.0, rust_counts.1, rust_counts.2
-    );
-    eprintln!(
-        "PYTHON_VS_RUST_MATCH={}\nPYTHON_VS_RUST_MISMATCH={}\nPYTHON_VS_RUST_NOT_AVAILABLE={}",
-        differential_counts.0, differential_counts.1, differential_counts.2
+    print_rust_accounting(
+        implemented_responsibility_count,
+        implemented_vectors,
+        rust_counts,
+        differential_counts,
     );
     eprintln!(
         "ISSUE66_RUST_MATCH={issue66_rust_matches}\nGOVERNANCE_BINDINGS_RUST_MATCH={governance_bindings_rust_matches}\nREPOSITORY_INTEGRITY_RUST_MATCH={repository_integrity_rust_matches}\nEVIDENCE_REQUIREMENTS_RUST_MATCH={evidence_requirements_rust_matches}\nEXACT_EVIDENCE_BINDING_RUST_MATCH={exact_evidence_binding_rust_matches}"

@@ -32,6 +32,7 @@ pub(super) const IMPLEMENTED: &[&str] = &[
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
     "repository-governance-state.compose",
+    "repository-integrity.evaluate",
     "repository-integrity.profile",
     "repository-state.capture",
     "structured-data.document",
@@ -112,6 +113,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "rust_candidate/repository_governance_state/observe.rs",
         "rust_candidate/repository_governance_state/plan.rs",
         "rust_candidate/repository_integrity.rs",
+        "rust_candidate/repository_integrity_evaluation.rs",
         "rust_candidate/repository_state.rs",
         "rust_candidate/repository_state/observe.rs",
         "rust_candidate/repository_state/plan.rs",
@@ -154,6 +156,11 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "repository_governance_state/compose.rs",
         "repository_governance_state/scope.rs",
         "repository_governance_state/orchestrate.rs",
+        "repository_integrity/mod.rs",
+        "repository_integrity/model.rs",
+        "repository_integrity/selectors.rs",
+        "repository_integrity/evaluate.rs",
+        "repository_integrity/execution.rs",
         "repository_state/mod.rs",
         "repository_state/git.rs",
         "repository_state/path.rs",
@@ -213,6 +220,26 @@ pub(super) fn print_issue64_accounting(vector_count: usize, counts: (usize, usiz
     eprintln!(
         "ISSUE64_VECTORS={vector_count}\nISSUE64_RUST_MATCH={}\nISSUE64_RUST_MISMATCH={}\nISSUE64_RUST_NOT_AVAILABLE={}",
         counts.0, counts.1, counts.2
+    );
+}
+
+pub(super) fn print_rust_accounting(
+    responsibility_count: usize,
+    implemented_vectors: usize,
+    rust: (usize, usize, usize),
+    differential: (usize, usize, usize),
+) {
+    eprintln!(
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={responsibility_count}\nRUST_IMPLEMENTED_VECTORS={implemented_vectors}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=2\nRUST_UNIMPLEMENTED_VECTORS={}",
+        1153 - implemented_vectors
+    );
+    eprintln!(
+        "RUST_VS_EXPECTED_MATCH={}\nRUST_VS_EXPECTED_MISMATCH={}\nRUST_VS_EXPECTED_NOT_AVAILABLE={}",
+        rust.0, rust.1, rust.2
+    );
+    eprintln!(
+        "PYTHON_VS_RUST_MATCH={}\nPYTHON_VS_RUST_MISMATCH={}\nPYTHON_VS_RUST_NOT_AVAILABLE={}",
+        differential.0, differential.1, differential.2
     );
 }
 
