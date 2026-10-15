@@ -7,6 +7,7 @@ mod canonical_adr;
 mod evidence_requirements;
 mod exact_evidence_binding;
 mod foundation;
+mod git_whitespace;
 mod governance_bindings;
 mod normative_terminology;
 mod portable_pattern;
@@ -37,6 +38,7 @@ const IMPLEMENTED: &[&str] = &[
     "governance-bootstrap.root",
     "governance-routing.resolve",
     "governed-objects.catalog",
+    "git-whitespace.validate",
     "normative-terminology.definition-discovery",
     "normative-terminology.fingerprint",
     "normative-terminology.inventory",
@@ -73,6 +75,11 @@ impl CandidateExecutor for ReferenceRustCandidate {
         }
         if request.responsibility_id == "repository-integrity.evaluate" {
             return repository_integrity_evaluation::execute(&request.fixture)
+                .map(CandidateState::Observation)
+                .map_err(fixture_error);
+        }
+        if request.responsibility_id == "git-whitespace.validate" {
+            return git_whitespace::execute(&request.fixture)
                 .map(CandidateState::Observation)
                 .map_err(fixture_error);
         }
