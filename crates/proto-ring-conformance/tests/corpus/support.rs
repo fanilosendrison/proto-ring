@@ -23,6 +23,7 @@ pub(super) const IMPLEMENTED: &[&str] = &[
     "governance-routing.resolve",
     "governed-objects.catalog",
     "git-whitespace.validate",
+    "github-authoritative-ref-monotonicity.observe",
     "normative-terminology.definition-discovery",
     "normative-terminology.fingerprint",
     "normative-terminology.inventory",
@@ -108,6 +109,7 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "rust_candidate/foundation.rs",
         "rust_candidate/governance_bindings.rs",
         "rust_candidate/git_whitespace.rs",
+        "rust_candidate/github_authoritative_ref_monotonicity.rs",
         "rust_candidate/normative_terminology.rs",
         "rust_candidate/portable_pattern.rs",
         "rust_candidate/projection_registry.rs",
@@ -144,6 +146,10 @@ pub(super) fn assert_source_boundaries(corpus: &LoadedCorpus) {
         "governance_routing.rs",
         "governed_objects.rs",
         "git_whitespace.rs",
+        "github_authoritative_ref_monotonicity/mod.rs",
+        "github_authoritative_ref_monotonicity/binding.rs",
+        "github_authoritative_ref_monotonicity/http.rs",
+        "github_authoritative_ref_monotonicity/observation.rs",
         "normative_terminology/mod.rs",
         "normative_terminology/unicode14.rs",
         "normative_terminology/registry.rs",
@@ -219,6 +225,18 @@ pub(super) fn count_rust_status_for_responsibilities(
     )
 }
 
+pub(super) fn vector_count_for_responsibilities(
+    corpus: &LoadedCorpus,
+    responsibilities: &HashSet<&str>,
+) -> usize {
+    corpus
+        .matrices
+        .iter()
+        .filter(|matrix| responsibilities.contains(matrix.responsibility_id.as_str()))
+        .map(|matrix| matrix.vectors.len())
+        .sum()
+}
+
 pub(super) fn print_issue64_accounting(vector_count: usize, counts: (usize, usize, usize)) {
     eprintln!(
         "ISSUE64_VECTORS={vector_count}\nISSUE64_RUST_MATCH={}\nISSUE64_RUST_MISMATCH={}\nISSUE64_RUST_NOT_AVAILABLE={}",
@@ -226,20 +244,10 @@ pub(super) fn print_issue64_accounting(vector_count: usize, counts: (usize, usiz
     );
 }
 
-pub(super) fn assert_only_remaining_rust_responsibility(
-    reports: &[DifferentialReport],
-    responsibility: &str,
-    vector_count: usize,
-) {
-    let unimplemented: Vec<_> = reports
-        .iter()
-        .filter(|report| report.rust_candidate == CandidateState::Unimplemented)
-        .collect();
-    assert_eq!(unimplemented.len(), vector_count);
-    assert!(
-        unimplemented
-            .iter()
-            .all(|report| report.responsibility_id == responsibility)
+pub(super) fn print_issue69_accounting(vector_count: usize, counts: (usize, usize, usize)) {
+    eprintln!(
+        "ISSUE69_VECTORS={vector_count}\nISSUE69_RUST_MATCH={}\nISSUE69_RUST_MISMATCH={}\nISSUE69_RUST_NOT_AVAILABLE={}",
+        counts.0, counts.1, counts.2
     );
 }
 
@@ -250,7 +258,7 @@ pub(super) fn print_rust_accounting(
     differential: (usize, usize, usize),
 ) {
     eprintln!(
-        "RUST_IMPLEMENTED_RESPONSIBILITIES={responsibility_count}\nRUST_IMPLEMENTED_VECTORS={implemented_vectors}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=1\nRUST_UNIMPLEMENTED_VECTORS={}",
+        "RUST_IMPLEMENTED_RESPONSIBILITIES={responsibility_count}\nRUST_IMPLEMENTED_VECTORS={implemented_vectors}\nRUST_UNIMPLEMENTED_RESPONSIBILITIES=0\nRUST_UNIMPLEMENTED_VECTORS={}",
         1153 - implemented_vectors
     );
     eprintln!(

@@ -13,10 +13,10 @@ use proto_ring_conformance::loader::load_corpus;
 use proto_ring_conformance::model::MigrationDisposition;
 use proto_ring_conformance::rust_candidate::ReferenceRustCandidate;
 use support::{
-    IMPLEMENTED, assert_only_remaining_rust_responsibility, assert_projection_regressions,
-    assert_source_boundaries, count_rust_status_for_responsibilities, count_status,
-    expected_observation, print_issue64_accounting, print_rust_accounting, request_for,
-    require_matches, root,
+    IMPLEMENTED, assert_projection_regressions, assert_source_boundaries,
+    count_rust_status_for_responsibilities, count_status, expected_observation,
+    print_issue64_accounting, print_issue69_accounting, print_rust_accounting, request_for,
+    require_matches, root, vector_count_for_responsibilities,
 };
 
 #[test]
@@ -61,12 +61,7 @@ fn published_corpus_runs_through_reference_candidate() {
     ]
     .into_iter()
     .collect();
-    let issue66_vectors: usize = corpus
-        .matrices
-        .iter()
-        .filter(|matrix| issue66_responsibilities.contains(matrix.responsibility_id.as_str()))
-        .map(|matrix| matrix.vectors.len())
-        .sum();
+    let issue66_vectors = vector_count_for_responsibilities(&corpus, &issue66_responsibilities);
     let issue64_responsibilities: HashSet<_> = [
         "accepted-adr-body.immutability",
         "adr-metadata.parse",
@@ -82,12 +77,15 @@ fn published_corpus_runs_through_reference_candidate() {
     ]
     .into_iter()
     .collect();
-    let issue64_vectors: usize = corpus
-        .matrices
-        .iter()
-        .filter(|matrix| issue64_responsibilities.contains(matrix.responsibility_id.as_str()))
-        .map(|matrix| matrix.vectors.len())
-        .sum();
+    let issue64_vectors = vector_count_for_responsibilities(&corpus, &issue64_responsibilities);
+    let issue69_responsibilities: HashSet<_> = [
+        "repository-integrity.evaluate",
+        "git-whitespace.validate",
+        "github-authoritative-ref-monotonicity.observe",
+    ]
+    .into_iter()
+    .collect();
+    let issue69_vectors = vector_count_for_responsibilities(&corpus, &issue69_responsibilities);
     let responsibility_vector_count = |responsibility_id| {
         corpus
             .matrices
@@ -111,6 +109,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(exact_evidence_binding_vectors, 44);
     assert_eq!(issue64_vectors, 209);
     assert_eq!(issue68_vectors, 25);
+    assert_eq!(issue69_vectors, 69);
     assert_eq!(
         (
             corpus.responsibilities.len(),
@@ -207,8 +206,8 @@ fn published_corpus_runs_through_reference_candidate() {
         }
     }
     assert_eq!(python_counts, (1153, 0, 0));
-    assert_eq!(rust_counts, (1133, 0, 20));
-    assert_eq!(differential_counts, (1133, 0, 20));
+    assert_eq!(rust_counts, (1153, 0, 0));
+    assert_eq!(differential_counts, (1153, 0, 0));
     let implemented_vectors = reports
         .iter()
         .filter(|report| matches!(report.rust_candidate, CandidateState::Observation(_)))
@@ -224,12 +223,7 @@ fn published_corpus_runs_through_reference_candidate() {
     assert_eq!(implemented_ids, IMPLEMENTED.iter().copied().collect());
     assert_eq!(
         (implemented_responsibility_count, implemented_vectors),
-        (28, 1133)
-    );
-    assert_only_remaining_rust_responsibility(
-        &reports,
-        "github-authoritative-ref-monotonicity.observe",
-        20,
+        (29, 1153)
     );
     let issue66_rust_matches = reports
         .iter()
@@ -282,6 +276,9 @@ fn published_corpus_runs_through_reference_candidate() {
     let issue64_rust_counts =
         count_rust_status_for_responsibilities(&reports, &issue64_responsibilities);
     assert_eq!(issue64_rust_counts, (209, 0, 0));
+    let issue69_rust_counts =
+        count_rust_status_for_responsibilities(&reports, &issue69_responsibilities);
+    assert_eq!(issue69_rust_counts, (69, 0, 0));
     require_matches(
         &reports,
         &[
@@ -364,6 +361,7 @@ fn published_corpus_runs_through_reference_candidate() {
         "ISSUE64_PORTABLE_PATTERN_RESPONSIBILITIES=1\nISSUE64_PORTABLE_PATTERN_VECTORS=37\nISSUE64_PORTABLE_PATTERN_RUST_MATCH=37"
     );
     print_issue64_accounting(issue64_vectors, issue64_rust_counts);
+    print_issue69_accounting(issue69_vectors, issue69_rust_counts);
     eprintln!(
         "PYTHON_OBSERVATIONS=1153\nPYTHON_VS_EXPECTED_MATCH={}\nPYTHON_VS_EXPECTED_MISMATCH={}",
         python_counts.0, python_counts.1

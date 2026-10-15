@@ -8,6 +8,7 @@ mod evidence_requirements;
 mod exact_evidence_binding;
 mod foundation;
 mod git_whitespace;
+mod github_authoritative_ref_monotonicity;
 mod governance_bindings;
 mod normative_terminology;
 mod portable_pattern;
@@ -39,6 +40,7 @@ const IMPLEMENTED: &[&str] = &[
     "governance-routing.resolve",
     "governed-objects.catalog",
     "git-whitespace.validate",
+    "github-authoritative-ref-monotonicity.observe",
     "normative-terminology.definition-discovery",
     "normative-terminology.fingerprint",
     "normative-terminology.inventory",
@@ -80,6 +82,11 @@ impl CandidateExecutor for ReferenceRustCandidate {
         }
         if request.responsibility_id == "git-whitespace.validate" {
             return git_whitespace::execute(&request.fixture)
+                .map(CandidateState::Observation)
+                .map_err(fixture_error);
+        }
+        if request.responsibility_id == "github-authoritative-ref-monotonicity.observe" {
+            return github_authoritative_ref_monotonicity::execute(&request.fixture)
                 .map(CandidateState::Observation)
                 .map_err(fixture_error);
         }
