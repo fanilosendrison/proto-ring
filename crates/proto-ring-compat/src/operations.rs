@@ -1,6 +1,9 @@
 use std::collections::BTreeMap;
 use std::path::Path;
 
+use proto_ring_engine::accepted_adr_body::{self, AcceptedBodyDiagnosticKind};
+use proto_ring_engine::git_whitespace::{self, WhitespaceDomain};
+use proto_ring_engine::github_authoritative_ref_monotonicity::{self, ArmObservation};
 use proto_ring_engine::governance_bindings::{GovernanceBinding, GovernanceBindingIdentity};
 use proto_ring_engine::repository_governance_state::{self, RepositoryGovernanceStage};
 use proto_ring_engine::repository_integrity::{
@@ -9,10 +12,11 @@ use proto_ring_engine::repository_integrity::{
 };
 
 use crate::protocol::{
-    BindingAuthority, BindingIdentity, BindingProjection, BindingScope, ComponentPresence,
-    ComposeInput, ComposeValue, EngineIdentityValue, IntegrityInput, IntegrityValue,
-    ObligationProjection, PresentBinding, Request, Response, ResultValue, TRANSPORT_VERSION,
-    ValidationProjection,
+    AcceptedAdrBodyInput, AcceptedAdrBodyValue, BindingAuthority, BindingIdentity,
+    BindingProjection, BindingScope, ComponentPresence, ComposeInput, ComposeValue,
+    EngineIdentityValue, GitWhitespaceInput, GitWhitespaceValue, GithubArmInput, GithubArmValue,
+    IntegrityInput, IntegrityValue, ObligationProjection, PresentBinding, Request, Response,
+    ResultValue, TRANSPORT_VERSION, ValidationProjection,
 };
 
 const SOURCE_REPOSITORY: &str = "fanilosendrison/proto-ring";
@@ -30,6 +34,9 @@ pub(crate) fn execute(request: Request) -> Result<Response, InternalFailure> {
         )),
         Request::Compose(input) => compose(input),
         Request::EvaluateIntegrity(input) => evaluate_integrity(input),
+        Request::CheckAcceptedAdrBody(input) => Ok(check_accepted_adr_body(input)),
+        Request::ValidateGitWhitespace(input) => Ok(validate_git_whitespace(input)),
+        Request::ObserveGithubArm(input) => Ok(observe_github_arm(input)),
     }
 }
 
@@ -211,5 +218,97 @@ fn project_obligation(obligation: &ObligationResult) -> ObligationProjection {
     }
 }
 
+fn check_accepted_adr_body(input: AcceptedAdrBodyInput) -> Response {
+    let report = accepted_adr_body::check(Path::new(&input.repository));
+    let category = if report.diagnostics.is_empty() {
+        None
+    } else if report
+        .diagnostics
+        .iter()
+        .any(|diagnostic| diagnostic.kind == AcceptedBodyDiagnosticKind::BodyChanged)
+    {
+        Some("body_changed")
+    } else {
+        Some("historical_state_invalid")
+    };
+    Response::result(
+        "accepted-adr-body.immutability",
+        ResultValue::AcceptedAdrBody(AcceptedAdrBodyValue {
+            status: if report.diagnostics.is_empty() {
+                "PASS"
+            } else {
+                "NON_PASS"
+            },
+            category,
+        }),
+    )
+}
+
+fn validate_git_whitespace(input: GitWhitespaceInput) -> Response {
+    let report = git_whitespace::check(Path::new(&input.repository), &input.environment);
+    let mut domains = Vec::new();
+    for diagnostic in &report.diagnostics {
+        let domain = match diagnostic.domain {
+            WhitespaceDomain::Unstaged => "unstaged",
+            WhitespaceDomain::Staged => "staged",
+            WhitespaceDomain::PushCommittedRange => "push_committed_range",
+            WhitespaceDomain::PullRequestCommittedRange => "pull_request_committed_range",
+            WhitespaceDomain::RangeDetermination => "range_determination",
+            WhitespaceDomain::GitObservation => "git_observation",
+        };
+        if !domains.contains(&domain) {
+            domains.push(domain);
+        }
+    }
+    Response::result(
+        "git-whitespace.validate",
+        ResultValue::GitWhitespace(GitWhitespaceValue {
+            status: if report.passes() { "PASS" } else { "NON_PASS" },
+            domains,
+        }),
+    )
+}
+
+fn observe_github_arm(input: GithubArmInput) -> Response {
+    let observation =
+        github_authoritative_ref_monotonicity::observe(Path::new(&input.binding_path));
+    Response::result(
+        "github-authoritative-ref-monotonicity.observe",
+        ResultValue::GithubArm(project_github_arm(&observation)),
+    )
+}
+
+fn project_github_arm(observation: &ArmObservation) -> GithubArmValue {
+    GithubArmValue {
+        status: observation.status.serialized(),
+    }
+}
+
 #[derive(Debug)]
 pub(crate) struct InternalFailure;
+
+#[cfg(test)]
+mod tests {
+    use proto_ring_engine::github_authoritative_ref_monotonicity::{
+        ArmDiagnostic, ArmDiagnosticKind, ArmObservation, ArmStatus,
+    };
+
+    use super::project_github_arm;
+
+    #[test]
+    fn arm_projection_uses_only_typed_status() {
+        for (status, expected) in [
+            (ArmStatus::Satisfied, "SATISFIED"),
+            (ArmStatus::Violated, "VIOLATED"),
+            (ArmStatus::Undetermined, "UNDETERMINED"),
+        ] {
+            let observation = ArmObservation {
+                status,
+                diagnostics: vec![ArmDiagnostic {
+                    kind: ArmDiagnosticKind::ProviderObservationUnavailable,
+                }],
+            };
+            assert_eq!(project_github_arm(&observation).status, expected);
+        }
+    }
+}

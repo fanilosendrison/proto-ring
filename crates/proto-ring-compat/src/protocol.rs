@@ -27,6 +27,25 @@ pub(crate) struct ComposeInput {
 
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
+pub(crate) struct AcceptedAdrBodyInput {
+    pub(crate) repository: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct GitWhitespaceInput {
+    pub(crate) repository: String,
+    pub(crate) environment: BTreeMap<String, String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct GithubArmInput {
+    pub(crate) binding_path: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct IntegrityInput {
     pub(crate) repository: String,
     pub(crate) evaluation_context: EvaluationContextInput,
@@ -51,6 +70,9 @@ pub(crate) enum Request {
     EngineIdentity,
     Compose(ComposeInput),
     EvaluateIntegrity(IntegrityInput),
+    CheckAcceptedAdrBody(AcceptedAdrBodyInput),
+    ValidateGitWhitespace(GitWhitespaceInput),
+    ObserveGithubArm(GithubArmInput),
 }
 
 pub(crate) fn parse_request(bytes: &[u8]) -> Result<Request, InvalidRequest> {
@@ -97,6 +119,30 @@ pub(crate) fn parse_request(bytes: &[u8]) -> Result<Request, InvalidRequest> {
                 return Err(InvalidRequest);
             }
             Ok(Request::EvaluateIntegrity(input))
+        }
+        "accepted-adr-body.immutability" => {
+            let input: AcceptedAdrBodyInput =
+                serde_json::from_value(raw.input).map_err(|_| InvalidRequest)?;
+            if input.repository.is_empty() {
+                return Err(InvalidRequest);
+            }
+            Ok(Request::CheckAcceptedAdrBody(input))
+        }
+        "git-whitespace.validate" => {
+            let input: GitWhitespaceInput =
+                serde_json::from_value(raw.input).map_err(|_| InvalidRequest)?;
+            if input.repository.is_empty() {
+                return Err(InvalidRequest);
+            }
+            Ok(Request::ValidateGitWhitespace(input))
+        }
+        "github-authoritative-ref-monotonicity.observe" => {
+            let input: GithubArmInput =
+                serde_json::from_value(raw.input).map_err(|_| InvalidRequest)?;
+            if input.binding_path.is_empty() {
+                return Err(InvalidRequest);
+            }
+            Ok(Request::ObserveGithubArm(input))
         }
         _ => Err(InvalidRequest),
     }
@@ -182,6 +228,23 @@ pub(crate) struct BindingAuthority {
 }
 
 #[derive(Serialize)]
+pub(crate) struct AcceptedAdrBodyValue {
+    pub(crate) status: &'static str,
+    pub(crate) category: Option<&'static str>,
+}
+
+#[derive(Serialize)]
+pub(crate) struct GitWhitespaceValue {
+    pub(crate) status: &'static str,
+    pub(crate) domains: Vec<&'static str>,
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize)]
+pub(crate) struct GithubArmValue {
+    pub(crate) status: &'static str,
+}
+
+#[derive(Serialize)]
 pub(crate) struct IntegrityValue {
     pub(crate) verdict: &'static str,
     pub(crate) state_relation: &'static str,
@@ -211,6 +274,9 @@ pub(crate) enum ResultValue {
     EngineIdentity(EngineIdentityValue),
     Compose(ComposeValue),
     Integrity(IntegrityValue),
+    AcceptedAdrBody(AcceptedAdrBodyValue),
+    GitWhitespace(GitWhitespaceValue),
+    GithubArm(GithubArmValue),
 }
 
 #[derive(Serialize)]
