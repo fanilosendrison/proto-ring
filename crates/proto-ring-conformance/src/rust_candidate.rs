@@ -13,6 +13,7 @@ mod portable_pattern;
 mod projection_registry;
 mod repository_governance_state;
 mod repository_integrity;
+mod repository_integrity_evaluation;
 mod repository_state;
 mod support;
 mod transport;
@@ -46,6 +47,7 @@ const IMPLEMENTED: &[&str] = &[
     "repository-governance-model.binding-compatibility",
     "repository-governance-model.load",
     "repository-governance-state.compose",
+    "repository-integrity.evaluate",
     "repository-integrity.profile",
     "repository-state.capture",
     "structured-data.document",
@@ -66,6 +68,11 @@ impl CandidateExecutor for ReferenceRustCandidate {
         }
         if request.responsibility_id == "repository-governance-state.compose" {
             return repository_governance_state::execute(&request.fixture)
+                .map(CandidateState::Observation)
+                .map_err(fixture_error);
+        }
+        if request.responsibility_id == "repository-integrity.evaluate" {
+            return repository_integrity_evaluation::execute(&request.fixture)
                 .map(CandidateState::Observation)
                 .map_err(fixture_error);
         }
