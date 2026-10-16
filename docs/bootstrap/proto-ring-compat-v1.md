@@ -11,17 +11,21 @@ name: "Proto-Ring compatibility transport v1"
 
 ## Status and authority boundary
 
-This transport exists only for #70, #71, and #72 migration compatibility. It
-is migration-local, versioned, and non-normative. It is not a Proto-Ring
-semantic contract, canonical serialization, or #28's public API. Engine values
-are manually projected for process interoperability. Language-neutral
-contracts remain authoritative, and consumer-owned policy remains
+This executable transport exists only for #70, #71, and #72 migration
+compatibility. It is versioned, migration-local, and non-normative. It is not a
+Proto-Ring semantic contract, canonical serialization, or #28's public API.
+Engine values are manually projected for process interoperability; the
+language-neutral contracts remain authoritative, and consumer policy remains
 consumer-owned.
 
-The exact executable source exposes exactly eight operations:
+The exact executable source exposes exactly twelve operations:
 
 ```text
 accepted-adr-body.immutability
+adr-metadata.parse
+adr-metadata.repository-path
+adr-metadata.validation
+canonical-adr.resolve
 engine.identity
 evidence-requirements.registry
 exact-evidence-binding.evaluate
@@ -31,255 +35,200 @@ repository-governance-state.compose
 repository-integrity.evaluate
 ```
 
-No generic responsibility dispatcher, operation negotiation, discovery API,
-consumer callback protocol, ADR operation, or Terminology operation is exposed.
+There is no generic responsibility dispatcher, discovery or negotiation API,
+operation-set version, consumer callback protocol, or provider injection
+surface.
 
 ## Process boundary
 
-`proto-ring-compat` accepts exactly one strict UTF-8 JSON request on standard
-input and no command-specific arguments or environment request transport:
+`proto-ring-compat` accepts one strict UTF-8 JSON request on standard input and
+no command-specific arguments:
 
 ```json
-{
-  "transport_version": 1,
-  "operation": "<operation>",
-  "input": {}
-}
+{"transport_version":1,"operation":"<operation>","input":{}}
 ```
 
-Unknown fields, unsupported versions or operations, invalid JSON or UTF-8, and
-operation-specific transport errors produce exit code `2` and, when
-serialization remains possible:
+Unknown fields, versions, operations, modes, malformed JSON or UTF-8, and
+operation-specific transport errors produce `transport_error` with category
+`invalid_request` and exit `2`. Results and controlled semantic failures exit
+`0`; unexpected runner I/O, projection, or serialization failures exit `70`.
+Controlled failures include a stable category, nullable stage, and
+non-normative detail. Consumers must not parse detail text and own their local
+CLI exit mapping.
+
+## Structured-value migration transport
+
+ADR operations use a recursively tagged compatibility DTO:
 
 ```json
-{
-  "transport_version": 1,
-  "outcome": "transport_error",
-  "error": { "category": "invalid_request" }
-}
+{"type":"null","value":null}
+{"type":"boolean","value":true}
+{"type":"integer","value":"12345678901234567890"}
+{"type":"string","value":"text"}
+{"type":"sequence","value":[{"type":"string","value":"x"}]}
+{"type":"record","value":[{"name":"field","value":{"type":"string","value":"x"}}]}
 ```
 
-A valid result has `outcome: "result"`. A controlled engine or semantic
-rejection has `outcome: "controlled_failure"` and a migration-local error with
-`category`, nullable `stage`, and non-normative `detail`. Consumers must not
-parse diagnostic prose. Both outcomes exit `0`; unexpected runner I/O,
-projection, or serialization failure exits `70`. Consumers own local CLI exit
-mapping.
+Each tag requires exactly its documented value type. Record names are strings
+and unique within that record. Integer text is neither parsed nor normalized by
+the compatibility layer. `bytes` is not a structured-value tag. Malformed tags,
+wrong value types, duplicate record names, and unknown fields are transport
+errors.
+
+The runner privately maps this DTO to and from engine `StructuredValue` using
+`record`/`Mapping`, `sequence`/`Sequence`, `string`/`String`,
+`boolean`/`Boolean`, `integer`/`Integer`, and `null`/`Null`. Engine mapping order
+is preserved. The tagged representation is migration transport only. It is not
+canonical Structured Data serialization.
 
 ## `engine.identity`
 
-Request input is `{}`. Result:
-
-```json
-{
-  "source_repository": "fanilosendrison/proto-ring",
-  "source_commit": "<40 lowercase hexadecimal characters>",
-  "transport_version": 1
-}
-```
-
-The build-time `git rev-parse HEAD` result and fixed repository identify the
-exact executable source. Runtime requests, environment, consumer bindings,
-network state, and dependency manifests cannot override them.
+Input is `{}`. The result reports fixed repository
+`fanilosendrison/proto-ring`, build-time source commit, and transport version
+`1`. Runtime input and environment cannot override this identity.
 
 ## `repository-governance-state.compose`
 
-Request:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "repository-governance-state.compose",
-  "input": {
-    "repository": "<non-empty UTF-8 path>",
-    "binding_ids": []
-  }
-}
-```
-
-`binding_ids` defaults to `[]` and otherwise contains unique non-empty IDs. The
-operation calls only `repository_governance_state::load`; it is read-only,
-non-executing, and provider-independent. The result projects composition stage,
-opaque identity presence, ordered scope paths, component presence, and only
-explicitly requested Governance Binding facts. It exposes no opaque identity
-bytes or digest. An RGS failure uses category
-`repository-governance-state` and its typed stage.
+Input contains non-empty `repository` and optional unique, non-empty
+`binding_ids`. The operation calls `repository_governance_state::load` and
+projects composition stage, identity presence, scope paths, component presence,
+and requested binding facts. It is read-only and provider-independent.
 
 ## `repository-integrity.evaluate`
 
-Request input contains a non-empty `repository` and an `evaluation_context`
-with strict realizations. Each realization contains a unique non-empty
-`environment_id`, exact `identity_utf8`, non-empty `command_prefix`, and exact
-`process_environment` string map. The runner merges no ambient environment.
-
-The operation obtains the routed profile through RGS, then delegates to
-`repository_integrity::realize_consumer_profile` and
-`repository_integrity::evaluate`. It does not reproduce selectors, identities,
-state capture/coherence, prerequisites, aggregation, or execution. The result
-projects verdict, state relation, coherence halt, validations, and obligations;
-engine identities remain opaque.
+Input contains a non-empty repository and strict evaluation-context
+realizations. Each realization has a unique non-empty environment ID, exact
+UTF-8 identity, non-empty command prefix, and exact process-environment map.
+The runner merges no ambient environment. It obtains the routed profile through
+RGS and delegates realization and evaluation to the engine.
 
 ## `accepted-adr-body.immutability`
 
-Request:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "accepted-adr-body.immutability",
-  "input": { "repository": "<non-empty UTF-8 path>" }
-}
-```
-
-Result value is exactly one of:
-
-```json
-{ "status": "PASS", "category": null }
-{ "status": "NON_PASS", "category": "body_changed" }
-{ "status": "NON_PASS", "category": "historical_state_invalid" }
-```
-
-The operation delegates to `accepted_adr_body::check`. Empty diagnostics pass;
-a typed `BodyChanged` selects `body_changed`; every other non-empty diagnostic
-set selects `historical_state_invalid`. Diagnostic prose and historical paths
-are not transported. `NON_PASS` remains a result with exit code `0`.
+Input contains non-empty `repository`. The operation delegates to
+`accepted_adr_body::check`. Empty diagnostics project `PASS`; typed
+`BodyChanged` projects `NON_PASS/body_changed`; other diagnostics project
+`NON_PASS/historical_state_invalid`. Diagnostic prose is not classified.
 
 ## `git-whitespace.validate`
 
-Request input contains a non-empty `repository` and required exact
-`environment` string map. The runner passes only that map to
-`git_whitespace::check`; it does not merge ambient event or CI variables.
-
-Result value contains `status` (`PASS` or `NON_PASS`) and ordered, deduplicated
-`domains`. Domain values are limited to `unstaged`, `staged`,
-`push_committed_range`, `pull_request_committed_range`,
-`range_determination`, and `git_observation`. Git output and diagnostic
-internals are not transported. `NON_PASS` exits `0`.
+Input contains non-empty `repository` and a required exact environment map.
+Only that map reaches `git_whitespace::check`. Result status is derived from
+`passes()` and domains are typed, ordered, and deduplicated by first occurrence.
 
 ## `github-authoritative-ref-monotonicity.observe`
 
-Request input contains only non-empty `binding_path`. The operation delegates
-to `github_authoritative_ref_monotonicity::observe`. Result value contains only
-`status`: `SATISFIED`, `VIOLATED`, or `UNDETERMINED`. Binding parsing, provider
-addressing, HTTP behavior, and diagnostics remain engine-owned. No provider
-injection surface is exposed; every valid status exits `0`.
+Input contains non-empty `binding_path`. The operation delegates to the engine
+and projects only typed status `SATISFIED`, `VIOLATED`, or `UNDETERMINED`.
 
 ## `evidence-requirements.registry`
 
-Request:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "evidence-requirements.registry",
-  "input": {
-    "repository": "<non-empty UTF-8 path>",
-    "requirement_ids": []
-  }
-}
-```
-
-`requirement_ids` defaults to `[]` and otherwise contains unique non-empty IDs.
-The operation loads RGS and uses only its composed `evidence_requirements`
-registry. It does not reconstruct authority, routing, Governed Objects, or
-loader dependencies. RGS failure retains category
-`repository-governance-state`; absent registry uses
-`evidence-requirements-absent`; any missing requested ID uses
-`evidence-requirement-not-found` without partial output.
-
-Successful value:
-
-```json
-{
-  "authority_source": "<source>",
-  "model_version": 1,
-  "registry_authority": {
-    "responsibility": "<responsibility>",
-    "source": "<source>"
-  },
-  "requirement_ids": ["<all registry keys in engine order>"],
-  "requirements": {
-    "<requested ID>": {
-      "id": "<ID>",
-      "responsibility": "<responsibility>",
-      "instances": { "kind": "single", "source": null },
-      "evidence_classes": {
-        "kind": "explicit",
-        "classes": ["<class>"],
-        "source": null
-      },
-      "subject_source": "<source>",
-      "context": { "required": false, "source": null },
-      "candidate_source": "<source>",
-      "target": null
-    }
-  }
-}
-```
-
-Source-backed instances and class admissions carry their declared `source`;
-explicit classes preserve the engine `BTreeSet` order. A target, when present,
-contains only `interface` and `object`. This is a migration representation, not
-the canonical Evidence Requirements serialization. It performs no validation,
-provider access, artifact generation, or mutation.
+Input contains non-empty `repository` and optional unique, non-empty
+`requirement_ids`. The runner loads RGS, lists every registry ID in engine order,
+and projects only requested entries. It does not reconstruct authority,
+routing, Governed Objects, or loader dependencies. Absent registry and missing
+requested IDs are controlled failures without partial output.
 
 ## `exact-evidence-binding.evaluate`
 
-This operation has exactly two local modes. `evaluate_binding` request input:
+Modes are exactly `evaluate_binding` and `evaluate_requirement_history`.
+Identity fields are nullable lowercase even-length hexadecimal byte transport;
+empty hex is valid. The runner does not hash, decode as UTF-8, normalize,
+case-fold, validate digest length, or interpret identities as Git objects.
+Duplicate admitted classes are rejected before `BTreeSet` construction.
+Structural validation and comparison delegate to `EvidenceRequirement::new`
+and `evaluate`. History constructs every requirement before evaluating any
+comparison and preserves request order.
 
-```json
-{
-  "mode": "evaluate_binding",
-  "requirement": {
-    "admitted_classes": ["check"],
-    "subject_hex": "7375626a656374",
-    "context_hex": null,
-    "context_required": false
-  },
-  "binding": {
-    "evidence_class": "check",
-    "subject_hex": "7375626a656374",
-    "context_hex": null
-  }
-}
+## `adr-metadata.parse`
+
+Input has exactly one of these modes and lowercase even-length `bytes_hex`:
+
+```text
+load_yaml
+load_json
+parse_adr
+decision_body
+h1
+preserved_payload
+sha256
 ```
 
-`binding` may be `null`. A valid semantic result contains only:
+Empty bytes are transport-valid. The runner decodes bytes without prior UTF-8
+interpretation and delegates respectively to `adr_metadata::load_yaml`,
+`load_json`, `parse_adr`, `decision_body`, `h1_text`, `preserved_payload`, or
+`sha256`.
 
-```json
-{ "status": "MATCH" }
-{ "status": "MISMATCH" }
-{ "status": "UNDETERMINED" }
+`load_yaml` and `load_json` return `structured`; `parse_adr` returns tagged
+record `metadata` and `body_hex`; the remaining modes return `body_hex`, `text`,
+`payload_hex`, or lowercase `sha256`. Engine errors are controlled category
+`adr-metadata.parse.rejected`; diagnostic text does not determine status.
+
+## `adr-metadata.repository-path`
+
+Request input contains non-empty `repository` and raw JSON `relative`.
+Non-string values are semantic controlled rejections, not transport errors.
+Strings are passed only to `adr_metadata::resolve_repository_path`. The result
+is the resolved target relative to the canonical repository root with portable
+`/` separators, so a contained symlink projects its contained target. The
+runner implements no containment, parent, absolute-path, symlink, or
+canonicalization policy. Failures use category
+`adr-metadata.repository-path.rejected`.
+
+## `adr-metadata.validation`
+
+Exactly eight modes are supported:
+
+```text
+require_mapping
+require_string
+require_string_list
+relation_target_categories
+relation_target_errors
+schema_error_labels
+schema_error_locations
+schema_errors
 ```
 
-The runner detects duplicate admitted classes before constructing
-`EvidenceRequirement`, delegates structural validation to
-`EvidenceRequirement::new`, and delegates comparison to `evaluate`. Structural
-requirement rejection is controlled category
-`exact-evidence-binding.evaluate.rejected`; candidate empty values remain
-engine-evaluated data.
+The `require_*` modes accept tagged `value` and delegate to the corresponding
+engine helper, returning tagged record `value`, `text`, or ordered `items`.
+Relation modes accept tagged `source_id`, `relation_type`, `targets`, and
+`known_ids`. Source and relation type must become non-empty engine strings;
+target and known-ID values pass through `require_string_list`. Typed relation
+errors project `self_reference` or `missing_target` with target.
 
-`evaluate_requirement_history` contains ordered `comparisons`, each with
-`label`, `historical_requirement`, `current_requirement`, and nullable
-`binding`. All transport is validated and all requirements are constructed
-before any comparison executes. Result order equals request order:
+Schema modes accept tagged `value`, `schema`, and `overlay_schema` and call only
+`adr_metadata::validate_schemas`. The runner does not instantiate JSON Schema.
+Typed errors project `path` and `schema` from `SchemaLabel::as_str`; label mode
+returns base/overlay booleans and location mode also returns `rejected`.
+Structural semantic failures use category `adr-metadata.validation.rejected`.
 
-```json
-{
-  "comparisons": [
-    {
-      "label": "subject-change",
-      "historical": "MATCH",
-      "current": "MISMATCH"
-    }
-  ]
-}
-```
+## `canonical-adr.resolve`
 
-Identity fields are nullable lowercase hexadecimal byte encoding. Empty hex is
-transport-valid; uppercase, odd-length, or non-hex input is invalid transport.
-Hex encoding belongs only to this compatibility transport. Opaque identity
-semantics remain defined by the language-neutral contract: the runner does not
-hash, normalize, UTF-8 decode, case-fold, validate digest length, or interpret
-identities as Git objects. Consumer identity construction remains
-consumer-owned.
+This operation has exactly two modes.
+
+`configured_profile_path` accepts only non-empty `repository`. It calls
+`repository_governance_model::load`, selects
+`architecture_decisions/routes/profile/target`, strips the model repository
+root, and returns portable `relative_path`. This mode is a migration helper over
+existing Repository Governance Model routing, not a new normative
+responsibility. It does not parse `AGENTS.md` or invoke governance routing
+directly.
+
+`resolve_adr` accepts non-empty `repository`, raw JSON `adr_id`, and optional
+boolean `include_decision_body` defaulting to false. A non-string ADR ID is a
+semantic rejection. String IDs are passed only to `canonical_adr::resolve`.
+The result contains `adr_id` and portable `relative_path`, plus
+`decision_body_hex` only when requested. Canonical metadata is not transported.
+
+Both modes use controlled category `canonical-adr.resolve.rejected`. The runner
+implements no filename matching, Portable Pattern logic, ID width, candidate
+enumeration, symlink handling, profile loading, or ADR parsing.
+
+## Consumer boundary and side effects
+
+All four ADR compatibility operations are non-executing and read-only with
+respect to governed source repositories. ADR profile semantics, schema pinning,
+overlays, migration
+evidence, annotated histories, legacy-ID policy, contiguous-ID policy,
+relation vocabularies, H1 policy, generated index layout, and rendering remain
+consumer-owned. Consumer rendering is not part of this transport.
