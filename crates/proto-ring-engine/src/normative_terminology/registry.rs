@@ -166,7 +166,7 @@ fn parse_entry(
         .to_owned();
     let aliases = decode_list(&cells[3]).ok_or(DiagnosticCategory::RegistryStructure)?;
     let deprecated = decode_list(&cells[4]).ok_or(DiagnosticCategory::RegistryStructure)?;
-    let term_structure = decode_atom(&cells[5]).ok_or(DiagnosticCategory::RegistryStructure)?;
+    let term_structure = decode_term_structure(&cells[5]);
     if term_structure.is_empty() {
         return Err(DiagnosticCategory::RegistryStructure);
     }
@@ -208,6 +208,22 @@ fn decode_atom(value: &str) -> Option<String> {
         value
     };
     Some(unicode14::strip(decoded).to_owned())
+}
+
+fn decode_term_structure(value: &str) -> String {
+    let value = unicode14::strip(value);
+
+    let decoded = if value.starts_with('`') && value.ends_with('`') {
+        if value.len() == 1 {
+            ""
+        } else {
+            &value[1..value.len() - 1]
+        }
+    } else {
+        value
+    };
+
+    unicode14::strip(decoded).to_owned()
 }
 
 fn decode_list(value: &str) -> Option<Vec<String>> {
