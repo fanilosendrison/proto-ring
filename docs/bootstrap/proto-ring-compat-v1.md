@@ -11,37 +11,33 @@ name: "Proto-Ring compatibility transport v1"
 
 ## Status and authority boundary
 
-This transport exists only for #70, #71, and #72 migration compatibility.
+This transport exists only for #70, #71, and #72 migration compatibility. It
+is migration-local, versioned, and non-normative. It is not a Proto-Ring
+semantic contract, canonical serialization, or #28's public API. Engine values
+are manually projected for process interoperability. Language-neutral
+contracts remain authoritative, and consumer-owned policy remains
+consumer-owned.
 
-It is not a Proto-Ring governance contract. It does not define canonical
-semantic serialization. It does not define #28's public API. The Rust reference
-engine remains downstream of language-neutral contracts. Consumer-owned policy
-remains consumer-owned.
-
-The transport is versioned, migration-local, and non-normative. Its JSON values
-project existing engine results for process interoperability; they do not become
-semantic authority and do not replace the language-neutral contracts.
-
-The exact executable source exposes exactly six operations:
+The exact executable source exposes exactly eight operations:
 
 ```text
 accepted-adr-body.immutability
 engine.identity
+evidence-requirements.registry
+exact-evidence-binding.evaluate
 git-whitespace.validate
 github-authoritative-ref-monotonicity.observe
 repository-governance-state.compose
 repository-integrity.evaluate
 ```
 
-No internal crate module or generic responsibility dispatcher is exposed.
+No generic responsibility dispatcher, operation negotiation, discovery API,
+consumer callback protocol, ADR operation, or Terminology operation is exposed.
 
 ## Process boundary
 
-The `proto-ring-compat` executable accepts exactly one UTF-8 JSON request on
-standard input. It accepts no command-specific command-line arguments,
-positional repository argument, or environment-variable request transport.
-
-Every request has this envelope:
+`proto-ring-compat` accepts exactly one strict UTF-8 JSON request on standard
+input and no command-specific arguments or environment request transport:
 
 ```json
 {
@@ -51,74 +47,28 @@ Every request has this envelope:
 }
 ```
 
-Unknown fields are invalid. The only implicit default is an omitted
-`binding_ids` field for `repository-governance-state.compose`, which means an
-empty sequence.
-
-A successfully parsed and supported request emits exactly one UTF-8 JSON
-response followed by one line feed. A result has this envelope:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "<same operation>",
-  "outcome": "result",
-  "value": {}
-}
-```
-
-A controlled engine failure has this envelope:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "<same operation>",
-  "outcome": "controlled_failure",
-  "error": {
-    "category": "<stable migration-local category>",
-    "stage": null,
-    "detail": "<non-normative human diagnostic>"
-  }
-}
-```
-
-The `detail` field is non-normative. Consumers must not parse diagnostic prose
-to recover semantic status.
-
-Invalid UTF-8, invalid JSON, unknown fields, unsupported transport versions,
-unknown operations, and invalid operation-specific input produce exit code `2`.
-When response serialization remains possible, stdout contains:
+Unknown fields, unsupported versions or operations, invalid JSON or UTF-8, and
+operation-specific transport errors produce exit code `2` and, when
+serialization remains possible:
 
 ```json
 {
   "transport_version": 1,
   "outcome": "transport_error",
-  "error": {
-    "category": "invalid_request"
-  }
+  "error": { "category": "invalid_request" }
 }
 ```
 
-Exit code `0` means one valid `result` or `controlled_failure` response was
-emitted. Exit code `2` means the request was invalid or unsupported. Exit code
-`70` means an unexpected runner I/O, projection, or serialization failure
-prevented a valid compatibility response. Semantic `NON_PASS`, `VIOLATED`, or
-`UNDETERMINED` values do not by themselves change the runner exit code.
-Consumer wrappers own their local CLI exit mapping.
+A valid result has `outcome: "result"`. A controlled engine or semantic
+rejection has `outcome: "controlled_failure"` and a migration-local error with
+`category`, nullable `stage`, and non-normative `detail`. Consumers must not
+parse diagnostic prose. Both outcomes exit `0`; unexpected runner I/O,
+projection, or serialization failure exits `70`. Consumers own local CLI exit
+mapping.
 
 ## `engine.identity`
 
-Request:
-
-```json
-{
-  "transport_version": 1,
-  "operation": "engine.identity",
-  "input": {}
-}
-```
-
-Result value:
+Request input is `{}`. Result:
 
 ```json
 {
@@ -128,11 +78,9 @@ Result value:
 }
 ```
 
-The source commit is embedded at build time by `git rev-parse HEAD`. It is
-implementation and distribution identity, not semantic Proto-Ring authority.
-The repository identity is fixed to `fanilosendrison/proto-ring`. Runtime
-requests, consumer repositories, consumer bindings, dependency manifests, and
-network state cannot override this identity.
+The build-time `git rev-parse HEAD` result and fixed repository identify the
+exact executable source. Runtime requests, environment, consumer bindings,
+network state, and dependency manifests cannot override them.
 
 ## `repository-governance-state.compose`
 
@@ -149,156 +97,27 @@ Request:
 }
 ```
 
-`binding_ids` must contain unique, non-empty strings. When omitted, it is an
-empty sequence. The operation calls only the existing
-`repository_governance_state::load` boundary. It remains read-only,
-non-executing, and provider-independent. It does not run Repository Integrity
-validations.
-
-Result value:
-
-```json
-{
-  "stage": "composition",
-  "identity_present": true,
-  "scope_paths": [],
-  "components": {
-    "repository_governance_model": true,
-    "governance_authority": true,
-    "governed_objects": false,
-    "governance_bindings": true,
-    "repository_integrity": false,
-    "projection_registry": false,
-    "evidence_requirements": false
-  },
-  "bindings": {}
-}
-```
-
-`scope_paths` preserves engine ordering. `identity_present` reports only whether
-the opaque Repository State identity is present; no identity bytes or derived
-digest are transported. Required components are always present after successful
-composition. Optional component fields report presence only.
-
-Each requested absent binding is represented as:
-
-```json
-{
-  "present": false
-}
-```
-
-Each requested present binding includes its existing kind, scope, identity, and
-authority facts. Executable-provider identity has this projection:
-
-```json
-{
-  "present": true,
-  "kind": "executable_provider",
-  "scope": {
-    "kind": "logical_provider",
-    "capability": null,
-    "interface": null,
-    "object": null
-  },
-  "identity": {
-    "kind": "executable_provider",
-    "repository": "<repository>",
-    "commit": "<commit>"
-  },
-  "authority": {
-    "responsibility": "<responsibility>",
-    "source": "<source>"
-  }
-}
-```
-
-Governance-contract identity additionally contains its existing `path` and uses
-`"kind": "governance_contract"`. These objects are migration projections, not
-canonical Governance Binding representations.
-
-A `RepositoryGovernanceStateError` produces category
-`repository-governance-state`, its typed serialized stage, and its diagnostic
-text as non-normative detail.
+`binding_ids` defaults to `[]` and otherwise contains unique non-empty IDs. The
+operation calls only `repository_governance_state::load`; it is read-only,
+non-executing, and provider-independent. The result projects composition stage,
+opaque identity presence, ordered scope paths, component presence, and only
+explicitly requested Governance Binding facts. It exposes no opaque identity
+bytes or digest. An RGS failure uses category
+`repository-governance-state` and its typed stage.
 
 ## `repository-integrity.evaluate`
 
-Request:
+Request input contains a non-empty `repository` and an `evaluation_context`
+with strict realizations. Each realization contains a unique non-empty
+`environment_id`, exact `identity_utf8`, non-empty `command_prefix`, and exact
+`process_environment` string map. The runner merges no ambient environment.
 
-```json
-{
-  "transport_version": 1,
-  "operation": "repository-integrity.evaluate",
-  "input": {
-    "repository": "<non-empty UTF-8 path>",
-    "evaluation_context": {
-      "realizations": [
-        {
-          "environment_id": "<non-empty ID>",
-          "identity_utf8": "<opaque text>",
-          "command_prefix": ["<program>"],
-          "process_environment": {
-            "NAME": "VALUE"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-Each command prefix is non-empty. `identity_utf8` is converted to its exact
-UTF-8 bytes without hashing, normalization, or interpretation. The supplied
-process-environment mapping is exact: the runner does not merge its ambient
-environment.
-
-The caller does not serialize a Consumer Repository Integrity profile. The
-operation loads Repository Governance State from the supplied repository and
-uses its routed `repository_integrity` profile. An RGS failure retains category
-`repository-governance-state`. An absent profile uses category
-`repository-integrity-profile-absent`. A profile-realization failure uses
-category `repository-integrity-realization`.
-
-The operation delegates realization and evaluation to the existing engine. It
-does not reproduce selector resolution, identities, Repository State capture,
-state coherence, prerequisites, aggregation, or process execution.
-
-Result value:
-
-```json
-{
-  "verdict": "PASS",
-  "state_relation": "EQUAL",
-  "state_coherence_halt": false,
-  "validations": [
-    {
-      "id": "<validation ID>",
-      "status": "SATISFIED",
-      "obligations": [
-        {
-          "id": "<validation ID>",
-          "status": "SATISFIED",
-          "executed": true,
-          "exit_code": "0"
-        }
-      ]
-    }
-  ],
-  "obligations": [
-    {
-      "id": "<validation ID>",
-      "status": "SATISFIED",
-      "executed": true,
-      "exit_code": "0"
-    }
-  ]
-}
-```
-
-An unavailable exit code is `null`. Verdict, state relation, and obligation
-status spellings come from the existing typed engine serializers. Profile,
-evaluation-context, baseline-state, and final-state identities remain opaque
-and are not transported.
+The operation obtains the routed profile through RGS, then delegates to
+`repository_integrity::realize_consumer_profile` and
+`repository_integrity::evaluate`. It does not reproduce selectors, identities,
+state capture/coherence, prerequisites, aggregation, or execution. The result
+projects verdict, state relation, coherence halt, validations, and obligations;
+engine identities remain opaque.
 
 ## `accepted-adr-body.immutability`
 
@@ -321,62 +140,146 @@ Result value is exactly one of:
 ```
 
 The operation delegates to `accepted_adr_body::check`. Empty diagnostics pass;
-any typed `BodyChanged` diagnostic selects `body_changed`; every other
-non-empty diagnostic set selects `historical_state_invalid`. Diagnostic prose,
-historical commits, and paths are not transported. Every valid request is a
-result with exit code `0`, including `NON_PASS`.
+a typed `BodyChanged` selects `body_changed`; every other non-empty diagnostic
+set selects `historical_state_invalid`. Diagnostic prose and historical paths
+are not transported. `NON_PASS` remains a result with exit code `0`.
 
 ## `git-whitespace.validate`
+
+Request input contains a non-empty `repository` and required exact
+`environment` string map. The runner passes only that map to
+`git_whitespace::check`; it does not merge ambient event or CI variables.
+
+Result value contains `status` (`PASS` or `NON_PASS`) and ordered, deduplicated
+`domains`. Domain values are limited to `unstaged`, `staged`,
+`push_committed_range`, `pull_request_committed_range`,
+`range_determination`, and `git_observation`. Git output and diagnostic
+internals are not transported. `NON_PASS` exits `0`.
+
+## `github-authoritative-ref-monotonicity.observe`
+
+Request input contains only non-empty `binding_path`. The operation delegates
+to `github_authoritative_ref_monotonicity::observe`. Result value contains only
+`status`: `SATISFIED`, `VIOLATED`, or `UNDETERMINED`. Binding parsing, provider
+addressing, HTTP behavior, and diagnostics remain engine-owned. No provider
+injection surface is exposed; every valid status exits `0`.
+
+## `evidence-requirements.registry`
 
 Request:
 
 ```json
 {
   "transport_version": 1,
-  "operation": "git-whitespace.validate",
+  "operation": "evidence-requirements.registry",
   "input": {
     "repository": "<non-empty UTF-8 path>",
-    "environment": { "NAME": "VALUE" }
+    "requirement_ids": []
   }
 }
 ```
 
-Result value:
+`requirement_ids` defaults to `[]` and otherwise contains unique non-empty IDs.
+The operation loads RGS and uses only its composed `evidence_requirements`
+registry. It does not reconstruct authority, routing, Governed Objects, or
+loader dependencies. RGS failure retains category
+`repository-governance-state`; absent registry uses
+`evidence-requirements-absent`; any missing requested ID uses
+`evidence-requirement-not-found` without partial output.
 
-```json
-{ "status": "PASS", "domains": [] }
-```
-
-Status is derived only from `WhitespaceReport::passes`. Domains preserve typed
-diagnostic first-occurrence order while deduplicating and are limited to
-`unstaged`, `staged`, `push_committed_range`,
-`pull_request_committed_range`, `range_determination`, and `git_observation`.
-The operation delegates to `git_whitespace::check` with exactly the required
-request environment; it does not merge ambient event or CI variables. Git
-output and diagnostic internals are not transported. `NON_PASS` remains a
-result with exit code `0`.
-
-## `github-authoritative-ref-monotonicity.observe`
-
-Request:
+Successful value:
 
 ```json
 {
-  "transport_version": 1,
-  "operation": "github-authoritative-ref-monotonicity.observe",
-  "input": { "binding_path": "<non-empty UTF-8 path>" }
+  "authority_source": "<source>",
+  "model_version": 1,
+  "registry_authority": {
+    "responsibility": "<responsibility>",
+    "source": "<source>"
+  },
+  "requirement_ids": ["<all registry keys in engine order>"],
+  "requirements": {
+    "<requested ID>": {
+      "id": "<ID>",
+      "responsibility": "<responsibility>",
+      "instances": { "kind": "single", "source": null },
+      "evidence_classes": {
+        "kind": "explicit",
+        "classes": ["<class>"],
+        "source": null
+      },
+      "subject_source": "<source>",
+      "context": { "required": false, "source": null },
+      "candidate_source": "<source>",
+      "target": null
+    }
+  }
 }
 ```
 
-Result value contains only the typed serialized status:
+Source-backed instances and class admissions carry their declared `source`;
+explicit classes preserve the engine `BTreeSet` order. A target, when present,
+contains only `interface` and `object`. This is a migration representation, not
+the canonical Evidence Requirements serialization. It performs no validation,
+provider access, artifact generation, or mutation.
+
+## `exact-evidence-binding.evaluate`
+
+This operation has exactly two local modes. `evaluate_binding` request input:
 
 ```json
-{ "status": "SATISFIED" }
-{ "status": "VIOLATED" }
+{
+  "mode": "evaluate_binding",
+  "requirement": {
+    "admitted_classes": ["check"],
+    "subject_hex": "7375626a656374",
+    "context_hex": null,
+    "context_required": false
+  },
+  "binding": {
+    "evidence_class": "check",
+    "subject_hex": "7375626a656374",
+    "context_hex": null
+  }
+}
+```
+
+`binding` may be `null`. A valid semantic result contains only:
+
+```json
+{ "status": "MATCH" }
+{ "status": "MISMATCH" }
 { "status": "UNDETERMINED" }
 ```
 
-The operation delegates to `github_authoritative_ref_monotonicity::observe`.
-Binding parsing, provider addressing, HTTP behavior, and diagnostics remain
-engine-owned. No provider injection surface is exposed. Every valid status is
-a result with exit code `0`; later consumer wrappers own local exit mapping.
+The runner detects duplicate admitted classes before constructing
+`EvidenceRequirement`, delegates structural validation to
+`EvidenceRequirement::new`, and delegates comparison to `evaluate`. Structural
+requirement rejection is controlled category
+`exact-evidence-binding.evaluate.rejected`; candidate empty values remain
+engine-evaluated data.
+
+`evaluate_requirement_history` contains ordered `comparisons`, each with
+`label`, `historical_requirement`, `current_requirement`, and nullable
+`binding`. All transport is validated and all requirements are constructed
+before any comparison executes. Result order equals request order:
+
+```json
+{
+  "comparisons": [
+    {
+      "label": "subject-change",
+      "historical": "MATCH",
+      "current": "MISMATCH"
+    }
+  ]
+}
+```
+
+Identity fields are nullable lowercase hexadecimal byte encoding. Empty hex is
+transport-valid; uppercase, odd-length, or non-hex input is invalid transport.
+Hex encoding belongs only to this compatibility transport. Opaque identity
+semantics remain defined by the language-neutral contract: the runner does not
+hash, normalize, UTF-8 decode, case-fold, validate digest length, or interpret
+identities as Git objects. Consumer identity construction remains
+consumer-owned.
