@@ -1,0 +1,2 @@
+crates/proto-ring-engine/data/unicode-14.0.0/CaseFolding.txt -text
+src/proto_ring/data/unicode-14.0.0/CaseFolding.txt -text
