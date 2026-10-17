@@ -18,7 +18,7 @@ Engine values are manually projected for process interoperability; the
 language-neutral contracts remain authoritative, and consumer policy remains
 consumer-owned.
 
-The exact executable source exposes exactly twelve operations:
+The exact executable source exposes exactly sixteen operations:
 
 ```text
 accepted-adr-body.immutability
@@ -31,6 +31,10 @@ evidence-requirements.registry
 exact-evidence-binding.evaluate
 git-whitespace.validate
 github-authoritative-ref-monotonicity.observe
+normative-terminology.fingerprint
+normative-terminology.registry
+normative-terminology.markdown
+normative-terminology.inventory
 repository-governance-state.compose
 repository-integrity.evaluate
 ```
@@ -223,6 +227,80 @@ The result contains `adr_id` and portable `relative_path`, plus
 Both modes use controlled category `canonical-adr.resolve.rejected`. The runner
 implements no filename matching, Portable Pattern logic, ID width, candidate
 enumeration, symlink handling, profile loading, or ADR parsing.
+
+## Normative Terminology policy transport
+
+Terminology operations accept a strict, declarative consumer-policy DTO. It
+contains an allowed-role list, one section-extraction kind, one
+canonical-location kind, and ordered noncanonical role rules. It is
+migration-local data, not executable code, a callback language, policy
+discovery, or a normative Proto-Ring policy API.
+
+Section extraction supports exactly `identity`, `numbered_dotted_prefix`, and
+`numbered_dotted_prefix_optional_uppercase_word_boundary`. The final form
+consumes leading ASCII numbered segments and one optional terminal ASCII
+uppercase letter, then rejects the match when the next Unicode scalar is
+alphanumeric or `_`. It performs no normalization or locale-dependent work.
+
+Canonical location supports `anchor_matches_key`, `section_prefix`, and
+`section_hierarchy`. Prefix matching preserves the established fixture
+semantics. Hierarchy matching requires a non-empty root and admits only an
+exact root or `root + "."` descendant. Noncanonical role matchers support only
+prefix and hierarchy forms. The longest matching value wins; duplicate exact
+matcher/value declarations are rejected as invalid policy.
+
+Registry format input requires two markers, exactly six headers, and three
+Canonical Portable Pattern sources. The runner constructs this input only
+through `RegistryFormat::new`; it does not compile patterns independently or
+use a native regular-expression engine. Format or declarative-policy
+construction errors are controlled operation-specific rejections.
+
+All typed terminology diagnostics are projected as stable snake-case category
+names in engine order with multiplicity preserved. Diagnostic prose is never
+parsed for status or classification.
+
+## `normative-terminology.fingerprint`
+
+Modes are exactly `normalize_text` and `fingerprint_text`. They delegate to the
+same-named engine functions and return `text` or lowercase `sha256`.
+
+## `normative-terminology.registry`
+
+Input contains `markdown` and strict registry `format`. The operation calls only
+`parse_registry` and returns ordered `entries` plus typed `diagnostics`.
+Malformed registry documents remain semantic results. Only failure to construct
+the requested format uses controlled category
+`normative-terminology.registry.rejected`.
+
+## `normative-terminology.markdown`
+
+Modes are exactly `parse_blocks` and `discover_occurrences`. Both accept
+`markdown`, registry `format`, and declarative `policy`.
+
+`parse_blocks` parses the registry, then calls `parse_markdown` with that typed
+registry. It returns blocks, anchors, and `MarkdownParse` diagnostics.
+`discover_occurrences` calls the engine's complete discovery operation and
+returns ordered occurrences and diagnostics. The runner neither calls nor
+exposes definition discovery directly, and it assigns no inventory roles in
+discovery.
+
+## `normative-terminology.inventory`
+
+Modes are exactly `occurrence_records` and `reconcile_inventory`. Occurrence
+transport requires a non-negative JSON integer representable as `usize` for
+`line`. Record construction calls the consumer policy's typed role resolver and
+requires the returned role to be non-empty and allowed.
+
+Reconciliation converts strict registry-entry, occurrence, and maintained-item
+DTOs to existing engine types and calls only `reconcile_inventory`. `PASS` is
+derived from `InventoryStatus.pass`; diagnostics remain typed results. Policy
+or engine errors use controlled category
+`normative-terminology.inventory.rejected`. The inventory YAML envelope remains
+consumer-owned and is not part of this transport.
+
+Definition concepts and occurrence signatures remain engine-internal composed
+primitives. They are not process operations. No query-specific discovery mode
+or generic responsibility dispatch is exposed.
 
 ## Consumer boundary and side effects
 
