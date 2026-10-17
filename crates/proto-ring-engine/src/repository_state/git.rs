@@ -235,17 +235,25 @@ fn run_git_with_optional_input(
     let mut child = command
         .spawn()
         .map_err(|error| StateCaptureError::new(format!("Git execution failed: {error}")))?;
-    if let Some(input) = input {
-        child
-            .stdin
-            .take()
-            .ok_or_else(|| StateCaptureError::new("Git stdin was unavailable"))?
-            .write_all(input)
-            .map_err(|error| StateCaptureError::new(format!("Git stdin failed: {error}")))?;
-    }
-    child
-        .wait_with_output()
-        .map_err(|error| StateCaptureError::new(format!("Git execution failed: {error}")))
+    let Some(input) = input else {
+        return child
+            .wait_with_output()
+            .map_err(|error| StateCaptureError::new(format!("Git execution failed: {error}")));
+    };
+    let mut stdin = child
+        .stdin
+        .take()
+        .ok_or_else(|| StateCaptureError::new("Git stdin was unavailable"))?;
+    let (output, stdin_result) = std::thread::scope(|scope| {
+        let writer = scope.spawn(move || stdin.write_all(input));
+        let output = child.wait_with_output();
+        let stdin_result = writer
+            .join()
+            .map_err(|_| StateCaptureError::new("Git stdin writer panicked"))?;
+        Ok::<_, StateCaptureError>((output, stdin_result))
+    })?;
+    stdin_result.map_err(|error| StateCaptureError::new(format!("Git stdin failed: {error}")))?;
+    output.map_err(|error| StateCaptureError::new(format!("Git execution failed: {error}")))
 }
 fn require_success(output: &Output, label: &str) -> Result<(), StateCaptureError> {
     if output.status.success() {
@@ -352,4 +360,220 @@ fn platform_null_file() -> &'static str {
 #[cfg(windows)]
 fn platform_null_file() -> &'static str {
     "NUL"
+}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::{BTreeMap, BTreeSet};
+    use std::env;
+    use std::fs;
+    use std::path::{Path, PathBuf};
+    use std::process::{Command, Output};
+    use std::sync::atomic::{AtomicU64, Ordering};
+    use std::sync::mpsc;
+    use std::time::Duration;
+
+    use super::{
+        AmbientEnvironment, nul_fields, platform_null_file, removed_git_name, run_git_with_input,
+    };
+    use crate::repository_state::{capture, discover_repository_paths};
+
+    const PIPE_PRESSURE_BYTES: usize = 256 * 1024;
+    const WATCHDOG: Duration = Duration::from_secs(180);
+    const IGNORED_FILE_COUNT: usize = 4_096;
+
+    static NEXT_DIRECTORY: AtomicU64 = AtomicU64::new(0);
+
+    struct TestRepository(PathBuf);
+
+    impl TestRepository {
+        fn new() -> Self {
+            loop {
+                let sequence = NEXT_DIRECTORY.fetch_add(1, Ordering::Relaxed);
+                let root = env::temp_dir().join(format!(
+                    "proto-ring-issue123-pipe-pressure-{}-{sequence}",
+                    std::process::id()
+                ));
+                match fs::create_dir(&root) {
+                    Ok(()) => {
+                        let repository = Self(root);
+                        repository.initialize();
+                        return repository;
+                    }
+                    Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => continue,
+                    Err(error) => panic!("create test repository: {error}"),
+                }
+            }
+        }
+
+        fn path(&self) -> &Path {
+            &self.0
+        }
+
+        fn initialize(&self) {
+            git(self.path(), &["init", "--quiet"]);
+            git(self.path(), &["config", "user.name", "Proto Ring Tests"]);
+            git(
+                self.path(),
+                &["config", "user.email", "proto-ring-tests@example.invalid"],
+            );
+            fs::write(self.path().join(".gitignore"), b".venv/\n")
+                .expect("write repository-owned ignore policy");
+            fs::write(self.path().join("governed.txt"), b"governed\n")
+                .expect("write governed file");
+            git(self.path(), &["add", ".gitignore", "governed.txt"]);
+            git(self.path(), &["commit", "--quiet", "-m", "test fixture"]);
+        }
+    }
+
+    impl Drop for TestRepository {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
+    }
+
+    fn git(root: &Path, arguments: &[&str]) -> Output {
+        let mut environment: BTreeMap<_, _> = env::vars_os().collect();
+        environment.retain(|name, _| !removed_git_name(name));
+        environment.insert("GIT_CONFIG_NOSYSTEM".into(), "1".into());
+        environment.insert("GIT_CONFIG_GLOBAL".into(), platform_null_file().into());
+        let output = Command::new("git")
+            .env_clear()
+            .envs(environment)
+            .arg("-C")
+            .arg(root)
+            .args(arguments)
+            .output()
+            .expect("execute fixture Git command");
+        assert!(
+            output.status.success(),
+            "fixture Git command failed: {arguments:?}: {:?}",
+            output.stderr
+        );
+        output
+    }
+
+    fn ignored_path(index: usize) -> String {
+        format!(
+            ".venv/lib/site-packages/package_{:04}/module_{index:05}_with_deterministic_pipe_pressure_payload.py",
+            index / 64
+        )
+    }
+
+    fn ignored_query() -> (Vec<u8>, BTreeSet<Vec<u8>>) {
+        let mut query = Vec::new();
+        let mut paths = BTreeSet::new();
+        for index in 0..IGNORED_FILE_COUNT {
+            let path = ignored_path(index).into_bytes();
+            query.extend_from_slice(&path);
+            query.push(0);
+            assert!(paths.insert(path));
+        }
+        assert!(query.len() > PIPE_PRESSURE_BYTES);
+        (query, paths)
+    }
+
+    fn bounded<T: Send + 'static>(operation: impl FnOnce() -> T + Send + 'static) -> T {
+        let (sender, receiver) = mpsc::sync_channel(1);
+        let worker = std::thread::spawn(move || {
+            let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(operation));
+            let _ = sender.send(result);
+        });
+        let result = receiver
+            .recv_timeout(WATCHDOG)
+            .expect("RepositoryState Git pipe operation exceeded the regression watchdog");
+        worker.join().expect("watchdog worker must terminate");
+        match result {
+            Ok(value) => value,
+            Err(payload) => std::panic::resume_unwind(payload),
+        }
+    }
+
+    fn snapshot_files(root: &Path) -> BTreeMap<PathBuf, Vec<u8>> {
+        fn visit(root: &Path, current: &Path, files: &mut BTreeMap<PathBuf, Vec<u8>>) {
+            let mut entries: Vec<_> = fs::read_dir(current)
+                .expect("read snapshot directory")
+                .map(|entry| entry.expect("read snapshot entry"))
+                .collect();
+            entries.sort_by_key(|entry| entry.file_name());
+            for entry in entries {
+                let path = entry.path();
+                let file_type = entry.file_type().expect("read snapshot file type");
+                if file_type.is_dir() {
+                    visit(root, &path, files);
+                } else if file_type.is_file() {
+                    files.insert(
+                        path.strip_prefix(root)
+                            .expect("snapshot path is contained")
+                            .into(),
+                        fs::read(path).expect("read snapshot file"),
+                    );
+                }
+            }
+        }
+
+        let mut files = BTreeMap::new();
+        visit(root, root, &mut files);
+        files
+    }
+
+    #[test]
+    fn check_ignore_drains_output_while_large_stdin_is_written() {
+        bounded(|| {
+            let repository = TestRepository::new();
+            let (query, expected_paths) = ignored_query();
+            let output = run_git_with_input(
+                repository.path(),
+                &["check-ignore", "--no-index", "--verbose", "-z", "--stdin"],
+                &[] as &AmbientEnvironment,
+                &query,
+            )
+            .expect("large ignore classification must complete");
+            assert_eq!(output.status.code(), Some(0));
+            assert!(output.stderr.is_empty());
+            assert!(output.stdout.len() > PIPE_PRESSURE_BYTES);
+
+            let fields = nul_fields(&output.stdout, "test Git ignore classification")
+                .expect("verbose output must be valid NUL-delimited fields");
+            let (records, remainder) = fields.as_chunks::<4>();
+            assert!(remainder.is_empty());
+            assert_eq!(records.len(), expected_paths.len());
+            let mut returned_paths = BTreeSet::new();
+            for [source, line, pattern, path] in records {
+                assert_eq!(*source, b".gitignore");
+                assert!(line.iter().all(u8::is_ascii_digit));
+                assert_eq!(*pattern, b".venv/");
+                assert!(expected_paths.contains(*path));
+                assert!(returned_paths.insert(path.to_vec()));
+            }
+            assert_eq!(returned_paths, expected_paths);
+        });
+    }
+
+    #[test]
+    fn capture_excludes_a_large_repository_ignored_tree_without_mutation() {
+        bounded(|| {
+            let repository = TestRepository::new();
+            for index in 0..IGNORED_FILE_COUNT {
+                let path = repository.path().join(ignored_path(index));
+                fs::create_dir_all(path.parent().expect("ignored file has parent"))
+                    .expect("create ignored directory");
+                fs::write(path, b"ignored\n").expect("write ignored file");
+            }
+            let before = snapshot_files(repository.path());
+
+            let paths = discover_repository_paths(repository.path(), &[])
+                .expect("governed paths must be discoverable");
+            assert!(paths.contains(&PathBuf::from(".gitignore")));
+            assert!(paths.contains(&PathBuf::from("governed.txt")));
+            assert!(paths.iter().all(|path| !path.starts_with(".venv")));
+
+            let first = capture(repository.path(), &[])
+                .expect("first large ignored-tree capture must complete");
+            let second = capture(repository.path(), &[])
+                .expect("second large ignored-tree capture must complete");
+            assert_eq!(first, second);
+            assert_eq!(snapshot_files(repository.path()), before);
+        });
+    }
 }
