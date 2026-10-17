@@ -1,3 +1,5 @@
+mod terminology;
+
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Component, Path};
 
@@ -40,7 +42,7 @@ pub(crate) fn execute(request: Request) -> Result<Response, InternalFailure> {
         Request::ObserveGithubArm(input) => observe_github_arm(input), Request::LoadEvidenceRegistry(input) => load_evidence_registry(input),
         Request::EvaluateExactEvidence(input) => evaluate_exact_evidence(input), Request::ParseAdrMetadata(input) => parse_adr_metadata(input),
         Request::ResolveAdrRepositoryPath(input) => resolve_adr_repository_path(input), Request::ValidateAdrMetadata(input) => validate_adr_metadata(input),
-        Request::ResolveCanonicalAdr(input) => resolve_canonical_adr(input),
+        Request::ResolveCanonicalAdr(input) => resolve_canonical_adr(input), Request::Terminology(input) => terminology::execute(input),
     })
 }
 

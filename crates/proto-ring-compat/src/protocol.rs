@@ -3,6 +3,9 @@ use std::collections::{BTreeMap, BTreeSet};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
+mod terminology;
+pub(crate) use terminology::*;
+
 pub(crate) const TRANSPORT_VERSION: u8 = 1;
 
 #[rustfmt::skip]
@@ -106,7 +109,7 @@ pub(crate) enum Request {
     EngineIdentity, Compose(ComposeInput), EvaluateIntegrity(IntegrityInput), CheckAcceptedAdrBody(RepositoryInput),
     ValidateGitWhitespace(GitWhitespaceInput), ObserveGithubArm(GithubArmInput), LoadEvidenceRegistry(EvidenceRegistryInput),
     EvaluateExactEvidence(ExactEvidenceInput), ParseAdrMetadata(AdrParseInput), ResolveAdrRepositoryPath(RepositoryPathInput),
-    ValidateAdrMetadata(AdrValidationInput), ResolveCanonicalAdr(CanonicalAdrInput),
+    ValidateAdrMetadata(AdrValidationInput), ResolveCanonicalAdr(CanonicalAdrInput), Terminology(TerminologyRequest),
 }
 
 #[rustfmt::skip]
@@ -126,6 +129,7 @@ pub(crate) fn parse_request(bytes: &[u8]) -> Result<Request, InvalidRequest> {
         "adr-metadata.repository-path" => { let input: RepositoryPathInput = decode(raw.input)?; nonempty(&input.repository)?; Ok(Request::ResolveAdrRepositoryPath(input)) }
         "adr-metadata.validation" => { let input: AdrValidationInput = decode(raw.input)?; if !input.valid_structure() { return Err(InvalidRequest); } Ok(Request::ValidateAdrMetadata(input)) }
         "canonical-adr.resolve" => { let input: CanonicalAdrInput = decode(raw.input)?; nonempty(input.repository())?; Ok(Request::ResolveCanonicalAdr(input)) }
+        operation @ ("normative-terminology.fingerprint" | "normative-terminology.registry" | "normative-terminology.markdown" | "normative-terminology.inventory") => terminology::parse_operation(operation, raw.input).map(Request::Terminology),
         _ => Err(InvalidRequest),
     }
 }
@@ -364,6 +368,7 @@ pub(crate) enum ResultValue {
     RepositoryPath(RepositoryPathValue),
     AdrValidation(AdrValidationValue),
     CanonicalAdr(CanonicalAdrValue),
+    Terminology(TerminologyValue),
 }
 #[derive(Serialize)]
 #[serde(untagged)]
