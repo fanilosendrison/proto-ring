@@ -93,10 +93,42 @@ Input is `{}`. The result reports fixed repository
 
 ## `repository-governance-state.compose`
 
-Input contains non-empty `repository` and optional unique, non-empty
-`binding_ids`. The operation calls `repository_governance_state::load` and
-projects composition stage, identity presence, scope paths, component presence,
-and requested binding facts. It is read-only and provider-independent.
+Input contains non-empty `repository`, optional unique, non-empty `binding_ids`,
+and optional `projection`. Projection supports exactly `summary` and `complete`;
+omission defaults to `summary`. Unknown projection values and unknown input
+fields are invalid transport requests.
+
+The operation calls `repository_governance_state::load` exactly once. Summary
+mode projects exactly the established composition stage, identity presence,
+scope paths, component presence, and requested binding facts. Its serialized
+value has no `state` field, including when `projection` is explicitly `summary`.
+
+Complete mode retains every summary field and adds one `state` field containing
+migration-local DTO projections of exactly these seven logical components:
+
+```text
+repository_governance_model
+governance_authority
+governed_objects
+governance_bindings
+repository_integrity
+projection_registry
+evidence_requirements
+```
+
+Optional components are `null` when absent. Mandatory components are populated.
+Every complete projection is derived only from the one already-composed Rust
+`RepositoryGovernanceState`; the runner does not reload component carriers.
+Resolved targets use portable repository-relative `/` paths and never expose an
+absolute host repository path. Structured capability configuration reuses the
+existing tagged compatibility value.
+
+Complete projection is read-only, non-executing, and provider-independent. It
+does not evaluate Repository Integrity, realize environments, run validators or
+generators, replay qualification, perform live provider observation, access the
+network, repair projections, regenerate artifacts, or mutate the repository.
+The DTOs belong only to `proto-ring-compat`; they add no engine serialization
+API, semantic contract, canonical serialization, or consumer authority.
 
 ## `repository-integrity.evaluate`
 
