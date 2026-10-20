@@ -1587,6 +1587,20 @@
     {
       "authorities": [
         {
+          "clause": "Inputs",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Resolved binding",
+          "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+          "path": "docs/contracts/canonical-governance-routing.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
           "clause": "Model composition",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/repository-governance-model.md",
@@ -1615,6 +1629,20 @@
           "source_kind": "repository"
         },
         {
+          "clause": "Required routes",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
+          "clause": "Route result",
+          "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
+          "path": "docs/contracts/repository-governance-model.md",
+          "repository": "fanilosendrison/proto-ring",
+          "source_kind": "repository"
+        },
+        {
           "clause": "Structural keys",
           "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
           "path": "docs/contracts/repository-governance-model.md",
@@ -1629,13 +1657,17 @@
       "expected_observation": {
         "derivation": {
           "authority_keys": [
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Inputs",
+            "repo:fanilosendrison/proto-ring@0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f:docs/contracts/canonical-governance-routing.md#Resolved binding",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model composition",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model version 2",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Model-version-2 structural composition",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Required routes",
+            "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Route result",
             "repo:fanilosendrison/proto-ring@662d86d445cefed4e17aa3cfa897ac36344cba89:docs/contracts/repository-governance-model.md#Structural keys"
           ],
-          "reason": "The exact operational input for repository-governance-model.load.valid-model-v2 yields the encoded observation under the cited responsibility clause; Python execution is comparison evidence only. The fixture directly exercises Model version 2 through its concrete input and exact result. The fixture directly exercises Model-version-2 structural composition through its concrete input and exact result. The fixture directly exercises Model composition through its concrete input and exact result. The fixture directly exercises Model version through its concrete input and exact result."
+          "reason": "The exact operational input for repository-governance-model.load.valid-model-v2 yields the encoded observation under the cited responsibility clauses; Python execution is comparison evidence only. The fixture exercises all eight required model-version-2 routes and observes each ResolvedGovernanceRoute directly relative to the supplied repository_governance routing mapping."
         },
         "kind": "result",
         "value": {
@@ -1648,7 +1680,31 @@
                 "value": [
                   {
                     "type": "string",
+                    "value": "architecture_decisions"
+                  },
+                  {
+                    "type": "string",
+                    "value": "authoritative_ref_monotonicity"
+                  },
+                  {
+                    "type": "string",
+                    "value": "evidence_requirements"
+                  },
+                  {
+                    "type": "string",
                     "value": "governance_authority"
+                  },
+                  {
+                    "type": "string",
+                    "value": "governed_objects"
+                  },
+                  {
+                    "type": "string",
+                    "value": "projection_integrity"
+                  },
+                  {
+                    "type": "string",
+                    "value": "repository_integrity"
                   },
                   {
                     "type": "string",
@@ -1691,7 +1747,79 @@
                 "type": "record",
                 "value": [
                   {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "authoritative_ref_monotonicity",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "binding"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "evidence_requirements",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "registry"
+                        }
+                      ]
+                    }
+                  },
+                  {
                     "name": "governance_authority",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "governed_objects",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "profile"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "projection_integrity",
+                    "value": {
+                      "type": "sequence",
+                      "value": [
+                        {
+                          "type": "string",
+                          "value": "registry"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "repository_integrity",
                     "value": {
                       "type": "sequence",
                       "value": [
@@ -1716,6 +1844,446 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "resolved_routes",
+              "value": {
+                "type": "record",
+                "value": [
+                  {
+                    "name": "architecture_decisions",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "profile",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/architecture-decisions.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "architecture_decisions"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "profile"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/architecture-decisions.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "authoritative_ref_monotonicity",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "binding",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/authoritative-ref-monotonicity.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "authoritative_ref_monotonicity"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "binding"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/authoritative-ref-monotonicity.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "evidence_requirements",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "registry",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/evidence-requirements.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "evidence_requirements"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "registry"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/evidence-requirements.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "governance_authority",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "profile",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/governance-authority.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "governance_authority"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "profile"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/governance-authority.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "governed_objects",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "profile",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/governed-objects.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "governed_objects"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "profile"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/governed-objects.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "projection_integrity",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "registry",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/projection-integrity.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "projection_integrity"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "registry"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/projection-integrity.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "repository_integrity",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "profile",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/repository-integrity.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "repository_integrity"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "profile"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/repository-integrity.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shared_governance_provider",
+                    "value": {
+                      "type": "record",
+                      "value": [
+                        {
+                          "name": "registry",
+                          "value": {
+                            "type": "record",
+                            "value": [
+                              {
+                                "name": "declared_path",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/shared-governance-provider.md"
+                                }
+                              },
+                              {
+                                "name": "route",
+                                "value": {
+                                  "type": "sequence",
+                                  "value": [
+                                    {
+                                      "type": "string",
+                                      "value": "capabilities"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "shared_governance_provider"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "routes"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "value": "registry"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "target_relative",
+                                "value": {
+                                  "type": "string",
+                                  "value": "config/shared-governance-provider.md"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -1734,6 +2302,13 @@
               }
             },
             {
+              "name": "observe_resolved_routes",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            },
+            {
               "name": "operation",
               "value": {
                 "type": "string",
@@ -1747,7 +2322,7 @@
           {
             "op": "write_utf8",
             "path": "AGENTS.md",
-            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/provider.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/authority.md\"\n---\n# Directives\n"
+            "text": "---\nrepository_governance:\n  model_version: 2\n  provider:\n    id: \"proto-ring\"\n    binding:\n      capability: \"shared_governance_provider\"\n      route: \"registry\"\n  capabilities:\n    architecture_decisions:\n      configuration: {}\n      routes:\n        profile: \"config/architecture-decisions.md\"\n    authoritative_ref_monotonicity:\n      configuration: {}\n      routes:\n        binding: \"config/authoritative-ref-monotonicity.md\"\n    evidence_requirements:\n      configuration: {}\n      routes:\n        registry: \"config/evidence-requirements.md\"\n    governance_authority:\n      configuration: {}\n      routes:\n        profile: \"config/governance-authority.md\"\n    governed_objects:\n      configuration: {}\n      routes:\n        profile: \"config/governed-objects.md\"\n    projection_integrity:\n      configuration: {}\n      routes:\n        registry: \"config/projection-integrity.md\"\n    repository_integrity:\n      configuration: {}\n      routes:\n        profile: \"config/repository-integrity.md\"\n    shared_governance_provider:\n      configuration: {}\n      routes:\n        registry: \"config/shared-governance-provider.md\"\n---\n# Directives\n"
           },
           {
             "op": "mkdir",
@@ -1755,18 +2330,43 @@
           },
           {
             "op": "write_utf8",
-            "path": "config/adr-profile.yaml",
-            "text": "repository: {}\n"
+            "path": "config/architecture-decisions.md",
+            "text": "# architecture_decisions\n"
           },
           {
             "op": "write_utf8",
-            "path": "config/provider.md",
-            "text": "# provider\n"
+            "path": "config/authoritative-ref-monotonicity.md",
+            "text": "# authoritative_ref_monotonicity\n"
           },
           {
             "op": "write_utf8",
-            "path": "config/authority.md",
-            "text": "# authority\n"
+            "path": "config/evidence-requirements.md",
+            "text": "# evidence_requirements\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/governance-authority.md",
+            "text": "# governance_authority\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/governed-objects.md",
+            "text": "# governed_objects\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/projection-integrity.md",
+            "text": "# projection_integrity\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/repository-integrity.md",
+            "text": "# repository_integrity\n"
+          },
+          {
+            "op": "write_utf8",
+            "path": "config/shared-governance-provider.md",
+            "text": "# shared_governance_provider\n"
           }
         ]
       },
@@ -1774,7 +2374,8 @@
       "later_python_observation": null,
       "resolution": null,
       "state_distinctions": [
-        "a complete supported model-version-2 declaration loads"
+        "a complete supported model-version-2 declaration loads",
+        "Repository Governance Model retains each resolved route tuple relative to the supplied repository_governance routing mapping"
       ],
       "vector_id": "repository-governance-model.load.valid-model-v2"
     }

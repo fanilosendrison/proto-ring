@@ -49,8 +49,12 @@ def _route(arguments: dict[str, object], root: Path):
     )
 
 
-def _model_value(model: repository_governance_model.RepositoryGovernanceModel):
-    return {
+def _model_value(
+    model: repository_governance_model.RepositoryGovernanceModel,
+    *,
+    observe_resolved_routes: bool = False,
+):
+    value = {
         "model_version": model.model_version,
         "provider_id": model.provider.id,
         "provider_binding_capability": model.provider.binding.capability,
@@ -61,6 +65,21 @@ def _model_value(model: repository_governance_model.RepositoryGovernanceModel):
             for capability_id, capability in sorted(model.capabilities.items())
         },
     }
+    if observe_resolved_routes:
+        value["resolved_routes"] = {
+            capability_id: {
+                route_id: {
+                    "route": list(route.route),
+                    "declared_path": route.declared_path,
+                    "target_relative": route.target.relative_to(
+                        model.repository.resolve()
+                    ).as_posix(),
+                }
+                for route_id, route in sorted(capability.routes.items())
+            }
+            for capability_id, capability in sorted(model.capabilities.items())
+        }
+    return value
 
 
 def _binding_registry(root: Path, data: dict[str, object]):
@@ -319,7 +338,13 @@ def _dispatch(responsibility_id: str, root: Path | None, arguments: dict[str, ob
             resolved = _route(arguments, root)
             return _success({"declared_path": resolved.declared_path, "route": list(resolved.route), "target_relative": resolved.target.relative_to(root.resolve()).as_posix()})
         if responsibility_id == "repository-governance-model.load":
-            return _success(_model_value(repository_governance_model.load(root)))
+            observe_resolved_routes = arguments.get("observe_resolved_routes", False)
+            if type(observe_resolved_routes) is not bool:
+                raise TypeError("observe_resolved_routes must be boolean")
+            return _success(_model_value(
+                repository_governance_model.load(root),
+                observe_resolved_routes=observe_resolved_routes,
+            ))
         if responsibility_id == "repository-governance-model.binding-compatibility":
             model = repository_governance_model.load(root)
             registry = _binding_registry(root, arguments["semantic_inputs"]["binding_registry"])

@@ -68,6 +68,7 @@ pub(crate) fn from_bootstrap(
     let provider = parse_provider(required_mapping(root, "provider")?, model_version)?;
     let declarations = required_mapping(root, "capabilities")?;
     validate_capability_vocabulary(declarations, model_version)?;
+    let routing = StructuredValue::Mapping(root.clone());
     let mut capabilities = BTreeMap::new();
     for (capability_id, value) in declarations {
         let declaration = value_mapping(value, "capability must be a mapping")?;
@@ -85,15 +86,13 @@ pub(crate) fn from_bootstrap(
                 _ => return Err(failure("route value must be a nonempty string")),
             }
             let segments = vec![
-                "repository_governance".to_owned(),
                 "capabilities".to_owned(),
                 capability_id.clone(),
                 "routes".to_owned(),
                 route_id.clone(),
             ];
-            let resolved =
-                governance_routing::resolve(repository_root, &bootstrap.metadata, &segments)
-                    .map_err(|error| failure(format!("route resolution failed: {error}")))?;
+            let resolved = governance_routing::resolve(repository_root, &routing, &segments)
+                .map_err(|error| failure(format!("route resolution failed: {error}")))?;
             resolved_routes.insert(route_id.clone(), resolved);
         }
         capabilities.insert(

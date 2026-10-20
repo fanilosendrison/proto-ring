@@ -1,5 +1,7 @@
 #![forbid(unsafe_code)]
 
+use std::path::Path;
+
 use proto_ring_engine::governance_bootstrap::{self, GovernanceBootstrapErrorKind};
 use proto_ring_engine::governance_routing;
 use proto_ring_engine::repository_governance_model::{self, RepositoryGovernanceModel};
@@ -169,11 +171,13 @@ fn routing(fixture: &MaterializedFixture) -> Result<Observation, fixture::Fixtur
 
 fn model_load(fixture: &MaterializedFixture) -> Result<Observation, fixture::FixtureError> {
     require_operation(fixture, "load_model")?;
+    let observe_resolved_routes =
+        optional_boolean_argument(fixture, "observe_resolved_routes")?.unwrap_or(false);
     let root = fixture
         .root()
         .ok_or_else(|| fixture_failure("model load requires repository"))?;
     Ok(match repository_governance_model::load(root) {
-        Ok(model) => result(model_transport(&model)),
+        Ok(model) => result(model_transport(&model, observe_resolved_routes)?),
         Err(_) => rejection("repository-governance-model.load"),
     })
 }
@@ -210,7 +214,10 @@ fn binding_compatibility(
     )
 }
 
-fn model_transport(model: &RepositoryGovernanceModel) -> TransportValue {
+fn model_transport(
+    model: &RepositoryGovernanceModel,
+    observe_resolved_routes: bool,
+) -> Result<TransportValue, fixture::FixtureError> {
     let capabilities = TransportValue::Sequence(
         model
             .capabilities
@@ -234,7 +241,7 @@ fn model_transport(model: &RepositoryGovernanceModel) -> TransportValue {
             })
             .collect(),
     );
-    record(vec![
+    let mut fields = vec![
         ("capabilities", capabilities),
         (
             "model_version",
@@ -250,7 +257,82 @@ fn model_transport(model: &RepositoryGovernanceModel) -> TransportValue {
         ),
         ("provider_id", string_value(&model.provider.id)),
         ("required_routes", required_routes),
-    ])
+    ];
+    if observe_resolved_routes {
+        fields.push(("resolved_routes", resolved_routes_transport(model)?));
+    }
+    Ok(record(fields))
+}
+
+fn resolved_routes_transport(
+    model: &RepositoryGovernanceModel,
+) -> Result<TransportValue, fixture::FixtureError> {
+    let mut capabilities = Vec::new();
+    for (capability_id, capability) in &model.capabilities {
+        let mut routes = Vec::new();
+        for (route_id, resolved) in &capability.routes {
+            routes.push(RecordEntry {
+                name: route_id.clone(),
+                value: record(vec![
+                    ("declared_path", string_value(&resolved.declared_path)),
+                    (
+                        "route",
+                        TransportValue::Sequence(
+                            resolved
+                                .route
+                                .iter()
+                                .map(|segment| string_value(segment))
+                                .collect(),
+                        ),
+                    ),
+                    (
+                        "target_relative",
+                        string_value(&portable_relative(
+                            &model.repository_root,
+                            &resolved.target,
+                        )?),
+                    ),
+                ]),
+            });
+        }
+        capabilities.push(RecordEntry {
+            name: capability_id.clone(),
+            value: TransportValue::Record(routes),
+        });
+    }
+    Ok(TransportValue::Record(capabilities))
+}
+
+fn portable_relative(root: &Path, target: &Path) -> Result<String, fixture::FixtureError> {
+    target
+        .strip_prefix(root)
+        .map_err(|error| fixture_failure(error.to_string()))?
+        .components()
+        .map(|component| {
+            component
+                .as_os_str()
+                .to_str()
+                .ok_or_else(|| fixture_failure("non-UTF-8 route"))
+        })
+        .collect::<Result<Vec<_>, _>>()
+        .map(|components| components.join("/"))
+}
+
+fn optional_boolean_argument(
+    fixture: &MaterializedFixture,
+    name: &str,
+) -> Result<Option<bool>, fixture::FixtureError> {
+    let TransportValue::Record(entries) = fixture.arguments() else {
+        return Err(fixture_failure("fixture arguments must be a record"));
+    };
+    match entries.iter().find(|entry| entry.name == name) {
+        None => Ok(None),
+        Some(RecordEntry {
+            value: TransportValue::Boolean(value),
+            ..
+        }) => Ok(Some(*value)),
+        Some(_) => Err(fixture_failure(format!("{name} must be boolean"))),
+    }
 }
 
 fn require_operation(

@@ -153,8 +153,9 @@
         "repository-governance-model.load"
       ],
       "vector_refs": [
+        "repository-governance-model.binding-compatibility.missing-required-route",
         "repository-governance-model.load.required-routes",
-        "repository-governance-model.binding-compatibility.missing-required-route"
+        "repository-governance-model.load.valid-model-v2"
       ]
     },
     {
@@ -164,10 +165,12 @@
       "level": 2,
       "reason": null,
       "responsibility_ids": [
-        "repository-governance-model.binding-compatibility"
+        "repository-governance-model.binding-compatibility",
+        "repository-governance-model.load"
       ],
       "vector_refs": [
-        "repository-governance-model.binding-compatibility.compatible-binding"
+        "repository-governance-model.binding-compatibility.compatible-binding",
+        "repository-governance-model.load.valid-model-v2"
       ]
     },
     {

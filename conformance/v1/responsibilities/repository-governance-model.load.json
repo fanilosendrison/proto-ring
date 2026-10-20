@@ -5,6 +5,22 @@
   ],
   "authorities": [
     {
+      "clause": "Inputs",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
+      "clause": "Resolved binding",
+      "commit": "0ae9a9cb20fd34c0fefa9b4b91f189e98649ea0f",
+      "path": "docs/contracts/canonical-governance-routing.md",
+      "repository": "fanilosendrison/proto-ring",
+      "role": "normative",
+      "source_kind": "repository"
+    },
+    {
       "clause": "Capabilities namespace",
       "commit": "662d86d445cefed4e17aa3cfa897ac36344cba89",
       "path": "docs/contracts/repository-governance-model.md",
@@ -120,7 +136,8 @@
     "a capability missing configuration or routes is rejected",
     "malformed or unsupported state fails through a controlled boundary",
     "model-version-2 projection_integrity capability requires repository_integrity capability",
-    "model-version-2 projection_integrity and repository_integrity capabilities compose validly"
+    "model-version-2 projection_integrity and repository_integrity capabilities compose validly",
+    "Repository Governance Model retains each resolved route tuple relative to the supplied repository_governance routing mapping"
   ],
   "responsibility_id": "repository-governance-model.load",
   "rust_owner_issue": 63,
