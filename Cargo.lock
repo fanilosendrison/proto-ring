@@ -717,6 +717,7 @@ dependencies = [
  "proto-ring-engine",
  "serde",
  "serde_json",
+ "tempfile",
 ]
 
 [[package]]

@@ -3,7 +3,9 @@ use std::collections::{BTreeMap, BTreeSet};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
+mod rgs;
 mod terminology;
+pub(crate) use rgs::*;
 pub(crate) use terminology::*;
 
 pub(crate) const TRANSPORT_VERSION: u8 = 1;
@@ -14,9 +16,6 @@ struct RawRequest { transport_version: u8, operation: String, input: Value }
 #[rustfmt::skip]
 #[derive(Deserialize)] #[serde(deny_unknown_fields)]
 struct EmptyInput {}
-#[rustfmt::skip]
-#[derive(Deserialize)] #[serde(deny_unknown_fields)]
-pub(crate) struct ComposeInput { pub repository: String, #[serde(default)] pub binding_ids: Vec<String> }
 #[rustfmt::skip]
 #[derive(Deserialize)] #[serde(deny_unknown_fields)]
 pub(crate) struct RepositoryInput { pub repository: String }
@@ -222,10 +221,6 @@ pub(crate) struct InvalidRequest;
 
 #[rustfmt::skip]
 #[derive(Serialize)] pub(crate) struct EngineIdentityValue { pub source_repository: &'static str, pub source_commit: &'static str, pub transport_version: u8 }
-#[rustfmt::skip]
-#[derive(Serialize)] pub(crate) struct ComposeValue { pub stage: &'static str, pub identity_present: bool, pub scope_paths: Vec<String>, pub components: ComponentPresence, pub bindings: BTreeMap<String, BindingProjection> }
-#[rustfmt::skip]
-#[derive(Serialize)] pub(crate) struct ComponentPresence { pub repository_governance_model: bool, pub governance_authority: bool, pub governed_objects: bool, pub governance_bindings: bool, pub repository_integrity: bool, pub projection_registry: bool, pub evidence_requirements: bool }
 #[derive(Serialize)]
 #[serde(untagged)]
 pub(crate) enum BindingProjection {

@@ -1,3 +1,4 @@
+mod rgs;
 mod terminology;
 
 use std::collections::{BTreeMap, BTreeSet};
@@ -14,9 +15,7 @@ use proto_ring_engine::git_whitespace::{self, WhitespaceDomain};
 use proto_ring_engine::github_authoritative_ref_monotonicity::{self, ArmObservation};
 use proto_ring_engine::governance_bindings::{GovernanceBinding, GovernanceBindingIdentity};
 use proto_ring_engine::repository_governance_model;
-use proto_ring_engine::repository_governance_state::{
-    self, RepositoryGovernanceStage, RepositoryGovernanceStateError,
-};
+use proto_ring_engine::repository_governance_state::{self, RepositoryGovernanceStateError};
 use proto_ring_engine::repository_integrity::{
     self, EvaluationContext, IntegrityResult, ObligationResult, ValidationEnvironmentRealization,
     ValidationResult,
@@ -37,7 +36,7 @@ const CANONICAL_ADR_OPERATION: &str = "canonical-adr.resolve";
 pub(crate) fn execute(request: Request) -> Result<Response, InternalFailure> {
     Ok(match request {
         Request::EngineIdentity => Response::result("engine.identity", ResultValue::EngineIdentity(EngineIdentityValue { source_repository: SOURCE_REPOSITORY, source_commit: SOURCE_COMMIT, transport_version: TRANSPORT_VERSION })),
-        Request::Compose(input) => compose(input)?, Request::EvaluateIntegrity(input) => evaluate_integrity(input)?,
+        Request::Compose(input) => rgs::compose(input)?, Request::EvaluateIntegrity(input) => evaluate_integrity(input)?,
         Request::CheckAcceptedAdrBody(input) => check_accepted_adr_body(input), Request::ValidateGitWhitespace(input) => validate_git_whitespace(input),
         Request::ObserveGithubArm(input) => observe_github_arm(input), Request::LoadEvidenceRegistry(input) => load_evidence_registry(input),
         Request::EvaluateExactEvidence(input) => evaluate_exact_evidence(input), Request::ParseAdrMetadata(input) => parse_adr_metadata(input),
@@ -55,14 +54,6 @@ fn rgs_failure(operation: &'static str, error: RepositoryGovernanceStateError) -
     )
 }
 
-#[rustfmt::skip]
-fn compose(input: ComposeInput) -> Result<Response, InternalFailure> {
-    let state = match repository_governance_state::load(Path::new(&input.repository)) { Ok(state) => state, Err(error) => return Ok(rgs_failure("repository-governance-state.compose", error)) };
-    let scope_paths = state.observed_state.scope_paths.iter().map(|path| path.to_str().map(str::to_owned).ok_or(InternalFailure)).collect::<Result<Vec<_>, _>>()?;
-    let bindings = input.binding_ids.into_iter().map(|id| { let value = state.governance_bindings.bindings.get(&id).map(project_binding).unwrap_or(BindingProjection::Absent { present: false }); (id, value) }).collect();
-    let components = ComponentPresence { repository_governance_model: true, governance_authority: true, governed_objects: state.governed_objects.is_some(), governance_bindings: true, repository_integrity: state.repository_integrity.is_some(), projection_registry: state.projection_registry.is_some(), evidence_requirements: state.evidence_requirements.is_some() };
-    Ok(Response::result("repository-governance-state.compose", ResultValue::Compose(ComposeValue { stage: RepositoryGovernanceStage::Composition.serialized(), identity_present: !state.observed_state.identity.0.is_empty(), scope_paths, components, bindings })))
-}
 #[rustfmt::skip]
 fn project_binding(binding: &GovernanceBinding) -> BindingProjection {
     let identity = match &binding.identity { GovernanceBindingIdentity::ExecutableProvider(value) => BindingIdentity::ExecutableProvider { repository: value.repository.clone(), commit: value.commit.clone() }, GovernanceBindingIdentity::GovernanceContract(value) => BindingIdentity::GovernanceContract { repository: value.repository.clone(), commit: value.commit.clone(), path: value.path.clone() } };
