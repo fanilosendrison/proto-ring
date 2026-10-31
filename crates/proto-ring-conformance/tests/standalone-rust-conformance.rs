@@ -4,7 +4,9 @@ use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use proto_ring_conformance::harness::{CandidateRequest, CandidateState};
+use proto_ring_conformance::harness::{
+    CandidateExecutor, CandidateRequest, CandidateState, candidate_requests,
+};
 use proto_ring_conformance::loader::{LoadedCorpus, load_corpus};
 use proto_ring_conformance::model::{
     CaseMatrix, ComparisonKind, ComparisonRule, CorpusIndex, ExpectedObservation,
@@ -58,6 +60,34 @@ fn synthetic_corpus() -> LoadedCorpus {
             }],
         }],
     }
+}
+
+fn request_by_id(corpus: &LoadedCorpus, vector_id: &str) -> CandidateRequest {
+    candidate_requests(corpus)
+        .into_iter()
+        .find(|request| request.vector_id == vector_id)
+        .expect("requested corpus vector must exist")
+}
+
+fn record_entry_value_mut<'a>(
+    value: &'a mut serde_json::Value,
+    name: &str,
+) -> &'a mut serde_json::Value {
+    value["value"]
+        .as_array_mut()
+        .expect("transport record must contain entries")
+        .iter_mut()
+        .find(|entry| entry["name"] == name)
+        .expect("transport record entry must exist")
+        .get_mut("value")
+        .expect("transport record entry must contain a value")
+}
+
+fn remove_record_entry(value: &mut serde_json::Value, name: &str) {
+    value["value"]
+        .as_array_mut()
+        .expect("transport record must contain entries")
+        .retain(|entry| entry["name"] != name);
 }
 
 fn synthetic_execution(state: CandidateState) -> CandidateExecution {
@@ -161,6 +191,28 @@ fn unimplemented_candidate_fails_the_control() {
     )
     .expect_err("unimplemented result must fail");
     assert!(error.to_string().contains("unimplemented candidate"));
+}
+
+#[test]
+fn issue66_support_failure_is_distinct_from_semantic_rejection() {
+    let corpus = load_corpus(&repository_root()).expect("published corpus loads");
+    let mut malformed = request_by_id(&corpus, "governance-bindings.registry.valid-registry");
+    let semantic_inputs =
+        record_entry_value_mut(&mut malformed.fixture["invocation"], "semantic_inputs");
+    let authority = record_entry_value_mut(semantic_inputs, "authority");
+    remove_record_entry(authority, "sources");
+    ReferenceRustCandidate
+        .execute(&malformed)
+        .expect_err("missing harness support must fail execution");
+
+    let rejection = request_by_id(&corpus, "governance-bindings.registry.root-non-mapping");
+    let CandidateState::Observation(observation) = ReferenceRustCandidate
+        .execute(&rejection)
+        .expect("semantic rejection must be a candidate observation")
+    else {
+        panic!("semantic rejection responsibility must be implemented")
+    };
+    assert_eq!(observation.kind, ObservationKind::ControlledRejection);
 }
 
 #[test]

@@ -158,3 +158,57 @@ Issue #129 changes no file under these surfaces:
 - `.github/workflows/`
 
 No module, package, corpus vector, contract, or CI job is removed by issue #129.
+
+## Issue #130 active-control dispositions
+
+Issue #130 applies the following dispositions at base commit
+`3bbfaa4184d39c58a28abf189a2a6cceb51f25dd`. A reference to a Rust vector means
+that the current observation is produced by `ReferenceRustCandidate` and
+compared by `run_standalone`; expected observations are not candidate inputs.
+
+### RETAIN_ACTIVE
+
+| Assertion group | Protected guarantee | Active destination and proof |
+| --- | --- | --- |
+| `tests/test_conformance_corpus.py` tests 01–06, 07a, 09, and 11 | Canonical JSON, strict schemas, exact inventory and ownership, qualification, authorities, semantic coverage, fixture allocation, historical observation consistency, transport projection, and repository boundaries | The module has no production-package or adapter import and is discovered with `PYTHONPATH=tests`. Its 10 retained tests execute in an environment where `proto_ring` is neither installed nor importable. |
+| `tests/test_issue66_corpus_closure.py` tests 01–03, 07, and 09–12 | Exact 555-vector inventory, raw duplicate discrimination, fixture preparation, metadata and coverage, loaded-state completeness, and identity relations | The module has no production-package or adapter import. Eight retained tests discover and execute without `src/` on `sys.path`. |
+| `tests/conformance_corpus_test_support.py`, `tests/conformance_fixture_runner.py`, schema and transport support | Corpus decoding, schema validation, authority snapshot reads, coverage checks, and explicit fixture preparation | Imported only by retained corpus controls. The fixture interpreter may use declared fixture dependencies but does not import `proto_ring`. |
+| `tools/run_python_tests.py` and `tools/python_test_runner_protocol.py` | Exact non-zero full-suite discovery, module partitioning, child accounting, and failure propagation | Discovery and child `PYTHONPATH` contain `tests/` only. The runner no longer injects repository `src/` or owns fixed global `/tmp` artifacts. The package-installed suite remains a transitional distribution check. |
+| `tests/test_package.py`, direct `proto_ring` unit tests, contract source readers, and `tests/test_normative_terminology_unicode.py` | The Python distribution remains installable and its transitional package behavior remains tested until issue #131 | These tests run only in the normal intermediate environment after installation. They are not part of the isolated active conformance control. |
+| Both `python -m pip install .` steps and all current CI jobs | Intermediate package installation, Python matrix, Linux Rust, and Windows coverage | `.github/workflows/ci.yml` remains byte-for-byte unchanged in issue #130. |
+
+### COVERED_BY_RUST
+
+| Former active assertion group | Exact Rust destination | Demonstrated guarantee |
+| --- | --- | --- |
+| `test_conformance_corpus.py` former tests 08 and 10 and the current-observation half of former test 09 | `crates/proto-ring-conformance/tests/corpus.rs` and `tests/standalone-rust-conformance.rs`; all 29 responsibility matrices and all 1,153 distinct vector IDs | Current candidate execution, exact comparison, complete/non-duplicate inventory, and wrong, missing, duplicate, unimplemented, or fixture-failure rejection. |
+| `test_issue66_corpus_closure.py` former tests 04, 04b, 05, 06, and 08 | `standalone-rust-conformance.rs::issue66_support_failure_is_distinct_from_semantic_rejection`, plus vectors `governance-bindings.registry.root-non-mapping`, `exact-evidence-binding.evaluate.requirement-empty-classes`, and all 555 issue-66 vectors in `corpus.rs` | Raw-data duplication remains a Python structural audit; malformed support is a harness error; valid semantic rejection is a candidate observation; current issue-66 results match exact expectations. |
+| Issue #91 Projection Integrity / Repository Integrity dependency comparison | `issue91_rgm_witness.rs` vectors `repository-governance-model.load.projection-integrity-requires-repository-integrity` and `repository-governance-model.load.projection-integrity-with-repository-integrity` | Both current Rust witnesses execute and match; no Python MATCH verdict is synthesized. |
+| Foreign-catalog adapter tests from issues 99, 100, and 102 | Vectors `governance-bindings.registry.foreign-catalog-repository`, `repository-integrity.profile.foreign-catalog-repository`, and `evidence-requirements.registry.foreign-catalog-repository` | Repository identity is the sole invalid distinction and produces the owned semantic rejection. |
+| Issue #94 Projection Registry mutation tests | Vectors `projection-registry.registry.foreign-integrity-repository`, `projection-registry.registry.foreign-catalog-repository`, `projection-registry.registry.foreign-bindings-repository`, and `projection-registry.registry.target-without-responsibility-participation` | Each formerly mutated distinction has an exact current Rust observation and expectation. |
+| Issue #98 exact-evidence mutation and transport tests and issue #90 adapter boundary tests | The complete `exact-evidence-binding.evaluate` matrix (44 vectors), including malformed transport and precedence vectors | Transport/support failure remains distinct from owned controlled rejection, and all semantic distinctions are checked by the Rust candidate. |
+| Rust Unicode 14.0.0 control | `crates/proto-ring-engine/tests/issue122_unicode_checkout.rs` and `crates/proto-ring-conformance/tests/issue64_normative_terminology.rs` | The Rust-owned bytes are `-text`, have independent SHA-256 `a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f`, preserve semantic regressions, and remain in Windows-covered Rust paths without reading the Python package copy. |
+
+### HISTORICAL_ONLY
+
+| Historical surface at the issue #130 base | Preserved evidence and reason |
+| --- | --- |
+| `crates/proto-ring-conformance/tests/baseline.rs` | The old bridge request/output protocol is not a current product guarantee. Exact base bytes remain at `3bbfaa4184d39c58a28abf189a2a6cceb51f25dd:crates/proto-ring-conformance/tests/baseline.rs`. |
+| `crates/proto-ring-conformance/tests/standalone-rust-conformance-evidence.rs` | This was the one-time #129 differential transition witness. Its published outputs remain under `review-evidence/issue-129/`; replaying the Python channel is not an active control. |
+| `tests/conformance_python_bridge.py`, `conformance_vector_execution.py`, all `conformance_python_adapter_*` modules, and `tests/test_conformance_vector_execution.py` | Their sole responsibility was executing or validating the retired Python comparison channel. Exact source and test IDs remain recoverable from the base commit; retaining them active would preserve a second engine. |
+| Adapter-specific tests removed from issues 90, 94, 98, 99, 100, and 102 | Their semantic guarantees are listed under `COVERED_BY_RUST`; adapter framing, mutation implementation, and bridge-failure protocol are historical implementation evidence at the base commit. |
+| `tools/python_test_runner_evidence.py`, `tests/test_python_test_runner_evidence.py`, and fixed `/tmp/proto-ring-61-*` artifacts | They exported the former Python current-observation channel. Issue #129 review evidence preserves the accepted transition bytes; no active proof may consume global artifacts from an earlier run. |
+
+The baseline contains 883 Python test method IDs. The issue #130 candidate
+contains 802: 88 historical IDs were removed and seven replacement IDs were
+added, for a net reduction of 81. The complete removed-ID set is mechanically
+recoverable by comparing `tests/test_*.py` at the base commit with the candidate;
+the semantic groups are partitioned above between `COVERED_BY_RUST` and
+`HISTORICAL_ONLY` rather than being equated with the 1,153 Rust vectors.
+
+### GAP
+
+No active guarantee is currently classified `GAP`. Any later validation that
+finds an uncovered active assertion changes this disposition and blocks the
+issue #130 handoff until a targeted regression is added or the former control is
+retained.

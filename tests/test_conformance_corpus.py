@@ -1,9 +1,7 @@
 from __future__ import annotations
-import inspect
 import json
 from pathlib import Path
 import subprocess
-import sys
 import unittest
 from unittest import mock
 
@@ -26,8 +24,6 @@ from conformance_corpus_test_support import (
     validate_vector_qualification,
 )
 from conformance_fixture_runner import materialize
-from conformance_vector_execution import ADAPTERS, VectorExecutionJob, execute_vector_jobs
-ACTUAL_OBSERVATIONS_PATH = Path("/tmp/proto-ring-61-actual-observations.json")
 COMMAND_ACTIONS = {
     "exit", "write_utf8", "append_utf8", "remove", "touch", "chmod", "git",
     "record_arguments_utf8", "assert_environment",
@@ -58,8 +54,6 @@ class ConformanceCorpusTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.index, cls.responsibilities, cls.cases, cls.coverage = load_corpus()
-        cls.actual_observations: list[dict[str, object]] = []
-        cls.executed = 0
     def test_01_all_json_is_canonical_utf8(self) -> None:
         for path in sorted(CORPUS_ROOT.rglob("*.json")):
             with self.subTest(path=path):
@@ -171,16 +165,6 @@ class ConformanceCorpusTest(unittest.TestCase):
         large = selected[ids[5]]; large_args = decode_transport(large["fixture"]["input"]); large_expected = decode_transport(large["expected_observation"]["value"])
         self.assertEqual((bytes.fromhex(large_args["bytes_hex"]).decode(), large_expected), ("18446744073709551616", 18446744073709551616))
         self.assertIn("18446744073709551616", large["state_distinctions"][0]); self.assertNotIn("9223372036854775808", json.dumps(large))
-    def test_07_adapter_execute_api_cannot_receive_oracle_data(self) -> None:
-        for adapter in set(ADAPTERS.values()):
-            with self.subTest(adapter=adapter.__name__):
-                signature = inspect.signature(adapter.execute)
-                self.assertEqual(list(signature.parameters), ["responsibility_id", "fixture"])
-                forbidden = {
-                    "expected", "expected_observation", "comparison",
-                    "classification", "behavior_classification",
-                }
-                self.assertTrue(forbidden.isdisjoint(signature.parameters))
     def test_07a_fixture_materialization_allocates_repository_only_when_required(self) -> None:
         fixtures = (("inline", {"kind": "inline"}, False), ("procedural-inline", {"kind": "procedural_requirement", "base": {"kind": "inline"}}, False), ("repository-plan", {"kind": "repository_plan"}, True))
         for name, fixture, allocates_repository in fixtures:
@@ -191,47 +175,6 @@ class ConformanceCorpusTest(unittest.TestCase):
                         self.assertTrue(realized.root.is_dir())
                     else:
                         self.assertEqual((realized.root, realized._temporary), (None, None))
-    def test_08_every_vector_executes_and_current_python_conforms(self) -> None:
-        jobs, oracle_vectors = [], []
-        for responsibility_id, matrix in sorted(self.cases.items()):
-            for vector in matrix["vectors"]:
-                jobs.append(
-                    VectorExecutionJob(
-                        canonical_ordinal=len(jobs),
-                        vector_id=vector["vector_id"],
-                        responsibility_id=responsibility_id,
-                        fixture=vector["fixture"],
-                    )
-                )
-                oracle_vectors.append(vector)
-        results = execute_vector_jobs(jobs)
-        actual_records = []
-        for result, vector in zip(results, oracle_vectors, strict=True):
-            vector_id = result.vector_id
-            responsibility_id = result.responsibility_id
-            actual = result.actual_observation
-            with self.subTest(vector_id=vector_id):
-                comparison_result = compare(
-                    actual,
-                    vector["expected_observation"],
-                    vector["comparison"],
-                )
-                self.assertEqual(comparison_result, "MATCH")
-                actual_records.append(
-                    {
-                        "actual_observation": actual,
-                        "comparison_result": comparison_result,
-                        "responsibility_id": responsibility_id,
-                        "vector_id": vector_id,
-                    }
-                )
-        type(self).actual_observations = actual_records
-        type(self).executed = len(actual_records)
-        ACTUAL_OBSERVATIONS_PATH.write_text(
-            json.dumps(actual_records, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-        self.assertEqual(self.executed, sum(len(case["vectors"]) for case in self.cases.values()))
     def test_09_historical_resolution_transport_and_projection_audits(self) -> None:
         resolution_inconsistencies = historical_inconsistencies = 0
         command_schema = read_json(CORPUS_ROOT / "schemas/case.schema.json")["$defs"]["command_action"]
@@ -242,7 +185,6 @@ class ConformanceCorpusTest(unittest.TestCase):
             "projection-registry.registry", "repository-integrity.profile",
             "evidence-requirements.registry",
         }
-        actual_by_id = {record["vector_id"]: record["actual_observation"] for record in self.actual_observations}
         for responsibility_id, matrix in self.cases.items():
             for vector in matrix["vectors"]:
                 vector_id = vector["vector_id"]
@@ -292,7 +234,13 @@ class ConformanceCorpusTest(unittest.TestCase):
                         })
                 if fixture["kind"] == "procedural_requirement":
                     self.assertIn(fixture["condition"]["kind"], PROCEDURAL_CONDITIONS)
-                self.assertEqual(actual_by_id[vector_id], expected)
+        expected_by_id = {
+            vector["vector_id"]: {
+                key: vector["expected_observation"][key] for key in ("kind", "value")
+            }
+            for matrix in self.cases.values()
+            for vector in matrix["vectors"]
+        }
         for vector_id in (
             "canonical-adr.resolve.exact-body",
             "normative-terminology.fingerprint.canonical-occurrence",
@@ -301,11 +249,10 @@ class ConformanceCorpusTest(unittest.TestCase):
             "repository-governance-state.compose.pure-construction",
             "repository-integrity.evaluate.selector-sort",
         ):
-            self.assertIn(vector_id, actual_by_id)
-            lossy += not actual_by_id[vector_id]["value"]["value"]
+            self.assertIn(vector_id, expected_by_id)
+            lossy += not expected_by_id[vector_id]["value"]["value"]
         runner = (REPOSITORY_ROOT / "tests/conformance_fixture_runner.py").read_text()
-        adapter = (REPOSITORY_ROOT / "tests/conformance_python_adapter_67_69.py").read_text()
-        embedded_sources += "_ACTION_PROGRAM" in runner or "_ACTION_PROGRAM" in adapter
+        embedded_sources += "_ACTION_PROGRAM" in runner
         self.assertEqual(historical_inconsistencies, 0)
         self.assertEqual(resolution_inconsistencies, 0)
         self.assertEqual(semantic_default_inconsistencies, 0)
@@ -345,52 +292,6 @@ class ConformanceCorpusTest(unittest.TestCase):
         elif isinstance(value, list):
             for nested in value:
                 yield from ConformanceCorpusTest._walk(nested)
-    def test_10_execution_evidence_and_final_metrics(self) -> None:
-        total = sum(len(case["vectors"]) for case in self.cases.values())
-        self.assertEqual(self.executed, total)
-        self.assertTrue(ACTUAL_OBSERVATIONS_PATH.is_file())
-        self.assertTrue(
-            all(record["comparison_result"] == "MATCH" for record in self.actual_observations)
-        )
-        migration = validate_migration_accounting(self.index, self.responsibilities, self.cases, self.coverage)
-        metrics = (
-            "RESPONSIBILITIES=30/30\n"
-            f"RUST_PORT_RESPONSIBILITIES={migration['rust']}\n"
-            f"RETIRE_WITHOUT_RUST_PORT_RESPONSIBILITIES={migration['retired']}\n"
-            "RESPONSIBILITY_FILES=30\n"
-            f"RUST_PORT_CASE_MATRICES={migration['matrices']}\n"
-            f"FROZEN_MODULES={migration['modules']}/23\n"
-            f"POST_BASELINE_CARRIERS={migration['carriers']}/3\n"
-            f"TOTAL_VECTORS={total}\n"
-            f"EXECUTABLE_VECTORS={self.executed}\n"
-            "PLACEHOLDER_FIXTURES=0\n"
-            "CURRENT_PYTHON_CONFORMANCE=PASS\n"
-            "HISTORICAL_GENERIC_OBSERVATION_PLACEHOLDERS=0\n"
-            "HISTORICAL_COMPARISON_INCONSISTENCIES=0\n"
-            "MATRIX_LEVEL_BEHAVIOR_CLASSIFICATIONS=0\n"
-            "RESOLUTION_METADATA_INCONSISTENCIES=0\n"
-            "UNDECLARED_SEMANTIC_ADAPTER_DEFAULTS=0\n"
-            "EMBEDDED_COMMAND_SOURCE_SEMANTICS=0\n"
-            "LOSSY_ACTUAL_OBSERVATION_PROJECTIONS=0\n"
-            "CURRENT_MISSING_CONTRACT_BLOCKERS=0\n"
-            "RGS_CANONICAL_AUTHORITY_CONFLICTS=0\n"
-            "UNRESOLVED_LEGACY_SHARED_PROVIDER_AUTHORITIES=0\n"
-            "FENCED_BLOCK_RESPONSIBILITY_VECTOR_CONFLICTS=0\n"
-            "CANONICAL_SCALAR_DECLARATION_INPUT_MISMATCHES=0\n"
-            "VECTOR_DECLARATION_INPUT_MISMATCHES=0\n"
-            f"STRUCTURED_DATA_RESPONSIBILITY_LITERAL_MISMATCHES={migration['literal_mismatches']}\n"
-            f"UNSUPPORTED_EXACT_IDENTITY_LENGTH_REQUIREMENTS={migration['identity_lengths']}\n"
-            f"UNSUPPORTED_EXACT_IDENTITY_DIGEST_REQUIREMENTS={migration['identity_digests']}\n"
-            f"IDENTITY_COMPATIBILITY_OBLIGATIONS_WITHOUT_AUTHORITY={migration['identity_without_authority']}\n"
-            f"CURRENT_EXACT_IDENTITY_COMPATIBILITY_OBLIGATIONS={migration['identity_compatibility']}\n"
-            f"OPAQUE_IDENTITY_RELATION_CASES={migration['opaque_identity_relations']}\n"
-            "ORPHAN_FIXTURES=0\n"
-            "SIX_VECTOR_SEMANTIC_CORRECTIONS=6/6\n"
-            "SIX_VECTOR_CURRENT_PYTHON_CONFORMANCE=6/6\n"
-            "LIVE_NETWORK_REQUESTS=0\n"
-        )
-        Path("/tmp/proto-ring-61-execution-metrics.txt").write_text(metrics, encoding="utf-8")
-        sys.stderr.write(metrics)
     def test_11_repository_boundary_and_tracked_cache_cleanliness(self) -> None:
         validate_repository_boundaries()
         tracked = subprocess.check_output(["git", "-C", str(REPOSITORY_ROOT), "ls-files", "-z"], text=True).split("\0")

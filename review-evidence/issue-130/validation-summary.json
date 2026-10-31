@@ -1,0 +1,53 @@
+{
+  "base_commit": "3bbfaa4184d39c58a28abf189a2a6cceb51f25dd",
+  "dispositions": {
+    "covered_by_rust_homogeneous_groups": 7,
+    "gap_active_groups": 0,
+    "historical_only_homogeneous_groups": 5,
+    "retain_active_homogeneous_groups": 6
+  },
+  "isolated_control": {
+    "bridge_invocations": 0,
+    "expected_python_tests": 18,
+    "fixture_runner_invocations": 36,
+    "importable_proto_ring": false,
+    "installed_proto_ring_distribution": false,
+    "python_tests_discovered": 18,
+    "python_tests_executed": 18,
+    "src_path_entries": 0
+  },
+  "normal_intermediate_state": {
+    "package_importable": true,
+    "package_version": "0.17.0",
+    "python_tests_discovered": 802,
+    "python_tests_executed": 802
+  },
+  "protected_surfaces": {
+    "ci_workflow_unchanged": true,
+    "compat_v1_transport_unchanged": true,
+    "conformance_v1_unchanged": true,
+    "contracts_unchanged": true,
+    "issue_129_evidence_unchanged": true,
+    "pyproject_unchanged": true,
+    "python_package_unchanged": true
+  },
+  "rust_control": {
+    "additional_ids": 0,
+    "distinct_vector_ids": 1153,
+    "duplicate_ids": 0,
+    "matches": 1153,
+    "missing_ids": 0,
+    "not_available": 0,
+    "responsibilities": 29
+  },
+  "validation": {
+    "cargo_clippy_workspace_all_targets_all_features_deny_warnings": "PASS",
+    "cargo_fmt_check": "PASS",
+    "cargo_test_workspace_all_targets_all_features_locked": "PASS",
+    "cargo_test_workspace_doc_all_features_locked": "PASS",
+    "git_diff_check": "PASS",
+    "local_windows_execution": "NOT_AVAILABLE",
+    "python_installed_distribution_suite": "PASS",
+    "windows_coverage_paths_preserved_for_future_candidate_ci": true
+  }
+}

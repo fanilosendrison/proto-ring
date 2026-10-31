@@ -163,13 +163,15 @@ fn issue64_wave_c_unicode_and_source_boundaries_are_exact() {
     let rust_data =
         fs::read(repository.join("crates/proto-ring-engine/data/unicode-14.0.0/CaseFolding.txt"))
             .unwrap();
-    let source_data =
-        fs::read(repository.join("src/proto_ring/data/unicode-14.0.0/CaseFolding.txt")).unwrap();
-    assert_eq!(rust_data, source_data);
+    assert!(!rust_data.is_empty());
     assert_eq!(unicode14::UNICODE_VERSION, "14.0.0");
     assert_eq!(
         unicode14::casefold_data_sha256(),
-        unicode14::CASEFOLD_DATA_SHA256
+        "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f"
+    );
+    assert_eq!(
+        unicode14::CASEFOLD_DATA_SHA256,
+        "a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f"
     );
     assert_eq!(unicode14::CONTRACT_WHITESPACE_SCALARS, 29);
     for scalar in [

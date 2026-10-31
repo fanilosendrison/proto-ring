@@ -96,11 +96,3 @@ pub struct RecordEntry {
     pub name: String,
     pub value: TransportValue,
 }
-
-#[derive(Clone, Debug, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct PythonObservationRecord {
-    pub responsibility_id: String,
-    pub vector_id: String,
-    pub observation: Observation,
-}
