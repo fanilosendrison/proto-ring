@@ -1,26 +1,37 @@
 {
   "base_commit": "3bbfaa4184d39c58a28abf189a2a6cceb51f25dd",
+  "corrective_findings": {
+    "F-001": "RESOLVED",
+    "F-002": "RESOLVED",
+    "F-003": "RESOLVED"
+  },
   "dispositions": {
     "covered_by_rust_homogeneous_groups": 7,
     "gap_active_groups": 0,
     "historical_only_homogeneous_groups": 5,
-    "retain_active_homogeneous_groups": 6
+    "retain_active_homogeneous_groups": 8
   },
   "isolated_control": {
     "bridge_invocations": 0,
-    "expected_python_tests": 18,
-    "fixture_runner_invocations": 36,
+    "expected_python_tests": 23,
+    "fixture_runner_invocations_per_standalone_run": 36,
     "importable_proto_ring": false,
     "installed_proto_ring_distribution": false,
-    "python_tests_discovered": 18,
-    "python_tests_executed": 18,
+    "python_tests_discovered": 23,
+    "python_tests_executed": 23,
     "src_path_entries": 0
   },
   "normal_intermediate_state": {
     "package_importable": true,
     "package_version": "0.17.0",
-    "python_tests_discovered": 802,
-    "python_tests_executed": 802
+    "python_tests_discovered": 807,
+    "python_tests_executed": 807
+  },
+  "python_test_inventory": {
+    "added_ids": 7,
+    "base_ids": 883,
+    "candidate_ids": 807,
+    "removed_ids": 83
   },
   "protected_surfaces": {
     "ci_workflow_unchanged": true,
@@ -48,6 +59,8 @@
     "git_diff_check": "PASS",
     "local_windows_execution": "NOT_AVAILABLE",
     "python_installed_distribution_suite": "PASS",
+    "python_isolated_conformance_suite": "PASS",
+    "rust_affected_tests": "PASS",
     "windows_coverage_paths_preserved_for_future_candidate_ci": true
   }
 }
