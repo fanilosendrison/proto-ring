@@ -9,3 +9,4 @@ pub mod harness;
 pub mod loader;
 pub mod model;
 pub mod rust_candidate;
+pub mod standalone;
