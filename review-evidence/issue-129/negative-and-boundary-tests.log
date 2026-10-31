@@ -1,0 +1,13 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.23s
+     Running tests/standalone-rust-conformance.rs (target/debug/deps/standalone_rust_conformance-dbeec1d4f4b6ef22)
+
+running 7 tests
+test duplicate_result_fails_the_control ... ok
+test candidate_request_contains_only_candidate_inputs ... ok
+test false_observation_fails_the_control ... ok
+test fixture_preparation_failure_remains_a_harness_error ... ok
+test missing_result_fails_the_control ... ok
+test standalone_path_has_no_python_bridge_or_differential_dependency ... ok
+test unimplemented_candidate_fails_the_control ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s

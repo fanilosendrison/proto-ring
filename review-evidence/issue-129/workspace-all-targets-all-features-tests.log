@@ -1,0 +1,402 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.63s
+     Running unittests src/main.rs (target/debug/deps/proto_ring_compat-88716b7f153b4a0d)
+
+running 2 tests
+test operations::tests::arm_projection_uses_only_typed_status ... ok
+test operations::tests::evidence_requirement_projection_covers_three_typed_shapes ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rgs_projection_complete.rs (target/debug/deps/rgs_projection_complete-d7a82e514e6d2fa0)
+
+running 2 tests
+test absent_optional_components_are_null_not_omitted ... ok
+test complete_projection_is_exact_and_read_only ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+
+     Running tests/rgs_projection_protocol.rs (target/debug/deps/rgs_projection_protocol-a82ac12d73dd53cc)
+
+running 4 tests
+test compose_projection_input_is_closed ... ok
+test omitted_projection_preserves_the_exact_summary_value_shape ... ok
+test explicit_summary_is_identical_to_the_omitted_default ... ok
+test complete_adds_only_state_to_the_existing_summary ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+     Running tests/runner.rs (target/debug/deps/runner-de702133bc99e3f4)
+
+running 17 tests
+test b4_transport_is_strict ... ok
+test configured_profile_path_uses_rgm_fixture_and_is_read_only ... ok
+test engine_identity_reports_source_identity ... ok
+test environment_probe ... ok
+test evidence_registry_projects_rgs_fixture_and_failures_without_mutation ... ok
+test b4_semantic_rejections_remain_controlled_failures ... ok
+test accepted_adr_body_matches_all_vectors_and_is_read_only ... ok
+test exact_evidence_binding_matches_all_vectors ... ok
+test b4_matches_all_71_vectors_and_is_read_only ... ok
+test exact_evidence_history_validates_full_transport_before_semantics ... ok
+test exact_evidence_transport_rejects_eight_malformed_classes ... ok
+test repository_integrity_evaluates_native_command ... ok
+test repository_integrity_uses_only_explicit_environment ... ok
+test github_arm_malformed_binding_is_a_violated_result ... ok
+test transport_v1_is_strict ... ok
+test rgs_compose_matches_corpus_and_is_read_only ... ok
+test git_whitespace_matches_all_vectors_and_is_read_only ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 18.98s
+
+     Running tests/terminology.rs (target/debug/deps/terminology-bd539289ce9db181)
+
+running 3 tests
+test turnlock_policy_edge_cases_and_hierarchy_are_exact ... ok
+test terminology_transport_is_strict_and_semantic_failures_are_controlled ... ok
+test terminology_process_surface_matches_45_corpus_vectors ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.18s
+
+     Running unittests src/lib.rs (target/debug/deps/proto_ring_conformance-3e79d0b301e73a54)
+
+running 14 tests
+test compare::tests::observation_kind_is_observable ... ok
+test compare::tests::bytes_and_string_are_distinct ... ok
+test compare::tests::integer_and_string_are_distinct ... ok
+test compare::tests::identical_typed_observations_match ... ok
+test compare::tests::record_multiplicity_is_observable ... ok
+test compare::tests::record_order_is_observable ... ok
+test compare::tests::sequence_order_is_observable ... ok
+test harness::tests::all_three_channels_match_independently ... ok
+test harness::tests::python_and_rust_can_match_while_both_are_nonconformant ... ok
+test harness::tests::rust_mismatch_does_not_change_python_conformance ... ok
+test loader::tests::path_validation_rejects_absolute_and_parent_paths ... ok
+test rust_candidate::exact_evidence_binding::tests::invalid_binding_transport_fails_before_semantic_evaluation ... ok
+test rust_candidate::authority_objects::tests::support_authority_rehydration_does_not_require_target_availability ... ok
+test rust_candidate::github_authoritative_ref_monotonicity::tests::malformed_response_hex_is_rejected_as_fixture_transport ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/baseline.rs (target/debug/deps/baseline-bf0ca9fb6c1928e1)
+
+running 3 tests
+test bridge_rejects_retirement_only_requests ... ok
+test bridge_rejects_oracle_bearing_and_malformed_requests ... ok
+test published_corpus_bridge_contract_is_oracle_free ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.42s
+
+     Running tests/corpus.rs (target/debug/deps/corpus-caf19f89d92372ff)
+
+running 2 tests
+test absolute_contained_target_is_rejected_by_reference_candidate ... ok
+test published_corpus_runs_through_reference_candidate has been running for over 60 seconds
+test published_corpus_runs_through_reference_candidate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 170.90s
+
+     Running tests/fixture_boundary.rs (target/debug/deps/fixture_boundary-0a13399e9ef8c526)
+
+running 3 tests
+test fixture_failure_escapes_as_harness_error ... ok
+test absolute_contained_fixture_materializes_with_bound_capture ... ok
+test every_issue_63_fixture_materializes ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.97s
+
+     Running tests/governance_routing.rs (target/debug/deps/governance_routing-1b139b803c762f08)
+
+running 1 test
+test absolute_declaration_and_final_containment_rejections_remain_distinct ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.53s
+
+     Running tests/issue64_accepted_adr_body.rs (target/debug/deps/issue64_accepted_adr_body-a24d52587da286f4)
+
+running 2 tests
+test issue64_wave_d_source_boundaries_are_explicit ... ok
+test issue64_wave_d_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.20s
+
+     Running tests/issue64_adr_canonical.rs (target/debug/deps/issue64_adr_canonical-cfa68a093ed36fc4)
+
+running 2 tests
+test issue64_wave_b_source_boundaries_are_explicit ... ok
+test issue64_wave_b_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.55s
+
+     Running tests/issue64_normative_terminology.rs (target/debug/deps/issue64_normative_terminology-b6ef10aab515382a)
+
+running 3 tests
+test issue64_wave_c_fenced_definition_blocks_remain_discoverable ... ok
+test issue64_wave_c_unicode_and_source_boundaries_are_exact ... ok
+test issue64_wave_c_matches_all_published_vectors ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.59s
+
+     Running tests/issue64_portable_pattern.rs (target/debug/deps/issue64_portable_pattern-fbe97430b77e9555)
+
+running 2 tests
+test issue64_portable_pattern_source_boundaries_are_explicit ... ok
+test issue64_portable_pattern_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.48s
+
+     Running tests/issue65_adapter_boundary.rs (target/debug/deps/issue65_adapter_boundary-30c23cdf3257f98a)
+
+running 1 test
+test malformed_issue65_adapter_shapes_are_harness_errors ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/issue65_architecture.rs (target/debug/deps/issue65_architecture-3950523345595c20)
+
+running 6 tests
+test fixture_failure_cannot_become_controlled_rejection ... ok
+test issue65_source_has_no_vector_branches_or_identity_transformations ... ok
+test production_routing_and_support_rehydration_remain_separate ... ok
+test loaded_state_projections_match_the_published_observations ... ok
+test all_issue65_fixtures_materialize_without_semantic_execution ... ok
+test issue63_and_issue65_vectors_are_exact_candidate_matches ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.17s
+
+     Running tests/issue66_exact_evidence_transport_boundary.rs (target/debug/deps/issue66_exact_evidence_transport_boundary-f0c15bf123beff74)
+
+running 2 tests
+test history_parses_full_invocation_before_semantic_rejection ... ok
+test combined_transport_failures_precede_semantic_rejection ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 12.59s
+
+     Running tests/issue66_repository_composition.rs (target/debug/deps/issue66_repository_composition-1c2efc9634dc15ad)
+
+running 6 tests
+test foreign_governed_objects_catalog_repository_is_rejected ... ok
+test foreign_governed_objects_catalog_repository_is_rejected_for_repository_integrity ... ok
+test foreign_governed_objects_catalog_repository_is_rejected_for_governance_bindings ... ok
+test same_repository_governed_objects_catalog_target_is_admitted ... ok
+test same_repository_governed_objects_catalog_target_is_admitted_for_repository_integrity ... ok
+test invalid_foreign_catalog_transport_is_a_harness_error ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.45s
+
+     Running tests/issue66_rust_port.rs (target/debug/deps/issue66_rust_port-17ba5fb3b7a03530)
+
+running 2 tests
+test evidence_context_source_mismatch_is_a_harness_error ... ok
+test issue66_rust_port_matches_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.72s
+
+     Running tests/issue67_git_discovery.rs (target/debug/deps/issue67_git_discovery-c0b1a7a711a2a2d6)
+
+running 1 test
+test issue67_real_git_nested_repository_transport_decodes_to_filesystem_identity ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+     Running tests/issue67_git_file_roots.rs (target/debug/deps/issue67_git_file_roots-bce650f26ae7a0a5)
+
+running 6 tests
+test issue67_unix_git_file_namespace_alias_respects_stored_entry_identity ... ok
+test issue67_unix_git_file_hardlink_cannot_be_traversed_as_parent ... ok
+test issue67_linked_worktree_git_file_root_is_supported ... ok
+test issue67_unix_stored_case_variant_git_file_is_host_resolved ... ok
+test issue67_unix_linked_worktree_dot_git_file_hardlink_is_distinct ... ok
+test issue67_submodule_git_file_root_is_supported ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.37s
+
+     Running tests/issue67_path_boundaries.rs (target/debug/deps/issue67_path_boundaries-7f417466b98dae3b)
+
+running 5 tests
+test issue67_symlink_into_sibling_nested_git_admin_is_rejected ... ok
+test issue67_explicit_scope_admission_is_lexical_only ... ok
+test issue67_final_hardlink_to_git_internal_file_remains_governed ... ok
+test issue67_nested_git_admin_case_alias_respects_physical_identity ... ok
+test issue67_unix_stored_case_variant_git_admin_is_host_resolved ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.90s
+
+     Running tests/issue67_rust_port.rs (target/debug/deps/issue67_rust_port-f92a6959f26c7d14)
+
+running 17 tests
+test issue67_exact_root_preserves_git_line_terminator_like_path_bytes ... ok
+test issue67_absent_prefix_to_git_alias_fails_closed ... ok
+test issue67_explicit_scope_rejects_git_implementation_state ... ok
+test issue67_git_alias_with_absent_child_still_rejects ... ok
+test issue67_final_symlink_to_git_dir_is_observed_as_symlink_not_followed ... ok
+test issue67_git_trace_targets_cannot_create_files ... ok
+test issue67_git_admin_alias_respects_host_filesystem_identity ... ok
+test issue67_ambient_git_redirects_are_neutralized ... ok
+test issue67_nested_absent_after_existing_safe_parent_is_observable ... ok
+test issue67_nested_absent_scope_is_observable ... ok
+test issue67_nested_intermediate_alias_to_git_descendant_is_rejected ... ok
+test issue67_nested_intermediate_alias_to_root_git_is_rejected ... ok
+test issue67_identity_is_opaque ... ok
+test issue67_ignore_policy_vectors_match ... ok
+test issue67_untracked_gitignore_cannot_silently_exclude_governed_path ... ok
+test issue67_rust_port_matches_all_published_vectors ... ok
+test issue67_hostile_capture_vectors_fail_closed has been running for over 60 seconds
+test issue67_hostile_capture_vectors_fail_closed ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 80.86s
+
+     Running tests/issue67_windows_identity.rs (target/debug/deps/issue67_windows_identity-d8dcf263287120da)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/issue68_rust_port.rs (target/debug/deps/issue68_rust_port-d7dcfad83dae89b8)
+
+running 8 tests
+test issue68_engine_source_preserves_non_execution_boundaries ... ok
+test issue68_hostile_autocrlf_preserves_clone_bytes ... ok
+test issue68_hostile_autocrlf_preserves_bootstrap_symlink_observation ... ok
+test issue68_component_failures_preserve_owned_stages ... ok
+test issue68_native_relative_symlink_dereferences_sibling_carrier ... ok
+test issue68_later_explicit_git_config_takes_precedence ... ok
+test issue68_rust_port_matches_all_published_vectors ... ok
+test issue68_default_build_excludes_conformance_seams has been running for over 60 seconds
+test issue68_default_build_excludes_conformance_seams ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 62.11s
+
+     Running tests/issue69_git_whitespace.rs (target/debug/deps/issue69_git_whitespace-9989cf3880480a60)
+
+running 2 tests
+test issue69_wave_b_source_boundaries_are_explicit ... ok
+test issue69_wave_b_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.71s
+
+     Running tests/issue69_github_authoritative_ref_monotonicity.rs (target/debug/deps/issue69_github_authoritative_ref_monotonicity-5c2a314ab89eaeb6)
+
+running 2 tests
+test issue69_wave_c_source_boundaries_are_explicit ... ok
+test issue69_wave_c_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.03s
+
+     Running tests/issue69_repository_integrity_evaluate.rs (target/debug/deps/issue69_repository_integrity_evaluate-a416fd00ac923684)
+
+running 2 tests
+test issue69_wave_a_source_boundaries_are_explicit ... ok
+test issue69_wave_a_matches_all_published_vectors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 38.86s
+
+     Running tests/issue91_rgm_witness.rs (target/debug/deps/issue91_rgm_witness-2e3ac809cf12901f)
+
+running 1 test
+test projection_integrity_dependency_witnesses_match_python_and_rust ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.93s
+
+     Running tests/standalone-rust-conformance.rs (target/debug/deps/standalone_rust_conformance-dbeec1d4f4b6ef22)
+
+running 8 tests
+test fixture_preparation_failure_remains_a_harness_error ... ok
+test duplicate_result_fails_the_control ... ok
+test false_observation_fails_the_control ... ok
+test candidate_request_contains_only_candidate_inputs ... ok
+test missing_result_fails_the_control ... ok
+test standalone_path_has_no_python_bridge_or_differential_dependency ... ok
+test unimplemented_candidate_fails_the_control ... ok
+test standalone_reference_candidate_executes_the_complete_corpus has been running for over 60 seconds
+test standalone_reference_candidate_executes_the_complete_corpus ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 87.30s
+
+     Running tests/standalone-rust-conformance-evidence.rs (target/debug/deps/standalone_rust_conformance_evidence-03242c54cb91143f)
+
+running 1 test
+test legacy_and_standalone_rust_channels_match_by_id has been running for over 60 seconds
+test legacy_and_standalone_rust_channels_match_by_id ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 252.19s
+
+     Running unittests src/lib.rs (target/debug/deps/proto_ring_engine-29dfb28ac8134231)
+
+running 40 tests
+test accepted_adr_body::git::tests::ambient_git_environment_is_removed_at_the_process_boundary ... ok
+test canonical_adr::tests::width_comparison_never_parses_the_profile_integer ... ok
+test exact_evidence_binding::tests::any_exact_admitted_class_matches ... ok
+test exact_evidence_binding::tests::context_is_ignored_when_not_required ... ok
+test exact_evidence_binding::tests::determinacy_precedes_known_mismatch ... ok
+test github_authoritative_ref_monotonicity::observation::tests::dynamic_url_path_segments_use_rfc3986_byte_encoding ... ok
+test normative_terminology::markdown::tests::whitespace_separated_closing_hashes_admit_empty_heading_text ... ok
+test normative_terminology::registry::tests::single_outer_pipe_is_rejected_without_slicing ... ok
+test normative_terminology::registry::tests::decorated_em_dash_is_not_an_expression_or_empty_list_sentinel ... ok
+test portable_pattern::tests::absent_capture_differs_from_empty_participation ... ok
+test github_authoritative_ref_monotonicity::binding::tests::ruleset_identity_uses_canonical_arbitrary_precision_integer_text ... ok
+test portable_pattern::tests::later_omission_retains_nested_capture ... ok
+test portable_pattern::tests::named_capture_aliases_positional_state ... ok
+test portable_pattern::tests::quantifier_above_u64_is_stored_exactly ... ok
+test portable_pattern::tests::unsupported_grammar_fails_closed ... ok
+test projection_registry::tests::effective_ambiguity_key_includes_target_and_binding ... ok
+test projection_registry::tests::historical_snapshot_is_excluded_from_active_collision ... ok
+test portable_pattern::tests::canonical_4301_digit_bound_is_accepted_and_pruned ... ok
+test repository_integrity::identity::tests::arbitrary_precision_exit_code_is_retained_exactly ... ok
+test repository_integrity::identity::tests::ordered_sequences_do_not_normalize ... ok
+test repository_integrity::identity::tests::unordered_sets_normalize ... ok
+test repository_integrity::selectors::tests::star_matches_only_inside_one_path_component ... ok
+test portable_pattern::tests::deeply_nested_noncapturing_groups_use_explicit_stacks ... ok
+test portable_pattern::tests::bounded_nullable_repeat_uses_heap_execution_state ... ok
+test repository_state::capture::tests::capability_regular_open_cannot_follow_final_symlink_outside_root ... ok
+test repository_state::capture::tests::observation_rejects_discovered_intermediate_symlink_escape ... ok
+test repository_state::capture::tests::observation_rejects_explicit_parent_escape_after_scope_admission ... ok
+test repository_state::git_discovery::tests::discovery_identity_decoder_does_not_trim_path_units ... ok
+test repository_state::git_discovery::tests::malformed_repeated_terminal_directory_marker_fails_closed ... ok
+test repository_state::git_discovery::tests::tracked_terminal_directory_marker_is_rejected ... ok
+test repository_state::git_discovery::tests::untracked_terminal_directory_marker_is_transport_not_identity ... ok
+test repository_state::git_environment::tests::git_trace_prefix_with_non_utf8_suffix_is_removed ... ok
+test repository_state::git_environment::tests::exact_names_and_ascii_prefixes_are_classified ... ok
+test repository_state::git_environment::tests::unix_git_environment_names_remain_case_sensitive ... ok
+test repository_state::scope::tests::exact_scope_identity_preserves_absent_direct_spelling ... ok
+test repository_state::scope::tests::routing_only_spellings_are_not_scope_identities ... ok
+test structured_data::tests::integer_grammar_never_parses_magnitude ... ok
+test repository_state::scope::tests::final_external_symlink_is_admitted_but_intermediate_escape_is_not ... ok
+test repository_state::git::tests::check_ignore_drains_output_while_large_stdin_is_written ... ok
+test repository_state::git::tests::capture_excludes_a_large_repository_ignored_tree_without_mutation ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.13s
+
+     Running tests/governance_authority_queries.rs (target/debug/deps/governance_authority_queries-b2a44f46389791bf)
+
+running 3 tests
+test role_lookup_preserves_all_three_states ... ok
+test outranking_is_strict_directional_transitive_and_scoped ... ok
+test role_sets_preserve_empty_known_and_unknown_responsibilities ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/issue121_term_structure.rs (target/debug/deps/issue121_term_structure-3f0f8b2f5e4479ba)
+
+running 3 tests
+test empty_term_structure_after_outer_pair_decoding_is_rejected ... ok
+test optional_outer_backtick_pair_is_removed ... ok
+test internal_backticks_are_preserved_in_opaque_term_structures ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/issue122_unicode_checkout.rs (target/debug/deps/issue122_unicode_checkout-01f62adc4c17bc1f)
+
+running 1 test
+test embedded_casefold_bytes_match_unicode_14_authority ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/issue64_jsonschema_dependency.rs (target/debug/deps/issue64_jsonschema_dependency-27bceee3ef255800)
+
+running 4 tests
+test arbitrary_precision_numeric_assertion_preserves_exact_value ... ok
+test offline_mode_rejects_network_and_filesystem_retrieval ... ok
+test draft_2020_12_meta_schema_and_required_keywords_are_supported ... ok
+test date_format_assertions_are_calendar_aware ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s

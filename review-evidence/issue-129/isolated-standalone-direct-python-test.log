@@ -1,0 +1,19 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.42s
+     Running tests/standalone-rust-conformance.rs (target/debug/deps/standalone_rust_conformance-dbeec1d4f4b6ef22)
+
+running 1 test
+test standalone_reference_candidate_executes_the_complete_corpus has been running for over 60 seconds
+
+thread 'standalone_reference_candidate_executes_the_complete_corpus' (420436) panicked at crates/proto-ring-conformance/tests/standalone-rust-conformance.rs:74:10:
+standalone Rust control must conform: HarnessError("observation mismatch: repository-integrity.evaluate.absent-literal")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test standalone_reference_candidate_executes_the_complete_corpus ... FAILED
+
+failures:
+
+failures:
+    standalone_reference_candidate_executes_the_complete_corpus
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 83.51s
+
+error: test failed, to rerun pass `-p proto-ring-conformance --test standalone-rust-conformance`

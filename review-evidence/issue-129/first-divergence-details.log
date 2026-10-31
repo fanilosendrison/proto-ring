@@ -1,0 +1,20 @@
+   Compiling proto-ring-conformance v0.0.0 (<worktree>/crates/proto-ring-conformance)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.37s
+     Running tests/standalone-rust-conformance.rs (target/debug/deps/standalone_rust_conformance-dbeec1d4f4b6ef22)
+
+running 1 test
+test standalone_reference_candidate_executes_the_complete_corpus has been running for over 60 seconds
+
+thread 'standalone_reference_candidate_executes_the_complete_corpus' (434042) panicked at crates/proto-ring-conformance/tests/standalone-rust-conformance.rs:74:10:
+standalone Rust control must conform: HarnessError("observation mismatch: repository-integrity.evaluate.absent-literal actual=Observation { kind: Result, value: Record([RecordEntry { name: \"executed_arguments\", value: Sequence([Sequence([String(\"absent.py\")])]) }, RecordEntry { name: \"obligations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"status\", value: String(\"VIOLATED\") }])]) }, RecordEntry { name: \"side_effects\", value: Record([RecordEntry { name: \".git/absent-argument\", value: Record([RecordEntry { name: \"present\", value: Boolean(false) }, RecordEntry { name: \"text\", value: Null(()) }]) }]) }, RecordEntry { name: \"state_relation\", value: String(\"EQUAL\") }, RecordEntry { name: \"validations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"obligations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"status\", value: String(\"VIOLATED\") }])]) }, RecordEntry { name: \"status\", value: String(\"VIOLATED\") }])]) }, RecordEntry { name: \"verdict\", value: String(\"NON_PASS\") }]) } expected=Observation { kind: Result, value: Record([RecordEntry { name: \"executed_arguments\", value: Sequence([Sequence([String(\"absent.py\")])]) }, RecordEntry { name: \"obligations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"status\", value: String(\"SATISFIED\") }])]) }, RecordEntry { name: \"side_effects\", value: Record([RecordEntry { name: \".git/absent-argument\", value: Record([RecordEntry { name: \"present\", value: Boolean(true) }, RecordEntry { name: \"text\", value: String(\"absent.py\\n\") }]) }]) }, RecordEntry { name: \"state_relation\", value: String(\"EQUAL\") }, RecordEntry { name: \"validations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"obligations\", value: Sequence([Record([RecordEntry { name: \"id\", value: String(\"literal\") }, RecordEntry { name: \"status\", value: String(\"SATISFIED\") }])]) }, RecordEntry { name: \"status\", value: String(\"SATISFIED\") }])]) }, RecordEntry { name: \"verdict\", value: String(\"PASS\") }]) }")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test standalone_reference_candidate_executes_the_complete_corpus ... FAILED
+
+failures:
+
+failures:
+    standalone_reference_candidate_executes_the_complete_corpus
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 78.74s
+
+error: test failed, to rerun pass `-p proto-ring-conformance --test standalone-rust-conformance`

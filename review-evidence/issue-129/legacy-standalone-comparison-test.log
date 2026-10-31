@@ -1,0 +1,19 @@
+   Compiling proto-ring-conformance v0.0.0 (<worktree>/crates/proto-ring-conformance)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.67s
+     Running tests/standalone-rust-conformance-evidence.rs (target/debug/deps/standalone_rust_conformance_evidence-03242c54cb91143f)
+
+running 1 test
+
+thread 'legacy_and_standalone_rust_channels_match_by_id' (468186) panicked at crates/proto-ring-conformance/tests/standalone-rust-conformance-evidence.rs:66:10:
+legacy witness environment runs: HarnessError("Python bridge failed: Traceback (most recent call last):\n  File \"<worktree>/tests/conformance_python_bridge.py\", line 8, in <module>\n    import conformance_python_adapter_63_64 as adapter_63_64\n  File \"<worktree>/tests/conformance_python_adapter_63_64.py\", line 7, in <module>\n    from proto_ring import (\nImportError: cannot import name 'accepted_adr_body' from 'proto_ring' (<ambient-site-packages>/proto_ring/__init__.py)")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test legacy_and_standalone_rust_channels_match_by_id ... FAILED
+
+failures:
+
+failures:
+    legacy_and_standalone_rust_channels_match_by_id
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.35s
+
+error: test failed, to rerun pass `-p proto-ring-conformance --test standalone-rust-conformance-evidence`

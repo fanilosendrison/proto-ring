@@ -1,0 +1,29 @@
+BASE_COMMIT=4ae1a2a549d7dae8e4cce7f727b9bc5330f3823f
+BASE_TREE=6d91505e66ef451ff25863771dd7cf44e3d2d8e8
+
+# Isolated Python environment: install fixture dependencies only.
+python3 -m venv <isolated-python>
+<isolated-python>/bin/python -m pip install 'jsonschema==4.25.1' 'PyYAML==6.0.2' 'truststore==0.10.4'
+<isolated-python>/bin/python -I <distribution-and-import-check>
+
+# Standalone control, with an audit proxy that delegates to the isolated interpreter.
+PYTHONPATH= PROTO_RING_PYTHON=<python-audit-proxy> \
+  cargo test -p proto-ring-conformance \
+  --test standalone-rust-conformance \
+  standalone_reference_candidate_executes_the_complete_corpus \
+  -- --exact --nocapture
+
+# Controlled witness environment for the legacy bridge.
+python3 -m venv <witness-python>
+<witness-python>/bin/python -m pip install <worktree>
+PROTO_RING_PYTHON=<witness-python>/bin/python \
+PROTO_RING_REVIEW_EVIDENCE_DIR=<worktree>/review-evidence/issue-129 \
+  cargo test -p proto-ring-conformance \
+  --test standalone-rust-conformance-evidence \
+  legacy_and_standalone_rust_channels_match_by_id \
+  -- --exact --nocapture
+
+# Negative controls.
+cargo test -p proto-ring-conformance \
+  --test standalone-rust-conformance \
+  -- --skip standalone_reference_candidate_executes_the_complete_corpus
