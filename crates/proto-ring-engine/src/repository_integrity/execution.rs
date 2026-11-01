@@ -10,6 +10,10 @@ pub(super) struct ProcessOutcome {
     executed: bool,
 }
 impl ProcessOutcome {
+    pub(super) fn started(&self) -> bool {
+        self.executed
+    }
+
     pub(super) fn into_result(self, obligation: &RuntimeCommandObligation) -> ObligationResult {
         ObligationResult {
             id: obligation.validation_id.clone(),

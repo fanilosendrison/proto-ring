@@ -1,79 +1,37 @@
 from __future__ import annotations
 
-import io
+import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
+import secrets
 import shutil
-import socket
-import ssl
-import subprocess
 import sys
 import tempfile
 from typing import Callable
-import urllib.error
 
 from conformance_corpus_test_support import decode_transport
+
+_POLICY_SPEC = importlib.util.spec_from_file_location(
+    "proto_ring_fixture_git_policy", Path(__file__).with_name("fixture-git-policy.py")
+)
+if _POLICY_SPEC is None or _POLICY_SPEC.loader is None:
+    raise RuntimeError("fixture Git policy cannot be loaded")
+_GIT_POLICY = importlib.util.module_from_spec(_POLICY_SPEC)
+_POLICY_SPEC.loader.exec_module(_GIT_POLICY)
+_PROVIDER_SPEC = importlib.util.spec_from_file_location(
+    "proto_ring_provider_sequence", Path(__file__).with_name("provider-sequence.py")
+)
+if _PROVIDER_SPEC is None or _PROVIDER_SPEC.loader is None:
+    raise RuntimeError("fixture provider sequence cannot be loaded")
+_PROVIDER_MODULE = importlib.util.module_from_spec(_PROVIDER_SPEC)
+_PROVIDER_SPEC.loader.exec_module(_PROVIDER_MODULE)
+ProviderSequence = _PROVIDER_MODULE.ProviderSequence
 
 
 class FixtureError(ValueError):
     pass
-
-
-class _HttpResponse:
-    def __init__(self, status: int, body: bytes) -> None:
-        self.status = status
-        self._body = body
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *_args: object) -> None:
-        return None
-
-    def read(self) -> bytes:
-        return self._body
-
-
-class ProviderSequence:
-    def __init__(self, interactions: list[dict[str, object]]) -> None:
-        self._interactions = interactions
-        self._position = 0
-
-    @property
-    def consumed(self) -> int:
-        return self._position
-
-    def urlopen(self, *_args: object, **_kwargs: object):
-        if self._position >= len(self._interactions):
-            raise FixtureError("implementation requested an unsupplied interaction")
-        interaction = self._interactions[self._position]
-        self._position += 1
-        kind = interaction["kind"]
-        if kind == "http_response":
-            return _HttpResponse(
-                int(interaction["status"]), bytes.fromhex(str(interaction["body_hex"]))
-            )
-        if kind == "http_error":
-            status = int(interaction["status"])
-            raise urllib.error.HTTPError(
-                "https://example.invalid", status, "fixture HTTP error", {}, None
-            )
-        if kind == "network_error":
-            raise urllib.error.URLError(str(interaction["message"]))
-        if kind == "tls_verification_error":
-            raise ssl.SSLCertVerificationError(1, str(interaction["message"]))
-        if kind == "timeout":
-            raise socket.timeout(str(interaction["message"]))
-        if kind == "io_error":
-            raise OSError(str(interaction["message"]))
-        raise FixtureError(f"unsupported provider interaction: {kind}")
-
-    def require_consumed(self) -> None:
-        if self._position != len(self._interactions):
-            raise FixtureError(
-                f"unused provider interactions: {len(self._interactions) - self._position}"
-            )
 
 
 def interpolate(value: object, captures: dict[str, str]) -> object:
@@ -134,19 +92,6 @@ class RealizedFixture:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(bytes.fromhex(str(binding["bytes_hex"])))
 
-    @staticmethod
-    def _git_environment(extra: dict[str, str]) -> dict[str, str]:
-        return {
-            **os.environ,
-            "GIT_AUTHOR_NAME": "Corpus Author",
-            "GIT_AUTHOR_EMAIL": "corpus@example.invalid",
-            "GIT_COMMITTER_NAME": "Corpus Committer",
-            "GIT_COMMITTER_EMAIL": "corpus@example.invalid",
-            "GIT_AUTHOR_DATE": "2001-02-03T04:05:06+0000",
-            "GIT_COMMITTER_DATE": "2001-02-03T04:05:06+0000",
-            **extra,
-        }
-
     def _path(self, relative: str) -> Path:
         assert self.root is not None
         path = self.root / relative
@@ -188,14 +133,19 @@ class RealizedFixture:
 
     def _git(self, step: dict[str, object]) -> None:
         assert self.root is not None
+        argv = [str(value) for value in step["argv"]]
+        _validate_git_arguments(argv)
+        if not isinstance(step["environment"], dict) or not all(
+            isinstance(name, str) and isinstance(value, str)
+            for name, value in step["environment"].items()
+        ):
+            raise FixtureError("Git fixture environment must contain string pairs")
+        # Fixture-supplied values are schema-checked but intentionally not inherited by Git.
         stdin_hex = step["stdin_hex"]
-        completed = subprocess.run(
-            ["git", *step["argv"]],
+        completed = _GIT_POLICY.run(
+            argv,
             cwd=self.root,
-            input=None if stdin_hex is None else bytes.fromhex(str(stdin_hex)),
-            env=self._git_environment(step["environment"]),
-            capture_output=True,
-            check=False,
+            input_bytes=None if stdin_hex is None else bytes.fromhex(str(stdin_hex)),
         )
         if completed.returncode:
             raise FixtureError(completed.stderr.decode("utf-8", errors="replace"))
@@ -254,14 +204,6 @@ COMMAND_ACTIONS = frozenset({
 })
 
 
-def command_argv(action: dict[str, object]) -> tuple[str, ...]:
-    """Return the checked-in CLI realization of one language-neutral action."""
-    if action.get("action") not in COMMAND_ACTIONS:
-        raise FixtureError(f"unsupported command action: {action.get('action')}")
-    payload = json.dumps(action, ensure_ascii=False, sort_keys=True).encode("utf-8").hex()
-    return (sys.executable, "-B", os.fspath(Path(__file__).resolve()), "--command-action", payload)
-
-
 def _action_path(value: object) -> Path:
     root = Path.cwd().resolve()
     path = (root / str(value)).resolve(strict=False)
@@ -272,15 +214,42 @@ def _action_path(value: object) -> Path:
     return path
 
 
+def _validate_git_arguments(arguments: list[str]) -> None:
+    if not _GIT_POLICY.allowed(arguments):
+        raise FixtureError(
+            f"Git fixture arguments are not allowed by the corpus surface: {tuple(arguments)!r}"
+        )
+
+
 def _run_command_action(action: dict[str, object], arguments: list[str]) -> int:
     kind = str(action["action"])
+    if kind == "abnormal_termination":
+        os.abort()
+    if kind not in COMMAND_ACTIONS:
+        raise FixtureError(f"unsupported command action: {kind}")
     if kind == "exit":
-        return int(action["code"])
+        code = int(action["code"])
+        if not 0 <= code <= 255:
+            raise FixtureError("exit code is outside the process range")
+        return code
     if kind == "git":
-        return subprocess.run(
-            ["git", *(str(item) for item in action["argv"]), *arguments],
-            capture_output=True,
-            check=False,
+        git_arguments = [*(str(item) for item in action["argv"]), *arguments]
+        _validate_git_arguments(git_arguments)
+        executable = Path(str(action["_fixture_git_executable"]))
+        trusted_environment = action["_fixture_git_environment"]
+        if (
+            not executable.is_absolute()
+            or not executable.is_file()
+            or not isinstance(trusted_environment, dict)
+            or not all(isinstance(key, str) and isinstance(value, str)
+                       for key, value in trusted_environment.items())
+        ):
+            raise FixtureError("fixture Git execution identity is invalid")
+        return _GIT_POLICY.run(
+            git_arguments,
+            cwd=Path.cwd(),
+            git_executable=executable,
+            trusted_environment=trusted_environment,
         ).returncode
     if kind == "assert_environment":
         required = action["required"]
@@ -292,12 +261,14 @@ def _run_command_action(action: dict[str, object], arguments: list[str]) -> int:
         index = int(action["argument_index"])
         try:
             raw = _action_path(arguments[index]).read_text(encoding="utf-8").strip()
-        except (IndexError, OSError, UnicodeError):
-            return 125
+        except (IndexError, OSError, UnicodeError) as error:
+            raise FixtureError("integer-file action arguments are invalid") from error
         if not raw.isascii() or not raw.isdecimal() or (len(raw) > 1 and raw.startswith("0")):
-            return 125
+            raise FixtureError("integer-file action content is invalid")
         code = int(raw)
-        return code if 0 <= code <= 255 else 125
+        if not 0 <= code <= 255:
+            raise FixtureError("integer-file action code is outside the process range")
+        return code
     path = _action_path(action["path"])
     if kind == "record_arguments_utf8":
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -322,18 +293,72 @@ def _run_command_action(action: dict[str, object], arguments: list[str]) -> int:
     return 0
 
 
+def _write_completion_receipt(
+    directory: Path,
+    request_identity: str,
+    action_identity: str,
+    action_digest: str,
+    return_code: int,
+) -> None:
+    if not directory.is_dir() or directory.resolve().is_relative_to(Path.cwd().resolve()):
+        raise FixtureError("receipt directory must be a private external directory")
+    receipt = {
+        "schema_version": 1,
+        "completion": "completed",
+        "request_identity": request_identity,
+        "action_identity": action_identity,
+        "action_digest": action_digest,
+        "return_code": return_code,
+    }
+    suffix = secrets.token_hex(16)
+    temporary = directory / f".{action_identity}.{suffix}.tmp"
+    completed = directory / f"{action_identity}.{suffix}.json"
+    try:
+        with temporary.open("x", encoding="utf-8") as stream:
+            json.dump(receipt, stream, sort_keys=True, separators=(",", ":"))
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, completed)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+
+
+def _execute_receipt_bound_action(arguments: list[str]) -> int:
+    flags = (
+        "--command-action",
+        "--receipt-directory",
+        "--request-identity",
+        "--action-identity",
+        "--action-digest",
+    )
+    if len(arguments) < 11 or tuple(arguments[0:10:2]) != flags or arguments[10] != "--":
+        raise FixtureError("command action internal arguments are malformed")
+    payload = bytes.fromhex(arguments[1])
+    digest = hashlib.sha256(payload).hexdigest()
+    if digest != arguments[9]:
+        raise FixtureError("command action digest is invalid")
+    action = json.loads(payload.decode("utf-8"))
+    if not isinstance(action, dict):
+        raise FixtureError("command action must be an object")
+    if action.get("action") == "receipt_write_failure":
+        return_code = 0
+        shutil.rmtree(Path(arguments[3]))
+    else:
+        return_code = _run_command_action(action, arguments[11:])
+    _write_completion_receipt(
+        Path(arguments[3]), arguments[5], arguments[7], digest, return_code
+    )
+    return return_code
+
+
 def materialize(fixture: dict[str, object]) -> RealizedFixture:
     return RealizedFixture(fixture)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3 or sys.argv[1] != "--command-action":
-        raise SystemExit(125)
     try:
-        decoded = bytes.fromhex(sys.argv[2]).decode("utf-8")
-        action = json.loads(decoded)
-        if not isinstance(action, dict):
-            raise FixtureError("command action must be an object")
-        raise SystemExit(_run_command_action(action, sys.argv[3:]))
-    except (FixtureError, ValueError, KeyError, TypeError):
+        raise SystemExit(_execute_receipt_bound_action(sys.argv[1:]))
+    except (FixtureError, OSError, UnicodeError, ValueError, KeyError, TypeError):
         raise SystemExit(125)

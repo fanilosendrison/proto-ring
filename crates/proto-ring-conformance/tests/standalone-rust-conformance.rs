@@ -69,6 +69,17 @@ fn request_by_id(corpus: &LoadedCorpus, vector_id: &str) -> CandidateRequest {
         .expect("requested corpus vector must exist")
 }
 
+fn expected_by_id(corpus: &LoadedCorpus, vector_id: &str) -> Observation {
+    corpus
+        .matrices
+        .iter()
+        .flat_map(|matrix| &matrix.vectors)
+        .find(|vector| vector.vector_id == vector_id)
+        .expect("expected corpus vector must exist")
+        .expected_observation
+        .observation()
+}
+
 fn record_entry_value_mut<'a>(
     value: &'a mut serde_json::Value,
     name: &str,
@@ -95,6 +106,40 @@ fn synthetic_execution(state: CandidateState) -> CandidateExecution {
         responsibility_id: "synthetic.responsibility".to_owned(),
         vector_id: "synthetic.vector".to_owned(),
         state,
+    }
+}
+
+fn replace_first_runtime_action(
+    request: &mut CandidateRequest,
+    action: &str,
+    parameters: &[(&str, serde_json::Value)],
+) {
+    let actions = record_entry_value_mut(&mut request.fixture["invocation"], "actions");
+    let first = actions["value"]
+        .as_array_mut()
+        .expect("actions transport value must be a sequence")
+        .first_mut()
+        .expect("continue-false has a first action");
+    let entries = first["value"]
+        .as_array_mut()
+        .expect("action transport value must be a record");
+    entries.retain(|entry| matches!(entry["name"].as_str(), Some("action" | "id")));
+    let action_entry = entries
+        .iter_mut()
+        .find(|entry| entry["name"] == "action")
+        .expect("action entry exists");
+    action_entry["value"]["value"] = serde_json::Value::String(action.to_owned());
+    for (name, value) in parameters {
+        let typed = match value {
+            serde_json::Value::Number(number) => {
+                serde_json::json!({"type": "integer", "value": number.to_string()})
+            }
+            serde_json::Value::String(text) => {
+                serde_json::json!({"type": "string", "value": text})
+            }
+            _ => panic!("synthetic action parameter must be integer or string"),
+        };
+        entries.push(serde_json::json!({"name": name, "value": typed}));
     }
 }
 
@@ -223,4 +268,57 @@ fn fixture_preparation_failure_remains_a_harness_error() {
     let error = run_standalone(&corpus, &ReferenceRustCandidate)
         .expect_err("fixture failure must not become a semantic rejection");
     assert!(!error.to_string().contains("observation mismatch"));
+}
+
+#[test]
+fn receipt_bound_continue_false_preserves_exit_seven_and_skips_the_second_action() {
+    let corpus = load_corpus(&repository_root()).expect("published corpus loads");
+    let request = request_by_id(&corpus, "repository-integrity.evaluate.continue-false");
+    let state = ReferenceRustCandidate
+        .execute(&request)
+        .expect("legitimate exit 7 must retain its semantic observation");
+    assert_eq!(
+        state,
+        CandidateState::Observation(expected_by_id(
+            &corpus,
+            "repository-integrity.evaluate.continue-false",
+        ))
+    );
+
+    let mut legitimate_125 = request;
+    replace_first_runtime_action(
+        &mut legitimate_125,
+        "exit",
+        &[("code", serde_json::json!(125))],
+    );
+    assert!(matches!(
+        ReferenceRustCandidate.execute(&legitimate_125),
+        Ok(CandidateState::Observation(_))
+    ));
+}
+
+#[test]
+fn command_runner_failures_after_start_remain_harness_errors() {
+    let corpus = load_corpus(&repository_root()).expect("published corpus loads");
+    let cases = [
+        ("unsupported", "unsupported_action", Vec::new()),
+        (
+            "malformed historical 125",
+            "exit_code_from_utf8_integer_file_argument",
+            vec![("argument_index", serde_json::json!(0))],
+        ),
+        ("abnormal termination", "abnormal_termination", Vec::new()),
+        ("receipt write failure", "receipt_write_failure", Vec::new()),
+    ];
+    for (label, action, parameters) in cases {
+        let mut request = request_by_id(&corpus, "repository-integrity.evaluate.continue-false");
+        replace_first_runtime_action(&mut request, action, &parameters);
+        let error = ReferenceRustCandidate
+            .execute(&request)
+            .expect_err("command runner failure must escape as a harness error");
+        assert!(
+            error.to_string().contains("receipt"),
+            "{label} produced unexpected error: {error}"
+        );
+    }
 }

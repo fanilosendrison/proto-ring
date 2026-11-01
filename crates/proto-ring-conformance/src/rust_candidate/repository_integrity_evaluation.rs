@@ -13,6 +13,7 @@ use proto_ring_engine::repository_integrity::{self, CommandBinding, ConsumerInte
 use proto_ring_engine::repository_state::{self, StateCaptureError};
 use serde::Deserialize;
 use serde_json::{Map, Value};
+use super::super::action_receipts::ActionReceiptChannel;
 use super::super::transport::{fixture_failure, record, result, string_value};
 use crate::fixture;
 use crate::model::{Observation, RecordEntry, TransportValue};
@@ -69,13 +70,14 @@ pub(crate) fn execute(value: &Value) -> R<Observation> {
 }
 
 fn evaluate_runtime(root: &Path, invocation: Invocation, fault: Option<&Map<String, Value>>) -> R<Observation> {
+    let mut receipts = ActionReceiptChannel::new(root)?;
     let validations = invocation.actions.iter().map(|action| {
         let mut command_action = action.parameters.clone();
         command_action.insert("action".to_owned(), Value::String(action.action.clone()));
         let id = action.id.clone();
         Ok(RuntimeValidation { id: id.clone(), prerequisites: BTreeSet::new(),
             obligations: vec![RuntimeCommandObligation { validation_id: id,
-                command_prefix: action_command(Value::Object(command_action))?, arguments: Vec::new(),
+                command_prefix: action_command(Value::Object(command_action), &mut receipts)?, arguments: Vec::new(),
                 undetermined_exit_codes: integer_set(&action.undetermined_exit_codes)?,
                 process_environment: Some(BTreeMap::new()) }], resolution_failed: false })
     }).collect::<R<Vec<_>>>()?;
@@ -83,7 +85,8 @@ fn evaluate_runtime(root: &Path, invocation: Invocation, fault: Option<&Map<Stri
         validations, identity: ProfileIdentity(b"corpus runtime profile".to_vec()), governed_paths: Vec::new(),
         resolution_state_identity: None };
     let outcome = evaluate_with_fault(root, &profile, EvaluationContextIdentity(b"corpus".to_vec()),
-        fault, &BTreeMap::new())?;
+        fault, &BTreeMap::new(), &mut receipts)?;
+    receipts.validate(&profile, &outcome)?;
     let marker = invocation.marker_path.unwrap_or_else(|| "__none__".to_owned());
     let qualified = invocation.qualified_execution_observation;
     let mut values = vec![
@@ -101,14 +104,16 @@ fn evaluate_consumer(root: &Path, invocation: Invocation, fault: Option<&Map<Str
         .ok_or_else(|| fixture_failure("consumer profile is required"))?)?;
     let mut evaluations = Vec::new(); let mut identities = Vec::new(); let mut names = Vec::new();
     for context_fixture in invocation.contexts {
-        let context = evaluation_context(context_fixture.realizations)?;
+        let mut receipts = ActionReceiptChannel::new(root)?;
+        let context = evaluation_context(context_fixture.realizations, &mut receipts)?;
         let realized = if fault_kind(fault) == Some("repository_path_discovery_unavailable") {
             conformance_internal::realize_with_discovery(root, &profile, &context, |_, _| {
                 Err(StateCaptureError::new("fixture discovery unavailable")) })
         } else { repository_integrity::realize_consumer_profile(root, &profile, &context) }
             .map_err(|error| fixture_failure(error.to_string()))?;
         let outcome = evaluate_with_fault(root, &realized.profile, realized.evaluation_context_identity.clone(),
-            fault, &invocation.ambient_environment)?;
+            fault, &invocation.ambient_environment, &mut receipts)?;
+        receipts.validate(&realized.profile, &outcome)?;
         names.push(context_fixture.name); identities.push(outcome.evaluation_context_identity.clone());
         evaluations.push(consumer_value(root, &realized.profile, &outcome, &invocation.observe_paths)?);
     }
@@ -123,10 +128,11 @@ fn evaluate_consumer(root: &Path, invocation: Invocation, fault: Option<&Map<Str
 }
 
 fn evaluate_with_fault(root: &Path, profile: &IntegrityProfile, identity: EvaluationContextIdentity,
-    fault: Option<&Map<String, Value>>, ambient: &BTreeMap<String, String>) -> R<IntegrityResult>
+    fault: Option<&Map<String, Value>>, ambient: &BTreeMap<String, String>,
+    receipts: &mut ActionReceiptChannel) -> R<IntegrityResult>
 {
     let kind = fault_kind(fault); let mutation = fault.and_then(|value| value.get("mutation")).cloned();
-    Ok(conformance_internal::evaluate_with_capture_and_ambient(root, profile, identity,
+    Ok(conformance_internal::evaluate_with_execution_observer(root, profile, identity,
         |phase, repository, scope| {
             use conformance_internal::CapturePhase::{Baseline, PostObligation, PreObligation};
             if (kind == Some("repository_state_unavailable_before_obligation") && phase == PreObligation)
@@ -138,7 +144,7 @@ fn evaluate_with_fault(root: &Path, profile: &IntegrityProfile, identity: Evalua
                 apply_mutation(repository, mutation).map_err(|error| StateCaptureError::new(error.to_string()))?;
             }
             Ok(state)
-        }, ambient))
+        }, ambient, |obligation, started| receipts.observe_execution(obligation, started)))
 }
 
 fn consumer_profile(root: &Path, profile: ProfileFixture) -> R<ConsumerIntegrityProfile> {
@@ -171,10 +177,11 @@ fn consumer_profile(root: &Path, profile: ProfileFixture) -> R<ConsumerIntegrity
     })
 }
 
-fn evaluation_context(values: BTreeMap<String, RealizationFixture>) -> R<EvaluationContext> {
+fn evaluation_context(values: BTreeMap<String, RealizationFixture>,
+    receipts: &mut ActionReceiptChannel) -> R<EvaluationContext> {
     let realizations = values.into_iter().map(|(environment_id, item)| {
         let command_prefix = match (item.action, item.command_prefix) {
-            (Some(action), None) => action_command(action)?, (None, Some(prefix)) => prefix,
+            (Some(action), None) => action_command(action, receipts)?, (None, Some(prefix)) => prefix,
             _ => return Err(fixture_failure("realization requires one command form")),
         };
         Ok((environment_id.clone(), ValidationEnvironmentRealization { environment_id,
@@ -225,12 +232,25 @@ fn validation_value(item: &repository_integrity::ValidationResult) -> TransportV
         ("status", string_value(item.status.serialized()))])
 }
 
-fn action_command(action: Value) -> R<Vec<String>> {
-    let payload = serde_json::to_vec(&action).map_err(|error| fixture_failure(error.to_string()))?;
-    Ok(vec![python_executable()?, "-B".to_owned(), repository_root()
-        .join("tests/conformance_fixture_runner.py").into_os_string().into_string()
-        .map_err(|_| fixture_failure("fixture runner path is not UTF-8"))?,
-        "--command-action".to_owned(), payload.iter().map(|byte| format!("{byte:02x}")).collect()])
+fn action_command(mut action: Value, receipts: &mut ActionReceiptChannel) -> R<Vec<String>> {
+    if action.get("action").and_then(Value::as_str) == Some("git") {
+        let object = action.as_object_mut()
+            .ok_or_else(|| fixture_failure("command action must be an object"))?;
+        object.insert("_fixture_git_executable".to_owned(), Value::String(resolve_program("git")?));
+        let mut environment = Map::new();
+        for name in ["PATH", "SYSTEMROOT", "WINDIR", "PATHEXT", "COMSPEC"] {
+            if let Some(value) = std::env::var_os(name) {
+                environment.insert(name.to_owned(), Value::String(value.into_string()
+                    .map_err(|_| fixture_failure("trusted fixture environment is not UTF-8"))?));
+            }
+        }
+        object.insert("_fixture_git_environment".to_owned(), Value::Object(environment));
+    }
+    receipts.command(
+        &action,
+        python_executable()?,
+        &repository_root().join("tests/conformance_fixture_runner.py"),
+    )
 }
 fn python_executable() -> R<String> {
     let configured = std::env::var_os("PROTO_RING_PYTHON").unwrap_or_else(|| "python3".into());
@@ -239,6 +259,31 @@ fn python_executable() -> R<String> {
         std::env::var_os("PATH").into_iter().flat_map(|value| std::env::split_paths(&value).collect::<Vec<_>>())
             .map(|directory| directory.join(&path)).find(|candidate| candidate.is_file()).unwrap_or(path) };
     resolved.into_os_string().into_string().map_err(|_| fixture_failure("Python executable path is not UTF-8"))
+}
+fn resolve_program(name: &str) -> R<String> {
+    let path = std::env::var_os("PATH").ok_or_else(|| fixture_failure("trusted fixture PATH is unavailable"))?;
+    let names = vec![name.to_owned()];
+    #[cfg(windows)]
+    let names = {
+        let mut names = names;
+        if Path::new(name).extension().is_none() {
+            names.extend(std::env::var("PATHEXT").unwrap_or_else(|_| ".EXE;.CMD;.BAT;.COM".to_owned())
+                .split(';').filter(|extension| !extension.is_empty())
+                .map(|extension| format!("{name}{extension}")));
+        }
+        names
+    };
+    for directory in std::env::split_paths(&path) {
+        for candidate_name in &names {
+            let candidate = directory.join(candidate_name);
+            if candidate.is_file() {
+                return candidate.canonicalize().map_err(|error| fixture_failure(error.to_string()))?
+                    .into_os_string().into_string()
+                    .map_err(|_| fixture_failure("Git executable path is not UTF-8"));
+            }
+        }
+    }
+    Err(fixture_failure("Git executable is unavailable"))
 }
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).parent().and_then(Path::parent)

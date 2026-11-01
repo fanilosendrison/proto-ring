@@ -85,6 +85,27 @@ fn fixture_failure_escapes_as_harness_error() {
 }
 
 #[test]
+fn fixture_git_rejects_options_outside_the_corpus_surface() {
+    let error = match fixture::materialize(&json!({
+        "kind": "repository_plan",
+        "environment": {},
+        "faults": [],
+        "steps": [{
+            "op": "git",
+            "argv": ["--version"],
+            "stdin_hex": null,
+            "environment": {},
+            "capture_stdout_as": null
+        }],
+        "invocation": {"type": "null", "value": null}
+    })) {
+        Err(error) => error,
+        Ok(_) => panic!("non-corpus Git options must fail before execution"),
+    };
+    assert!(error.to_string().contains("not allowed"));
+}
+
+#[test]
 fn absolute_contained_fixture_materializes_with_bound_capture() {
     let corpus = load_corpus(&root()).unwrap();
     let (_, vector) = vector(

@@ -1,6 +1,8 @@
 #![forbid(unsafe_code)]
 
 mod accepted_adr_body;
+#[path = "rust_candidate/action-receipts.rs"]
+mod action_receipts;
 mod adr_metadata;
 mod authority_objects;
 mod canonical_adr;

@@ -1,5 +1,7 @@
 #![forbid(unsafe_code)]
 
+#[path = "fixture-git.rs"]
+mod fixture_git;
 mod platform;
 
 use crate::model::{RecordEntry, TransportValue};
@@ -9,9 +11,7 @@ use std::collections::HashMap;
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::fs;
-use std::io::Write;
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
 use tempfile::TempDir;
 
 #[derive(Debug)]
@@ -256,49 +256,16 @@ fn apply_git_step(
     let environment = required(object, "environment")?
         .as_object()
         .ok_or_else(|| failure("git environment must be a mapping"))?;
+    if environment.values().any(|value| !value.is_string()) {
+        return Err(failure("git environment values must be strings"));
+    }
+    // Fixture-supplied values are schema-checked but intentionally not inherited by Git.
     let capture = nullable_string(object, "capture_stdout_as")?;
     if capture.is_some_and(str::is_empty) {
         return Err(failure("git capture_stdout_as must be nonempty"));
     }
 
-    let mut command = Command::new("git");
-    command
-        .arg("-c")
-        .arg("core.autocrlf=false")
-        .current_dir(root)
-        .args(argv)
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped());
-    for (name, value) in git_environment() {
-        command.env(name, value);
-    }
-    for (name, value) in environment {
-        command.env(
-            name,
-            value
-                .as_str()
-                .ok_or_else(|| failure("git environment values must be strings"))?,
-        );
-    }
-    command.stdin(if stdin.is_some() {
-        Stdio::piped()
-    } else {
-        Stdio::null()
-    });
-    let mut child = command
-        .spawn()
-        .map_err(|error| failure(format!("git execution failed: {error}")))?;
-    if let Some(bytes) = stdin {
-        child
-            .stdin
-            .take()
-            .ok_or_else(|| failure("git stdin was unavailable"))?
-            .write_all(&bytes)
-            .map_err(|error| failure(format!("git stdin failed: {error}")))?;
-    }
-    let output = child
-        .wait_with_output()
-        .map_err(|error| failure(format!("git execution failed: {error}")))?;
+    let output = fixture_git::execute(root, &argv, stdin.as_deref())?;
     if !output.status.success() {
         return Err(failure(format!(
             "git failed: {}",
@@ -341,17 +308,6 @@ fn decode_hex(value: &str) -> Result<Vec<u8>, FixtureError> {
             u8::from_str_radix(text, 16).map_err(|_| failure("invalid hex input"))
         })
         .collect()
-}
-
-fn git_environment() -> [(&'static str, &'static str); 6] {
-    [
-        ("GIT_AUTHOR_NAME", "Corpus Author"),
-        ("GIT_AUTHOR_EMAIL", "corpus@example.invalid"),
-        ("GIT_COMMITTER_NAME", "Corpus Committer"),
-        ("GIT_COMMITTER_EMAIL", "corpus@example.invalid"),
-        ("GIT_AUTHOR_DATE", "2001-02-03T04:05:06+0000"),
-        ("GIT_COMMITTER_DATE", "2001-02-03T04:05:06+0000"),
-    ]
 }
 
 pub(crate) fn decode_transport(value: &Value) -> Result<TransportValue, FixtureError> {

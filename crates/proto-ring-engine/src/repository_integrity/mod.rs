@@ -44,11 +44,33 @@ pub mod conformance_internal {
         repository: &Path,
         profile: &IntegrityProfile,
         evaluation_context_identity: EvaluationContextIdentity,
-        mut capture: C,
+        capture: C,
         ambient_seed: &BTreeMap<String, String>,
     ) -> IntegrityResult
     where
         C: FnMut(CapturePhase, &Path, &[PathBuf]) -> Result<RepositoryState, StateCaptureError>,
+    {
+        evaluate_with_execution_observer(
+            repository,
+            profile,
+            evaluation_context_identity,
+            capture,
+            ambient_seed,
+            |_, _| {},
+        )
+    }
+
+    pub fn evaluate_with_execution_observer<C, O>(
+        repository: &Path,
+        profile: &IntegrityProfile,
+        evaluation_context_identity: EvaluationContextIdentity,
+        mut capture: C,
+        ambient_seed: &BTreeMap<String, String>,
+        mut observe_execution: O,
+    ) -> IntegrityResult
+    where
+        C: FnMut(CapturePhase, &Path, &[PathBuf]) -> Result<RepositoryState, StateCaptureError>,
+        O: FnMut(&RuntimeCommandObligation, bool),
     {
         evaluate::evaluate_with(
             repository,
@@ -63,7 +85,9 @@ pub mod conformance_internal {
                 capture(phase, root, scope)
             },
             |root: &Path, obligation: &RuntimeCommandObligation| {
-                execution::execute_with_ambient(root, obligation, ambient_seed)
+                let outcome = execution::execute_with_ambient(root, obligation, ambient_seed);
+                observe_execution(obligation, outcome.started());
+                outcome
             },
         )
     }
