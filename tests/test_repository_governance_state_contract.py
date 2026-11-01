@@ -10,7 +10,6 @@ EXTRACTION = (
     ROOT / "docs" / "bootstrap" / "repository-governance-state-extraction.md"
 )
 README = ROOT / "README.md"
-PRODUCTION = ROOT / "src" / "proto_ring"
 
 
 class RepositoryGovernanceStateContractTests(unittest.TestCase):

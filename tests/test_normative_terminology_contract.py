@@ -5,14 +5,6 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "normative-terminology.md"
 EXTRACTION = ROOT / "docs" / "bootstrap" / "normative-terminology-extraction.md"
-IMPLEMENTATIONS = (
-    ROOT / "src" / "proto_ring" / "_normative_terminology_unicode.py",
-    ROOT / "src" / "proto_ring" / "normative_terminology.py",
-    ROOT / "src" / "proto_ring" / "normative_terminology_matching.py",
-    ROOT / "src" / "proto_ring" / "normative_terminology_inventory.py",
-)
-
-
 class NormativeTerminologyContractTests(unittest.TestCase):
     def test_contract_preserves_non_proof_and_consumer_authority_boundaries(self) -> None:
         contract = CONTRACT.read_text(encoding="utf-8")
@@ -42,35 +34,12 @@ class NormativeTerminologyContractTests(unittest.TestCase):
             self.assertIn(disposition, extraction)
         self.assertIn("No candidate remains `UNRESOLVED`", extraction)
 
-    def test_shared_implementation_contains_no_consumer_policy(self) -> None:
-        implementation = "\n".join(
-            path.read_text(encoding="utf-8") for path in IMPLEMENTATIONS
-        )
-        forbidden = (
-            "Turnlock",
-            "Ruu",
-            "Section 2",
-            "turnlock-spec.md",
-            "terminology-inventory.yaml",
-            "TL-INV",
-            '"intent"',
-            '"obligation"',
-            '"implication"',
-            '"synopsis"',
-        )
-        for value in forbidden:
-            with self.subTest(value=value):
-                self.assertNotIn(value, implementation)
-
-    def test_readme_links_contract_and_package_has_feature_version(self) -> None:
+    def test_readme_links_contract(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        project = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-
         self.assertIn(
             "[Normative Terminology](docs/contracts/normative-terminology.md)",
             readme,
         )
-        self.assertIn('version = "0.17.0"', project)
 
 
 if __name__ == "__main__":

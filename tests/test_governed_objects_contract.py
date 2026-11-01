@@ -4,13 +4,11 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "governed-objects.md"
-IMPLEMENTATION = ROOT / "src" / "proto_ring" / "governed_objects.py"
 
 
 class GovernedObjectsContractTests(unittest.TestCase):
-    def test_contract_and_implementation_exist(self) -> None:
+    def test_contract_exists(self) -> None:
         self.assertTrue(CONTRACT.is_file())
-        self.assertTrue(IMPLEMENTATION.is_file())
 
     def test_contract_preserves_core_identity_and_shape_boundary(self) -> None:
         contract = " ".join(CONTRACT.read_text(encoding="utf-8").split())
@@ -57,12 +55,6 @@ class GovernedObjectsContractTests(unittest.TestCase):
         ):
             with self.subTest(excluded=excluded):
                 self.assertIn(excluded, contract)
-
-    def test_implementation_contains_no_consumer_vocabulary(self) -> None:
-        implementation = IMPLEMENTATION.read_text(encoding="utf-8")
-        for forbidden in ("Turnlock", "Ruu", "TL-INV", "TL-CLAIM", "ADR-"):
-            with self.subTest(forbidden=forbidden):
-                self.assertNotIn(forbidden, implementation)
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@ CONTRACT = ROOT / "docs" / "contracts" / "canonical-governance-routing.md"
 EXTRACTION = (
     ROOT / "docs" / "bootstrap" / "canonical-governance-routing-extraction.md"
 )
-IMPLEMENTATION = ROOT / "src" / "proto_ring" / "governance_routing.py"
 
 
 class GovernanceRoutingContractTests(unittest.TestCase):
@@ -79,23 +78,6 @@ class GovernanceRoutingContractTests(unittest.TestCase):
         self.assertIn("convention", contract)
         self.assertIn("fallback", contract)
 
-    def test_implementation_contains_no_consumer_specific_vocabulary(self) -> None:
-        implementation = IMPLEMENTATION.read_text(encoding="utf-8")
-        forbidden = (
-            "Turnlock",
-            "Ruu",
-            "AGENTS.md",
-            "repository_governance",
-            "architecture_decisions",
-            "profile_path",
-            "shared_governance_provider",
-            "binding_path",
-        )
-
-        for value in forbidden:
-            with self.subTest(value=value):
-                self.assertNotIn(value, implementation)
-
     def test_readme_links_contract_and_extraction_record(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
 
@@ -109,11 +91,6 @@ class GovernanceRoutingContractTests(unittest.TestCase):
             "(docs/bootstrap/canonical-governance-routing-extraction.md)",
             readme,
         )
-
-    def test_package_version_is_0_17_0(self) -> None:
-        project = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-
-        self.assertIn('version = "0.17.0"', project)
 
 
 if __name__ == "__main__":

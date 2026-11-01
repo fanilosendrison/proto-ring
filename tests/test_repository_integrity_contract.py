@@ -6,16 +6,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "repository-integrity.md"
-MODEL = ROOT / "src" / "proto_ring" / "repository_integrity.py"
-EVALUATION = ROOT / "src" / "proto_ring" / "repository_integrity_evaluation.py"
 
 
 class RepositoryIntegrityContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.contract = CONTRACT.read_text(encoding="utf-8")
-        cls.model = MODEL.read_text(encoding="utf-8")
-        cls.evaluation = EVALUATION.read_text(encoding="utf-8")
 
     def test_contract_defines_one_persistent_model_version_one_profile(self) -> None:
         required = (
@@ -80,8 +76,6 @@ class RepositoryIntegrityContractTests(unittest.TestCase):
         for text in required:
             with self.subTest(text=text):
                 self.assertIn(text, self.contract)
-        self.assertNotIn("sys.executable", self.model)
-        self.assertIn("_context_identity", self.evaluation)
 
     def test_exact_state_requires_unambiguous_binding_without_hiding_obligation_drift(self) -> None:
         normalized = " ".join(self.contract.split())
@@ -102,28 +96,6 @@ class RepositoryIntegrityContractTests(unittest.TestCase):
             "inherits RepositoryState's mutation-isolation requirement",
             normalized,
         )
-
-    def test_implementation_exposes_persistent_profile_without_new_statuses(self) -> None:
-        required = (
-            "class ConsumerIntegrityProfile:",
-            "class ValidationEnvironmentRealization:",
-            "class EvaluationContext:",
-            "def load(",
-            "def evaluate_consumer_profile(",
-            "evaluation_context_identity: str",
-        )
-        combined = self.model + self.evaluation
-        for text in required:
-            with self.subTest(text=text):
-                self.assertIn(text, combined)
-        for forbidden in ("NOT_APPLICABLE", "SKIPPED", "EMPTY"):
-            self.assertNotIn(forbidden, combined)
-
-    def test_implementation_keeps_profile_loading_separate_from_execution(self) -> None:
-        load_region = self.model[self.model.index("def load(") :]
-        self.assertNotIn("subprocess.run", load_region)
-        self.assertNotIn("subprocess", self.model)
-        self.assertIn("subprocess.run", self.evaluation)
 
 
 if __name__ == "__main__":

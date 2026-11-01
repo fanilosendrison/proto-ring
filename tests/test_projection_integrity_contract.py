@@ -5,7 +5,6 @@ import unittest
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = Path("docs/contracts/projection-integrity.md")
 INVENTORY = Path("docs/bootstrap/projection-integrity-extraction.md")
-IMPLEMENTATION = Path("src/proto_ring/projection_registry.py")
 
 
 class ProjectionIntegrityContractTests(unittest.TestCase):
@@ -91,19 +90,6 @@ class ProjectionIntegrityContractTests(unittest.TestCase):
         for requirement in requirements:
             with self.subTest(requirement=requirement):
                 self.assertIn(requirement, contract)
-
-    def test_registry_implementation_has_no_execution_or_install_mechanism(self) -> None:
-        implementation = self.read(IMPLEMENTATION)
-        for forbidden in (
-            "subprocess",
-            "sys.executable",
-            "pip",
-            "requirements.txt",
-            "virtualenv",
-            "sha256",
-        ):
-            with self.subTest(forbidden=forbidden):
-                self.assertNotIn(forbidden, implementation)
 
     def test_inventory_is_turnlock_first_and_ruu_confronted(self) -> None:
         inventory = self.read(INVENTORY)

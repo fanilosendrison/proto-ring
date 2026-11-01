@@ -1,13 +1,10 @@
 from __future__ import annotations
 
-import ast
 from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "evidence-requirements.md"
-IMPLEMENTATION = ROOT / "src" / "proto_ring" / "evidence_requirements.py"
-EXACT_IMPLEMENTATION = ROOT / "src" / "proto_ring" / "exact_evidence_binding.py"
 EXACT_CONTRACT = ROOT / "docs" / "contracts" / "exact-evidence-binding.md"
 README = ROOT / "README.md"
 
@@ -16,7 +13,6 @@ class EvidenceRequirementsContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.contract = CONTRACT.read_text(encoding="utf-8")
-        cls.implementation = IMPLEMENTATION.read_text(encoding="utf-8")
 
     def test_contract_has_exact_identity_and_frontmatter(self) -> None:
         expected = """---
@@ -71,61 +67,21 @@ name: "Canonical Evidence Requirements contract"
             with self.subTest(text=text):
                 self.assertIn(text, self.contract)
 
-    def test_contract_confronts_both_consumers_without_production_vocabulary(self) -> None:
+    def test_contract_confronts_both_consumers(self) -> None:
         self.assertIn("Turnlock Gate A", self.contract)
         self.assertIn("Ruu post-baseline", self.contract)
-        for term in ("Turnlock", "Ruu", "Gate A", "qualification", "SHA-256"):
-            with self.subTest(term=term):
-                self.assertNotIn(term, self.implementation)
 
-    def test_implementation_is_loader_not_evaluator_or_extractor(self) -> None:
-        tree = ast.parse(self.implementation)
-        imported_modules = {
-            node.module
-            for node in ast.walk(tree)
-            if isinstance(node, ast.ImportFrom) and node.module
-        }
-        self.assertNotIn("proto_ring.exact_evidence_binding", imported_modules)
-        for forbidden in (
-            "BindingStatus",
-            "RequirementInstanceId",
-            "any_match",
-            "all_match",
-            "latest_wins",
-            "sha256",
-            "subprocess",
-        ):
-            self.assertNotIn(forbidden, self.implementation)
-
-    def test_exact_evidence_binding_sources_are_unchanged_by_new_contract(self) -> None:
-        self.assertTrue(EXACT_IMPLEMENTATION.is_file())
+    def test_exact_evidence_binding_contract_remains_separate(self) -> None:
         self.assertTrue(EXACT_CONTRACT.is_file())
-        self.assertNotIn("evidence_requirements", EXACT_IMPLEMENTATION.read_text(encoding="utf-8"))
-        self.assertNotIn("Evidence Requirement Registry", EXACT_CONTRACT.read_text(encoding="utf-8"))
+        self.assertNotIn(
+            "Evidence Requirement Registry",
+            EXACT_CONTRACT.read_text(encoding="utf-8"),
+        )
 
     def test_readme_links_new_shared_contract(self) -> None:
         self.assertIn(
             "[Evidence Requirements](docs/contracts/evidence-requirements.md)",
             README.read_text(encoding="utf-8"),
-        )
-
-    def test_public_module_is_directly_importable(self) -> None:
-        from proto_ring import evidence_requirements
-
-        self.assertEqual(
-            [
-                "InstantiationKind",
-                "EvidenceClassKind",
-                "RegistryAuthority",
-                "RequirementInstantiation",
-                "EvidenceClassAdmission",
-                "ContextBinding",
-                "PersistentEvidenceRequirement",
-                "EvidenceRequirementRegistry",
-                "EvidenceRequirementsError",
-                "load",
-            ],
-            evidence_requirements.__all__,
         )
 
 

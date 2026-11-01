@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import ast
 from pathlib import Path
 import unittest
 
@@ -8,28 +7,13 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs" / "contracts" / "exact-evidence-binding.md"
 EXTRACTION = ROOT / "docs" / "bootstrap" / "exact-evidence-binding-extraction.md"
-IMPLEMENTATION = ROOT / "src" / "proto_ring" / "exact_evidence_binding.py"
 README = ROOT / "README.md"
-PROJECT = ROOT / "pyproject.toml"
 
 EXPECTED_BASELINES = (
     "1b767eb4e81a83e778c90649c632694c22131595",
     "0c2fd68974466df37105682d9aa8d034ed22dad2",
     "e27adc9290b4781396cb5c9745014ca5427e98ac",
 )
-FORBIDDEN_CONSUMER_TERMS = (
-    "Turnlock",
-    "Ruu",
-    "Gate A",
-    "TLC",
-    "qualification",
-    "review packet",
-    "Git OID",
-    "ADR-030",
-    "ADR-043",
-)
-
-
 class ExactEvidenceBindingContractTests(unittest.TestCase):
     def test_contract_and_extraction_record_exist(self) -> None:
         self.assertTrue(CONTRACT.is_file())
@@ -134,38 +118,6 @@ name: "Exact Evidence Binding extraction evidence"
             contract,
         )
 
-    def test_generic_module_contains_no_consumer_vocabulary(self) -> None:
-        implementation = IMPLEMENTATION.read_text(encoding="utf-8")
-
-        for term in FORBIDDEN_CONSUMER_TERMS:
-            with self.subTest(term=term):
-                self.assertNotIn(term, implementation)
-
-    def test_generic_module_has_no_io_or_domain_identity_dependency(self) -> None:
-        tree = ast.parse(IMPLEMENTATION.read_text(encoding="utf-8"))
-        imported_roots: set[str] = set()
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                imported_roots.update(alias.name.split(".")[0] for alias in node.names)
-            elif isinstance(node, ast.ImportFrom) and node.module:
-                imported_roots.add(node.module.split(".")[0])
-
-        self.assertEqual({"__future__", "dataclasses", "enum"}, imported_roots)
-        forbidden_calls = {
-            "open",
-            "exec",
-            "eval",
-            "compile",
-            "input",
-            "print",
-        }
-        called_names = {
-            node.func.id
-            for node in ast.walk(tree)
-            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
-        }
-        self.assertTrue(forbidden_calls.isdisjoint(called_names))
-
     def test_readme_links_contract_and_extraction_record(self) -> None:
         readme = README.read_text(encoding="utf-8")
 
@@ -178,12 +130,6 @@ name: "Exact Evidence Binding extraction evidence"
             "(docs/bootstrap/exact-evidence-binding-extraction.md)",
             readme,
         )
-
-    def test_package_version_is_0_17_0(self) -> None:
-        project = PROJECT.read_text(encoding="utf-8")
-
-        self.assertIn('version = "0.17.0"', project)
-        self.assertNotIn('version = "0.9.0"', project)
 
 
 if __name__ == "__main__":

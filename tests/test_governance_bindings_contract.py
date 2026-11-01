@@ -5,7 +5,6 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 SHARED_PROVIDER = ROOT / "docs/contracts/shared-governance-provider.md"
 ARM = ROOT / "docs/contracts/authoritative-ref-monotonicity.md"
-IMPLEMENTATION = ROOT / "src/proto_ring/governance_bindings.py"
 
 
 class GovernanceBindingsContractTests(unittest.TestCase):
@@ -73,22 +72,6 @@ class GovernanceBindingsContractTests(unittest.TestCase):
         )
         local_binding = contract.split("## Local binding", 1)[1].split("## Non-goals", 1)[0]
         self.assertNotIn("immutable proto-ring contract identity being adopted", local_binding)
-
-    def test_implementation_contains_no_consumer_or_installation_vocabulary(self) -> None:
-        implementation = IMPLEMENTATION.read_text(encoding="utf-8")
-        forbidden = (
-            "Turnlock",
-            "Ruu",
-            "requirements.txt",
-            "pip",
-            "site-packages",
-            "sys.executable",
-            "installed_provider",
-            "effective_provider",
-        )
-        for value in forbidden:
-            with self.subTest(value=value):
-                self.assertNotIn(value, implementation)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -368,6 +367,12 @@ def validate_migration_accounting(index, responsibilities, cases, coverage):
     return {"rust": len(rust_ids), "retired": len(retired), "matrices": len(cases), "modules": len(module_dispositions), "carriers": len(carriers), "literal_mismatches": literal_mismatches, **validate_opaque_identity(responsibilities, cases)}
 def validate_repository_boundaries():
     if (CORPUS_ROOT / "manifest.json").exists(): raise AssertionError("superseded manifest exists")
-    current = (REPOSITORY_ROOT / "pyproject.toml").read_bytes()
-    if hashlib.sha256(current).hexdigest() != "1767c4e426f1002cc8e5cd2ef9b5fd433c622976d9ad38c72fca45e99f8284b7": raise AssertionError("pyproject.toml changed")
-    if b'version = "0.17.0"' not in current: raise AssertionError("package version changed")
+    for retired in ("pyproject.toml", "setup.py", "setup.cfg", "src/proto_ring"):
+        if (REPOSITORY_ROOT / retired).exists():
+            raise AssertionError(f"retired Python production surface exists: {retired}")
+    workspace = (REPOSITORY_ROOT / "Cargo.toml").read_text(encoding="utf-8")
+    compat = (REPOSITORY_ROOT / "crates/proto-ring-compat/Cargo.toml").read_text(encoding="utf-8")
+    if '"crates/proto-ring-compat"' not in workspace:
+        raise AssertionError("Rust compatibility distribution is not a workspace member")
+    if 'name = "proto-ring-compat"' not in compat or 'path = "src/main.rs"' not in compat:
+        raise AssertionError("Rust compatibility binary distribution is incomplete")

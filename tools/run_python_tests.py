@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the installed distribution's Python tests in isolated module subprocesses."""
+"""Run neutral Python controls in isolated module subprocesses."""
 from __future__ import annotations
 
 import argparse
@@ -17,6 +17,15 @@ import time
 import traceback
 import unittest
 
+from python_package_absence import (
+    PythonPackageAbsenceError,
+    assert_python_package_absent,
+)
+from python_test_inventory import (
+    InventoryError,
+    load_pinned_test_ids,
+    validate_exact_inventory,
+)
 from python_test_runner_protocol import (
     EXIT_CODES,
     FAILURE_KINDS,
@@ -27,9 +36,8 @@ from python_test_runner_protocol import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TESTS_DIR = REPO_ROOT / "tests"
+RETAINED_TEST_IDS = TESTS_DIR / "retained-python-test-ids.txt"
 AUTO_WORKER_CAP = 4
-class InventoryError(Exception):
-    """The discovered and scheduled test inventories are not equivalent."""
 
 
 @dataclass(frozen=True)
@@ -44,6 +52,7 @@ class RunSummary:
     atomic_tasks: int
     discovered_tests: int
     executed_tests: int
+    skipped_tests: int
     wall_seconds: float
     status: str
     failed_tasks: tuple[str, ...]
@@ -145,6 +154,7 @@ def execute_task_spec(spec_path: Path) -> int:
         test_ids = tuple(spec["test_ids"])
         result_path = Path(spec["result_path"])
         expected = len(test_ids)
+        assert_python_package_absent(REPO_ROOT)
         suite = unittest.defaultTestLoader.loadTestsFromNames(test_ids)
         if suite.countTestCases() != expected:
             _atomic_write_json(
@@ -161,12 +171,13 @@ def execute_task_spec(spec_path: Path) -> int:
         stream = io.StringIO()
         result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
         sys.stdout.write(stream.getvalue())
-        kind = "NONE" if result.wasSuccessful() else "TEST_FAILURE"
+        successful = result.wasSuccessful() and not result.skipped
+        kind = "NONE" if successful else "TEST_FAILURE"
         _atomic_write_json(
             result_path,
             _worker_payload(task_id, expected, result, time.perf_counter() - started, kind),
         )
-        return 0 if result.wasSuccessful() else 1
+        return 0 if successful else 1
     except Exception:
         traceback.print_exc(file=sys.stderr)
         if result_path is not None:
@@ -238,6 +249,16 @@ def _execute_subprocess(task: AtomicTask, directory: Path) -> TaskProcessResult:
             or int(payload["expected_tests"]) != len(task.test_ids)
             or completed.returncode != expected_exit_codes[kind]
             or bool(payload["successful"]) != (kind == "NONE")
+            or int(payload["tests_run"]) != len(task.test_ids)
+            or any(int(payload[name]) < 0 for name in ("failures", "errors", "skipped"))
+            or (
+                kind == "NONE"
+                and any(int(payload[name]) for name in ("failures", "errors", "skipped"))
+            )
+            or (
+                kind == "TEST_FAILURE"
+                and not any(int(payload[name]) for name in ("failures", "errors", "skipped"))
+            )
         ):
             raise ValueError("inconsistent structured result")
         return TaskProcessResult(
@@ -272,10 +293,13 @@ def _execute_subprocess(task: AtomicTask, directory: Path) -> TaskProcessResult:
 def run_controller(workers: int) -> int:
     started = time.perf_counter()
     try:
+        assert_python_package_absent(REPO_ROOT)
+        expected = load_pinned_test_ids(RETAINED_TEST_IDS)
         discovered = discover_test_ids()
+        validate_exact_inventory(discovered, expected)
         tasks = build_tasks(discovered)
         validate_partition(discovered, tasks)
-    except InventoryError as error:
+    except (InventoryError, PythonPackageAbsenceError) as error:
         print(f"INVENTORY_ERROR={error}")
         return EXIT_CODES["INVENTORY_FAILURE"]
     with tempfile.TemporaryDirectory(prefix="proto-ring-test-runner-") as temporary:
@@ -297,6 +321,7 @@ def run_controller(workers: int) -> int:
         len(tasks),
         len(discovered),
         executed,
+        sum(result.skipped for result in results),
         time.perf_counter() - started,
         status,
         failed,
@@ -306,6 +331,7 @@ def run_controller(workers: int) -> int:
     print(f"ATOMIC_TASKS={summary.atomic_tasks}")
     print(f"DISCOVERED_TESTS={summary.discovered_tests}")
     print(f"EXECUTED_TESTS={summary.executed_tests}")
+    print(f"SKIPPED_TESTS={summary.skipped_tests}")
     print(f"WALL_SECONDS={summary.wall_seconds:.6f}")
     print(f"FAILED_TASKS={','.join(summary.failed_tasks) if summary.failed_tasks else 'NONE'}")
     return exit_code
@@ -313,7 +339,7 @@ def run_controller(workers: int) -> int:
 
 def parse_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Process-isolated full-suite runner using the installed distribution.",
+        description="Process-isolated neutral Python control runner.",
     )
     parser.add_argument("--workers", type=int, default=None)
     parser.add_argument("--_execute-task", type=Path, help=argparse.SUPPRESS)

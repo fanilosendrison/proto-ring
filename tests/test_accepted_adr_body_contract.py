@@ -5,11 +5,11 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs/contracts/accepted-adr-body-immutability.md"
 EXTRACTION = ROOT / "docs/bootstrap/accepted-adr-body-immutability-extraction.md"
-IMPLEMENTATION = ROOT / "src/proto_ring/accepted_adr_body.py"
 
 
 class AcceptedAdrBodyContractTests(unittest.TestCase):
-    def test_contract_and_implementation_contain_no_consumer_bindings(self) -> None:
+    def test_contract_contains_no_consumer_bindings(self) -> None:
+        contract = CONTRACT.read_text(encoding="utf-8")
         forbidden = (
             "Turnlock",
             "Ruu",
@@ -18,11 +18,9 @@ class AcceptedAdrBodyContractTests(unittest.TestCase):
             "scripts/adr-metadata.py",
             "tools/adr-metadata.py",
         )
-        for path in (CONTRACT, IMPLEMENTATION):
-            content = path.read_text(encoding="utf-8")
-            for value in forbidden:
-                with self.subTest(path=path, value=value):
-                    self.assertNotIn(value, content)
+        for value in forbidden:
+            with self.subTest(value=value):
+                self.assertNotIn(value, contract)
 
     def test_extraction_records_required_consumer_evidence(self) -> None:
         extraction = EXTRACTION.read_text(encoding="utf-8")

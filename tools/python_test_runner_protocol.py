@@ -52,7 +52,11 @@ def worker_payload(
         "failures": 0 if result is None else len(result.failures),
         "errors": 0 if result is None else len(result.errors),
         "skipped": 0 if result is None else len(result.skipped),
-        "successful": False if result is None else result.wasSuccessful(),
+        "successful": (
+            False
+            if result is None
+            else result.wasSuccessful() and not result.skipped
+        ),
         "duration_seconds": duration,
         "failure_kind": failure_kind,
     }
@@ -65,11 +69,22 @@ def classify_results(
 ) -> tuple[str, int, int, tuple[str, ...]]:
     expected_ids = [task.task_id for task in tasks]
     result_ids = [result.task_id for result in results]
+    expected_counts = {task.task_id: len(task.test_ids) for task in tasks}
     runner_problem = (
         any(count > 1 for count in Counter(result_ids).values())
         or bool(set(expected_ids) - set(result_ids))
         or bool(set(result_ids) - set(expected_ids))
     )
+    for result in results:
+        expected = expected_counts.get(result.task_id)
+        runner_problem = runner_problem or expected is None or result.tests_run != expected
+        runner_problem = runner_problem or result.failures < 0 or result.errors < 0 or result.skipped < 0
+        if result.failure_kind == "NONE":
+            runner_problem = runner_problem or any(
+                (result.failures, result.errors, result.skipped)
+            ) or not result.successful
+        elif result.successful:
+            runner_problem = True
     kinds = {result.failure_kind for result in results}
     if any(not result.result_present or result.returncode < 0 for result in results):
         kinds.add("PROCESS_FAILURE")
@@ -92,6 +107,9 @@ def classify_results(
         and result.returncode == 0
         and result.failure_kind == "NONE"
         and result.successful
+        and result.failures == 0
+        and result.errors == 0
+        and result.skipped == 0
     }
     failed = tuple(sorted(set(expected_ids) - passed))
     return status, EXIT_CODES[status], executed, failed

@@ -5,7 +5,6 @@ import unittest
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = Path("docs/contracts/adr-metadata-primitives.md")
 INVENTORY_PATH = Path("docs/bootstrap/adr-metadata-primitives-extraction.md")
-IMPLEMENTATION_PATH = Path("src/proto_ring/adr_metadata.py")
 
 
 class AdrMetadataContractTests(unittest.TestCase):
@@ -14,7 +13,6 @@ class AdrMetadataContractTests(unittest.TestCase):
 
     def test_shared_layer_contains_no_consumer_binding(self) -> None:
         contract = self.read(CONTRACT_PATH).lower()
-        implementation = self.read(IMPLEMENTATION_PATH).lower()
         forbidden = (
             "turnlock",
             "ruu",
@@ -27,7 +25,6 @@ class AdrMetadataContractTests(unittest.TestCase):
         for value in forbidden:
             with self.subTest(value=value):
                 self.assertNotIn(value, contract)
-                self.assertNotIn(value, implementation)
 
     def test_contract_excludes_consumer_authority(self) -> None:
         contract = self.read(CONTRACT_PATH)

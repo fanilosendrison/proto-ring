@@ -6,7 +6,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "docs/contracts/git-whitespace-validation.md"
 EXTRACTION = ROOT / "docs/bootstrap/git-whitespace-validation-extraction.md"
 README = ROOT / "README.md"
-PROJECT = ROOT / "pyproject.toml"
 
 
 class GitWhitespaceContractTests(unittest.TestCase):
@@ -72,9 +71,6 @@ class GitWhitespaceContractTests(unittest.TestCase):
         self.assertIn("diagnostic order are non-normative", contract)
         self.assertNotIn("Turnlock", contract)
         self.assertNotIn("Ruu", contract)
-
-    def test_package_version_is_0_17_0(self) -> None:
-        self.assertIn('version = "0.17.0"', PROJECT.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

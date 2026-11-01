@@ -1,4 +1,5 @@
 from __future__ import annotations
+import importlib.util
 import json
 from pathlib import Path
 import subprocess
@@ -23,7 +24,13 @@ from conformance_corpus_test_support import (
     validate_schemas,
     validate_vector_qualification,
 )
-from conformance_fixture_runner import materialize
+from conformance_fixture_runner import FixtureError, materialize
+_GIT_ISOLATION_SPEC = importlib.util.spec_from_file_location(
+    "proto_ring_fixture_git_isolation", Path(__file__).with_name("fixture-git-isolation.py")
+)
+assert _GIT_ISOLATION_SPEC is not None and _GIT_ISOLATION_SPEC.loader is not None
+_GIT_ISOLATION = importlib.util.module_from_spec(_GIT_ISOLATION_SPEC)
+_GIT_ISOLATION_SPEC.loader.exec_module(_GIT_ISOLATION)
 COMMAND_ACTIONS = {
     "exit", "write_utf8", "append_utf8", "remove", "touch", "chmod", "git",
     "record_arguments_utf8", "assert_environment",
@@ -54,6 +61,23 @@ class ConformanceCorpusTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.index, cls.responsibilities, cls.cases, cls.coverage = load_corpus()
+    def test_fixture_git_rejects_options_outside_the_corpus_surface(self) -> None:
+        fixture = {
+            "kind": "repository_plan",
+            "steps": [],
+            "invocation": {"type": "null", "value": None},
+        }
+        with materialize(fixture) as realized:
+            with self.assertRaisesRegex(FixtureError, "not allowed"):
+                realized._step({
+                    "op": "git",
+                    "argv": ["--version"],
+                    "stdin_hex": None,
+                    "environment": {},
+                    "capture_stdout_as": None,
+                })
+        _GIT_ISOLATION.verify()
+
     def test_01_all_json_is_canonical_utf8(self) -> None:
         for path in sorted(CORPUS_ROOT.rglob("*.json")):
             with self.subTest(path=path):
