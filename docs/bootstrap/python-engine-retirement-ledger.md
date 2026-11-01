@@ -220,3 +220,122 @@ equality. No active guarantee is currently classified `GAP`. Any later
 validation that finds an uncovered active assertion changes this disposition
 and blocks the issue #130 handoff until a targeted regression is added or the
 former control is retained.
+
+## Issue #131 production-retirement dispositions
+
+Issue #131 applies the final production-retirement inventory at base commit
+`a20adf4cba9c3c0551a943ed81ac1bbbbe320645`. The base contains 27 tracked
+Python files under `src/proto_ring/` and one tracked Python-side Unicode data
+file. The 27 files are `__init__.py`, the 23 frozen production modules, and the
+three post-baseline carriers already enumerated above.
+
+The candidate removes the complete `src/proto_ring/` tree and root
+`pyproject.toml`. The base contains no `setup.py` or `setup.cfg`, and the
+candidate introduces no replacement Python package metadata, namespace, dummy
+distribution, or editable-install surface.
+
+### RETAIN_ACTIVE
+
+| Assertion group | Count | Protected guarantee and retained boundary |
+| --- | ---: | --- |
+| `test_conformance_corpus` | 11 | Canonical JSON, strict schemas, inventory, ownership, authorities, coverage, fixture allocation, historical observations, repository boundaries, and the subsequent fixture Git-policy regression. The package-version assertion is replaced by positive Rust distribution and negative Python production-package assertions. |
+| `test_issue66_corpus_closure` | 8 | Exact 555-vector issue-66 inventory, raw support discrimination, fixture materialization, metadata, coverage, loaded-state completeness, and identity relations. |
+| `test_issue90_final_audits` | 5 | The three F-001 projection-support audits and two F-002 exact-cardinality audits restored under issue #130. |
+| `test_conformance_discriminated_oneof` and `test_conformance_schema_parallel` | 19 | Neutral strict-schema validation behavior and fail-closed parallel validation. |
+| `test_issue90_context_classification` and `test_issue90_review3_closure` | 21 | Neutral corpus authority classification, coverage binding, and issue-66 closure audits. |
+| `test_repository_state_conformance_109` | 8 | Current corpus authority identities, vector inventory, coverage, snapshots, state distinctions, and explicit classification of Python regressions as bootstrap evidence only. |
+| Contract and extraction controls | 82 | Contract, extraction, and README assertions in `test_*_contract.py`. Python implementation-shape, direct-import, and package-version assertions are removed from mixed modules; contract and historical guarantees remain active. |
+| `test_factorization_doctrine` and `test_turnlock_residual_governance_reaudit` | 12 | Current factorization doctrine and immutable historical extraction accounting. |
+| `test_python_test_runner` | 6 | `tests/retained-python-test-ids.txt` pins the sorted exact 176-ID inventory. Discovery, partitioning, per-worker accounting, zero skips, and structured worker claims fail closed before a subset can pass. |
+| `test_package` replacement controls | 4 | The shared `tools/python_package_absence.py` gate rejects an installed distribution, a loaded or importable module, ambient or editable fallback, and repository root, `src/`, `tests/`, `tools/`, or effective `sys.path` visibility. The subsequent fourth control covers direct `sys.meta_path` finder exposure. The gate runs in the controller, every worker, and package regressions. The Rust binary workspace assertion remains positive. |
+| Neutral corpus support and fixture interpreter modules | n/a | `conformance_*` support remains test-only. Explicit fixture commands may invoke Python with `jsonschema==4.25.1`, `PyYAML==6.0.2`, and `truststore==0.10.4`; this boundary does not import or execute `proto_ring`. Repository Integrity fixture commands use request-bound completion receipts under `rust_candidate/action-receipts.rs`, so absent, malformed, forged, duplicate, abnormal, or unrecorded execution becomes a harness error while legitimate nonzero exits retain their semantic meaning. |
+| Python CI matrix and Rust fixture setup | n/a | Python 3.11 and 3.12 execute the complete neutral suite. Linux Rust installs only the same pinned test dependencies for fixture interpreter commands. No job installs the repository as a Python package. |
+
+The 23 issue #130 independent controls are the first three rows and remain
+present without replacement or reduction.
+
+### COVERED_BY_RUST
+
+| Retired assertion group | Exact active destination |
+| --- | --- |
+| Unit tests for the 22 frozen modules with `rust_port` responsibilities | The corresponding responsibility matrices executed by `ReferenceRustCandidate`; the complete standalone gate requires all 29 responsibilities and all 1,153 distinct vectors to match. |
+| Unit tests for `_normative_terminology_unicode.py`, `portable_pattern.py`, and `portable_pattern_matching.py` | The five Normative Terminology matrices, `portable-pattern.full-match`, the Rust engine unit tests, and their conformance regressions. |
+| Python implementation-shape assertions in mixed `test_*_contract.py` modules | The four production Rust modules `evidence_requirements.rs`, `exact_evidence_binding.rs`, `projection_registry.rs`, and `governance_bindings.rs` were independently inspected for the relevant architectural boundaries. `crates/proto-ring-conformance/tests/source-identities.rs` preserves their exact accepted Git blob identities by hashing the current working files through Git's path-specific content filters. Any future source change fails the active identity gate. Updating an expected identity requires an explicit change decision and independent requalification of the affected boundaries; the gate never rebaselines itself. This is source-identity preservation, not general Rust semantic analysis. It does not establish the absence of transitive side effects or authorize arbitrary future source changes. The retained Python portions continue to check contract, extraction, and historical authority. |
+| Python package importability, package-resource lookup, and package-version checks | Negative Python package controls plus the positive `proto-ring-compat` workspace/binary assertions. Rust Unicode tests own the Unicode 14.0.0 resource. |
+| Cross-copy Unicode byte equality | The Python copy is retired. `issue122_unicode_checkout.rs` and `issue64_normative_terminology.rs` retain the Rust-owned bytes, semantic regressions, and fixed SHA-256 `a566cd48687b2cd897e02501118b2413c14ae86d318f9abbbba97feb84189f0f`. |
+
+The exact semantic ownership remains the responsibility-by-responsibility
+mapping already recorded under issue #130; deletion does not merge the 641
+retired Python IDs into, or equate them with, the 1,153 Rust vectors.
+
+### HISTORICAL_ONLY
+
+| Retired surface | Preserved evidence and reason |
+| --- | --- |
+| `shared_governance_provider.py` and `test_shared_governance_provider.py` | `shared-governance-provider.check` remains the sole `retire_without_rust_port` responsibility. Shared Governance Provider V1 is not recreated in Rust. Exact bytes remain available at the base commit and earlier immutable revisions. |
+| Python implementation topology, direct-import API, module `__all__`, and source-vocabulary assertions | These describe the retired bootstrap realization rather than current contract or product behavior. Current contract and extraction assertions remain active. |
+| Root `pyproject.toml`, distribution version `0.17.0`, setuptools metadata, and Python package-data declaration | These describe the retired production distribution. Historical replay uses the exact immutable revisions that contain those files. |
+| Python-side `CaseFolding.txt` and `_normative_terminology_unicode.py` resource loader | Exact historical bytes remain at immutable revisions. Current Unicode authority is the Rust-owned copy and independent fixed digest. |
+
+### Test-ID accounting
+
+The issue #131 base contains 807 Python test IDs. The candidate contains 176
+neutral IDs: 166 unchanged historical IDs, eight original replacement IDs, and
+two subsequent additions. Exactly 641 base IDs are retired. The original
+replacement IDs narrow mixed contract tests to contract-only responsibilities
+and establish the first three production-distribution boundary controls. The
+two subsequent additions are the eleventh `test_conformance_corpus` control for
+fixture Git policy and the fourth `test_package` control for direct
+`sys.meta_path` finder exposure. The sorted exact retained inventory is checked
+in as `tests/retained-python-test-ids.txt` and is verified before worker
+scheduling. Retired and added-ID accounting remains isolated candidate evidence
+and is not written into historical issue #129 or #130 evidence.
+
+### Continuous integration and dependency inventory
+
+The two former `python -m pip install .` steps are removed. The only declared
+Python dependencies are test dependencies in `requirements-test.txt`, pinned
+exactly to:
+
+- `jsonschema==4.25.1`;
+- `PyYAML==6.0.2`;
+- `truststore==0.10.4`.
+
+`PROTO_RING_PYTHON` remains only as the explicit interpreter selection for
+fixture commands in Repository Integrity conformance vectors. No Python bridge,
+adapter, current-observation channel, or production governance import remains.
+
+The candidate CI retains Python 3.11 and 3.12 neutral controls, locked Rust
+workspace tests, formatting, Clippy, doctests, and targeted Windows checks. Its
+negative Python-package gate runs before test dependencies are installed and
+fails if a root package surface, loaded or importable `proto_ring`, installed
+`proto-ring` distribution, ambient or editable fallback, or visibility through
+root, `src/`, `tests/`, `tools/`, or an effective subprocess search path exists.
+
+### Deferred commit-bound qualification
+
+The candidate is intentionally uncommitted. A clean release build is supported,
+but `engine.identity` cannot yet be claimed to identify a final candidate
+commit. The exact commit-bound release identity probe, one valid semantic
+operation, and one malformed-request `invalid_request` / exit-2 probe remain P4
+gates for the eventual clean candidate commit.
+
+### GAP
+
+The original issue #131 hostile review identified four active-control gaps.
+F-131-001 is closed by the pinned exact inventory and zero-skip worker protocol,
+and F-131-004 is closed by the shared effective-path package-absence gate. The
+preserved R3 independent `NO_GO` report found F-131-002 and F-131-003 unresolved.
+Later corrections observe the real execution callback and isolate fixture Git
+execution; subsequent independent reviews accepted F-131-002. The preserved R4
+`NO_GO` report found three fail-open syntax and root-classification defects in
+the direct-source checker. The preserved R5 `NO_GO` report found that its custom
+name resolver still accepted self-referential aliases and scope- or
+namespace-insensitive roots. The current candidate removes that resolver and
+instead preserves the exact accepted identities of the four independently
+inspected production modules. This ledger does not itself qualify the new
+preservation control or resolve F-131-003. Closure still requires deterministic
+validation and independent acceptance of that control for the bounded issue
+#131 migration contract. No gap is reclassified as historical, and the complete
+`NO_GO` sequence remains evidence. Discovery of any further unaccounted active
+guarantee blocks publication.

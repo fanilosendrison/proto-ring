@@ -102,21 +102,52 @@ Exact Evidence Binding factorization evidence is preserved in the
 Existing proto-ring contracts and mechanisms retain the authority already
 established for their stated scope.
 
-## Rust reference-engine migration
+## Rust governance engine
 
-The Rust workspace is the implementation-private migration substrate owned by
-#45. Normative contracts and `conformance/v1` remain semantic authority. The
-Rust crate layout is not normative proto-ring architecture. Issue #62
-bootstraps the workspace and differential harness and claims no semantic parity.
-Issue #28 owns the later public agent-facing API. Issue #70 owns the later
-standalone compatibility runner.
+The Rust engine is the sole production governance implementation. Normative
+contracts and `conformance/v1` remain semantic authority; the Rust crate layout
+is not normative proto-ring architecture. Issue #28 owns the later public
+agent-facing API boundary.
+
+Build the migration compatibility executable from a clean source revision with:
+
+```bash
+cargo build --release --locked -p proto-ring-compat
+```
+
+The resulting `target/release/proto-ring-compat` executable accepts one strict
+compatibility-v1 JSON request on standard input and writes one JSON response on
+standard output. Its 16 migration operations, envelopes, and exit codes are
+specified by the
+[compatibility transport](docs/bootstrap/proto-ring-compat-v1.md). A release
+identity claim is valid only when the executable is built from the exact clean,
+immutable commit being qualified.
+
+The former `proto-ring` Python distribution and `src/proto_ring/` bootstrap
+implementation are retired. Python files under `tests/` and `tools/` are
+non-authoritative corpus, schema, fixture, historical, and migration controls;
+they are not a second governance engine. Their dependencies are test-only and
+pinned in `requirements-test.txt`.
+
+## Historical replay
+
+Historical Python behavior remains inspectable at the immutable Git revisions
+that contained it. Replay must use a detached worktree at one exact full commit,
+for example:
+
+```bash
+git worktree add --detach <historical-worktree> <full-commit-sha>
+```
+
+Use only the package metadata, instructions, and pinned dependencies present in
+that historical revision. Do not copy the retired implementation into current
+sources or treat a mutable branch as historical authority.
 
 ## Shared provider mechanisms
 
-GitHub Authoritative Ref Monotonicity effective-rule live conformance is
-provided by `proto_ring.github_authoritative_ref_monotonicity`. It is an
-executable provider mechanism composed with existing contracts, not a new
-contract.
+GitHub Authoritative Ref Monotonicity effective-rule live conformance is part of
+the Rust governance engine. It is an executable provider mechanism composed
+with existing contracts, not a new contract.
 
 Its extraction evidence and observability boundary are recorded in the
 [GitHub Authoritative Ref Monotonicity live conformance extraction record](docs/bootstrap/github-authoritative-ref-monotonicity-live-conformance-extraction.md).
