@@ -262,9 +262,7 @@ fn t10_candidate_control_failure_is_harness_error_not_semantic_zero() {
     let error = with_provider_observation_forbidden(|| {
         let outcome = ReferenceRustCandidate
             .execute(&request(&vector, "repository-governance-state.compose"));
-        let failure = outcome
-            .err()
-            .expect("nested candidate control must fail as a harness error");
+        let failure = outcome.expect_err("nested candidate control must fail as a harness error");
         assert!(
             failure
                 .to_string()
