@@ -11,8 +11,11 @@ name: "Proto-ring language-neutral conformance corpus version 1"
 
 Corpus version 1 is a non-normative, reusable conformance and migration
 transport derived from proto-ring's normative contracts. The contracts remain
-the normative authority. Neither Python nor the future Rust implementation is
-semantic authority, and Rust will not become semantic authority.
+the normative authority. Rust is now the sole production governance
+implementation; neither Rust nor the retired Python engine is semantic
+authority. Retained Python corpus, schema, fixture, and historical controls are
+non-authoritative validation/support facilities, not a second governance
+engine.
 
 The corpus is frozen against semantic baseline
 `dedb01a3a9b7a18930c9da75afa3773b5ad67f69` and materialized from qualified
@@ -44,14 +47,27 @@ It is never reversed.
 
 `migration_disposition` separates implementation work from frozen-module
 retirement accounting. `shared-governance-provider.check` accounts for the
-obsolete RGM-v1 Python bridge without inventing a Rust conformance obligation;
-its retirement remains owned by Issue #73.
+obsolete RGM-v1 Python bridge without inventing a Rust conformance obligation.
+Its retirement was completed under
+[Issue #73](https://github.com/fanilosendrison/proto-ring/issues/73); the
+historical disposition identifiers remain unchanged.
 
 Case and vector IDs are stable while their semantic cases remain unchanged.
 Tagged structured values preserve mathematical integers without JSON-number
 limits, and exact bytes remain bytes. Comparison is selected per vector; there
 is no universal JSON equality rule.
 
-Issue #62 consumes this corpus to build the differential harness. The public API
-owned by #28 does not originate here. Repository self-adoption owned by #29 does
-not originate here.
+The Rust harness introduced under Issue #62 now executes the current Rust
+candidate through the standalone conformance path. It checks all 29 active
+responsibilities and 1,153 distinct vectors without a production Python
+comparison channel. Historical Python observations remain provenance, not a
+current candidate or normative oracle. Expected observations and per-vector
+comparison rules remain harness inputs, not candidate inputs.
+
+The [repository development commands](../../README.md#development) run the
+current Rust and retained Python validation gates. The public API owned by
+[Issue #28](https://github.com/fanilosendrison/proto-ring/issues/28) does not
+originate here; `proto-ring-compat` remains a separate migration-compatibility
+transport. Repository self-adoption owned by
+[Issue #29](https://github.com/fanilosendrison/proto-ring/issues/29) does not
+originate here either.
