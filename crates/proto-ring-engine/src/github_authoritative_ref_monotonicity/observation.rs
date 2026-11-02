@@ -16,6 +16,13 @@ pub(super) fn observe_with_transport(
     binding_path: &Path,
     transport: &mut impl HttpTransport,
 ) -> ArmObservation {
+    #[cfg(feature = "conformance-internal")]
+    if super::provider_observation_control::entry_forbidden() {
+        return report(
+            ArmStatus::Undetermined,
+            ArmDiagnosticKind::ProviderObservationUnavailable,
+        );
+    }
     let binding = match binding::load(binding_path) {
         Ok(binding) => binding,
         Err(_) => return report(ArmStatus::Violated, ArmDiagnosticKind::BindingInvalid),

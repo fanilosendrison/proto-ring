@@ -3,6 +3,9 @@
 mod binding;
 mod http;
 mod observation;
+#[cfg(feature = "conformance-internal")]
+#[path = "provider-observation-control.rs"]
+mod provider_observation_control;
 
 use std::path::Path;
 
@@ -51,6 +54,9 @@ pub mod conformance_internal {
     use super::http::{
         HttpFailure as EngineFailure, HttpRequest as EngineRequest, HttpResponse as EngineResponse,
         HttpTransport,
+    };
+    pub use super::provider_observation_control::{
+        ControlError, ControlFailure, ObservationReceipt, with_provider_observation_forbidden,
     };
     use super::{ArmObservation, observation};
     use std::path::Path;
