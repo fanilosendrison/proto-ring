@@ -134,3 +134,9 @@ jobs:
 
       - name: Test Portable Pattern Rust port
         run: cargo test -p proto-ring-conformance --test issue64_portable_pattern --locked
+
+      - name: Test Issue 133 Repository Integrity observation
+        run: cargo test -p proto-ring-conformance --test issue133_repository_integrity_observation --locked
+
+      - name: Test Issue 133 RGS observation
+        run: cargo test -p proto-ring-conformance --test issue133-rgs-observation --locked
