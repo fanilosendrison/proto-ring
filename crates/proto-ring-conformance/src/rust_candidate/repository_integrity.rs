@@ -1,14 +1,15 @@
+pub(super) mod profile_transport;
+
 use super::support::{support_authority, support_catalog};
 use super::transport::{
     exact_record, fixture_failure, record, rejection, repository_snapshot, result, string_value,
     unique_dynamic_record,
 };
 use crate::fixture::{self, MaterializedFixture};
-use crate::model::{Observation, RecordEntry, TransportValue};
+use crate::model::{Observation, TransportValue};
+use profile_transport::profile_transport;
 use proto_ring_engine::governance_routing::ResolvedGovernanceRoute;
-use proto_ring_engine::repository_integrity::{
-    self, ConsumerIntegrityProfile, ValidationDefinition, ValidationInstances,
-};
+use proto_ring_engine::repository_integrity::{self, ValidationDefinition, ValidationInstances};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Component, Path};
@@ -198,6 +199,8 @@ pub(super) fn execute(fixture: &MaterializedFixture) -> Result<Observation, fixt
     let authority = support_authority(root, field(&semantic, "authority"))?;
     let catalog = support_catalog(&catalog_root, field(&semantic, "catalog"))?;
     let with_catalog = boolean(field(&fields, "with_catalog"), "with_catalog")?;
+    let observe_execution_sentinel =
+        optional_boolean(&fields, "observe_execution_sentinel")?.unwrap_or(false);
     let observe_read_only = optional_boolean(&fields, "observe_read_only")?.unwrap_or(false);
     let before = observe_read_only
         .then(|| repository_snapshot(root))
@@ -220,81 +223,17 @@ pub(super) fn execute(fixture: &MaterializedFixture) -> Result<Observation, fixt
                 let unchanged = before
                     .map(|state| repository_snapshot(root).map(|after| state == after))
                     .transpose()?;
-                result(profile_transport(&profile, &fields, unchanged)?)
+                result(profile_transport(
+                    root,
+                    &profile,
+                    &fields,
+                    unchanged,
+                    observe_execution_sentinel,
+                )?)
             }
             Err(_) => rejection("repository-integrity.profile"),
         },
     )
-}
-
-fn profile_transport(
-    profile: &ConsumerIntegrityProfile,
-    fields: &Fields<'_>,
-    unchanged: Option<bool>,
-) -> Result<TransportValue, fixture::FixtureError> {
-    let mut values = vec![
-        (
-            "continue_after_non_satisfied",
-            TransportValue::Boolean(profile.continue_after_non_satisfied),
-        ),
-        ("environments", strings(profile.environments.iter())),
-    ];
-    if optional_boolean(fields, "observe_execution_sentinel")?.is_some() {
-        values.push(("execution_sentinel_absent", TransportValue::Boolean(true)));
-    }
-    values.push((
-        "identity_present",
-        TransportValue::Boolean(!profile.identity.0.is_empty()),
-    ));
-    if let Some(id) = optional_string(fields, "observe_validation_id")? {
-        let validation = profile
-            .validations
-            .get(id)
-            .ok_or_else(|| fixture_failure("observed validation is absent"))?;
-        values.push(("loaded_validation", validation_transport(validation)));
-    }
-    if let Some(ids) = fields.get("observe_validation_ids") {
-        let loaded = fixture::sequence(ids)?
-            .iter()
-            .map(|id| {
-                let id = fixture::string(id)?;
-                profile
-                    .validations
-                    .get(id)
-                    .map(|validation| (id.to_owned(), validation_transport(validation)))
-                    .ok_or_else(|| fixture_failure("observed validation is absent"))
-            })
-            .collect::<Result<BTreeMap<_, _>, _>>()?;
-        values.push((
-            "loaded_validations",
-            TransportValue::Record(
-                loaded
-                    .into_iter()
-                    .map(|(name, value)| RecordEntry { name, value })
-                    .collect(),
-            ),
-        ));
-    }
-    values.push((
-        "model_version",
-        TransportValue::Integer(profile.model_version.to_string()),
-    ));
-    values.push(("order", strings(profile.order.iter())));
-    values.push((
-        "profile_authority",
-        record(vec![
-            (
-                "responsibility",
-                string_value(&profile.authority.responsibility),
-            ),
-            ("source", string_value(&profile.authority.source)),
-        ]),
-    ));
-    if let Some(unchanged) = unchanged {
-        values.push(("repository_unchanged", TransportValue::Boolean(unchanged)));
-    }
-    values.push(("validations", strings(profile.validations.keys())));
-    Ok(record(values))
 }
 
 pub(super) fn validation_transport(validation: &ValidationDefinition) -> TransportValue {
