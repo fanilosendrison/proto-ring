@@ -3,6 +3,9 @@ use std::fs;
 use std::path::{Component, Path, PathBuf};
 use std::process::Command;
 
+use proto_ring_engine::github_authoritative_ref_monotonicity::conformance_internal::{
+    ObservationReceipt, with_provider_observation_forbidden,
+};
 use proto_ring_engine::repository_governance_state::{self, RepositoryGovernanceState};
 
 use super::super::transport::{
@@ -42,7 +45,9 @@ pub(crate) fn execute(
         .then(|| ReadOnlyProbe::capture(root, &participating))
         .transpose()?;
 
-    let loaded = repository_governance_state::load(root);
+    let (loaded, provider_observation) =
+        with_provider_observation_forbidden(|| repository_governance_state::load(root))
+            .map_err(|error| fixture_failure(error.to_string()))?;
     let state = match loaded {
         Ok(state) => state,
         Err(error) => {
@@ -69,6 +74,7 @@ pub(crate) fn execute(
             before.expect("qualified probe exists"),
             after,
             marker,
+            provider_observation,
         )?
     } else {
         normal_success(&state)?
@@ -107,6 +113,7 @@ fn qualified_success(
     before: ReadOnlyProbe,
     after: ReadOnlyProbe,
     marker: Option<&str>,
+    provider_observation: ObservationReceipt,
 ) -> Result<Observation, fixture::FixtureError> {
     let capabilities = state
         .repository_governance_model
@@ -128,7 +135,7 @@ fn qualified_success(
         ("optional_components", optional_components(state)),
         (
             "provider_interactions",
-            TransportValue::Integer("0".to_owned()),
+            TransportValue::Integer(provider_observation.invocations().to_string()),
         ),
         ("purity", before.relations(&after)),
         ("scope_paths", scope_paths(state)?),
