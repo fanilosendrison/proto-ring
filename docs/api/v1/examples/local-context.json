@@ -1,0 +1,19 @@
+{
+  "local_context_version": 1,
+  "repository": {
+    "kind": "utf8",
+    "value": "."
+  },
+  "realizations": [
+    {
+      "environment_id": "rust",
+      "identity_base64": "cnVzdC1sb2NhbA==",
+      "command_prefix": [
+        "/usr/local/bin/cargo"
+      ],
+      "process_environment": {
+        "PATH": "/usr/local/bin:/usr/bin"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proto-ring:api-01:v1:request",
+  "title": "Proto-Ring API request v1 (candidate)",
+  "$ref": "urn:proto-ring:api-01:v1:api#/$defs/request"
+}

@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "read_execution_output",
+  "input": {
+    "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "validation_id": "rust-tests",
+    "instance_index": "0",
+    "stream": "stderr",
+    "offset": "0",
+    "max_bytes": 65536
+  }
+}

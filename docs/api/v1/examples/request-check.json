@@ -1,0 +1,11 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "input": {
+    "repository": {
+      "kind": "utf8",
+      "value": "."
+    },
+    "expected_observation": null
+  }
+}

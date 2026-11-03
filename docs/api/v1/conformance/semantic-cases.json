@@ -1,0 +1,219 @@
+[
+  {
+    "id": "A01",
+    "kind": "semantic_review_required",
+    "scenario": "canonical load invalid required profile",
+    "expected_boundary": "controlled_failure no partial RGS",
+    "qualified": false
+  },
+  {
+    "id": "A02",
+    "kind": "semantic_review_required",
+    "scenario": "RI undeclared",
+    "expected_boundary": "inapplicable no verdict",
+    "qualified": false
+  },
+  {
+    "id": "A03",
+    "kind": "semantic_review_required",
+    "scenario": "valid empty RI profile",
+    "expected_boundary": "engine-established aggregate and coverage, possible PASS",
+    "qualified": false
+  },
+  {
+    "id": "A04",
+    "kind": "semantic_review_required",
+    "scenario": "zero-instance for_each",
+    "expected_boundary": "SATISFIED validation with zero concrete obligations",
+    "qualified": false
+  },
+  {
+    "id": "A05",
+    "kind": "semantic_review_required",
+    "scenario": "forbidden later executable effect",
+    "expected_boundary": "whole-plan admission refuses before any validator starts",
+    "qualified": false
+  },
+  {
+    "id": "A06",
+    "kind": "semantic_review_required",
+    "scenario": "missing permitted environment realization",
+    "expected_boundary": "canonical UNDETERMINED (not admission_refused)",
+    "qualified": false
+  },
+  {
+    "id": "A07",
+    "kind": "semantic_review_required",
+    "scenario": "agent injects command_prefix/process_environment/allow_execution in request",
+    "expected_boundary": "protocol rejection no command launch",
+    "qualified": false
+  },
+  {
+    "id": "A08",
+    "kind": "semantic_review_required",
+    "scenario": "profile/argument/environment/program substitution after admission",
+    "expected_boundary": "refusal before affected launch, never silent substitution",
+    "qualified": false
+  },
+  {
+    "id": "A09",
+    "kind": "semantic_review_required",
+    "scenario": "host loses guard after first process began",
+    "expected_boundary": "execution_incomplete; possible effects; no fabricated receipt",
+    "qualified": false
+  },
+  {
+    "id": "A10",
+    "kind": "semantic_review_required",
+    "scenario": "A->B->A between independent RGS observations",
+    "expected_boundary": "equality accepted for comparable exact observed states",
+    "qualified": false
+  },
+  {
+    "id": "A11",
+    "kind": "semantic_review_required",
+    "scenario": "transient B read during a validator with final A",
+    "expected_boundary": "no unwarranted coherence basis/claim",
+    "qualified": false
+  },
+  {
+    "id": "A12",
+    "kind": "semantic_review_required",
+    "scenario": "RI command prints success and changes governed state",
+    "expected_boundary": "canonical RI NON_PASS; logs never override it",
+    "qualified": false
+  },
+  {
+    "id": "A13",
+    "kind": "semantic_review_required",
+    "scenario": "multi-instance for_each stderr",
+    "expected_boundary": "receipt+ValidationId+ordinal+stream exact attribution",
+    "qualified": false
+  },
+  {
+    "id": "A14",
+    "kind": "semantic_review_required",
+    "scenario": "started process emits zero stdout",
+    "expected_boundary": "complete 0 bytes, unlike not_started",
+    "qualified": false
+  },
+  {
+    "id": "A15",
+    "kind": "semantic_review_required",
+    "scenario": "malformed stdout UTF-8",
+    "expected_boundary": "byte-exact base64 retrieval",
+    "qualified": false
+  },
+  {
+    "id": "A16",
+    "kind": "semantic_review_required",
+    "scenario": "stream >64 MiB",
+    "expected_boundary": "explicit retained tail interval + partial; no silent truncation",
+    "qualified": false
+  },
+  {
+    "id": "A17",
+    "kind": "semantic_review_required",
+    "scenario": "descendant retains stdout pipe past parent exit",
+    "expected_boundary": "no indefinite capture wait; explicit incomplete capture",
+    "qualified": false
+  },
+  {
+    "id": "A18",
+    "kind": "semantic_review_required",
+    "scenario": "receipt storage tamper, expiry, access denial",
+    "expected_boundary": "no substituted bytes; typed refusal/expiry",
+    "qualified": false
+  },
+  {
+    "id": "A19",
+    "kind": "semantic_review_required",
+    "scenario": "agent requests all loaded governance components",
+    "expected_boundary": "no heuristic pruning; error response_too_large if exceeded",
+    "qualified": false
+  },
+  {
+    "id": "A20",
+    "kind": "semantic_review_required",
+    "scenario": "RGS construction stage failure",
+    "expected_boundary": "typed stage, no half-built governance state",
+    "qualified": false
+  },
+  {
+    "id": "A21",
+    "kind": "semantic_review_required",
+    "scenario": "agent requests provider observation via inspect/explain",
+    "expected_boundary": "no provider/network effects",
+    "qualified": false
+  },
+  {
+    "id": "A22",
+    "kind": "semantic_review_required",
+    "scenario": "cross-worktree/scope ref reuse",
+    "expected_boundary": "incomparable_observation",
+    "qualified": false
+  },
+  {
+    "id": "A23",
+    "kind": "semantic_review_required",
+    "scenario": "source role non_authoritative vs UNKNOWN_RESPONSIBILITY vs UNDECLARED",
+    "expected_boundary": "preserve exact lookup distinction",
+    "qualified": false
+  },
+  {
+    "id": "A24",
+    "kind": "semantic_review_required",
+    "scenario": "two checks on same state",
+    "expected_boundary": "distinct receipt IDs and no output mix",
+    "qualified": false
+  },
+  {
+    "id": "A25",
+    "kind": "semantic_review_required",
+    "scenario": "process crashes after launch before receipt finalization",
+    "expected_boundary": "unknown effect; no automatic retry",
+    "qualified": false
+  },
+  {
+    "id": "A26",
+    "kind": "semantic_review_required",
+    "scenario": "public CLI check has no privilege-enabling JSON mode",
+    "expected_boundary": "direct local only; delegated controlled host distinct",
+    "qualified": false
+  },
+  {
+    "id": "A27",
+    "kind": "semantic_review_required",
+    "scenario": "public structured integer >2^53",
+    "expected_boundary": "lossless integer decimal string",
+    "qualified": false
+  },
+  {
+    "id": "A28",
+    "kind": "semantic_review_required",
+    "scenario": "paths with invalid UTF-8/UTF-16 encoded identity",
+    "expected_boundary": "round-trip or explicit controlled rejection without loss",
+    "qualified": false
+  },
+  {
+    "id": "A29",
+    "kind": "semantic_review_required",
+    "scenario": "duplicate JSON object keys including nested",
+    "expected_boundary": "reject at lexical decoding before object map",
+    "qualified": false
+  },
+  {
+    "id": "A30",
+    "kind": "semantic_review_required",
+    "scenario": "explicit authorized subset of ValidationIds requested as whole check",
+    "expected_boundary": "reject or inspect only; never global RI PASS",
+    "qualified": false
+  },
+  {
+    "id": "A31",
+    "kind": "semantic_review_required",
+    "scenario": "native self/fixture baseline result",
+    "expected_boundary": "same 1153 language neutral vectors; no compat v1 gate",
+    "qualified": false
+  }
+]

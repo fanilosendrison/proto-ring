@@ -1,0 +1,13 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "input": {
+    "repository": {
+      "kind": "utf8",
+      "value": "."
+    },
+    "selector": {
+      "kind": "repository_integrity"
+    }
+  }
+}

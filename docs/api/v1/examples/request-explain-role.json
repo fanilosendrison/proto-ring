@@ -1,0 +1,15 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "input": {
+    "repository": {
+      "kind": "utf8",
+      "value": "."
+    },
+    "query": {
+      "kind": "authority_role",
+      "responsibility": "governance",
+      "source": "doctrine"
+    }
+  }
+}

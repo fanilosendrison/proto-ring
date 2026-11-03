@@ -1,0 +1,116 @@
+[
+  {
+    "id": "request-check",
+    "kind": "schema",
+    "document": "examples/request-check.json",
+    "expect": "accept"
+  },
+  {
+    "id": "request-discover",
+    "kind": "schema",
+    "document": "examples/request-discover.json",
+    "expect": "accept"
+  },
+  {
+    "id": "request-explain-role",
+    "kind": "schema",
+    "document": "examples/request-explain-role.json",
+    "expect": "accept"
+  },
+  {
+    "id": "request-inspect-absent-ri",
+    "kind": "schema",
+    "document": "examples/request-inspect-absent-ri.json",
+    "expect": "accept"
+  },
+  {
+    "id": "request-output",
+    "kind": "schema",
+    "document": "examples/request-output.json",
+    "expect": "accept"
+  },
+  {
+    "id": "local-context",
+    "kind": "schema",
+    "document": "examples/local-context.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-check-nonpass",
+    "kind": "schema",
+    "document": "examples/response-check-nonpass.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-role",
+    "kind": "schema",
+    "document": "examples/response-explain-role.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inapplicable",
+    "kind": "schema",
+    "document": "examples/response-inapplicable.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-incomplete",
+    "kind": "schema",
+    "document": "examples/response-incomplete.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-absent-ri",
+    "kind": "schema",
+    "document": "examples/response-inspect-absent-ri.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-load-failure",
+    "kind": "schema",
+    "document": "examples/response-load-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-abc",
+    "kind": "schema",
+    "document": "examples/response-output-abc.json",
+    "expect": "accept"
+  },
+  {
+    "id": "reject-negative-duplicate-key",
+    "kind": "schema",
+    "document": "examples/negative-duplicate-key.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-negative-self-authorize",
+    "kind": "schema",
+    "document": "examples/negative-self-authorize.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-negative-unknown-operation",
+    "kind": "schema",
+    "document": "examples/negative-unknown-operation.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-negative-unsupported-path",
+    "kind": "schema",
+    "document": "examples/negative-unsupported-path.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-negative-wrong-profile-ref",
+    "kind": "schema",
+    "document": "examples/negative-wrong-profile-ref.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-negative-outcome-code-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-outcome-code-mismatch.json",
+    "expect": "reject"
+  }
+]

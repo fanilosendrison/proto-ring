@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "local_context_version": {
+      "const": 1
+    },
+    "repository": {
+      "$ref": "urn:proto-ring:api-01:v1:api#/$defs/native_path"
+    },
+    "realizations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "environment_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "identity_base64": {
+            "$ref": "urn:proto-ring:api-01:v1:api#/$defs/base64"
+          },
+          "command_prefix": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "process_environment": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "environment_id",
+          "identity_base64",
+          "command_prefix",
+          "process_environment"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "local_context_version",
+    "repository",
+    "realizations"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:proto-ring:api-01:v1:local-context",
+  "title": "Direct-local realizations; never an authorization or privileged permit"
+}

@@ -1,0 +1,80 @@
+{
+  "status": "candidate_known_answer_vectors_not_engine_observation",
+  "vectors": [
+    {
+      "id": "unix_repository",
+      "domain": "rgs-repository-v1",
+      "parts_base64": [
+        "dW5peA==",
+        "L3RtcC9yZXBv"
+      ],
+      "expected_sha256_lowerhex": "50ce34743a9561f2f61155628f1a528054d4fc6e36cada4444c01b53d0d11a25"
+    },
+    {
+      "id": "windows_repository",
+      "domain": "rgs-repository-v1",
+      "parts_base64": [
+        "d2luZG93cw==",
+        "AEMAOgBcAHIAZQBwAG8="
+      ],
+      "expected_sha256_lowerhex": "8c3548af211723dda267bc41da79879c60282e7761b10803824e78491841bf05"
+    },
+    {
+      "id": "unix_rgs_scope",
+      "domain": "rgs-scope-v1",
+      "parts_base64": [
+        "UM40dDqVYfL2EVVijxpSgFTU/G42ytpERMAbU9DRGiU=",
+        "AAAAAAAAAAI=",
+        "QUdFTlRTLm1k",
+        "ZG9jcy9wcm9maWxlLm1k"
+      ],
+      "expected_sha256_lowerhex": "3d7b58689c8f610a164734d80234e89e9a3bdbaacc66d478beccafd0427b97a0"
+    },
+    {
+      "id": "unix_rgs_state",
+      "domain": "rgs-state-v1",
+      "parts_base64": [
+        "UM40dDqVYfL2EVVijxpSgFTU/G42ytpERMAbU9DRGiU=",
+        "PXtYaJyPYQoWRzTYAjTonpo726rMZtR4vsyv0EJ7l6A=",
+        "AAFjYW5kaWRhdGU="
+      ],
+      "expected_sha256_lowerhex": "2f7b80f9f57fd1e349459a78fd9c43b151b86f45c715a93f646b0fec9388311c"
+    },
+    {
+      "id": "ri_profile",
+      "domain": "ri-profile-v1",
+      "parts_base64": [
+        "AXRlc3QtcHJvZmlsZQ=="
+      ],
+      "expected_sha256_lowerhex": "a9a92bc57faf14133fa0a08b8e327e0b9163effe700d5f005013ff7a325a4a59"
+    },
+    {
+      "id": "ri_context",
+      "domain": "ri-context-v1",
+      "parts_base64": [
+        "AnRlc3QtY29udGV4dA=="
+      ],
+      "expected_sha256_lowerhex": "cdf9f59ad90b7556a4cc9cc511b2bb24bc83b5b02df98f25c2ee188fadb53005"
+    },
+    {
+      "id": "ri_scope",
+      "domain": "ri-scope-v1",
+      "parts_base64": [
+        "UM40dDqVYfL2EVVijxpSgFTU/G42ytpERMAbU9DRGiU=",
+        "AAAAAAAAAAE=",
+        "QUdFTlRTLm1k"
+      ],
+      "expected_sha256_lowerhex": "baddd688bb43c709e7031e4589a526eef2b2ae814e859434da9b3da833eacd9c"
+    },
+    {
+      "id": "ri_state",
+      "domain": "ri-state-v1",
+      "parts_base64": [
+        "UM40dDqVYfL2EVVijxpSgFTU/G42ytpERMAbU9DRGiU=",
+        "ut3WiLtDxwnnAx5FiaUm7vKyroFOhZQ02ps9qDPqzZw=",
+        "AP9yaQ=="
+      ],
+      "expected_sha256_lowerhex": "caeaa817d144d527dc1b9746ce2fbfcecf2bf8d65e5bcb894acb0815af4fb1e6"
+    }
+  ]
+}

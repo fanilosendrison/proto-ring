@@ -1,0 +1,34 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "result",
+  "value": {
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/tmp/worktree"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      }
+    ],
+    "selector": {
+      "kind": "repository_integrity"
+    },
+    "components": {
+      "repository_integrity": {
+        "presence": "absent",
+        "data": null
+      }
+    }
+  }
+}

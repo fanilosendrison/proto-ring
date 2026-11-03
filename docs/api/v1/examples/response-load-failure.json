@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "controlled_failure",
+  "error": {
+    "code": "governance_load_failed",
+    "stage": "repository_governance_model",
+    "detail": "example only",
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "input": {
+    "repository": {
+      "kind": "unix_bytes_base64",
+      "value": "===="
+    },
+    "selector": {
+      "kind": "all"
+    }
+  }
+}
