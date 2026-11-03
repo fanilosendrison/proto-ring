@@ -1,50 +1,97 @@
 #!/usr/bin/env python3
-"""Validate API-01 candidate wire examples. Not engine or security qualification."""
+"""Candidate syntax controls only; no engine, admission or security qualification."""
 import json
+import sys
 from pathlib import Path
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
+sys.dont_write_bytecode = True
+from schema_catalog import verify_discovery
 
-ROOT=Path(__file__).resolve().parents[1]
-SCHEMAS=ROOT/'schemas'
-registry=Registry()
-for path in SCHEMAS.glob('*.json'):
-    document=json.loads(path.read_text())
-    Draft202012Validator.check_schema(document)
-    registry=registry.with_resource(document['$id'],Resource.from_contents(document))
+ROOT = Path(__file__).resolve().parents[1]
 
-schema_req=json.loads((SCHEMAS/'request.schema.json').read_text())
-schema_rsp=json.loads((SCHEMAS/'response.schema.json').read_text())
-schema_local=json.loads((SCHEMAS/'local-context.schema.json').read_text())
-validators={
-    'request':Draft202012Validator(schema_req,registry=registry),
-    'response':Draft202012Validator(schema_rsp,registry=registry),
-    'local':Draft202012Validator(schema_local,registry=registry),
-}
 
 def strict_object_pairs(items):
-    d={}
-    for k,v in items:
-        if k in d: raise ValueError('duplicate JSON key: '+k)
-        d[k]=v
-    return d
+    result = {}
+    for key, value in items:
+        if key in result:
+            raise ValueError('duplicate JSON key: ' + key)
+        result[key] = value
+    return result
 
-cases=json.loads((ROOT/'conformance/schema-cases.json').read_text())
-fail=[]
-for case in cases:
-    p=ROOT/case['document']
-    try:
-        data=json.loads(p.read_bytes(),object_pairs_hook=strict_object_pairs)
-        kind='local' if p.name=='local-context.json' else ('request' if p.name.startswith('request-') or p.name.startswith('negative-') else 'response')
-        errors=list(validators[kind].iter_errors(data))
-        valid=not errors
-        why=str(errors[0].message) if errors else 'valid'
-    except (ValueError,UnicodeError) as ex:
-        valid=False
-        why=str(ex)
-    if valid!=(case['expect']=='accept'):
-        fail.append((case['id'],case['expect'],why))
-if fail:
-    for x in fail:print('FAIL:',x)
-    raise SystemExit(1)
-print(f'SCHEMA_VALIDATION_PASS={len(cases)}; SEMANTIC_RUNTIME_CASES_NOT_QUALIFIED=31')
+
+def reject_constant(value):
+    raise ValueError('non-JSON numeric constant: ' + value)
+
+
+def load(path):
+    return json.loads(path.read_bytes(), object_pairs_hook=strict_object_pairs,
+                      parse_constant=reject_constant)
+
+
+def offline_retrieval(uri):
+    raise ValueError('Network schema retrieval forbidden: ' + uri)
+
+
+def main():
+    registry = Registry(retrieve=offline_retrieval)
+    documents = [load(path) for path in sorted((ROOT / 'schemas').glob('*.json'))]
+    for document in documents:
+        Draft202012Validator.check_schema(document)
+        registry = registry.with_resource(document['$id'], Resource.from_contents(document))
+    by_id = {document['$id']: document for document in documents}
+    api = by_id['urn:proto-ring:api-01:v1:api']
+    validators = {target: Draft202012Validator(
+        load(ROOT / 'schemas' / filename), registry=registry)
+        for target, filename in [('request', 'request.schema.json'),
+                                 ('response', 'response.schema.json'),
+                                 ('local', 'local-context.schema.json')]}
+    cases = load(ROOT / 'conformance/schema-cases.json')
+    assert len({case['id'] for case in cases}) == len(cases), 'Duplicate schema case ID'
+    failures = []
+    accepted = []
+    for case in cases:
+        target = case['target']  # Never derive the target from a filename.
+        validator = validators[target]
+        try:
+            data = load(ROOT / case['document'])
+            valid = validator.is_valid(data)
+            if case['expect'] == 'accept' and valid:
+                accepted.append((target, data))
+        except (ValueError, UnicodeError):
+            valid = False
+        if valid != (case['expect'] == 'accept'):
+            failures.append(case['id'])
+        if 'control_document' in case:
+            control = load(ROOT / case['control_document'])
+            assert validator.is_valid(control), case['id'] + ': positive control rejected'
+            # Controls differ only at the named boundary, proving rejection is not
+            # caused by routing a response to the request schema or missing provenance.
+            pointer = case['boundary_pointer'].strip('/').split('/')
+            left, right = data, control
+            for key in pointer[:-1]:
+                left, right = left[key], right[key]
+            repaired = json.loads(json.dumps(data))
+            cursor = repaired
+            for key in pointer[:-1]:
+                cursor = cursor[key]
+            cursor[pointer[-1]] = right[pointer[-1]]
+            assert repaired == control and left[pointer[-1]] != right[pointer[-1]], case['id']
+    assert not failures, 'Schema cases failed: ' + ', '.join(failures)
+    verify_discovery(api, load(ROOT / 'examples/response-discover.json'), accepted)
+    ranges = load(ROOT / 'conformance/output-range-cases.json')
+    for case in ranges:
+        assert case['qualified'] is False
+        validators['request'].validate(case['request'])
+        validators['response'].validate(load(ROOT / case['response_document']))
+    semantic = load(ROOT / 'conformance/semantic-cases.json')
+    assert [row['id'] for row in semantic] == [f'A{i:02}' for i in range(1, len(semantic) + 1)]
+    assert all(row['qualified'] is False and row['kind'] == 'semantic_review_required' for row in semantic)
+    assert all(set(row) == {'id', 'kind', 'scenario', 'expected_boundary', 'qualified'} for row in semantic)
+    print(f'SCHEMA_VALIDATION_PASS={len(cases)}; DISCOVERY_DERIVATION_PASS=5')
+    print(f'OUTPUT_RANGE_FIXTURE_SHAPES_PASS={len(ranges)}; NO_OUTPUT_RUNTIME_ATTESTATION')
+    print(f'SEMANTIC_RUNTIME_CASES_NOT_QUALIFIED={len(semantic)}')
+
+
+if __name__ == '__main__':
+    main()

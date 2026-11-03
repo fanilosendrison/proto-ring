@@ -21,6 +21,20 @@
       "responsibility": "governance",
       "source": "doctrine",
       "role": "UNKNOWN_RESPONSIBILITY"
-    }
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ]
   }
 }

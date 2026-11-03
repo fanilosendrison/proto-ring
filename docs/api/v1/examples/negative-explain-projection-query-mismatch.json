@@ -1,0 +1,64 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "query": {
+      "kind": "capability",
+      "id": "quality"
+    },
+    "explanation": {
+      "kind": "declaration",
+      "subject": {
+        "kind": "projection",
+        "id": "quality"
+      },
+      "declaration": {
+        "kind": "projection",
+        "id": "quality",
+        "registry_model_version": 1,
+        "registry_authority": {
+          "responsibility": "quality",
+          "source": "canonical"
+        },
+        "carrier": {
+          "kind": "utf8",
+          "value": "/example/repo/projections.yaml"
+        },
+        "declaration": {
+          "responsibility": "quality",
+          "canonical_source": "canonical",
+          "secondary_source": "rendered",
+          "mode": "reference",
+          "validation": "verify",
+          "generator_source": null,
+          "boundary_source": null,
+          "target": null,
+          "binding": null
+        }
+      }
+    }
+  }
+}

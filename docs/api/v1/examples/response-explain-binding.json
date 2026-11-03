@@ -1,0 +1,62 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "query": {
+      "kind": "binding",
+      "id": "contract"
+    },
+    "explanation": {
+      "kind": "declaration",
+      "subject": {
+        "kind": "binding",
+        "id": "contract"
+      },
+      "declaration": {
+        "kind": "binding",
+        "id": "contract",
+        "registry_source": "canonical",
+        "declaration": {
+          "kind": "governance_contract",
+          "scope": {
+            "kind": "capability",
+            "capability": "repository_integrity"
+          },
+          "identity": {
+            "kind": "governance_contract",
+            "repository": "example/governance",
+            "commit": "1111111111111111111111111111111111111111",
+            "path": "contract.md"
+          },
+          "authority": {
+            "responsibility": "quality",
+            "source": "canonical"
+          }
+        }
+      }
+    }
+  }
+}

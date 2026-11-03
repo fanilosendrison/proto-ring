@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "outcome": "controlled_failure",
+  "error": {
+    "code": "invalid_request",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": null
+  }
+}

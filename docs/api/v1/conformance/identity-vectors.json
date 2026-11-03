@@ -44,9 +44,11 @@
       "id": "ri_profile",
       "domain": "ri-profile-v1",
       "parts_base64": [
+        "AAAAAAAAAEA=",
         "AXRlc3QtcHJvZmlsZQ=="
       ],
-      "expected_sha256_lowerhex": "a9a92bc57faf14133fa0a08b8e327e0b9163effe700d5f005013ff7a325a4a59"
+      "expected_sha256_lowerhex": "d579941418bd943069d2c1b0934113f07521f0a48b330d56ed40cb071e4deb98",
+      "native_word_bits": 64
     },
     {
       "id": "ri_context",
@@ -75,6 +77,166 @@
         "AP9yaQ=="
       ],
       "expected_sha256_lowerhex": "caeaa817d144d527dc1b9746ce2fbfcecf2bf8d65e5bcb894acb0815af4fb1e6"
+    },
+    {
+      "id": "ri_profile_word32",
+      "domain": "ri-profile-v1",
+      "parts_base64": [
+        "AAAAAAAAACA=",
+        "AAAADW1vZGVsX3ZlcnNpb24AAAABMQ=="
+      ],
+      "expected_sha256_lowerhex": "26442baee116e14be6990e0b0758739fe1976f4515c7ef639619354576bd9082",
+      "native_word_bits": 32
+    },
+    {
+      "id": "ri_profile_word64",
+      "domain": "ri-profile-v1",
+      "parts_base64": [
+        "AAAAAAAAAEA=",
+        "AAAAAAAAAA1tb2RlbF92ZXJzaW9uAAAAAAAAAAEx"
+      ],
+      "expected_sha256_lowerhex": "7ab9376b2de646e1f927f88de700b63c289517f91b48687f0946e5a7b8f23f3e",
+      "native_word_bits": 64
+    },
+    {
+      "id": "ri_scope_native_byte_order",
+      "domain": "ri-scope-v1",
+      "parts_base64": [
+        "UM40dDqVYfL2EVVijxpSgFTU/G42ytpERMAbU9DRGiU=",
+        "AAAAAAAAAAI=",
+        "YS1i",
+        "YS9i"
+      ],
+      "expected_sha256_lowerhex": "e73a8b13e68d97296dd725d637a52f73d0e335f18901577035a58b4e60a36e21",
+      "scope_input_units_base64": [
+        "YS9i",
+        "YS1i",
+        "YS9i"
+      ]
+    },
+    {
+      "id": "unix_non_utf8_repository",
+      "domain": "rgs-repository-v1",
+      "parts_base64": [
+        "dW5peA==",
+        "L2V4YW1wbGUv/w=="
+      ],
+      "expected_sha256_lowerhex": "050f7525436ddf1fdccc913e9cf4657997d5ed9d829258bc3e2315400bd76691"
+    },
+    {
+      "id": "windows_unpaired_wide_repository",
+      "domain": "rgs-repository-v1",
+      "parts_base64": [
+        "d2luZG93cw==",
+        "AEMAOgBc2AA="
+      ],
+      "expected_sha256_lowerhex": "12be5f6767b23f9f66ac65098121ff4c6842ee2263c0e4c6e079a1440d80e401"
+    }
+  ],
+  "qualification": "Synthetic public framing vectors only. Actual engine-derived 32/64-bit identity and native path round-trip qualification NOT EXECUTED.",
+  "native_path_cases": [
+    {
+      "id": "unix-utf8",
+      "platform": "unix",
+      "path": {
+        "kind": "utf8",
+        "value": "a/b"
+      },
+      "valid": true,
+      "expected_units_hex": "612f62"
+    },
+    {
+      "id": "unix-non-utf8",
+      "platform": "unix",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": "/w=="
+      },
+      "valid": true,
+      "expected_units_hex": "ff"
+    },
+    {
+      "id": "windows-wide",
+      "platform": "windows",
+      "path": {
+        "kind": "windows_wide_be_base64",
+        "value": "AGEALwBi"
+      },
+      "valid": true,
+      "expected_units_hex": "0061002f0062"
+    },
+    {
+      "id": "windows-unpaired-wide",
+      "platform": "windows",
+      "path": {
+        "kind": "windows_wide_be_base64",
+        "value": "2AA="
+      },
+      "valid": true,
+      "expected_units_hex": "d800"
+    },
+    {
+      "id": "wrong-platform",
+      "platform": "windows",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": "/w=="
+      },
+      "valid": false
+    },
+    {
+      "id": "odd-wide-length",
+      "platform": "windows",
+      "path": {
+        "kind": "windows_wide_be_base64",
+        "value": "YQ=="
+      },
+      "valid": false
+    },
+    {
+      "id": "wide-nul",
+      "platform": "windows",
+      "path": {
+        "kind": "windows_wide_be_base64",
+        "value": "AAA="
+      },
+      "valid": false
+    },
+    {
+      "id": "unix-nul",
+      "platform": "unix",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": "AA=="
+      },
+      "valid": false
+    },
+    {
+      "id": "empty-native",
+      "platform": "unix",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": ""
+      },
+      "valid": false
+    },
+    {
+      "id": "nonzero-pad-bits",
+      "platform": "unix",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": "/x=="
+      },
+      "valid": false
+    },
+    {
+      "id": "malformed-padding",
+      "platform": "unix",
+      "path": {
+        "kind": "unix_bytes_base64",
+        "value": "/w="
+      },
+      "valid": false
     }
   ]
 }

@@ -1,0 +1,168 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "selector": {
+      "kind": "model"
+    },
+    "result_kind": "component",
+    "component": {
+      "name": "model",
+      "data": {
+        "model_version": 2,
+        "provider": {
+          "id": "proto-ring",
+          "binding": {
+            "capability": "shared_governance_provider",
+            "route": "registry"
+          }
+        },
+        "capabilities": {
+          "repository_integrity": {
+            "configuration": {
+              "": {
+                "kind": "boolean",
+                "value": true
+              }
+            },
+            "routes": {
+              "profile": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "repository_integrity",
+                  "routes",
+                  "profile"
+                ],
+                "declared_path": "integrity.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/integrity.yaml"
+                }
+              }
+            }
+          },
+          "shared_governance_provider": {
+            "configuration": {},
+            "routes": {
+              "registry": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "shared_governance_provider",
+                  "routes",
+                  "registry"
+                ],
+                "declared_path": "bindings.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/bindings.yaml"
+                }
+              }
+            }
+          },
+          "governance_authority": {
+            "configuration": {},
+            "routes": {
+              "profile": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "governance_authority",
+                  "routes",
+                  "profile"
+                ],
+                "declared_path": "authority.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/authority.yaml"
+                }
+              }
+            }
+          },
+          "governed_objects": {
+            "configuration": {},
+            "routes": {
+              "profile": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "governed_objects",
+                  "routes",
+                  "profile"
+                ],
+                "declared_path": "objects.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/objects.yaml"
+                }
+              }
+            }
+          },
+          "projection_integrity": {
+            "configuration": {},
+            "routes": {
+              "registry": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "projection_integrity",
+                  "routes",
+                  "registry"
+                ],
+                "declared_path": "projections.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/projections.yaml"
+                }
+              }
+            }
+          },
+          "evidence_requirements": {
+            "configuration": {},
+            "routes": {
+              "registry": {
+                "segments": [
+                  "repository_governance",
+                  "capabilities",
+                  "evidence_requirements",
+                  "routes",
+                  "registry"
+                ],
+                "declared_path": "evidence.yaml",
+                "resolved_target": {
+                  "kind": "utf8",
+                  "value": "/example/repo/evidence.yaml"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "unexpected": true
+  }
+}

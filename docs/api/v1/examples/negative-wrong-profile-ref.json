@@ -11,11 +11,12 @@
       "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
       "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-      "coherence_basis": "ordinary_capture"
+      "coherence_basis": "host_established"
     },
     "profile_ref": {
       "format": "ri-context-v1",
-      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "native_word_bits": 64
     },
     "context_ref": {
       "format": "ri-context-v1",
@@ -33,6 +34,28 @@
       "max_read_bytes": 65536,
       "retention_seconds": "604800",
       "total_quota_bytes": "1073741824"
-    }
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "ri_scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "src"
+      }
+    ],
+    "coherence_basis": "exclusive_workspace",
+    "custody": "local_user_controlled"
   }
 }

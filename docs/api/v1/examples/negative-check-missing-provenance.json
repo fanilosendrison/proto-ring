@@ -1,0 +1,86 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "outcome": "result",
+  "value": {
+    "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "execution_mode": "local",
+    "governance_observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "host_established"
+    },
+    "profile_ref": {
+      "format": "ri-profile-v1",
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "native_word_bits": 64
+    },
+    "context_ref": {
+      "format": "ri-context-v1",
+      "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "ri_scope": "1111111111111111111111111111111111111111111111111111111111111111",
+    "baseline_state": {
+      "format": "ri-state-v1",
+      "scope": "1111111111111111111111111111111111111111111111111111111111111111",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "final_state": {
+      "format": "ri-state-v1",
+      "scope": "1111111111111111111111111111111111111111111111111111111111111111",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "state_relation": "EQUAL",
+    "state_coherence_halt": false,
+    "verdict": "NON_PASS",
+    "validations": [
+      {
+        "id": "rust-tests",
+        "status": "VIOLATED",
+        "obligations": [
+          {
+            "instance_index": "0",
+            "status": "VIOLATED",
+            "executed": true,
+            "exit_code": "101",
+            "stdout": {
+              "capture_state": "complete",
+              "observed_bytes": "0",
+              "retained_start": "0",
+              "retained_bytes": "0",
+              "sha256_retained": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "capture_state": "complete",
+              "observed_bytes": "3",
+              "retained_start": "0",
+              "retained_bytes": "3",
+              "sha256_retained": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+            }
+          }
+        ]
+      }
+    ],
+    "capture_policy": {
+      "tail_bytes_per_stream": "67108864",
+      "max_read_bytes": 65536,
+      "retention_seconds": "604800",
+      "total_quota_bytes": "1073741824"
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "ri_scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "src"
+      }
+    ],
+    "coherence_basis": "exclusive_workspace",
+    "custody": "local_user_controlled"
+  }
+}

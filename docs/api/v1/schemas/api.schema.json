@@ -294,32 +294,7 @@
             "minLength": 1
           },
           "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "configuration": {
-                "type": "object",
-                "propertyNames": {
-                  "minLength": 1
-                },
-                "additionalProperties": {
-                  "$ref": "#/$defs/structured_value"
-                }
-              },
-              "routes": {
-                "type": "object",
-                "propertyNames": {
-                  "minLength": 1
-                },
-                "additionalProperties": {
-                  "$ref": "#/$defs/route"
-                }
-              }
-            },
-            "additionalProperties": false,
-            "required": [
-              "configuration",
-              "routes"
-            ]
+            "$ref": "#/$defs/capability_decl"
           }
         }
       },
@@ -443,46 +418,7 @@
                   "minLength": 1
                 },
                 "additionalProperties": {
-                  "type": "object",
-                  "properties": {
-                    "responsibilities": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "minLength": 1
-                      }
-                    },
-                    "relations": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "relation": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "responsibility": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "target": {
-                            "$ref": "#/$defs/target"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "relation",
-                          "responsibility",
-                          "target"
-                        ]
-                      }
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "responsibilities",
-                    "relations"
-                  ]
+                  "$ref": "#/$defs/governed_object_decl"
                 }
               }
             },
@@ -621,31 +557,7 @@
             "minLength": 1
           },
           "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "kind": {
-                "enum": [
-                  "executable_provider",
-                  "governance_contract"
-                ]
-              },
-              "scope": {
-                "$ref": "#/$defs/binding_scope"
-              },
-              "identity": {
-                "$ref": "#/$defs/binding_identity"
-              },
-              "authority": {
-                "$ref": "#/$defs/authority_ref"
-              }
-            },
-            "additionalProperties": false,
-            "required": [
-              "kind",
-              "scope",
-              "identity",
-              "authority"
-            ]
+            "$ref": "#/$defs/binding_decl"
           }
         },
         "carrier": {
@@ -882,83 +794,7 @@
             "minLength": 1
           },
           "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "responsibility": {
-                "type": "string",
-                "minLength": 1
-              },
-              "canonical_source": {
-                "type": "string",
-                "minLength": 1
-              },
-              "secondary_source": {
-                "type": "string",
-                "minLength": 1
-              },
-              "mode": {
-                "$ref": "#/$defs/projection_mode"
-              },
-              "validation": {
-                "type": "string",
-                "minLength": 1
-              },
-              "generator_source": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "boundary_source": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "target": {
-                "anyOf": [
-                  {
-                    "$ref": "#/$defs/target"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "binding": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false,
-            "required": [
-              "responsibility",
-              "canonical_source",
-              "secondary_source",
-              "mode",
-              "validation",
-              "generator_source",
-              "boundary_source",
-              "target",
-              "binding"
-            ]
+            "$ref": "#/$defs/projection_decl"
           }
         },
         "carrier": {
@@ -988,127 +824,7 @@
             "minLength": 1
           },
           "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "responsibility": {
-                "type": "string",
-                "minLength": 1
-              },
-              "instances": {
-                "type": "object",
-                "properties": {
-                  "kind": {
-                    "enum": [
-                      "single",
-                      "source"
-                    ]
-                  },
-                  "source": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false,
-                "required": [
-                  "kind",
-                  "source"
-                ]
-              },
-              "evidence_classes": {
-                "type": "object",
-                "properties": {
-                  "kind": {
-                    "enum": [
-                      "explicit",
-                      "source"
-                    ]
-                  },
-                  "classes": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "source": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false,
-                "required": [
-                  "kind",
-                  "classes",
-                  "source"
-                ]
-              },
-              "subject_source": {
-                "type": "string",
-                "minLength": 1
-              },
-              "context": {
-                "type": "object",
-                "properties": {
-                  "required": {
-                    "type": "boolean"
-                  },
-                  "source": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false,
-                "required": [
-                  "required",
-                  "source"
-                ]
-              },
-              "candidate_source": {
-                "type": "string",
-                "minLength": 1
-              },
-              "target": {
-                "anyOf": [
-                  {
-                    "$ref": "#/$defs/target"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false,
-            "required": [
-              "responsibility",
-              "instances",
-              "evidence_classes",
-              "subject_source",
-              "context",
-              "candidate_source",
-              "target"
-            ]
+            "$ref": "#/$defs/evidence_requirement_decl"
           }
         },
         "carrier": {
@@ -1147,111 +863,51 @@
       "type": "object",
       "properties": {
         "bootstrap": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "present"
-                },
-                "data": {
-                  "$ref": "#/$defs/bootstrap_projection"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+          "type": "object",
+          "properties": {
+            "presence": {
+              "const": "present"
             },
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "absent"
-                },
-                "data": {
-                  "type": "null"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+            "data": {
+              "$ref": "#/$defs/bootstrap_projection"
             }
+          },
+          "additionalProperties": false,
+          "required": [
+            "presence",
+            "data"
           ]
         },
         "model": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "present"
-                },
-                "data": {
-                  "$ref": "#/$defs/model_projection"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+          "type": "object",
+          "properties": {
+            "presence": {
+              "const": "present"
             },
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "absent"
-                },
-                "data": {
-                  "type": "null"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+            "data": {
+              "$ref": "#/$defs/model_projection"
             }
+          },
+          "additionalProperties": false,
+          "required": [
+            "presence",
+            "data"
           ]
         },
         "authority": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "present"
-                },
-                "data": {
-                  "$ref": "#/$defs/authority_projection"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+          "type": "object",
+          "properties": {
+            "presence": {
+              "const": "present"
             },
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "absent"
-                },
-                "data": {
-                  "type": "null"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+            "data": {
+              "$ref": "#/$defs/authority_projection"
             }
+          },
+          "additionalProperties": false,
+          "required": [
+            "presence",
+            "data"
           ]
         },
         "governed_objects": {
@@ -1291,39 +947,19 @@
           ]
         },
         "bindings": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "present"
-                },
-                "data": {
-                  "$ref": "#/$defs/bindings_projection"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+          "type": "object",
+          "properties": {
+            "presence": {
+              "const": "present"
             },
-            {
-              "type": "object",
-              "properties": {
-                "presence": {
-                  "const": "absent"
-                },
-                "data": {
-                  "type": "null"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "presence",
-                "data"
-              ]
+            "data": {
+              "$ref": "#/$defs/bindings_projection"
             }
+          },
+          "additionalProperties": false,
+          "required": [
+            "presence",
+            "data"
           ]
         },
         "repository_integrity": {
@@ -1435,7 +1071,17 @@
           ]
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "bootstrap",
+        "model",
+        "authority",
+        "governed_objects",
+        "bindings",
+        "repository_integrity",
+        "projections",
+        "evidence_requirements"
+      ]
     },
     "platform": {
       "enum": [
@@ -1479,23 +1125,16 @@
       ]
     },
     "hash_ref": {
-      "type": "object",
-      "properties": {
-        "format": {
-          "enum": [
-            "ri-profile-v1",
-            "ri-context-v1",
-            "ri-state-v1"
-          ]
+      "oneOf": [
+        {
+          "$ref": "#/$defs/profile_ref"
         },
-        "sha256": {
-          "$ref": "#/$defs/hex256"
+        {
+          "$ref": "#/$defs/context_ref"
+        },
+        {
+          "$ref": "#/$defs/state_ref"
         }
-      },
-      "additionalProperties": false,
-      "required": [
-        "format",
-        "sha256"
       ]
     },
     "state_ref": {
@@ -1663,43 +1302,22 @@
           ]
         },
         {
-          "type": "object",
-          "properties": {
-            "kind": {
-              "enum": [
-                "capability",
-                "validation",
-                "binding",
-                "projection",
-                "evidence_requirement"
-              ]
-            },
-            "id": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "kind",
-            "id"
-          ]
+          "$ref": "#/$defs/explain_capability_query"
         },
         {
-          "type": "object",
-          "properties": {
-            "kind": {
-              "const": "governed_object"
-            },
-            "target": {
-              "$ref": "#/$defs/target"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "kind",
-            "target"
-          ]
+          "$ref": "#/$defs/explain_validation_query"
+        },
+        {
+          "$ref": "#/$defs/explain_binding_query"
+        },
+        {
+          "$ref": "#/$defs/explain_governed_object_query"
+        },
+        {
+          "$ref": "#/$defs/explain_projection_query"
+        },
+        {
+          "$ref": "#/$defs/explain_evidence_requirement_query"
         }
       ]
     },
@@ -1779,18 +1397,184 @@
               "const": "declaration"
             },
             "subject": {
-              "$ref": "#/$defs/explain_query"
+              "$ref": "#/$defs/explain_capability_query"
             },
-            "facts": {
-              "$ref": "#/$defs/structured_value"
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "capability"
+                    }
+                  }
+                }
+              ]
             }
           },
-          "additionalProperties": false,
           "required": [
             "kind",
             "subject",
-            "facts"
-          ]
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "declaration"
+            },
+            "subject": {
+              "$ref": "#/$defs/explain_validation_query"
+            },
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "validation"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "declaration"
+            },
+            "subject": {
+              "$ref": "#/$defs/explain_binding_query"
+            },
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "binding"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "declaration"
+            },
+            "subject": {
+              "$ref": "#/$defs/explain_governed_object_query"
+            },
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "governed_object"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "declaration"
+            },
+            "subject": {
+              "$ref": "#/$defs/explain_projection_query"
+            },
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "projection"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "declaration"
+            },
+            "subject": {
+              "$ref": "#/$defs/explain_evidence_requirement_query"
+            },
+            "declaration": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/subject_projection"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "evidence_requirement"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject",
+            "declaration"
+          ],
+          "additionalProperties": false
         }
       ]
     },
@@ -1969,7 +1753,18 @@
           ]
         },
         "governance_observation": {
-          "$ref": "#/$defs/observation"
+          "allOf": [
+            {
+              "$ref": "#/$defs/observation"
+            },
+            {
+              "properties": {
+                "coherence_basis": {
+                  "const": "host_established"
+                }
+              }
+            }
+          ]
         },
         "profile_ref": {
           "$ref": "#/$defs/profile_ref"
@@ -2024,9 +1819,26 @@
         },
         "capture_policy": {
           "$ref": "#/$defs/capture_policy"
+        },
+        "ri_scope_paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/native_path"
+          }
+        },
+        "coherence_basis": {
+          "enum": [
+            "exclusive_workspace",
+            "versioned_workspace"
+          ]
+        },
+        "custody": {
+          "enum": [
+            "local_user_controlled",
+            "host_enforced"
+          ]
         }
       },
-      "additionalProperties": false,
       "required": [
         "receipt_id",
         "execution_mode",
@@ -2040,8 +1852,17 @@
         "state_coherence_halt",
         "verdict",
         "validations",
-        "capture_policy"
-      ]
+        "capture_policy",
+        "ri_scope_paths",
+        "coherence_basis",
+        "custody"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/$defs/rgs_provenance"
+        }
+      ],
+      "unevaluatedProperties": false
     },
     "request": {
       "oneOf": [
@@ -2232,49 +2053,268 @@
       ]
     },
     "catalog_entry": {
-      "type": "object",
-      "properties": {
-        "operation": {
-          "enum": [
-            "discover",
-            "inspect",
-            "explain",
-            "check_repository_integrity",
-            "read_execution_output"
-          ]
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "const": "discover"
+            },
+            "effects": {
+              "const": [
+                "pure_projection"
+              ]
+            },
+            "preconditions": {
+              "const": []
+            },
+            "applicability": {
+              "const": "always"
+            },
+            "authorization": {
+              "const": "none"
+            },
+            "request_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            },
+            "response_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            }
+          },
+          "required": [
+            "operation",
+            "effects",
+            "preconditions",
+            "applicability",
+            "authorization",
+            "request_schema",
+            "response_schema"
+          ],
+          "additionalProperties": false
         },
-        "effects": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "local_observation",
-              "pure_projection",
-              "consumer_command_execution",
-              "read_host_output"
-            ]
-          }
+        {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "const": "inspect"
+            },
+            "effects": {
+              "const": [
+                "local_observation"
+              ]
+            },
+            "preconditions": {
+              "const": [
+                "repository_read",
+                "rgs_load"
+              ]
+            },
+            "applicability": {
+              "const": "rgs_load"
+            },
+            "authorization": {
+              "const": "repository_read"
+            },
+            "request_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            },
+            "response_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            }
+          },
+          "required": [
+            "operation",
+            "effects",
+            "preconditions",
+            "applicability",
+            "authorization",
+            "request_schema",
+            "response_schema"
+          ],
+          "additionalProperties": false
         },
-        "applicability": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "const": "explain"
+            },
+            "effects": {
+              "const": [
+                "local_observation",
+                "pure_projection"
+              ]
+            },
+            "preconditions": {
+              "const": [
+                "repository_read",
+                "rgs_load",
+                "query_resolution"
+              ]
+            },
+            "applicability": {
+              "const": "query_resolution"
+            },
+            "authorization": {
+              "const": "repository_read"
+            },
+            "request_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            },
+            "response_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            }
+          },
+          "required": [
+            "operation",
+            "effects",
+            "preconditions",
+            "applicability",
+            "authorization",
+            "request_schema",
+            "response_schema"
+          ],
+          "additionalProperties": false
         },
-        "authorization": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "effects": {
+              "const": [
+                "local_observation",
+                "consumer_command_execution"
+              ]
+            },
+            "preconditions": {
+              "const": [
+                "repository_read",
+                "coherent_workspace",
+                "rgs_load",
+                "ri_declared",
+                "profile_admission",
+                "realization",
+                "effect_plan_admission",
+                "receipt_budget"
+              ]
+            },
+            "applicability": {
+              "const": "ri_declared"
+            },
+            "authorization": {
+              "const": "effect_plan_admission"
+            },
+            "request_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            },
+            "response_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            }
+          },
+          "required": [
+            "operation",
+            "effects",
+            "preconditions",
+            "applicability",
+            "authorization",
+            "request_schema",
+            "response_schema"
+          ],
+          "additionalProperties": false
         },
-        "request_schema": {
-          "type": "object"
-        },
-        "response_schema": {
-          "type": "object"
+        {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "const": "read_execution_output"
+            },
+            "effects": {
+              "const": [
+                "read_host_output"
+              ]
+            },
+            "preconditions": {
+              "const": [
+                "receipt_access",
+                "retained_output"
+              ]
+            },
+            "applicability": {
+              "const": "retained_output"
+            },
+            "authorization": {
+              "const": "receipt_access"
+            },
+            "request_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            },
+            "response_schema": {
+              "type": "object",
+              "required": [
+                "$schema",
+                "$defs"
+              ],
+              "minProperties": 3
+            }
+          },
+          "required": [
+            "operation",
+            "effects",
+            "preconditions",
+            "applicability",
+            "authorization",
+            "request_schema",
+            "response_schema"
+          ],
+          "additionalProperties": false
         }
-      },
-      "additionalProperties": false,
-      "required": [
-        "operation",
-        "effects",
-        "applicability",
-        "authorization",
-        "request_schema",
-        "response_schema"
       ]
     },
     "discover_value": {
@@ -2282,9 +2322,81 @@
       "properties": {
         "operations": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/catalog_entry"
-          }
+          "minItems": 5,
+          "maxItems": 5,
+          "prefixItems": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/catalog_entry"
+                },
+                {
+                  "properties": {
+                    "operation": {
+                      "const": "discover"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/catalog_entry"
+                },
+                {
+                  "properties": {
+                    "operation": {
+                      "const": "inspect"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/catalog_entry"
+                },
+                {
+                  "properties": {
+                    "operation": {
+                      "const": "explain"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/catalog_entry"
+                },
+                {
+                  "properties": {
+                    "operation": {
+                      "const": "check_repository_integrity"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/catalog_entry"
+                },
+                {
+                  "properties": {
+                    "operation": {
+                      "const": "read_execution_output"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "items": false
         },
         "schema_draft": {
           "const": "https://json-schema.org/draft/2020-12/schema"
@@ -2297,54 +2409,1095 @@
       ]
     },
     "inspect_value": {
-      "type": "object",
-      "properties": {
-        "observation": {
-          "$ref": "#/$defs/observation"
+      "oneOf": [
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "selector": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "all"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            "result_kind": {
+              "const": "all"
+            },
+            "components": {
+              "$ref": "#/$defs/components"
+            }
+          },
+          "required": [
+            "observation",
+            "selector",
+            "result_kind",
+            "components"
+          ],
+          "unevaluatedProperties": false
         },
-        "repository": {
-          "$ref": "#/$defs/native_path"
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "bootstrap"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "bootstrap"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/bootstrap_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "model"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "model"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/model_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "authority"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "authority"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/authority_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "governed_objects"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "governed_objects"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/objects_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "bindings"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "bindings"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/bindings_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "repository_integrity"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "repository_integrity"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/integrity_profile_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "projections"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "projections"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/projections_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "evidence_requirements"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "component"
+                },
+                "component": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "const": "evidence_requirements"
+                    },
+                    "data": {
+                      "$ref": "#/$defs/evidence_projection"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "component"
+              ],
+              "unevaluatedProperties": false
+            }
+          ]
         },
-        "scope_paths": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/native_path"
-          }
-        },
-        "selector": {
-          "$ref": "#/$defs/inspect_selector"
-        },
-        "components": {
-          "$ref": "#/$defs/components"
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "capability"
+                    },
+                    "id": {
+                      "$ref": "#/$defs/identifier"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "subject"
+                },
+                "subject": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/subject_projection"
+                    },
+                    {
+                      "properties": {
+                        "kind": {
+                          "const": "capability"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "subject"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "validation"
+                    },
+                    "id": {
+                      "$ref": "#/$defs/identifier"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "subject"
+                },
+                "subject": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/subject_projection"
+                    },
+                    {
+                      "properties": {
+                        "kind": {
+                          "const": "validation"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "subject"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "binding"
+                    },
+                    "id": {
+                      "$ref": "#/$defs/identifier"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "subject"
+                },
+                "subject": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/subject_projection"
+                    },
+                    {
+                      "properties": {
+                        "kind": {
+                          "const": "binding"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "subject"
+              ],
+              "unevaluatedProperties": false
+            },
+            {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rgs_provenance"
+                }
+              ],
+              "properties": {
+                "observation": {
+                  "$ref": "#/$defs/observation"
+                },
+                "selector": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "governed_object"
+                    },
+                    "target": {
+                      "$ref": "#/$defs/target"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                },
+                "result_kind": {
+                  "const": "subject"
+                },
+                "subject": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/subject_projection"
+                    },
+                    {
+                      "properties": {
+                        "kind": {
+                          "const": "governed_object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "observation",
+                "selector",
+                "result_kind",
+                "subject"
+              ],
+              "unevaluatedProperties": false
+            }
+          ]
         }
-      },
-      "additionalProperties": false,
-      "required": [
-        "observation",
-        "repository",
-        "scope_paths",
-        "selector",
-        "components"
       ]
     },
     "explain_value": {
-      "type": "object",
-      "properties": {
-        "observation": {
-          "$ref": "#/$defs/observation"
+      "oneOf": [
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "authority_role"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "authority_role"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
         },
-        "query": {
-          "$ref": "#/$defs/explain_query"
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "authority_precedence"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "authority_precedence"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
         },
-        "explanation": {
-          "$ref": "#/$defs/explanation"
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "capability"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "capability"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "validation"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "validation"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "binding"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "binding"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "governed_object"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "governed_object"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "projection"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "projection"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/$defs/rgs_provenance"
+            }
+          ],
+          "properties": {
+            "observation": {
+              "$ref": "#/$defs/observation"
+            },
+            "query": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explain_query"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "evidence_requirement"
+                    }
+                  }
+                }
+              ]
+            },
+            "explanation": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/explanation"
+                },
+                {
+                  "properties": {
+                    "kind": {
+                      "const": "declaration"
+                    },
+                    "subject": {
+                      "properties": {
+                        "kind": {
+                          "const": "evidence_requirement"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "observation",
+            "query",
+            "explanation"
+          ],
+          "unevaluatedProperties": false
         }
-      },
-      "additionalProperties": false,
-      "required": [
-        "observation",
-        "query",
-        "explanation"
       ]
     },
     "output_value": {
@@ -2427,32 +3580,7 @@
       "type": "object",
       "properties": {
         "code": {
-          "enum": [
-            "component_not_declared",
-            "execution_guarantee_unavailable",
-            "execution_incomplete",
-            "execution_plan_not_authorized",
-            "governance_load_failed",
-            "host_guard_lost_after_start",
-            "incomparable_observation",
-            "internal_failure",
-            "invalid_output_range",
-            "invalid_request",
-            "local_context_invalid",
-            "output_access_refused",
-            "output_expired",
-            "output_not_started",
-            "output_unavailable",
-            "profile_not_authorized",
-            "range_not_retained",
-            "receipt_persistence_failed",
-            "repository_integrity_not_declared",
-            "repository_not_authorized",
-            "response_too_large",
-            "stale_observation",
-            "subject_not_found",
-            "unsupported_version"
-          ]
+          "$ref": "#/$defs/error_code"
         },
         "stage": {
           "anyOf": [
@@ -2656,73 +3784,17 @@
               "const": "inapplicable"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "repository_integrity_not_declared",
-                    "component_not_declared"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_inapplicable"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -2753,72 +3825,17 @@
               "const": "not_found"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "subject_not_found"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_not_found"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -2849,75 +3866,17 @@
               "const": "admission_refused"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "repository_not_authorized",
-                    "profile_not_authorized",
-                    "execution_plan_not_authorized",
-                    "execution_guarantee_unavailable"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_admission_refused"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -2948,72 +3907,17 @@
               "const": "stale_observation"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "stale_observation"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_stale_observation"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -3044,72 +3948,17 @@
               "const": "incomparable_observation"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "incomparable_observation"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_incomparable_observation"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -3140,82 +3989,17 @@
               "const": "controlled_failure"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "response_too_large",
-                    "governance_load_failed",
-                    "local_context_invalid",
-                    "output_not_started",
-                    "output_expired",
-                    "output_access_refused",
-                    "output_unavailable",
-                    "range_not_retained",
-                    "invalid_output_range",
-                    "receipt_persistence_failed",
-                    "internal_failure"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_controlled_failure"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -3246,74 +4030,17 @@
               "const": "execution_incomplete"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "execution_incomplete",
-                    "host_guard_lost_after_start",
-                    "receipt_persistence_failed"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_execution_incomplete"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -3351,73 +4078,17 @@
               "const": "protocol_error"
             },
             "error": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "enum": [
-                    "invalid_request",
-                    "unsupported_version"
-                  ]
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
                 },
-                "stage": {
-                  "anyOf": [
-                    {
-                      "enum": [
-                        "repository_state",
-                        "bootstrap",
-                        "repository_governance_model",
-                        "governance_authority",
-                        "governed_objects",
-                        "governance_bindings",
-                        "repository_integrity",
-                        "projection_integrity",
-                        "evidence_requirements",
-                        "composition"
-                      ]
-                    },
-                    {
-                      "type": "null"
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
                     }
-                  ]
-                },
-                "detail": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "attempt_id": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/hex256"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "effects_possible": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
+                  }
                 }
-              },
-              "additionalProperties": false,
-              "required": [
-                "code",
-                "stage",
-                "detail",
-                "attempt_id",
-                "effects_possible"
               ]
             }
           },
@@ -3439,11 +4110,18 @@
         },
         "sha256": {
           "$ref": "#/$defs/hex256"
+        },
+        "native_word_bits": {
+          "enum": [
+            32,
+            64
+          ]
         }
       },
       "required": [
         "format",
-        "sha256"
+        "sha256",
+        "native_word_bits"
       ],
       "additionalProperties": false
     },
@@ -3462,6 +4140,664 @@
         "sha256"
       ],
       "additionalProperties": false
+    },
+    "capability_decl": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/structured_value"
+          }
+        },
+        "routes": {
+          "type": "object",
+          "propertyNames": {
+            "minLength": 1
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/route"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "configuration",
+        "routes"
+      ]
+    },
+    "binding_decl": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "executable_provider",
+            "governance_contract"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/binding_scope"
+        },
+        "identity": {
+          "$ref": "#/$defs/binding_identity"
+        },
+        "authority": {
+          "$ref": "#/$defs/authority_ref"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "scope",
+        "identity",
+        "authority"
+      ]
+    },
+    "governed_object_decl": {
+      "type": "object",
+      "properties": {
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "relation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "responsibility": {
+                "type": "string",
+                "minLength": 1
+              },
+              "target": {
+                "$ref": "#/$defs/target"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "relation",
+              "responsibility",
+              "target"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "responsibilities",
+        "relations"
+      ]
+    },
+    "projection_decl": {
+      "type": "object",
+      "properties": {
+        "responsibility": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secondary_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "$ref": "#/$defs/projection_mode"
+        },
+        "validation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generator_source": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "boundary_source": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/target"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "binding": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "responsibility",
+        "canonical_source",
+        "secondary_source",
+        "mode",
+        "validation",
+        "generator_source",
+        "boundary_source",
+        "target",
+        "binding"
+      ]
+    },
+    "evidence_requirement_decl": {
+      "type": "object",
+      "properties": {
+        "responsibility": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instances": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "single",
+                "source"
+              ]
+            },
+            "source": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "source"
+          ]
+        },
+        "evidence_classes": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "explicit",
+                "source"
+              ]
+            },
+            "classes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "source": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "classes",
+            "source"
+          ]
+        },
+        "subject_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "source": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "source"
+          ]
+        },
+        "candidate_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/target"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "responsibility",
+        "instances",
+        "evidence_classes",
+        "subject_source",
+        "context",
+        "candidate_source",
+        "target"
+      ]
+    },
+    "rgs_provenance": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "$ref": "#/$defs/native_path"
+        },
+        "scope_paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/native_path"
+          }
+        }
+      },
+      "required": [
+        "repository",
+        "scope_paths"
+      ]
+    },
+    "subject_projection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "capability"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "model_version": {
+              "enum": [
+                1,
+                2
+              ]
+            },
+            "declaration": {
+              "$ref": "#/$defs/capability_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "model_version",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "validation"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "profile_ref": {
+              "$ref": "#/$defs/profile_ref"
+            },
+            "declaration": {
+              "$ref": "#/$defs/validation_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "profile_ref",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "binding"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "registry_source": {
+              "$ref": "#/$defs/identifier"
+            },
+            "declaration": {
+              "$ref": "#/$defs/binding_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "registry_source",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "governed_object"
+            },
+            "target": {
+              "$ref": "#/$defs/target"
+            },
+            "declaration": {
+              "$ref": "#/$defs/governed_object_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "target",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "projection"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "registry_model_version": {
+              "const": 1
+            },
+            "registry_authority": {
+              "$ref": "#/$defs/authority_ref"
+            },
+            "carrier": {
+              "$ref": "#/$defs/native_path"
+            },
+            "declaration": {
+              "$ref": "#/$defs/projection_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "registry_model_version",
+            "registry_authority",
+            "carrier",
+            "declaration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "evidence_requirement"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            },
+            "registry_model_version": {
+              "const": 1
+            },
+            "registry_authority": {
+              "$ref": "#/$defs/authority_ref"
+            },
+            "carrier": {
+              "$ref": "#/$defs/native_path"
+            },
+            "declaration": {
+              "$ref": "#/$defs/evidence_requirement_decl"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "registry_model_version",
+            "registry_authority",
+            "carrier",
+            "declaration"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "explain_capability_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "capability"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "explain_validation_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "validation"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "explain_binding_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "binding"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "explain_governed_object_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "governed_object"
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        }
+      },
+      "required": [
+        "kind",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "explain_projection_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "projection"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "explain_evidence_requirement_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "evidence_requirement"
+        },
+        "id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "error_codes_inapplicable": {
+      "enum": [
+        "repository_integrity_not_declared",
+        "component_not_declared"
+      ]
+    },
+    "error_codes_not_found": {
+      "enum": [
+        "subject_not_found"
+      ]
+    },
+    "error_codes_admission_refused": {
+      "enum": [
+        "repository_not_authorized",
+        "profile_not_authorized",
+        "execution_plan_not_authorized",
+        "execution_guarantee_unavailable"
+      ]
+    },
+    "error_codes_stale_observation": {
+      "enum": [
+        "stale_observation"
+      ]
+    },
+    "error_codes_incomparable_observation": {
+      "enum": [
+        "incomparable_observation"
+      ]
+    },
+    "error_codes_controlled_failure": {
+      "enum": [
+        "response_too_large",
+        "governance_load_failed",
+        "local_context_invalid",
+        "output_not_started",
+        "output_expired",
+        "output_access_refused",
+        "output_unavailable",
+        "range_not_retained",
+        "invalid_output_range",
+        "receipt_persistence_failed",
+        "internal_failure"
+      ]
+    },
+    "error_codes_execution_incomplete": {
+      "enum": [
+        "execution_incomplete",
+        "host_guard_lost_after_start",
+        "receipt_persistence_failed"
+      ]
+    },
+    "error_codes_protocol_error": {
+      "enum": [
+        "invalid_request",
+        "unsupported_version"
+      ]
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_codes_inapplicable"
+        },
+        {
+          "$ref": "#/$defs/error_codes_not_found"
+        },
+        {
+          "$ref": "#/$defs/error_codes_admission_refused"
+        },
+        {
+          "$ref": "#/$defs/error_codes_stale_observation"
+        },
+        {
+          "$ref": "#/$defs/error_codes_incomparable_observation"
+        },
+        {
+          "$ref": "#/$defs/error_codes_controlled_failure"
+        },
+        {
+          "$ref": "#/$defs/error_codes_execution_incomplete"
+        },
+        {
+          "$ref": "#/$defs/error_codes_protocol_error"
+        }
+      ]
     }
   },
   "oneOf": [

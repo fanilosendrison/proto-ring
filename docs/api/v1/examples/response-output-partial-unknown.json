@@ -1,0 +1,19 @@
+{
+  "api_version": 1,
+  "operation": "read_execution_output",
+  "outcome": "result",
+  "value": {
+    "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "validation_id": "rust-tests",
+    "instance_index": "0",
+    "stream": "stderr",
+    "capture_state": "partial",
+    "offset": "100",
+    "returned_bytes": 3,
+    "data_base64": "YWJj",
+    "next_offset": null,
+    "retained_start": "100",
+    "retained_bytes": "3",
+    "observed_bytes": null
+  }
+}

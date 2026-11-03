@@ -1,0 +1,390 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "selector": {
+      "kind": "authority"
+    },
+    "result_kind": "all",
+    "components": {
+      "bootstrap": {
+        "presence": "present",
+        "data": {
+          "metadata": {
+            "kind": "null"
+          },
+          "repository_governance": {
+            "kind": "null"
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/AGENTS.md"
+          }
+        }
+      },
+      "model": {
+        "presence": "present",
+        "data": {
+          "model_version": 2,
+          "provider": {
+            "id": "proto-ring",
+            "binding": {
+              "capability": "shared_governance_provider",
+              "route": "registry"
+            }
+          },
+          "capabilities": {
+            "repository_integrity": {
+              "configuration": {
+                "": {
+                  "kind": "boolean",
+                  "value": true
+                }
+              },
+              "routes": {
+                "profile": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "repository_integrity",
+                    "routes",
+                    "profile"
+                  ],
+                  "declared_path": "integrity.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/integrity.yaml"
+                  }
+                }
+              }
+            },
+            "shared_governance_provider": {
+              "configuration": {},
+              "routes": {
+                "registry": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "shared_governance_provider",
+                    "routes",
+                    "registry"
+                  ],
+                  "declared_path": "bindings.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/bindings.yaml"
+                  }
+                }
+              }
+            },
+            "governance_authority": {
+              "configuration": {},
+              "routes": {
+                "profile": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "governance_authority",
+                    "routes",
+                    "profile"
+                  ],
+                  "declared_path": "authority.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/authority.yaml"
+                  }
+                }
+              }
+            },
+            "governed_objects": {
+              "configuration": {},
+              "routes": {
+                "profile": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "governed_objects",
+                    "routes",
+                    "profile"
+                  ],
+                  "declared_path": "objects.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/objects.yaml"
+                  }
+                }
+              }
+            },
+            "projection_integrity": {
+              "configuration": {},
+              "routes": {
+                "registry": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "projection_integrity",
+                    "routes",
+                    "registry"
+                  ],
+                  "declared_path": "projections.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/projections.yaml"
+                  }
+                }
+              }
+            },
+            "evidence_requirements": {
+              "configuration": {},
+              "routes": {
+                "registry": {
+                  "segments": [
+                    "repository_governance",
+                    "capabilities",
+                    "evidence_requirements",
+                    "routes",
+                    "registry"
+                  ],
+                  "declared_path": "evidence.yaml",
+                  "resolved_target": {
+                    "kind": "utf8",
+                    "value": "/example/repo/evidence.yaml"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "authority": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "sources": {
+            "canonical": {
+              "repository_target": null
+            }
+          },
+          "responsibilities": {
+            "quality": {
+              "roles": {
+                "canonical": "authority"
+              },
+              "precedence": []
+            }
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/authority.yaml"
+          }
+        }
+      },
+      "governed_objects": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "interfaces": {
+            "repository": {
+              "objects": {
+                "tree": {
+                  "responsibilities": [
+                    "quality"
+                  ],
+                  "relations": []
+                }
+              }
+            }
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/objects.yaml"
+          }
+        }
+      },
+      "bindings": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "source": "canonical",
+          "bindings": {
+            "contract": {
+              "kind": "governance_contract",
+              "scope": {
+                "kind": "capability",
+                "capability": "repository_integrity"
+              },
+              "identity": {
+                "kind": "governance_contract",
+                "repository": "example/governance",
+                "commit": "1111111111111111111111111111111111111111",
+                "path": "contract.md"
+              },
+              "authority": {
+                "responsibility": "quality",
+                "source": "canonical"
+              }
+            }
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/bindings.yaml"
+          }
+        }
+      },
+      "repository_integrity": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "authority": {
+            "responsibility": "quality",
+            "source": "canonical"
+          },
+          "environments": [
+            "python"
+          ],
+          "continue_after_non_satisfied": false,
+          "validations": {
+            "prepare": {
+              "responsibility": "quality",
+              "prerequisites": [],
+              "instances": {
+                "kind": "single"
+              },
+              "command": {
+                "environment": "python",
+                "arguments": [
+                  "-m",
+                  "unittest"
+                ],
+                "undetermined_exit_codes": [
+                  "127"
+                ]
+              },
+              "target": null
+            },
+            "verify": {
+              "responsibility": "quality",
+              "prerequisites": [
+                "prepare"
+              ],
+              "instances": {
+                "kind": "single"
+              },
+              "command": {
+                "environment": "python",
+                "arguments": [
+                  "-m",
+                  "unittest"
+                ],
+                "undetermined_exit_codes": [
+                  "127"
+                ]
+              },
+              "target": null
+            }
+          },
+          "order": [
+            "prepare",
+            "verify"
+          ],
+          "profile_ref": {
+            "format": "ri-profile-v1",
+            "native_word_bits": 64,
+            "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/integrity.yaml"
+          }
+        }
+      },
+      "projections": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "authority": {
+            "responsibility": "quality",
+            "source": "canonical"
+          },
+          "projections": {
+            "quality": {
+              "responsibility": "quality",
+              "canonical_source": "canonical",
+              "secondary_source": "rendered",
+              "mode": "reference",
+              "validation": "verify",
+              "generator_source": null,
+              "boundary_source": null,
+              "target": null,
+              "binding": null
+            }
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/projections.yaml"
+          }
+        }
+      },
+      "evidence_requirements": {
+        "presence": "present",
+        "data": {
+          "model_version": 1,
+          "authority": {
+            "responsibility": "quality",
+            "source": "canonical"
+          },
+          "requirements": {
+            "quality": {
+              "responsibility": "quality",
+              "instances": {
+                "kind": "single",
+                "source": null
+              },
+              "evidence_classes": {
+                "kind": "explicit",
+                "classes": [
+                  "test-report"
+                ],
+                "source": null
+              },
+              "subject_source": "canonical",
+              "context": {
+                "required": false,
+                "source": null
+              },
+              "candidate_source": "rendered",
+              "target": null
+            }
+          },
+          "carrier": {
+            "kind": "utf8",
+            "value": "/example/repo/evidence.yaml"
+          }
+        }
+      }
+    }
+  }
+}

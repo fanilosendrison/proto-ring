@@ -1,0 +1,61 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "outcome": "result",
+  "value": {
+    "receipt_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "execution_mode": "local",
+    "governance_observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "host_established"
+    },
+    "profile_ref": {
+      "format": "ri-profile-v1",
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "native_word_bits": 64
+    },
+    "context_ref": {
+      "format": "ri-context-v1",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "ri_scope": "1111111111111111111111111111111111111111111111111111111111111111",
+    "baseline_state": null,
+    "final_state": null,
+    "state_relation": "UNAVAILABLE",
+    "state_coherence_halt": true,
+    "verdict": "NON_PASS",
+    "validations": [],
+    "capture_policy": {
+      "tail_bytes_per_stream": "67108864",
+      "max_read_bytes": 65536,
+      "retention_seconds": "604800",
+      "total_quota_bytes": "1073741824"
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "ri_scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "src"
+      }
+    ],
+    "coherence_basis": "exclusive_workspace",
+    "custody": "local_user_controlled"
+  }
+}

@@ -122,7 +122,7 @@
     "id": "A18",
     "kind": "semantic_review_required",
     "scenario": "receipt storage tamper, expiry, access denial",
-    "expected_boundary": "no substituted bytes; typed refusal/expiry",
+    "expected_boundary": "Custody-qualified API integrity and typed refusal/expiry; local_user_controlled makes no independent same-user tamper-resistance claim",
     "qualified": false
   },
   {
@@ -214,6 +214,279 @@
     "kind": "semantic_review_required",
     "scenario": "native self/fixture baseline result",
     "expected_boundary": "same 1153 language neutral vectors; no compat v1 gate",
+    "qualified": false
+  },
+  {
+    "id": "A32",
+    "kind": "semantic_review_required",
+    "scenario": "empty configuration key survives complete inspection",
+    "expected_boundary": "inspect(model) and inspect(all) retain exact empty key and StructuredValue descendants",
+    "qualified": false
+  },
+  {
+    "id": "A33",
+    "kind": "semantic_review_required",
+    "scenario": "targeted capability projection",
+    "expected_boundary": "exact subject variant, requested ID and full capability declaration; no other subject",
+    "qualified": false
+  },
+  {
+    "id": "A34",
+    "kind": "semantic_review_required",
+    "scenario": "targeted validation projection with full profile reference",
+    "expected_boundary": "full original profile_ref, exact validation_decl; never reduced-profile identity",
+    "qualified": false
+  },
+  {
+    "id": "A35",
+    "kind": "semantic_review_required",
+    "scenario": "targeted binding projection",
+    "expected_boundary": "exact binding declaration and registry source",
+    "qualified": false
+  },
+  {
+    "id": "A36",
+    "kind": "semantic_review_required",
+    "scenario": "targeted governed object projection",
+    "expected_boundary": "exact target and declaration; no inferred relation meaning",
+    "qualified": false
+  },
+  {
+    "id": "A37",
+    "kind": "semantic_review_required",
+    "scenario": "absent targeted RI component",
+    "expected_boundary": "inapplicable/component_not_declared, no success absent projection",
+    "qualified": false
+  },
+  {
+    "id": "A38",
+    "kind": "semantic_review_required",
+    "scenario": "missing subject in present component",
+    "expected_boundary": "not_found/subject_not_found",
+    "qualified": false
+  },
+  {
+    "id": "A39",
+    "kind": "semantic_review_required",
+    "scenario": "typed declaration explanations for all supported subject types",
+    "expected_boundary": "six correlated subject/query variants, exact IDs/targets; no arbitrary facts container",
+    "qualified": false
+  },
+  {
+    "id": "A40",
+    "kind": "semantic_review_required",
+    "scenario": "complete five-operation discovery and self-contained schemas",
+    "expected_boundary": "exact constants and transitive canonical defs; no network, duplicate or sixth operation",
+    "qualified": false
+  },
+  {
+    "id": "A41",
+    "kind": "semantic_review_required",
+    "scenario": "RGS provenance on explain and check",
+    "expected_boundary": "exact loaded root and explicit RGS paths, separately from digests",
+    "qualified": false
+  },
+  {
+    "id": "A42",
+    "kind": "semantic_review_required",
+    "scenario": "exact concrete RI scope in completed receipt",
+    "expected_boundary": "ri_scope_paths from actual RI evaluation, never substituted RGS scope",
+    "qualified": false
+  },
+  {
+    "id": "A43",
+    "kind": "semantic_review_required",
+    "scenario": "unavailable coherence basis",
+    "expected_boundary": "admission_refused/execution_guarantee_unavailable before first observation-dependent check effects",
+    "qualified": false
+  },
+  {
+    "id": "A44",
+    "kind": "semantic_review_required",
+    "scenario": "forbidden late effect",
+    "expected_boundary": "whole-plan refusal before first validator, even if later obligation might be skipped",
+    "qualified": false
+  },
+  {
+    "id": "A45",
+    "kind": "semantic_review_required",
+    "scenario": "executable substitution after admission",
+    "expected_boundary": "guarded dispatch refuses substituted executable; no affected launch",
+    "qualified": false
+  },
+  {
+    "id": "A46",
+    "kind": "semantic_review_required",
+    "scenario": "environment substitution after admission",
+    "expected_boundary": "exact admitted environment binding enforced before launch",
+    "qualified": false
+  },
+  {
+    "id": "A47",
+    "kind": "semantic_review_required",
+    "scenario": "guard loss after possible process start",
+    "expected_boundary": "execution_incomplete effects_possible=true; no completed RI verdict or retry",
+    "qualified": false
+  },
+  {
+    "id": "A48",
+    "kind": "semantic_review_required",
+    "scenario": "descendant remains capable of governed-state modification",
+    "expected_boundary": "no qualified completion until relevant descendants terminated or contained",
+    "qualified": false
+  },
+  {
+    "id": "A49",
+    "kind": "semantic_review_required",
+    "scenario": "receipt-size bound exceeds 16 MiB before effects",
+    "expected_boundary": "checked conservative bound of entire response refuses response_too_large effects_possible=false",
+    "qualified": false
+  },
+  {
+    "id": "A50",
+    "kind": "semantic_review_required",
+    "scenario": "receipt finalization or serialization failure after effects",
+    "expected_boundary": "incomplete attempt with actual effects uncertainty; no truncation or replay",
+    "qualified": false
+  },
+  {
+    "id": "A51",
+    "kind": "semantic_review_required",
+    "scenario": "local same-user receipt tamper boundary",
+    "expected_boundary": "local_user_controlled explicitly lacks independent same-identity tamper resistance; host_enforced needs real protection",
+    "qualified": false
+  },
+  {
+    "id": "A52",
+    "kind": "semantic_review_required",
+    "scenario": "partial output, unknown total, request at retained end",
+    "expected_boundary": "range_not_retained; E is not complete EOF",
+    "qualified": false
+  },
+  {
+    "id": "A53",
+    "kind": "semantic_review_required",
+    "scenario": "partial output with missing-prefix overlap",
+    "expected_boundary": "O<S yields range_not_retained even if O+L overlaps retained start",
+    "qualified": false
+  },
+  {
+    "id": "A54",
+    "kind": "semantic_review_required",
+    "scenario": "checked u64 output-range arithmetic",
+    "expected_boundary": "O+L overflow invalid_output_range; invalid S+N metadata never wraps",
+    "qualified": false
+  },
+  {
+    "id": "A55",
+    "kind": "semantic_review_required",
+    "scenario": "negative response cases use response schema",
+    "expected_boundary": "explicit target=response; positive controls isolate intended profile/outcome constraints",
+    "qualified": false
+  },
+  {
+    "id": "A56",
+    "kind": "semantic_review_required",
+    "scenario": "realized-state/baseline mismatch with equal baseline/final",
+    "expected_boundary": "A/B/B retains engine NOT_EQUAL and coherence halt, never facade recalculation",
+    "qualified": false
+  },
+  {
+    "id": "A57",
+    "kind": "semantic_review_required",
+    "scenario": "32-bit versus 64-bit profile-reference boundary",
+    "expected_boundary": "native_word_bits bound in digest; distinct widths not interchangeable, engine bytes unmodified",
+    "qualified": false
+  },
+  {
+    "id": "A58",
+    "kind": "semantic_review_required",
+    "scenario": "RI scope native-byte ordering",
+    "expected_boundary": "sort exact native units a-b before a/b for public digest; do not change engine vector or order",
+    "qualified": false
+  },
+  {
+    "id": "A59",
+    "kind": "semantic_review_required",
+    "scenario": "stable error-code and outcome mapping",
+    "expected_boundary": "canonical families, host_guard_lost_after_start exclusively execution_incomplete",
+    "qualified": false
+  },
+  {
+    "id": "A60",
+    "kind": "semantic_review_required",
+    "scenario": "actual engine-derived identity qualification required",
+    "expected_boundary": "synthetic KATs do not establish actual engine cross-target identity verification",
+    "qualified": false
+  },
+  {
+    "id": "A61",
+    "kind": "semantic_review_required",
+    "scenario": "explain(projection) exact typed projection declaration",
+    "expected_boundary": "registry model=1, exact authority/carrier and projection_decl from loaded registry; query and ID correspond",
+    "qualified": false
+  },
+  {
+    "id": "A62",
+    "kind": "semantic_review_required",
+    "scenario": "explain(evidence_requirement) exact typed requirement declaration",
+    "expected_boundary": "registry model=1, exact authority/carrier and evidence_requirement_decl; no evidence-validity claim",
+    "qualified": false
+  },
+  {
+    "id": "A63",
+    "kind": "semantic_review_required",
+    "scenario": "mismatched declaration IDs or governed-object target",
+    "expected_boundary": "semantic rejection of any mismatch among query, echoed subject and returned DTO for all six kinds",
+    "qualified": false
+  },
+  {
+    "id": "A64",
+    "kind": "semantic_review_required",
+    "scenario": "missing projection or evidence owning registry",
+    "expected_boundary": "inapplicable/component_not_declared; missing ID in present registry not_found; load failure controlled_failure without partial RGS",
+    "qualified": false
+  },
+  {
+    "id": "A65",
+    "kind": "semantic_review_required",
+    "scenario": "guard loss during canonical realization",
+    "expected_boundary": "outer HostAbort interrupts without completed verdict; never ordinary resolution UNDETERMINED",
+    "qualified": false
+  },
+  {
+    "id": "A66",
+    "kind": "semantic_review_required",
+    "scenario": "duplicate launch of admitted obligation",
+    "expected_boundary": "invocation guard rejects second launch for same ValidationId and ordinal",
+    "qualified": false
+  },
+  {
+    "id": "A67",
+    "kind": "semantic_review_required",
+    "scenario": "ordinary capture failure with active host guard",
+    "expected_boundary": "inner StateCaptureError preserves existing RI uncertainty and aggregation semantics",
+    "qualified": false
+  },
+  {
+    "id": "A68",
+    "kind": "semantic_review_required",
+    "scenario": "integer overflow in receipt-size accounting",
+    "expected_boundary": "no safe upper bound means response_too_large before any consumer command",
+    "qualified": false
+  },
+  {
+    "id": "A69",
+    "kind": "semantic_review_required",
+    "scenario": "untrusted agent mints privileged permit",
+    "expected_boundary": "public request cannot deserialize authority-bearing private plan/permit fields or self-authorize",
+    "qualified": false
+  },
+  {
+    "id": "A70",
+    "kind": "semantic_review_required",
+    "scenario": "complete and partial output endpoints including zero retention",
+    "expected_boundary": "complete EOF succeeds empty; beyond known total invalid; partial EOF or N=0 range_not_retained",
     "qualified": false
   }
 ]

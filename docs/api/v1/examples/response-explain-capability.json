@@ -1,0 +1,69 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "query": {
+      "kind": "capability",
+      "id": "repository_integrity"
+    },
+    "explanation": {
+      "kind": "declaration",
+      "subject": {
+        "kind": "capability",
+        "id": "repository_integrity"
+      },
+      "declaration": {
+        "kind": "capability",
+        "id": "repository_integrity",
+        "model_version": 2,
+        "declaration": {
+          "configuration": {
+            "": {
+              "kind": "boolean",
+              "value": true
+            }
+          },
+          "routes": {
+            "profile": {
+              "segments": [
+                "repository_governance",
+                "capabilities",
+                "repository_integrity",
+                "routes",
+                "profile"
+              ],
+              "declared_path": "integrity.yaml",
+              "resolved_target": {
+                "kind": "utf8",
+                "value": "/example/repo/integrity.yaml"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

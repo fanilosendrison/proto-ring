@@ -3,114 +3,900 @@
     "id": "request-check",
     "kind": "schema",
     "document": "examples/request-check.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "request"
   },
   {
     "id": "request-discover",
     "kind": "schema",
     "document": "examples/request-discover.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "request"
   },
   {
     "id": "request-explain-role",
     "kind": "schema",
     "document": "examples/request-explain-role.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "request"
   },
   {
     "id": "request-inspect-absent-ri",
     "kind": "schema",
     "document": "examples/request-inspect-absent-ri.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "request"
   },
   {
     "id": "request-output",
     "kind": "schema",
     "document": "examples/request-output.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "request"
   },
   {
     "id": "local-context",
     "kind": "schema",
     "document": "examples/local-context.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "local"
   },
   {
     "id": "response-check-nonpass",
     "kind": "schema",
     "document": "examples/response-check-nonpass.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-explain-role",
     "kind": "schema",
     "document": "examples/response-explain-role.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-inapplicable",
     "kind": "schema",
     "document": "examples/response-inapplicable.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-incomplete",
     "kind": "schema",
     "document": "examples/response-incomplete.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-inspect-absent-ri",
     "kind": "schema",
     "document": "examples/response-inspect-absent-ri.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-load-failure",
     "kind": "schema",
     "document": "examples/response-load-failure.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "response-output-abc",
     "kind": "schema",
     "document": "examples/response-output-abc.json",
-    "expect": "accept"
+    "expect": "accept",
+    "target": "response"
   },
   {
     "id": "reject-negative-duplicate-key",
     "kind": "schema",
     "document": "examples/negative-duplicate-key.json",
-    "expect": "reject"
+    "expect": "reject",
+    "target": "request"
   },
   {
     "id": "reject-negative-self-authorize",
     "kind": "schema",
     "document": "examples/negative-self-authorize.json",
-    "expect": "reject"
+    "expect": "reject",
+    "target": "request"
   },
   {
     "id": "reject-negative-unknown-operation",
     "kind": "schema",
     "document": "examples/negative-unknown-operation.json",
-    "expect": "reject"
+    "expect": "reject",
+    "target": "request"
   },
   {
     "id": "reject-negative-unsupported-path",
     "kind": "schema",
     "document": "examples/negative-unsupported-path.json",
-    "expect": "reject"
+    "expect": "reject",
+    "target": "request"
   },
   {
     "id": "reject-negative-wrong-profile-ref",
     "kind": "schema",
     "document": "examples/negative-wrong-profile-ref.json",
-    "expect": "reject"
+    "expect": "reject",
+    "target": "response",
+    "control_document": "examples/response-control-wrong-profile-ref.json",
+    "boundary_pointer": "/value/profile_ref/format"
   },
   {
     "id": "reject-negative-outcome-code-mismatch",
     "kind": "schema",
     "document": "examples/negative-outcome-code-mismatch.json",
+    "expect": "reject",
+    "target": "response",
+    "control_document": "examples/response-control-outcome-code-mismatch.json",
+    "boundary_pointer": "/error/code"
+  },
+  {
+    "id": "response-discover",
+    "kind": "schema",
+    "document": "examples/response-discover.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-binding",
+    "kind": "schema",
+    "document": "examples/response-explain-binding.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-capability",
+    "kind": "schema",
+    "document": "examples/response-explain-capability.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-evidence-requirement",
+    "kind": "schema",
+    "document": "examples/response-explain-evidence-requirement.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-governed-object",
+    "kind": "schema",
+    "document": "examples/response-explain-governed-object.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-projection",
+    "kind": "schema",
+    "document": "examples/response-explain-projection.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-explain-validation",
+    "kind": "schema",
+    "document": "examples/response-explain-validation.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-all-absent-ri",
+    "kind": "schema",
+    "document": "examples/response-inspect-all-absent-ri.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-all",
+    "kind": "schema",
+    "document": "examples/response-inspect-all.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-binding",
+    "kind": "schema",
+    "document": "examples/response-inspect-binding.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-capability",
+    "kind": "schema",
+    "document": "examples/response-inspect-capability.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-governed-object",
+    "kind": "schema",
+    "document": "examples/response-inspect-governed-object.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-model",
+    "kind": "schema",
+    "document": "examples/response-inspect-model.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-inspect-validation",
+    "kind": "schema",
+    "document": "examples/response-inspect-validation.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-control-wrong-profile-ref",
+    "kind": "schema",
+    "document": "examples/response-control-wrong-profile-ref.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-control-outcome-code-mismatch",
+    "kind": "schema",
+    "document": "examples/response-control-outcome-code-mismatch.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-explain-capability-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-capability-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-capability-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-capability-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-capability-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-capability-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-capability-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-capability-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-validation-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-validation-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-validation-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-validation-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-validation-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-validation-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-validation-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-validation-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-binding-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-binding-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-binding-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-binding-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-binding-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-binding-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-binding-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-binding-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-governed-object-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-governed-object-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-governed-object-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-governed-object-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-governed-object-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-governed-object-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-governed-object-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-governed-object-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-missing-authority",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-missing-authority.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-projection-missing-carrier",
+    "kind": "schema",
+    "document": "examples/negative-explain-projection-missing-carrier.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-wrong-kind",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-wrong-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-missing-declaration-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-missing-declaration-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-additional-field",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-additional-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-query-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-query-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-missing-authority",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-missing-authority.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-evidence-requirement-missing-carrier",
+    "kind": "schema",
+    "document": "examples/negative-explain-evidence-requirement-missing-carrier.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-all-wrong-result-kind",
+    "kind": "schema",
+    "document": "examples/negative-inspect-all-wrong-result-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-all-extra-field",
+    "kind": "schema",
+    "document": "examples/negative-inspect-all-extra-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-all-missing-provenance",
+    "kind": "schema",
+    "document": "examples/negative-inspect-all-missing-provenance.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-all-selector-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-inspect-all-selector-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-component-wrong-result-kind",
+    "kind": "schema",
+    "document": "examples/negative-inspect-component-wrong-result-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-component-extra-field",
+    "kind": "schema",
+    "document": "examples/negative-inspect-component-extra-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-component-missing-provenance",
+    "kind": "schema",
+    "document": "examples/negative-inspect-component-missing-provenance.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-component-selector-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-inspect-component-selector-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-subject-wrong-result-kind",
+    "kind": "schema",
+    "document": "examples/negative-inspect-subject-wrong-result-kind.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-subject-extra-field",
+    "kind": "schema",
+    "document": "examples/negative-inspect-subject-extra-field.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-subject-missing-provenance",
+    "kind": "schema",
+    "document": "examples/negative-inspect-subject-missing-provenance.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-subject-selector-mismatch",
+    "kind": "schema",
+    "document": "examples/negative-inspect-subject-selector-mismatch.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-explain-missing-provenance",
+    "kind": "schema",
+    "document": "examples/negative-explain-missing-provenance.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-check-missing-provenance",
+    "kind": "schema",
+    "document": "examples/negative-check-missing-provenance.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-capability-incomplete",
+    "kind": "schema",
+    "document": "examples/negative-inspect-capability-incomplete.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-validation-incomplete",
+    "kind": "schema",
+    "document": "examples/negative-inspect-validation-incomplete.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-binding-incomplete",
+    "kind": "schema",
+    "document": "examples/negative-inspect-binding-incomplete.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-inspect-governed-object-incomplete",
+    "kind": "schema",
+    "document": "examples/negative-inspect-governed-object-incomplete.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-inapplicable-repository-integrity-not-declared",
+    "kind": "schema",
+    "document": "examples/response-error-inapplicable-repository-integrity-not-declared.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-inapplicable-component-not-declared",
+    "kind": "schema",
+    "document": "examples/response-error-inapplicable-component-not-declared.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-inapplicable",
+    "kind": "schema",
+    "document": "examples/negative-error-family-inapplicable.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-not-found-subject-not-found",
+    "kind": "schema",
+    "document": "examples/response-error-not-found-subject-not-found.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-not-found",
+    "kind": "schema",
+    "document": "examples/negative-error-family-not-found.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-admission-refused-repository-not-authorized",
+    "kind": "schema",
+    "document": "examples/response-error-admission-refused-repository-not-authorized.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-admission-refused-profile-not-authorized",
+    "kind": "schema",
+    "document": "examples/response-error-admission-refused-profile-not-authorized.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-admission-refused-execution-plan-not-authorized",
+    "kind": "schema",
+    "document": "examples/response-error-admission-refused-execution-plan-not-authorized.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-admission-refused-execution-guarantee-unavailable",
+    "kind": "schema",
+    "document": "examples/response-error-admission-refused-execution-guarantee-unavailable.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-admission-refused",
+    "kind": "schema",
+    "document": "examples/negative-error-family-admission-refused.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-stale-observation-stale-observation",
+    "kind": "schema",
+    "document": "examples/response-error-stale-observation-stale-observation.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-stale-observation",
+    "kind": "schema",
+    "document": "examples/negative-error-family-stale-observation.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-incomparable-observation-incomparable-observation",
+    "kind": "schema",
+    "document": "examples/response-error-incomparable-observation-incomparable-observation.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-incomparable-observation",
+    "kind": "schema",
+    "document": "examples/negative-error-family-incomparable-observation.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-controlled-failure-response-too-large",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-response-too-large.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-governance-load-failed",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-governance-load-failed.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-local-context-invalid",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-local-context-invalid.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-output-not-started",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-output-not-started.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-output-expired",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-output-expired.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-output-access-refused",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-output-access-refused.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-output-unavailable",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-output-unavailable.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-range-not-retained",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-range-not-retained.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-invalid-output-range",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-invalid-output-range.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-receipt-persistence-failed",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-receipt-persistence-failed.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-controlled-failure-internal-failure",
+    "kind": "schema",
+    "document": "examples/response-error-controlled-failure-internal-failure.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-controlled-failure",
+    "kind": "schema",
+    "document": "examples/negative-error-family-controlled-failure.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-execution-incomplete-execution-incomplete",
+    "kind": "schema",
+    "document": "examples/response-error-execution-incomplete-execution-incomplete.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-execution-incomplete-host-guard-lost-after-start",
+    "kind": "schema",
+    "document": "examples/response-error-execution-incomplete-host-guard-lost-after-start.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-execution-incomplete-receipt-persistence-failed",
+    "kind": "schema",
+    "document": "examples/response-error-execution-incomplete-receipt-persistence-failed.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-execution-incomplete",
+    "kind": "schema",
+    "document": "examples/negative-error-family-execution-incomplete.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-error-protocol-error-invalid-request",
+    "kind": "schema",
+    "document": "examples/response-error-protocol-error-invalid-request.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-error-protocol-error-unsupported-version",
+    "kind": "schema",
+    "document": "examples/response-error-protocol-error-unsupported-version.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-error-family-protocol-error",
+    "kind": "schema",
+    "document": "examples/negative-error-family-protocol-error.json",
+    "target": "response",
+    "expect": "reject"
+  },
+  {
+    "id": "response-output-empty-complete",
+    "kind": "schema",
+    "document": "examples/response-output-empty-complete.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-complete-eof",
+    "kind": "schema",
+    "document": "examples/response-output-complete-eof.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-partial-unknown",
+    "kind": "schema",
+    "document": "examples/response-output-partial-unknown.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-beyond-eof",
+    "kind": "schema",
+    "document": "examples/response-output-beyond-eof.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-partial-at-end",
+    "kind": "schema",
+    "document": "examples/response-output-partial-at-end.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-missing-prefix",
+    "kind": "schema",
+    "document": "examples/response-output-missing-prefix.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-missing-prefix-overlap",
+    "kind": "schema",
+    "document": "examples/response-output-missing-prefix-overlap.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-empty-partial",
+    "kind": "schema",
+    "document": "examples/response-output-empty-partial.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "response-output-overflow",
+    "kind": "schema",
+    "document": "examples/response-output-overflow.json",
+    "target": "response",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-check-missing-word-bits",
+    "kind": "schema",
+    "target": "response",
+    "document": "examples/negative-check-missing-word-bits.json",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-check-unsupported-word-bits",
+    "kind": "schema",
+    "target": "response",
+    "document": "examples/negative-check-unsupported-word-bits.json",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-check-ordinary-coherence",
+    "kind": "schema",
+    "target": "response",
+    "document": "examples/negative-check-ordinary-coherence.json",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-check-missing-ri-paths",
+    "kind": "schema",
+    "target": "response",
+    "document": "examples/negative-check-missing-ri-paths.json",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-check-unknown-custody",
+    "kind": "schema",
+    "target": "response",
+    "document": "examples/negative-check-unknown-custody.json",
     "expect": "reject"
   }
 ]

@@ -1,0 +1,74 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "result",
+  "value": {
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    },
+    "scope_paths": [
+      {
+        "kind": "utf8",
+        "value": "AGENTS.md"
+      },
+      {
+        "kind": "utf8",
+        "value": "governance.yaml"
+      }
+    ],
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "query": {
+      "kind": "capability",
+      "id": "quality"
+    },
+    "explanation": {
+      "kind": "declaration",
+      "subject": {
+        "kind": "evidence_requirement",
+        "id": "quality"
+      },
+      "declaration": {
+        "kind": "evidence_requirement",
+        "id": "quality",
+        "registry_model_version": 1,
+        "registry_authority": {
+          "responsibility": "quality",
+          "source": "canonical"
+        },
+        "carrier": {
+          "kind": "utf8",
+          "value": "/example/repo/evidence.yaml"
+        },
+        "declaration": {
+          "responsibility": "quality",
+          "instances": {
+            "kind": "single",
+            "source": null
+          },
+          "evidence_classes": {
+            "kind": "explicit",
+            "classes": [
+              "test-report"
+            ],
+            "source": null
+          },
+          "subject_source": "canonical",
+          "context": {
+            "required": false,
+            "source": null
+          },
+          "candidate_source": "rendered",
+          "target": null
+        }
+      }
+    }
+  }
+}

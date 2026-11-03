@@ -1,0 +1,218 @@
+[
+  {
+    "id": "empty-complete",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "0",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "complete",
+      "retained_start": "0",
+      "retained_bytes": "0",
+      "observed_bytes": "0"
+    },
+    "response_document": "examples/response-output-empty-complete.json",
+    "qualified": false
+  },
+  {
+    "id": "complete-eof",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "3",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "complete",
+      "retained_start": "0",
+      "retained_bytes": "3",
+      "observed_bytes": "3"
+    },
+    "response_document": "examples/response-output-complete-eof.json",
+    "qualified": false
+  },
+  {
+    "id": "beyond-eof",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "4",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "complete",
+      "retained_start": "0",
+      "retained_bytes": "3",
+      "observed_bytes": "3"
+    },
+    "response_document": "examples/response-output-beyond-eof.json",
+    "qualified": false
+  },
+  {
+    "id": "partial-unknown",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "100",
+        "max_bytes": 3
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "3",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-partial-unknown.json",
+    "qualified": false
+  },
+  {
+    "id": "partial-at-end",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "103",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "3",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-partial-at-end.json",
+    "qualified": false
+  },
+  {
+    "id": "missing-prefix",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "0",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "3",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-missing-prefix.json",
+    "qualified": false
+  },
+  {
+    "id": "missing-prefix-overlap",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "99",
+        "max_bytes": 2
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "3",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-missing-prefix-overlap.json",
+    "qualified": false
+  },
+  {
+    "id": "empty-partial",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "100",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "0",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-empty-partial.json",
+    "qualified": false
+  },
+  {
+    "id": "overflow",
+    "kind": "shape_fixture_not_runtime_execution",
+    "request": {
+      "api_version": 1,
+      "operation": "read_execution_output",
+      "input": {
+        "receipt_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "validation_id": "rust-tests",
+        "instance_index": "0",
+        "stream": "stderr",
+        "offset": "18446744073709551615",
+        "max_bytes": 1
+      }
+    },
+    "capture": {
+      "capture_state": "partial",
+      "retained_start": "100",
+      "retained_bytes": "3",
+      "observed_bytes": null
+    },
+    "response_document": "examples/response-output-overflow.json",
+    "qualified": false
+  }
+]

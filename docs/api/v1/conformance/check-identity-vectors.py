@@ -1,45 +1,84 @@
 #!/usr/bin/env python3
-"""Known-answer checks of the candidate PUBLIC hash framing, not the engine oracle."""
-import base64, hashlib, json
+"""Independent public framing/codec KATs, not engine-derived observations."""
+import base64
+import hashlib
+import json
 from pathlib import Path
 
-FILE=Path(__file__).with_name('identity-vectors.json')
-def be(x):return int(x).to_bytes(8,'big',signed=False)
-def frame(x):return be(len(x))+x
-def public_hash(domain,parts):
-    payload=frame(b'proto-ring-api01-v1')+frame(domain.encode('utf-8'))+be(len(parts))
-    payload+=b''.join(frame(x) for x in parts)
-    return hashlib.sha256(payload).digest()
-def from_b64(s):return base64.b64decode(s,validate=True)
-def calculate(vector):
-    raw=[from_b64(x) for x in vector['parts_base64']]
-    return public_hash(vector['domain'],raw).hex()
-def fixtures():
-    root_unix=b'/tmp/repo'; scope=[b'AGENTS.md',b'docs/profile.md']; native='unix'
-    repo=public_hash('rgs-repository-v1',[native.encode(),root_unix]);sc=public_hash('rgs-scope-v1',[repo,be(len(scope))]+scope)
-    state=public_hash('rgs-state-v1',[repo,sc,b'\x00\x01candidate'])
-    root_wide='C:\\repo'.encode('utf-16-be');windows=public_hash('rgs-repository-v1',[b'windows',root_wide])
-    profile=public_hash('ri-profile-v1',[b'\x01test-profile']);context=public_hash('ri-context-v1',[b'\x02test-context'])
-    ri_scope=public_hash('ri-scope-v1',[repo,be(1),b'AGENTS.md']);ri_state=public_hash('ri-state-v1',[repo,ri_scope,b'\x00\xffri'])
-    objects=[
-      ('unix_repository','rgs-repository-v1',[b'unix',root_unix],repo),
-      ('windows_repository','rgs-repository-v1',[b'windows',root_wide],windows),
-      ('unix_rgs_scope','rgs-scope-v1',[repo,be(len(scope))]+scope,sc),
-      ('unix_rgs_state','rgs-state-v1',[repo,sc,b'\x00\x01candidate'],state),
-      ('ri_profile','ri-profile-v1',[b'\x01test-profile'],profile),
-      ('ri_context','ri-context-v1',[b'\x02test-context'],context),
-      ('ri_scope','ri-scope-v1',[repo,be(1),b'AGENTS.md'],ri_scope),
-      ('ri_state','ri-state-v1',[repo,ri_scope,b'\x00\xffri'],ri_state),
-    ]
-    return [{'id':id,'domain':domain,'parts_base64':[base64.b64encode(x).decode('ascii') for x in parts],'expected_sha256_lowerhex':digest.hex()} for id,domain,parts,digest in objects]
+ROOT = Path(__file__).resolve().parent
+
+
+def be(value):
+    return int(value).to_bytes(8, 'big', signed=False)
+
+
+def frame(value):
+    return be(len(value)) + value
+
+
+def public_hash(domain, parts):
+    payload = frame(b'proto-ring-api01-v1') + frame(domain.encode()) + be(len(parts))
+    return hashlib.sha256(payload + b''.join(frame(part) for part in parts)).hexdigest()
+
+
+def canonical_base64(value):
+    raw = base64.b64decode(value, validate=True)
+    if base64.b64encode(raw).decode('ascii') != value:
+        raise ValueError('noncanonical Base64')
+    return raw
+
+
+def native_units(path, platform):
+    kind, value = path['kind'], path['value']
+    if platform not in {'unix', 'windows'}:
+        raise ValueError('unsupported platform')
+    if kind == 'utf8':
+        raw = value.encode('utf-8') if platform == 'unix' else value.encode('utf-16-be')
+    elif kind == 'unix_bytes_base64' and platform == 'unix':
+        raw = canonical_base64(value)
+    elif kind == 'windows_wide_be_base64' and platform == 'windows':
+        raw = canonical_base64(value)
+    else:
+        raise ValueError('native platform mismatch')
+    if not raw:
+        raise ValueError('empty path')
+    if platform == 'unix' and b'\0' in raw:
+        raise ValueError('NUL byte')
+    if platform == 'windows' and (len(raw) % 2 or any(raw[i:i + 2] == b'\0\0' for i in range(0, len(raw), 2))):
+        raise ValueError('invalid native wide units')
+    return raw
+
 
 def main():
-  if not FILE.exists():
-    FILE.write_text(json.dumps({'status':'candidate_known_answer_vectors_not_engine_observation','vectors':fixtures()},indent=2)+'\n')
-  rows=json.loads(FILE.read_text())['vectors'];assert len(rows)==8
-  for entry in rows:
-    found=calculate(entry)
-    assert found==entry['expected_sha256_lowerhex'],(entry['id'],found)
-  assert fixtures()==rows,'Identity vector semantics diverged from frozen KAT data'
-  print('PUBLIC_IDENTITY_KAT_PASS=8; NO_RUST_ENGINE_ATTESTATION')
-if __name__=='__main__': main()
+    document = json.loads((ROOT / 'identity-vectors.json').read_text())
+    rows = document['vectors']
+    assert len({row['id'] for row in rows}) == len(rows)
+    for row in rows:
+        parts = [canonical_base64(part) for part in row['parts_base64']]
+        assert public_hash(row['domain'], parts) == row['expected_sha256_lowerhex'], row['id']
+        if row['domain'] == 'ri-profile-v1':
+            assert row['native_word_bits'] in [32, 64]
+            assert parts[0] == be(row['native_word_bits'])
+        if 'scope_input_units_base64' in row:
+            incoming = [canonical_base64(value) for value in row['scope_input_units_base64']]
+            ordered = sorted(set(incoming))
+            assert parts[1] == be(len(ordered)) and parts[2:] == ordered
+    widths = {row['native_word_bits']: row['expected_sha256_lowerhex'] for row in rows
+              if row['id'] in {'ri_profile_word32', 'ri_profile_word64'}}
+    assert widths[32] != widths[64]
+    paths = document['native_path_cases']
+    for case in paths:
+        try:
+            actual = native_units(case['path'], case['platform'])
+            valid = True
+        except (ValueError, UnicodeError):
+            valid = False
+        assert valid == case['valid'], case['id']
+        if valid:
+            assert actual.hex() == case['expected_units_hex'], case['id']
+    print(f'PUBLIC_IDENTITY_KAT_PASS={len(rows)}; NO_RUST_ENGINE_ATTESTATION')
+    print(f'NATIVE_PATH_CODEC_CASES_PASS={len(paths)}; NO_ENGINE_PATH_ROUNDTRIP_ATTESTATION')
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,30 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "result",
+  "value": {
+    "observation": {
+      "format": "proto-ring-rgs-ref-v1",
+      "platform": "unix",
+      "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "scope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "state": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "coherence_basis": "ordinary_capture"
+    },
+    "query": {
+      "kind": "authority_role",
+      "responsibility": "governance",
+      "source": "doctrine"
+    },
+    "explanation": {
+      "kind": "authority_role",
+      "responsibility": "governance",
+      "source": "doctrine",
+      "role": "UNKNOWN_RESPONSIBILITY"
+    },
+    "repository": {
+      "kind": "utf8",
+      "value": "/example/repo"
+    }
+  }
+}
