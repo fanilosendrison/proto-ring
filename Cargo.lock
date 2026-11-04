@@ -710,6 +710,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "proto-ring-api"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "jsonschema",
+ "proto-ring-engine",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tempfile",
+]
+
+[[package]]
 name = "proto-ring-compat"
 version = "0.0.0"
 dependencies = [
