@@ -17,8 +17,8 @@ fn operation(response: &Response) -> Option<Operation> {
 /// Serialize within the byte budget before any stdout write. Overflow discards
 /// the entire candidate success, never a declaration subset or truncated JSON.
 pub fn encode_response(response: &Response) -> Result<Vec<u8>, ApiError> {
-    let bytes = match bounded_buffer::serialize(response, RESPONSE_LIMIT) {
-        Ok(bytes) => bytes,
+    match bounded_buffer::serialize(response, RESPONSE_LIMIT) {
+        Ok(bytes) => validated(response, bytes),
         Err(EncodingFailure::Limit) => {
             let operation = operation(response)
                 .ok_or_else(|| internal("unassigned error response exceeds byte budget"))?;
@@ -35,12 +35,17 @@ pub fn encode_response(response: &Response) -> Result<Vec<u8>, ApiError> {
             } else {
                 internal("response exceeds the byte limit")
             };
-            bounded_buffer::serialize(&failure(operation, error), RESPONSE_LIMIT)
-                .map_err(|_| internal("cannot encode bounded failure"))?
+            let replacement = failure(operation, error);
+            let bytes = bounded_buffer::serialize(&replacement, RESPONSE_LIMIT)
+                .map_err(|_| internal("cannot encode bounded failure"))?;
+            validated(&replacement, bytes)
         }
-        Err(EncodingFailure::Internal) => return Err(internal("response serialization failed")),
-    };
-    if !contract_schema::valid_response(&bytes)? {
+        Err(EncodingFailure::Internal) => Err(internal("response serialization failed")),
+    }
+}
+
+fn validated(response: &Response, bytes: Vec<u8>) -> Result<Vec<u8>, ApiError> {
+    if !contract_schema::valid_response(response)? {
         return Err(internal(
             "response violates the canonical operation/outcome/code schema",
         ));

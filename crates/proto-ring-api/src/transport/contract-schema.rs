@@ -1,5 +1,5 @@
 use super::failure::internal;
-use crate::ApiError;
+use crate::{ApiError, Response};
 use serde_json::{Map, Value};
 use std::{collections::BTreeSet, sync::OnceLock};
 
@@ -96,8 +96,10 @@ pub(super) fn valid_request(bytes: &[u8]) -> Result<bool, ApiError> {
     Ok(validator.is_valid(&value))
 }
 
-pub(super) fn valid_response(bytes: &[u8]) -> Result<bool, ApiError> {
-    let value: Value =
-        serde_json::from_slice(bytes).map_err(|_| internal("response is not JSON"))?;
+pub(super) fn valid_response(response: &Response) -> Result<bool, ApiError> {
+    // The encoder establishes the byte budget first. Convert that exact typed
+    // candidate, not its bytes: recursive tags can exceed a parser's depth limit.
+    let value = serde_json::to_value(response)
+        .map_err(|_| internal("response cannot be represented as JSON"))?;
     Ok(response_validator()?.is_valid(&value))
 }

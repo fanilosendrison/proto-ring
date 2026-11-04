@@ -40,16 +40,16 @@ pub(super) fn failure(operation: Operation, error: ApiError) -> Response {
             else {
                 continue;
             };
-            let candidate = FailureResponse {
+            let candidate = Response::Failure(FailureResponse {
                 api_version: VersionOne::V1,
                 operation: Some(operation),
                 outcome,
                 error: error.clone(),
-            };
-            if let Ok(bytes) = bounded_buffer::serialize(&candidate, RESPONSE_LIMIT)
-                && contract_schema::valid_response(&bytes).unwrap_or(false)
+            });
+            if bounded_buffer::serialize(&candidate, RESPONSE_LIMIT).is_ok()
+                && contract_schema::valid_response(&candidate).unwrap_or(false)
             {
-                return Response::Failure(candidate);
+                return candidate;
             }
         }
     }
