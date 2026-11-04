@@ -127,7 +127,7 @@ The coherent read-only public API is separately owned by
 [Issue #28](https://github.com/fanilosendrison/proto-ring/issues/28) and is not
 implemented by this interface.
 
-The [API-01 public API v1 candidate](docs/api/v1/README.md) contains the proposed agent-facing contract, JSON Schema 2020-12 definitions, examples, and conformance candidates. It is not yet an accepted contract or an implemented public interface. Acceptance and independent hostile review remain owned by [Issue #134](https://github.com/fanilosendrison/proto-ring/issues/134).
+The [API-01 public API v1 contract](docs/api/v1/README.md) is formally accepted at source `a1b27ca1e21423973a5557415488e4fcd535d01a`, following an exact-source independent hostile **GO** and the [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924). The new public API is **not implemented yet** or available for execution. API-02/API-03 implement the accepted contract; API-04 qualifies the resulting runtime interface. Existing implemented mechanisms described below are unchanged.
 
 The release build command is:
 

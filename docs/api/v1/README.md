@@ -1,20 +1,20 @@
 ---
 okf_version: "1.0"
 kind: "KnowledgeAsset"
-asset_type: "candidate-package-index"
+asset_type: "public-api-package-index"
 domain: "proto-ring-agent-facing-api"
 severity: "guideline"
-name: "Proto-Ring API-01 v1 candidate package"
+name: "Proto-Ring API-01 v1 accepted contract package"
 version: "0.1.0"
 ---
 
-# Proto-Ring API-01 v1 — candidate contract package
+# Proto-Ring API-01 v1 — accepted contract package
 
-**Status: CANDIDATE — NOT ACCEPTED; not an implemented or independently qualified API.**
+**Status: ACCEPTED API-01 CONTRACT — NOT IMPLEMENTED — NOT RUNTIME QUALIFIED.**
 
 Source reviewed: `fanilosendrison/proto-ring@1eb84e1b4474b155d2271d1decb66d0cd86a555f` (2026-11-03). Work graph: [#134](https://github.com/fanilosendrison/proto-ring/issues/134) → [#135](https://github.com/fanilosendrison/proto-ring/issues/135) → [#136](https://github.com/fanilosendrison/proto-ring/issues/136) → [#137](https://github.com/fanilosendrison/proto-ring/issues/137).
 
-The normative prose candidate is `proto-ring-api-01-v1-spec.md`. `schemas/api.schema.json` owns shared Draft 2020-12 definitions; request, response and local-context schemas reference that one authority by URN. `examples/` contains **illustrative wire-shape fixtures**, not observed engine results. `conformance/schema-cases.json` is executable against these schemas. `conformance/semantic-cases.json` lists **unqualified** semantic and hostile-review requirements; none have been executed against a public API implementation.
+The normative public-interface contract is `proto-ring-api-01-v1-spec.md`. `schemas/api.schema.json` owns shared Draft 2020-12 definitions; request, response and local-context schemas reference that one authority by URN. `examples/` contains **illustrative wire-shape fixtures**, not observed engine results. `conformance/schema-cases.json` is executable against these schemas. `conformance/semantic-cases.json` lists **unqualified** semantic and hostile-review requirements; none have been executed against a public API implementation.
 
 ## Local schema validation
 
@@ -41,15 +41,21 @@ An ordinary same-user mutable checkout does not automatically supply an enforcea
 
 ## Authority boundary
 
-Accepted Proto-Ring governance contracts remain normative for their own scope. This candidate adds a versioned public-interface proposal but cannot change underlying governance meaning. Zod is unnecessary for Rust production; a future TypeScript client may generate/use Zod only as a conforming consumer of the accepted JSON Schema. Migration-only `proto-ring-compat` current-main compatibility is not a delivery gate for this new agent-facing API. Existing pinned consumer source commits remain unchanged.
+Accepted Proto-Ring governance contracts remain normative for their own scope. This accepted contract adds a versioned public interface but cannot change underlying governance meaning. Zod is unnecessary for Rust production; a future TypeScript client may generate/use Zod only as a conforming consumer of the accepted JSON Schema. Migration-only `proto-ring-compat` current-main compatibility is not a delivery gate for this new agent-facing API. Existing pinned consumer source commits remain unchanged.
 
-## Before implementation
+## Contract acceptance and downstream gates
 
-1. Review this candidate against #134 and source at the recorded exact commit, including all cross-operation semantic conditions not enforceable by JSON Schema alone.
-2. Conduct independent hostile review, explicitly marking any unresolved guarantee or output-custody problem **NO_GO**.
-3. Record an owner-accepted contract revision and exact-source evidence in #134. Only then authorize API-02 and API-03 implementation. API-04 qualifies real coding-agent use.
+The [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924) accepts **only the API-01 contract** at:
 
-The initial normalized candidate was published in Draft PR #139 at `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70`. It has not been accepted or installed as a new API in a consumer repository.
+- Source: `a1b27ca1e21423973a5557415488e4fcd535d01a`.
+- Tree: `5ad78576922a5bfa209322130f989e4f1d555b49`.
+- API subtree: `effe8bb52de4899e666c800683ad17db8ff7efeb`.
+- Independent exact-source Pi RPC hostile review: **GO**, all four R1 findings resolved, no new findings.
+- Review evidence manifest SHA-256: `15b27044d44bba225491a2ca7852d8e9fe96248d8175a0eafba9476d31211c97`.
+
+This subsequent editorial status update changes no accepted API semantics and is not a replacement independent-review subject. API-02 may proceed after formal completion of #134; API-03 remains dependent on API-02. API-04 qualifies the integrated implementation and real coding-agent use. Actual engine-derived cross-target identity/native-path evidence and runtime host security, coherence, process lifetime, capture and custody remain downstream qualification obligations. All 87 semantic scenarios remain unqualified, and no production public API implementation exists.
+
+The initial normalized candidate was published in Draft PR #139 at `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70`. That initial revision was not accepted. No new public API has been installed in a consumer repository.
 
 ## R1 hostile-review remediation
 
@@ -57,7 +63,7 @@ The first completed independent hostile review, on that exact SHA and tree `01ba
 
 R1 at `3e9a6bf5f1eb217ae42401f5b34b64810a07d127` received a second independent **NO_GO**: one blocker, two majors and one minor. Eleven original findings were reported resolved, F06 partially resolved, U01 partially resolved and U02 resolved. One secondary historical F07 citation exceeded the source file's line count; the original report remains unchanged and the separate citation audit does not claim that range was valid.
 
-R2 applies the owner's four bounded decisions: exact canonical operation/error attribution, an exhaustive immutable host-plan view with completion/abort/coherence contracts, rejection of exact duplicate environment IDs, and truthful non-null post-effect interruption metadata. The revision is identified by its containing immutable commit and the exact SHA/tree in PR #139. A **new independent exact-SHA hostile review is required**; R2 has not passed one. R2 does not implement Rust host interfaces, execute semantic scenarios, qualify host security, or establish normative acceptance. The production engine and accepted governance contracts remain unchanged.
+R2 applies the owner's four bounded decisions: exact canonical operation/error attribution, an exhaustive immutable host-plan view with completion/abort/coherence contracts, rejection of exact duplicate environment IDs, and truthful non-null post-effect interruption metadata. The exact R2 revision identified above subsequently received independent **GO** and the owner's contract-only acceptance. R2 does not implement Rust host interfaces, execute semantic scenarios or qualify host security. The production engine and accepted governance contracts remain unchanged.
 
 ## Import provenance
 
@@ -67,4 +73,4 @@ The initial import renamed `MANIFEST.sha256` to `manifest.sha256`, `conformance/
 
 R1 and R2 intentionally revise the candidate prose, schemas, examples and conformance controls under owner authorization. The current `manifest.sha256` identifies every revised package file except itself; it is not the original archive manifest and no longer asserts byte identity of the entire revised package with that archive.
 
-This normalization does not qualify or normatively accept the API. The specification remains a candidate, not approved, not implemented, and not independently qualified.
+Import normalization did not qualify or accept the API. Contract-only acceptance was subsequently established for the exact reviewed R2 source above. The public API remains not implemented and not runtime qualified.

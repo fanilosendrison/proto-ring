@@ -1,24 +1,24 @@
 ---
 okf_version: "1.0"
 kind: "KnowledgeAsset"
-asset_type: "candidate-public-api-specification"
+asset_type: "public-api-specification"
 domain: "proto-ring-agent-facing-api"
 severity: "guideline"
-name: "Proto-Ring API-01 Public API v1 candidate specification"
+name: "Proto-Ring API-01 Public API v1 accepted specification"
 version: "0.1.0"
 ---
 
 # Proto-Ring API-01 — Agent-first public API v1
 
-**Status:** Candidate specification, version `0.1.0` — **NOT APPROVED**, **NOT IMPLEMENTED**, **NOT INDEPENDENTLY QUALIFIED**\
+**Status:** **ACCEPTED API-01 CONTRACT** — **NOT IMPLEMENTED** — **NOT RUNTIME QUALIFIED**; document version `0.1.0`\
 **Owner:** Proto-Ring #134 (API-01); downstream implementation #135/#136, qualification #137, parent #28\
 **Inspected source:** `fanilosendrison/proto-ring@1eb84e1b4474b155d2271d1decb66d0cd86a555f` (2026-11-03)\
 **Wire protocol:** `api_version: 1`; JSON Schema Draft 2020-12\
 **Companion files:** `schemas/api.schema.json`, `schemas/request.schema.json`, `schemas/response.schema.json`, `schemas/local-context.schema.json`, `examples/`, `conformance/`.
 
-The first independent review of `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70` returned **NO_GO** with twelve findings and two uncertainties. R1 at `3e9a6bf5f1eb217ae42401f5b34b64810a07d127` (tree `a56f067205703a7e5f40f9003436bedecc894d42`) also received **NO_GO**: one blocker, two majors and one minor. This R2 candidate applies the owner's four bounded correction decisions; its immutable containing commit and exact tree are recorded in PR #139. A new independent exact-SHA review remains required. Document version remains `0.1.0`; API version remains `1`. **CANDIDATE — NOT ACCEPTED.**
+The first independent review of `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70` returned **NO_GO** with twelve findings and two uncertainties. R1 at `3e9a6bf5f1eb217ae42401f5b34b64810a07d127` (tree `a56f067205703a7e5f40f9003436bedecc894d42`) also received **NO_GO**: one blocker, two majors and one minor. R2 at `a1b27ca1e21423973a5557415488e4fcd535d01a` (tree `5ad78576922a5bfa209322130f989e4f1d555b49`, API subtree `effe8bb52de4899e666c800683ad17db8ff7efeb`) received an independent exact-source **GO**. The [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924) accepts that semantic contract only. This editorial status synchronization does not replace the reviewed source or change its semantics. Document version remains `0.1.0`; API version remains `1`.
 
-This document is a **candidate public-interface contract**. It does not supersede existing accepted language-neutral governance contracts, change RGM or RGS versions, complete #134, authorize implementation or assert any passed hostile review. The public façade must preserve the accepted semantics of RepositoryState, RepositoryGovernanceState, Governance Authority, governed objects, Governance Bindings, Repository Integrity, projections and evidence requirements. The old migration-only `proto-ring-compat` transport is neither an authority nor an ongoing compatibility gate. Existing consumer-owned pins to historical exact commits are not changed.
+This document is the **accepted public-interface contract**. Acceptance and independent GO apply to the exact R2 source above, not to implemented or qualified runtime behavior. This contract does not supersede existing accepted language-neutral governance contracts or change RGM or RGS versions; downstream implementation follows the owner decision and API-02/API-03 dependency order. The public façade must preserve the accepted semantics of RepositoryState, RepositoryGovernanceState, Governance Authority, governed objects, Governance Bindings, Repository Integrity, projections and evidence requirements. The old migration-only `proto-ring-compat` transport is neither an authority nor an ongoing compatibility gate. Existing consumer-owned pins to historical exact commits are not changed.
 
 ## 1. Purpose and governing principles
 
@@ -84,7 +84,7 @@ Each operation additionally admits its own successful `result`. No other combina
 
 Exit code **0** means a structured protocol response was successfully emitted, including a returned RI `NON_PASS`, admission refusal or `execution_incomplete`. Exit **2** means invalid wire request. Exit **70** means an internal failure prevented normal structured processing; an exit code alone cannot prove no commands started. No automatic retry after an unknown potentially effectful attempt. Response maximum: **16 MiB** (16,777,216 encoded bytes). A requested complete observation view exceeding this limit MUST produce `response_too_large`, not a successful partial representation; the agent may make targeted observation queries. Checks instead require the pre-effect complete-receipt budget in Section 8; targeted observation queries cannot recover a truncated check receipt.
 
-The wire version is separate from RGM versions, RepositoryGovernanceState v1 and any historical migration transport. After acceptance or public release, an incompatible schema or reference algorithm requires a new wire/reference version and corresponding conformance vectors; no silent coercion. This unreleased R2 documentation candidate retains the owner-fixed API version `1` and document version `0.1.0`; it is not a software release.
+The wire version is separate from RGM versions, RepositoryGovernanceState v1 and any historical migration transport. After acceptance or public release, an incompatible schema or reference algorithm requires a new wire/reference version and corresponding conformance vectors; no silent coercion. This accepted API-01 contract retains the owner-fixed API version `1` and document version `0.1.0`; it is not a software release.
 
 ## 4. Exact NativePath type (lossless)
 
@@ -155,7 +155,7 @@ RI undeclared is `inapplicable` with no verdict. A declared malformed/missing pr
 
 ### 7.1 Intended implementation-boundary signatures
 
-These signatures specify future boundaries, not exports already implemented by the engine. No Rust implementation is introduced by this candidate.
+These signatures specify future boundaries, not exports already implemented by the engine. No Rust implementation is introduced by this contract.
 
 ```rust
 pub trait CheckHost {
@@ -537,9 +537,9 @@ Unknown T never implies E is logical EOF. A process that never started is not a 
 
 ## 10. Rust implementation boundary and CLI contract
 
-Suggested Rust crate: one `proto-ring-api` package with a public library and one `proto-ring` binary, delegating to `proto-ring-engine`. The library contains a typed `GovernanceObservation` holding the single successfully composed RGS, and public equivalents of `discover`, `open`, `inspect`, `explain`, `check_repository_integrity` and `read_execution_output`. Execution admission and custody must implement the concrete boundaries and transitions in Sections 7–8; no duplicate governance parser, selector, authority resolver, state capture or command runner. No production implementation is authorized by this draft alone.
+Suggested Rust crate: one `proto-ring-api` package with a public library and one `proto-ring` binary, delegating to `proto-ring-engine`. The library contains a typed `GovernanceObservation` holding the single successfully composed RGS, and public equivalents of `discover`, `open`, `inspect`, `explain`, `check_repository_integrity` and `read_execution_output`. Execution admission and custody must implement the concrete boundaries and transitions in Sections 7–8; no duplicate governance parser, selector, authority resolver, state capture or command runner. No production implementation is authorized by this contract alone.
 
-Standalone commands (candidate stable grammar):
+Standalone commands (accepted v1 grammar):
 
 ```text
 proto-ring json [--local-context-file NATIVE_PATH]  # one JSON request from stdin
@@ -565,4 +565,4 @@ The JSON Schema Draft 2020-12 documents in `schemas/` describe **syntactic** sha
 
 Review source identity, source-contract precedence, completeness of the five-operation inventory, exact binary and path round trips, type/schema agreement, duplicate-key rejection, output access/privacy, incomplete executions, complete-plan admission (especially forbidden *later* command), actual dispatch-to-plan binding, stale/scope drift and A→B→A distinctions, no false privileged claims, RI empty profile/zero-instance semantics, non-executing `inspect`/`explain`, provider-network prohibition, single RI verdict versus misleading log content, output capture and descendant pipe behavior, exact-concrete-instance provenance and negative retry tests. The review must compare concrete Rust/CLI implementability with each contract rule, mark unresolved findings as **NO_GO**, and never report unexecuted semantic cases as PASS.
 
-**API-01 acceptance remains blocked** until the proposed contract, schema package and semantic test matrix receive an independent exact-source hostile GO, with no unresolved materially ambiguous type, trust/admission mechanism, error distinction or provenance claim. #135/#136 do not implement unresolved API-01 semantics. #137 then separately qualifies the actual agent experience on the completed implementation. This draft does not alter GitHub issues, live consumer repositories or the Rust engine.
+**The API-01 contract acceptance gate is satisfied** by the independent exact-source hostile GO on `a1b27ca1e21423973a5557415488e4fcd535d01a` and the [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924), with no unresolved material contract finding. #135/#136 implement that accepted semantic contract in dependency order. #137 separately qualifies the actual agent experience on the completed implementation. Runtime implementation, host protections, actual cross-target identity/native-path evidence and execution of all 87 semantic scenarios remain unqualified. This editorial update does not alter live consumer repositories or the Rust engine.
