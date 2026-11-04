@@ -35,6 +35,12 @@ jobs:
       - name: Test neutral Python controls
         run: python tools/run_python_tests.py
 
+      - name: Test accepted API-01 controls
+        run: |
+          python -B docs/api/v1/conformance/validate-wire-schemas.py
+          python -B docs/api/v1/conformance/check-identity-vectors.py
+          python -B -m unittest discover -s docs/api/v1/conformance -p 'test_*.py' -v
+
       - name: Check patch whitespace
         run: git diff --check
 
@@ -86,6 +92,12 @@ jobs:
             --all-features \
             --locked
 
+      - name: Test public API normal production configuration
+        run: |
+          cargo test -p proto-ring-api --all-targets --no-default-features --locked
+          cargo build -p proto-ring-api --lib --bin proto-ring --no-default-features --locked
+          cargo clippy -p proto-ring-api --all-targets --no-deps --locked -- -D warnings
+
       - name: Test Rust documentation
         run: |
           cargo test \
@@ -110,6 +122,9 @@ jobs:
           rustup default 1.99.0
           $version = (rustc --version).Split()[1]
           if ($version -ne "1.99.0") { throw "Expected rustc 1.99.0, got $version" }
+
+      - name: Test public API normal production configuration
+        run: cargo test -p proto-ring-api --all-targets --no-default-features --locked
 
       - name: Test RepositoryState engine
         run: cargo test -p proto-ring-engine --all-features --locked
