@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "controlled_failure",
+  "error": {
+    "code": "governance_load_failed",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

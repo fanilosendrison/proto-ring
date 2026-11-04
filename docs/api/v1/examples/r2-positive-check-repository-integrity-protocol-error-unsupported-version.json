@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "outcome": "protocol_error",
+  "error": {
+    "code": "unsupported_version",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

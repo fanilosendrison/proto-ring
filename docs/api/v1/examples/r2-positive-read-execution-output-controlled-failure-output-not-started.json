@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "read_execution_output",
+  "outcome": "controlled_failure",
+  "error": {
+    "code": "output_not_started",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

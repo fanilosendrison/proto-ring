@@ -85,7 +85,8 @@ class SchemaControls(unittest.TestCase):
                 if boundary == 'wrong-profile-ref':
                     api['$defs']['profile_ref']['properties']['format'] = {'enum': ['ri-profile-v1', 'ri-context-v1']}
                 else:
-                    api['$defs']['error_codes_inapplicable']['enum'].append('invalid_request')
+                    api['$defs']['error_code_repository_integrity_not_declared'] = {
+                        'enum': ['repository_integrity_not_declared', 'invalid_request']}
                 (fixture / 'schemas/api.schema.json').write_text(json.dumps(api))
                 (fixture / 'examples/response-discover.json').write_text(json.dumps(discovery_response(api)))
                 environment = {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}

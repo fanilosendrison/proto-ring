@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "inapplicable",
+  "error": {
+    "code": "component_not_declared",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

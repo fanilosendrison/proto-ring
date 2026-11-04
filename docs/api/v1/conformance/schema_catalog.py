@@ -40,11 +40,10 @@ def operation_schemas(api, operation):
     responses = []
     for branch in definitions['response']['oneOf']:
         field = branch['properties']['operation']
-        if 'const' in field and field['const'] != operation:
-            continue
-        branch = copy.deepcopy(branch)
-        branch['properties']['operation'] = {'const': operation}
-        responses.append(branch)
+        if set(field) != {'const'}:
+            raise ValueError('Canonical response branches require exact operation discriminants')
+        if field['const'] == operation:
+            responses.append(copy.deepcopy(branch))
     return bundle(api, request), bundle(api, {'oneOf': responses})
 
 

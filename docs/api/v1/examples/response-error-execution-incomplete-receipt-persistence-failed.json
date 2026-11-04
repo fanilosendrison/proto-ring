@@ -6,7 +6,7 @@
     "code": "receipt_persistence_failed",
     "stage": null,
     "detail": null,
-    "attempt_id": null,
-    "effects_possible": null
+    "attempt_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "effects_possible": true
   }
 }

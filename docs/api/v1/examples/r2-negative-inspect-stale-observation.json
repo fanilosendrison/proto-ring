@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "stale_observation",
+  "error": {
+    "code": "stale_observation",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

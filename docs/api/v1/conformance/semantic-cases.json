@@ -488,5 +488,124 @@
     "scenario": "complete and partial output endpoints including zero retention",
     "expected_boundary": "complete EOF succeeds empty; beyond known total invalid; partial EOF or N=0 range_not_retained",
     "qualified": false
+  },
+  {
+    "id": "A71",
+    "kind": "semantic_review_required",
+    "scenario": "discover rejects effectful check interruption outcome",
+    "expected_boundary": "Canonical and advertised discovery schemas reject execution_incomplete and post-start guard-loss codes.",
+    "qualified": false
+  },
+  {
+    "id": "A72",
+    "kind": "semantic_review_required",
+    "scenario": "exact operation/outcome/code attribution",
+    "expected_boundary": "Every permitted combination agrees with the independent fixed owner matrix; all other combinations reject.",
+    "qualified": false
+  },
+  {
+    "id": "A73",
+    "kind": "semantic_review_required",
+    "scenario": "unassigned protocol failure is not an operation result",
+    "expected_boundary": "operation:null is allowed only for unassignable invalid_request or unsupported_version protocol failures.",
+    "qualified": false
+  },
+  {
+    "id": "A74",
+    "kind": "semantic_review_required",
+    "scenario": "complete host-visible plan including skipped-later effects",
+    "expected_boundary": "Host inspects the same immutable canonical plan, including all potentially executable later obligations, before any launch.",
+    "qualified": false
+  },
+  {
+    "id": "A75",
+    "kind": "semantic_review_required",
+    "scenario": "zero-instance versus failed instance resolution",
+    "expected_boundary": "Resolved zero for_each is SATISFIED; instance resolution failure is canonical UNDETERMINED, never successful empty resolution.",
+    "qualified": false
+  },
+  {
+    "id": "A76",
+    "kind": "semantic_review_required",
+    "scenario": "missing realization exposed without fabricated command",
+    "expected_boundary": "Admission view distinguishes missing realization and known unlaunchable obligations; engine preserves authorized UNDETERMINED without effects.",
+    "qualified": false
+  },
+  {
+    "id": "A77",
+    "kind": "semantic_review_required",
+    "scenario": "program/arguments/environment bound to admitted plan",
+    "expected_boundary": "Program is prefix[0], arguments are prefix[1..] plus realized arguments, and exact environment/root/cwd/executable identity are bound to one permit.",
+    "qualified": false
+  },
+  {
+    "id": "A78",
+    "kind": "semantic_review_required",
+    "scenario": "process start definitely absent versus unknown",
+    "expected_boundary": "Proven not-started preserves executed=false UNDETERMINED; possible start permanently sets effects_possible=true without automatic retry.",
+    "qualified": false
+  },
+  {
+    "id": "A79",
+    "kind": "semantic_review_required",
+    "scenario": "host guard loss after possible effects",
+    "expected_boundary": "Return execution_incomplete with actual admitted attempt ID and effects_possible=true, no completed IntegrityResult.",
+    "qualified": false
+  },
+  {
+    "id": "A80",
+    "kind": "semantic_review_required",
+    "scenario": "descendant lifetime completed before post-obligation capture",
+    "expected_boundary": "Before any next RI capture or launch, principal termination, relevant effect quiescence/containment and valid coherence are established.",
+    "qualified": false
+  },
+  {
+    "id": "A81",
+    "kind": "semantic_review_required",
+    "scenario": "exclusive workspace covers RGS through RI evaluation",
+    "expected_boundary": "Acquire enforceable protection before RGS; cover actual resolved RI scope before effects; retain validator drift detection.",
+    "qualified": false
+  },
+  {
+    "id": "A82",
+    "kind": "semantic_review_required",
+    "scenario": "versioned workspace preserves observable validator mutation",
+    "expected_boundary": "Protected generation binds governance, selectors, reads and captures without hiding validator-produced modifications.",
+    "qualified": false
+  },
+  {
+    "id": "A83",
+    "kind": "semantic_review_required",
+    "scenario": "ordinary same-user local checkout without coherence refused",
+    "expected_boundary": "Return admission_refused/execution_guarantee_unavailable before validators; local context cannot confer coherence.",
+    "qualified": false
+  },
+  {
+    "id": "A84",
+    "kind": "semantic_review_required",
+    "scenario": "conflicting duplicate environment IDs rejected",
+    "expected_boundary": "Exact duplicate ID with differing realization content gives local_context_invalid and effects_possible=false before effects.",
+    "qualified": false
+  },
+  {
+    "id": "A85",
+    "kind": "semantic_review_required",
+    "scenario": "identical duplicate environment IDs rejected",
+    "expected_boundary": "Exact duplicate ID with identical content is rejected; no deduplication, first-wins or last-wins.",
+    "qualified": false
+  },
+  {
+    "id": "A86",
+    "kind": "semantic_review_required",
+    "scenario": "post-start incomplete response requires attempt ID and effects_possible",
+    "expected_boundary": "Every execution_incomplete requires admitted non-null lowercase hex64 attempt ID and effects_possible=true.",
+    "qualified": false
+  },
+  {
+    "id": "A87",
+    "kind": "semantic_review_required",
+    "scenario": "pre-effect versus post-effect receipt persistence failure",
+    "expected_boundary": "controlled_failure/receipt_persistence_failed requires established effects_possible=false; possible effects require execution_incomplete with admitted attempt ID.",
+    "qualified": false
   }
 ]

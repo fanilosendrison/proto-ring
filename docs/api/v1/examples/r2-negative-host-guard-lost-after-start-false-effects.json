@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "check_repository_integrity",
+  "outcome": "execution_incomplete",
+  "error": {
+    "code": "host_guard_lost_after_start",
+    "stage": null,
+    "detail": null,
+    "attempt_id": "1111111111111111111111111111111111111111111111111111111111111111",
+    "effects_possible": false
+  }
+}

@@ -6,7 +6,7 @@
     "code": "host_guard_lost_after_start",
     "stage": null,
     "detail": null,
-    "attempt_id": null,
-    "effects_possible": null
+    "attempt_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "effects_possible": true
   }
 }

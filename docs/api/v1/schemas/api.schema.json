@@ -3772,218 +3772,7 @@
               "const": 1
             },
             "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "inapplicable"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "$ref": "#/$defs/error_codes_inapplicable"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "not_found"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "$ref": "#/$defs/error_codes_not_found"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "admission_refused"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "$ref": "#/$defs/error_codes_admission_refused"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "stale_observation"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "$ref": "#/$defs/error_codes_stale_observation"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "incomparable_observation"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "$ref": "#/$defs/error_codes_incomparable_observation"
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
+              "const": "discover"
             },
             "outcome": {
               "const": "controlled_failure"
@@ -3999,45 +3788,15 @@
                       "$ref": "#/$defs/error_codes_controlled_failure"
                     }
                   }
-                }
-              ]
-            }
-          },
-          "required": [
-            "api_version",
-            "operation",
-            "outcome",
-            "error"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "api_version": {
-              "const": 1
-            },
-            "operation": {
-              "enum": [
-                "discover",
-                "inspect",
-                "explain",
-                "check_repository_integrity",
-                "read_execution_output"
-              ]
-            },
-            "outcome": {
-              "const": "execution_incomplete"
-            },
-            "error": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/error"
                 },
                 {
                   "properties": {
                     "code": {
-                      "$ref": "#/$defs/error_codes_execution_incomplete"
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_internal_failure"
+                        }
+                      ]
                     }
                   }
                 }
@@ -4059,20 +3818,7 @@
               "const": 1
             },
             "operation": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "discover",
-                    "inspect",
-                    "explain",
-                    "check_repository_integrity",
-                    "read_execution_output"
-                  ]
-                },
-                {
-                  "type": "null"
-                }
-              ]
+              "const": "discover"
             },
             "outcome": {
               "const": "protocol_error"
@@ -4086,6 +3832,1094 @@
                   "properties": {
                     "code": {
                       "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "inspect"
+            },
+            "outcome": {
+              "const": "inapplicable"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_inapplicable"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_component_not_declared"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "inspect"
+            },
+            "outcome": {
+              "const": "not_found"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_not_found"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_subject_not_found"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "inspect"
+            },
+            "outcome": {
+              "const": "admission_refused"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_admission_refused"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_repository_not_authorized"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "inspect"
+            },
+            "outcome": {
+              "const": "controlled_failure"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_controlled_failure"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_governance_load_failed"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_response_too_large"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_internal_failure"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "inspect"
+            },
+            "outcome": {
+              "const": "protocol_error"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "explain"
+            },
+            "outcome": {
+              "const": "inapplicable"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_inapplicable"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_component_not_declared"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "explain"
+            },
+            "outcome": {
+              "const": "not_found"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_not_found"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_subject_not_found"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "explain"
+            },
+            "outcome": {
+              "const": "admission_refused"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_admission_refused"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_repository_not_authorized"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "explain"
+            },
+            "outcome": {
+              "const": "controlled_failure"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_controlled_failure"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_governance_load_failed"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_response_too_large"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_internal_failure"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "explain"
+            },
+            "outcome": {
+              "const": "protocol_error"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "inapplicable"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_inapplicable"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_repository_integrity_not_declared"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "admission_refused"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_admission_refused"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_repository_not_authorized"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_profile_not_authorized"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_execution_plan_not_authorized"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_execution_guarantee_unavailable"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "stale_observation"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_stale_observation"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_stale_observation"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "incomparable_observation"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_incomparable_observation"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_incomparable_observation"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "controlled_failure"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_controlled_failure"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_governance_load_failed"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_local_context_invalid"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_response_too_large"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_receipt_persistence_failed"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_internal_failure"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "code": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/$defs/error_code_receipt_persistence_failed"
+                          },
+                          {
+                            "$ref": "#/$defs/error_code_local_context_invalid"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "code"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "effects_possible": {
+                        "const": false
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "execution_incomplete"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_execution_incomplete"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_execution_incomplete"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_host_guard_lost_after_start"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_receipt_persistence_failed"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "attempt_id": {
+                      "$ref": "#/$defs/hex256"
+                    },
+                    "effects_possible": {
+                      "const": true
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "check_repository_integrity"
+            },
+            "outcome": {
+              "const": "protocol_error"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "read_execution_output"
+            },
+            "outcome": {
+              "const": "not_found"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_not_found"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_subject_not_found"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "read_execution_output"
+            },
+            "outcome": {
+              "const": "controlled_failure"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_controlled_failure"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_output_not_started"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_output_expired"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_output_access_refused"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_output_unavailable"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_range_not_retained"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_invalid_output_range"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_internal_failure"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": "read_execution_output"
+            },
+            "outcome": {
+              "const": "protocol_error"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "api_version",
+            "operation",
+            "outcome",
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "api_version": {
+              "const": 1
+            },
+            "operation": {
+              "const": null
+            },
+            "outcome": {
+              "const": "protocol_error"
+            },
+            "error": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "$ref": "#/$defs/error_codes_protocol_error"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/error_code_invalid_request"
+                        },
+                        {
+                          "$ref": "#/$defs/error_code_unsupported_version"
+                        }
+                      ]
                     }
                   }
                 }
@@ -4715,60 +5549,110 @@
       "additionalProperties": false
     },
     "error_codes_inapplicable": {
-      "enum": [
-        "repository_integrity_not_declared",
-        "component_not_declared"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_repository_integrity_not_declared"
+        },
+        {
+          "$ref": "#/$defs/error_code_component_not_declared"
+        }
       ]
     },
     "error_codes_not_found": {
-      "enum": [
-        "subject_not_found"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_subject_not_found"
+        }
       ]
     },
     "error_codes_admission_refused": {
-      "enum": [
-        "repository_not_authorized",
-        "profile_not_authorized",
-        "execution_plan_not_authorized",
-        "execution_guarantee_unavailable"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_repository_not_authorized"
+        },
+        {
+          "$ref": "#/$defs/error_code_profile_not_authorized"
+        },
+        {
+          "$ref": "#/$defs/error_code_execution_plan_not_authorized"
+        },
+        {
+          "$ref": "#/$defs/error_code_execution_guarantee_unavailable"
+        }
       ]
     },
     "error_codes_stale_observation": {
-      "enum": [
-        "stale_observation"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_stale_observation"
+        }
       ]
     },
     "error_codes_incomparable_observation": {
-      "enum": [
-        "incomparable_observation"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_incomparable_observation"
+        }
       ]
     },
     "error_codes_controlled_failure": {
-      "enum": [
-        "response_too_large",
-        "governance_load_failed",
-        "local_context_invalid",
-        "output_not_started",
-        "output_expired",
-        "output_access_refused",
-        "output_unavailable",
-        "range_not_retained",
-        "invalid_output_range",
-        "receipt_persistence_failed",
-        "internal_failure"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_response_too_large"
+        },
+        {
+          "$ref": "#/$defs/error_code_governance_load_failed"
+        },
+        {
+          "$ref": "#/$defs/error_code_local_context_invalid"
+        },
+        {
+          "$ref": "#/$defs/error_code_output_not_started"
+        },
+        {
+          "$ref": "#/$defs/error_code_output_expired"
+        },
+        {
+          "$ref": "#/$defs/error_code_output_access_refused"
+        },
+        {
+          "$ref": "#/$defs/error_code_output_unavailable"
+        },
+        {
+          "$ref": "#/$defs/error_code_range_not_retained"
+        },
+        {
+          "$ref": "#/$defs/error_code_invalid_output_range"
+        },
+        {
+          "$ref": "#/$defs/error_code_receipt_persistence_failed"
+        },
+        {
+          "$ref": "#/$defs/error_code_internal_failure"
+        }
       ]
     },
     "error_codes_execution_incomplete": {
-      "enum": [
-        "execution_incomplete",
-        "host_guard_lost_after_start",
-        "receipt_persistence_failed"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_execution_incomplete"
+        },
+        {
+          "$ref": "#/$defs/error_code_host_guard_lost_after_start"
+        },
+        {
+          "$ref": "#/$defs/error_code_receipt_persistence_failed"
+        }
       ]
     },
     "error_codes_protocol_error": {
-      "enum": [
-        "invalid_request",
-        "unsupported_version"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error_code_invalid_request"
+        },
+        {
+          "$ref": "#/$defs/error_code_unsupported_version"
+        }
       ]
     },
     "error_code": {
@@ -4798,6 +5682,78 @@
           "$ref": "#/$defs/error_codes_protocol_error"
         }
       ]
+    },
+    "error_code_repository_integrity_not_declared": {
+      "const": "repository_integrity_not_declared"
+    },
+    "error_code_component_not_declared": {
+      "const": "component_not_declared"
+    },
+    "error_code_subject_not_found": {
+      "const": "subject_not_found"
+    },
+    "error_code_repository_not_authorized": {
+      "const": "repository_not_authorized"
+    },
+    "error_code_profile_not_authorized": {
+      "const": "profile_not_authorized"
+    },
+    "error_code_execution_plan_not_authorized": {
+      "const": "execution_plan_not_authorized"
+    },
+    "error_code_execution_guarantee_unavailable": {
+      "const": "execution_guarantee_unavailable"
+    },
+    "error_code_stale_observation": {
+      "const": "stale_observation"
+    },
+    "error_code_incomparable_observation": {
+      "const": "incomparable_observation"
+    },
+    "error_code_response_too_large": {
+      "const": "response_too_large"
+    },
+    "error_code_governance_load_failed": {
+      "const": "governance_load_failed"
+    },
+    "error_code_local_context_invalid": {
+      "const": "local_context_invalid"
+    },
+    "error_code_output_not_started": {
+      "const": "output_not_started"
+    },
+    "error_code_output_expired": {
+      "const": "output_expired"
+    },
+    "error_code_output_access_refused": {
+      "const": "output_access_refused"
+    },
+    "error_code_output_unavailable": {
+      "const": "output_unavailable"
+    },
+    "error_code_range_not_retained": {
+      "const": "range_not_retained"
+    },
+    "error_code_invalid_output_range": {
+      "const": "invalid_output_range"
+    },
+    "error_code_receipt_persistence_failed": {
+      "const": "receipt_persistence_failed"
+    },
+    "error_code_internal_failure": {
+      "const": "internal_failure"
+    },
+    "error_code_execution_incomplete": {
+      "const": "execution_incomplete"
+    },
+    "error_code_host_guard_lost_after_start": {
+      "const": "host_guard_lost_after_start"
+    },
+    "error_code_invalid_request": {
+      "const": "invalid_request"
+    },
+    "error_code_unsupported_version": {
+      "const": "unsupported_version"
     }
   },
   "oneOf": [

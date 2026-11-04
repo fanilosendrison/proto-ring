@@ -1,6 +1,6 @@
 {
   "api_version": 1,
-  "operation": "check_repository_integrity",
+  "operation": "inspect",
   "outcome": "inapplicable",
   "error": {
     "code": "component_not_declared",

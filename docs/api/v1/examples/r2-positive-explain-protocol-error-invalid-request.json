@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "protocol_error",
+  "error": {
+    "code": "invalid_request",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

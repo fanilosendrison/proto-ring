@@ -898,5 +898,419 @@
     "target": "response",
     "document": "examples/negative-check-unknown-custody.json",
     "expect": "reject"
+  },
+  {
+    "id": "accept-r2-positive-discover-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-discover-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-discover-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-discover-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-discover-controlled-failure-internal-failure",
+    "target": "response",
+    "document": "examples/r2-positive-discover-controlled-failure-internal-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-inapplicable-component-not-declared",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-inapplicable-component-not-declared.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-not-found-subject-not-found",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-not-found-subject-not-found.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-admission-refused-repository-not-authorized",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-admission-refused-repository-not-authorized.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-controlled-failure-governance-load-failed",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-controlled-failure-governance-load-failed.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-controlled-failure-internal-failure",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-controlled-failure-internal-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-controlled-failure-response-too-large",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-controlled-failure-response-too-large.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-inspect-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-inspect-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-inapplicable-component-not-declared",
+    "target": "response",
+    "document": "examples/r2-positive-explain-inapplicable-component-not-declared.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-not-found-subject-not-found",
+    "target": "response",
+    "document": "examples/r2-positive-explain-not-found-subject-not-found.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-admission-refused-repository-not-authorized",
+    "target": "response",
+    "document": "examples/r2-positive-explain-admission-refused-repository-not-authorized.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-controlled-failure-governance-load-failed",
+    "target": "response",
+    "document": "examples/r2-positive-explain-controlled-failure-governance-load-failed.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-controlled-failure-internal-failure",
+    "target": "response",
+    "document": "examples/r2-positive-explain-controlled-failure-internal-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-controlled-failure-response-too-large",
+    "target": "response",
+    "document": "examples/r2-positive-explain-controlled-failure-response-too-large.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-explain-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-explain-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-explain-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-inapplicable-repository-integrity-not-declared",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-inapplicable-repository-integrity-not-declared.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-admission-refused-execution-guarantee-unavailable",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-admission-refused-execution-guarantee-unavailable.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-admission-refused-execution-plan-not-authorized",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-admission-refused-execution-plan-not-authorized.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-admission-refused-profile-not-authorized",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-admission-refused-profile-not-authorized.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-admission-refused-repository-not-authorized",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-admission-refused-repository-not-authorized.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-stale-observation-stale-observation",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-stale-observation-stale-observation.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-incomparable-observation-incomparable-observation",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-incomparable-observation-incomparable-observation.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-controlled-failure-governance-load-failed",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-controlled-failure-governance-load-failed.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-controlled-failure-internal-failure",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-controlled-failure-internal-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-controlled-failure-local-context-invalid",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-controlled-failure-local-context-invalid.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-controlled-failure-receipt-persistence-failed",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-controlled-failure-receipt-persistence-failed.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-controlled-failure-response-too-large",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-controlled-failure-response-too-large.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-execution-incomplete-execution-incomplete",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-execution-incomplete-execution-incomplete.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-execution-incomplete-host-guard-lost-after-start",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-execution-incomplete-host-guard-lost-after-start.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-execution-incomplete-receipt-persistence-failed",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-execution-incomplete-receipt-persistence-failed.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-check_repository_integrity-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-check-repository-integrity-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-not-found-subject-not-found",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-not-found-subject-not-found.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-internal-failure",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-internal-failure.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-invalid-output-range",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-invalid-output-range.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-output-access-refused",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-output-access-refused.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-output-expired",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-output-expired.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-output-not-started",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-output-not-started.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-output-unavailable",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-output-unavailable.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-controlled-failure-range-not-retained",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-controlled-failure-range-not-retained.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-read_execution_output-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-read-execution-output-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-unassigned-protocol-error-invalid-request",
+    "target": "response",
+    "document": "examples/r2-positive-unassigned-protocol-error-invalid-request.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-positive-unassigned-protocol-error-unsupported-version",
+    "target": "response",
+    "document": "examples/r2-positive-unassigned-protocol-error-unsupported-version.json",
+    "expect": "accept"
+  },
+  {
+    "id": "reject-r2-negative-discover-execution-incomplete",
+    "target": "response",
+    "document": "examples/r2-negative-discover-execution-incomplete.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-discover-host-guard-lost-after-start",
+    "target": "response",
+    "document": "examples/r2-negative-discover-host-guard-lost-after-start.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-inspect-output-expired",
+    "target": "response",
+    "document": "examples/r2-negative-inspect-output-expired.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-inspect-stale-observation",
+    "target": "response",
+    "document": "examples/r2-negative-inspect-stale-observation.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-explain-execution-plan-not-authorized",
+    "target": "response",
+    "document": "examples/r2-negative-explain-execution-plan-not-authorized.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-check_repository_integrity-output-not-started",
+    "target": "response",
+    "document": "examples/r2-negative-check-repository-integrity-output-not-started.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-check_repository_integrity-subject-not-found",
+    "target": "response",
+    "document": "examples/r2-negative-check-repository-integrity-subject-not-found.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-read_execution_output-governance-load-failed",
+    "target": "response",
+    "document": "examples/r2-negative-read-execution-output-governance-load-failed.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-read_execution_output-execution-incomplete",
+    "target": "response",
+    "document": "examples/r2-negative-read-execution-output-execution-incomplete.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-unassigned-component-not-declared",
+    "target": "response",
+    "document": "examples/r2-negative-unassigned-component-not-declared.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-host-guard-lost-after-start-null-attempt",
+    "target": "response",
+    "document": "examples/r2-negative-host-guard-lost-after-start-null-attempt.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-host-guard-lost-after-start-false-effects",
+    "target": "response",
+    "document": "examples/r2-negative-host-guard-lost-after-start-false-effects.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-host-guard-lost-after-start-null-effects",
+    "target": "response",
+    "document": "examples/r2-negative-host-guard-lost-after-start-null-effects.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-receipt-persistence-failed-null-attempt",
+    "target": "response",
+    "document": "examples/r2-negative-receipt-persistence-failed-null-attempt.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-receipt-persistence-failed-false-effects",
+    "target": "response",
+    "document": "examples/r2-negative-receipt-persistence-failed-false-effects.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-receipt-persistence-failed-null-effects",
+    "target": "response",
+    "document": "examples/r2-negative-receipt-persistence-failed-null-effects.json",
+    "expect": "reject"
+  },
+  {
+    "id": "reject-r2-negative-pre-effect-persistence-claims-effects",
+    "target": "response",
+    "document": "examples/r2-negative-pre-effect-persistence-claims-effects.json",
+    "expect": "reject"
+  },
+  {
+    "id": "accept-r2-negative-local-identical-duplicate",
+    "target": "local",
+    "document": "examples/r2-negative-local-identical-duplicate.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-negative-local-conflicting-duplicate",
+    "target": "local",
+    "document": "examples/r2-negative-local-conflicting-duplicate.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-local-exact-distinct-ids",
+    "target": "local",
+    "document": "examples/r2-local-exact-distinct-ids.json",
+    "expect": "accept"
+  },
+  {
+    "id": "accept-r2-local-empty-realizations",
+    "target": "local",
+    "document": "examples/r2-local-empty-realizations.json",
+    "expect": "accept"
   }
 ]

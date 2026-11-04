@@ -1,6 +1,6 @@
 {
   "api_version": 1,
-  "operation": "check_repository_integrity",
+  "operation": "discover",
   "outcome": "controlled_failure",
   "error": {
     "code": "internal_failure",

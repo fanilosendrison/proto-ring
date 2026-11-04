@@ -1,0 +1,27 @@
+[
+  {
+    "id": "original-single-realization",
+    "document": "examples/local-context.json",
+    "expect": "accept"
+  },
+  {
+    "id": "negative-local-identical-duplicate",
+    "document": "examples/r2-negative-local-identical-duplicate.json",
+    "expect": "reject"
+  },
+  {
+    "id": "negative-local-conflicting-duplicate",
+    "document": "examples/r2-negative-local-conflicting-duplicate.json",
+    "expect": "reject"
+  },
+  {
+    "id": "exact-distinct-ids",
+    "document": "examples/r2-local-exact-distinct-ids.json",
+    "expect": "accept"
+  },
+  {
+    "id": "empty-realizations",
+    "document": "examples/r2-local-empty-realizations.json",
+    "expect": "accept"
+  }
+]

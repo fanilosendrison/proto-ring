@@ -41,7 +41,8 @@
           "command_prefix",
           "process_environment"
         ]
-      }
+      },
+      "description": "environment_id must be unique by exact Rust string equality. Reject identical and conflicting duplicates before effects with controlled_failure/local_context_invalid, effects_possible=false. JSON Schema alone cannot express this selected-property uniqueness; candidate controls check it separately."
     }
   },
   "additionalProperties": false,

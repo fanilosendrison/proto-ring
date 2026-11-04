@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "inspect",
+  "outcome": "controlled_failure",
+  "error": {
+    "code": "output_expired",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

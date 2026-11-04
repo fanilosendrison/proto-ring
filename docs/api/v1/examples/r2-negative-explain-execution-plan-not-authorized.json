@@ -1,0 +1,12 @@
+{
+  "api_version": 1,
+  "operation": "explain",
+  "outcome": "admission_refused",
+  "error": {
+    "code": "execution_plan_not_authorized",
+    "stage": null,
+    "detail": null,
+    "attempt_id": null,
+    "effects_possible": false
+  }
+}

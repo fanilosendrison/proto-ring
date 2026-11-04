@@ -16,7 +16,7 @@ version: "0.1.0"
 **Wire protocol:** `api_version: 1`; JSON Schema Draft 2020-12\
 **Companion files:** `schemas/api.schema.json`, `schemas/request.schema.json`, `schemas/response.schema.json`, `schemas/local-context.schema.json`, `examples/`, `conformance/`.
 
-R1 remediates the independent hostile review of candidate `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70` (tree `01baf220baf4e44601d2d05f501a234eed45ae52`), which returned **NO_GO** with twelve findings and two uncertainties. The immutable Git commit carrying this R1 file identifies the new revision; PR #139 records its exact SHA/tree. R1 requires a fresh exact-SHA independent review. Document version remains `0.1.0`; API version remains `1`.
+The first independent review of `d2f3cb4ff70d6a6281ac836e8252f6ade0191d70` returned **NO_GO** with twelve findings and two uncertainties. R1 at `3e9a6bf5f1eb217ae42401f5b34b64810a07d127` (tree `a56f067205703a7e5f40f9003436bedecc894d42`) also received **NO_GO**: one blocker, two majors and one minor. This R2 candidate applies the owner's four bounded correction decisions; its immutable containing commit and exact tree are recorded in PR #139. A new independent exact-SHA review remains required. Document version remains `0.1.0`; API version remains `1`. **CANDIDATE — NOT ACCEPTED.**
 
 This document is a **candidate public-interface contract**. It does not supersede existing accepted language-neutral governance contracts, change RGM or RGS versions, complete #134, authorize implementation or assert any passed hostile review. The public façade must preserve the accepted semantics of RepositoryState, RepositoryGovernanceState, Governance Authority, governed objects, Governance Bindings, Repository Integrity, projections and evidence requirements. The old migration-only `proto-ring-compat` transport is neither an authority nor an ongoing compatibility gate. Existing consumer-owned pins to historical exact commits are not changed.
 
@@ -68,11 +68,23 @@ Successful response grammar: `{ "api_version":1, "operation":..., "outcome":"res
 
 Stable error codes for v1: `invalid_request`, `unsupported_version`, `response_too_large`, `governance_load_failed`, `repository_integrity_not_declared`, `component_not_declared`, `subject_not_found`, `repository_not_authorized`, `profile_not_authorized`, `execution_plan_not_authorized`, `execution_guarantee_unavailable`, `local_context_invalid`, `stale_observation`, `incomparable_observation`, `output_not_started`, `output_expired`, `output_access_refused`, `output_unavailable`, `range_not_retained`, `invalid_output_range`, `execution_incomplete`, `host_guard_lost_after_start`, `receipt_persistence_failed`, `internal_failure`. The canonical machine inventory is `$defs/error_code`, composed from the named `$defs/error_codes_<outcome>` families. Each error response references its family rather than maintaining a separate code list. `host_guard_lost_after_start` belongs exclusively to `execution_incomplete`. The outer `outcome` and inner `code` MUST agree with the operation's corresponding semantics; neither code nor process exit supplies an RI verdict.
 
-`error.stage` is either `null` or an exact existing `RepositoryGovernanceStage` (`repository_state`, `bootstrap`, `repository_governance_model`, `governance_authority`, `governed_objects`, `governance_bindings`, `repository_integrity`, `projection_integrity`, `evidence_requirements`, `composition`). `error.detail` is non-normative nullable text and MUST NOT be parsed to synthesize a stable category; privileged hosts may redact it. `error.attempt_id` and `error.effects_possible` are explicitly nullable and meaningful for incomplete attempts. A controlled RGS load failure never returns a partial RGS.
+`error.stage` is either `null` or an exact existing `RepositoryGovernanceStage` (`repository_state`, `bootstrap`, `repository_governance_model`, `governance_authority`, `governed_objects`, `governance_bindings`, `repository_integrity`, `projection_integrity`, `evidence_requirements`, `composition`). `error.detail` is non-normative nullable text and MUST NOT be parsed to synthesize a stable category; privileged hosts may redact it. Every `execution_incomplete` requires the actual admitted non-null lowercase hex64 `attempt_id` and `effects_possible:true`. Controlled `receipt_persistence_failed` and `local_context_invalid` require established `effects_possible:false`. Other error families retain their declared nullability where information is genuinely unavailable. A controlled RGS load failure never returns a partial RGS.
+
+The canonical response branches in `api.schema.json` restrict operation, outcome and code together. Each code has one `$defs/error_code_<code>` constant; each outcome family references those constants. Operation branches reference only their permitted subsets. The following v1 matrix is explanatory prose derived from that authority, not a second dispatch implementation:
+
+| Operation | Permitted non-result outcomes and codes |
+| --------- | --------------------------------------- |
+| `discover` | `protocol_error`: invalid_request, unsupported_version; `controlled_failure`: internal_failure |
+| `inspect` | `inapplicable`: component_not_declared; `not_found`: subject_not_found; `admission_refused`: repository_not_authorized; `controlled_failure`: governance_load_failed, response_too_large, internal_failure; `protocol_error`: invalid_request, unsupported_version |
+| `explain` | `inapplicable`: component_not_declared; `not_found`: subject_not_found; `admission_refused`: repository_not_authorized; `controlled_failure`: governance_load_failed, response_too_large, internal_failure; `protocol_error`: invalid_request, unsupported_version |
+| `check_repository_integrity` | `inapplicable`: repository_integrity_not_declared; `admission_refused`: repository_not_authorized, profile_not_authorized, execution_plan_not_authorized, execution_guarantee_unavailable; `stale_observation`: stale_observation; `incomparable_observation`: incomparable_observation; `controlled_failure`: governance_load_failed, local_context_invalid, response_too_large, receipt_persistence_failed, internal_failure; `execution_incomplete`: execution_incomplete, host_guard_lost_after_start, receipt_persistence_failed; `protocol_error`: invalid_request, unsupported_version |
+| `read_execution_output` | `not_found`: subject_not_found; `controlled_failure`: output_not_started, output_expired, output_access_refused, output_unavailable, range_not_retained, invalid_output_range, internal_failure; `protocol_error`: invalid_request, unsupported_version |
+
+Each operation additionally admits its own successful `result`. No other combination is permitted. Unassigned `operation:null` admits only `protocol_error/invalid_request` or `protocol_error/unsupported_version`, and only when the malformed request cannot be assigned to an operation. It is excluded from operation-specific discovery schemas. `controlled_failure/receipt_persistence_failed` is pre-effect only; if any execution effects are possible, use `execution_incomplete` with the admitted attempt ID instead.
 
 Exit code **0** means a structured protocol response was successfully emitted, including a returned RI `NON_PASS`, admission refusal or `execution_incomplete`. Exit **2** means invalid wire request. Exit **70** means an internal failure prevented normal structured processing; an exit code alone cannot prove no commands started. No automatic retry after an unknown potentially effectful attempt. Response maximum: **16 MiB** (16,777,216 encoded bytes). A requested complete observation view exceeding this limit MUST produce `response_too_large`, not a successful partial representation; the agent may make targeted observation queries. Checks instead require the pre-effect complete-receipt budget in Section 8; targeted observation queries cannot recover a truncated check receipt.
 
-The wire version is separate from RGM versions, RepositoryGovernanceState v1 and any historical migration transport. After acceptance or public release, an incompatible schema or reference algorithm requires a new wire/reference version and corresponding conformance vectors; no silent coercion. This unreleased R1 candidate retains the owner-fixed API version `1` and document version `0.1.0`.
+The wire version is separate from RGM versions, RepositoryGovernanceState v1 and any historical migration transport. After acceptance or public release, an incompatible schema or reference algorithm requires a new wire/reference version and corresponding conformance vectors; no silent coercion. This unreleased R2 documentation candidate retains the owner-fixed API version `1` and document version `0.1.0`; it is not a software release.
 
 ## 4. Exact NativePath type (lossless)
 
@@ -155,6 +167,7 @@ pub trait CheckHost {
     fn authorize_repository(
         &mut self,
         requested: &Path,
+        attempt: &AttemptId,
     ) -> Result<Self::Authorization, AdmissionError>;
 
     fn acquire_workspace(
@@ -185,7 +198,11 @@ pub trait CheckHost {
 
 pub trait CoherentWorkspace {
     fn root(&self) -> &Path;
-
+    fn evidence(&self) -> CoherenceEvidenceView<'_>;
+    fn require_coverage(
+        &mut self,
+        required: RequiredCoverage<'_>,
+    ) -> Result<(), HostAbort>;
     fn ensure_active(
         &mut self,
         checkpoint: CoherenceCheckpoint,
@@ -233,41 +250,219 @@ pub enum GuardedEvaluation {
 
 pub enum ProcessObservation {
     ProvenNotStarted,
-    Exited {
-        success: bool,
-        exit_code: Option<String>,
-    },
+    Completed(CompletedProcess),
+}
+
+pub struct CheckSubjectView<'a> {
+    pub request_path: &'a Path,
+    pub requested_root: &'a Path,
+    pub effective_root: &'a Path,
+    pub root_binding: RootBindingView<'a>,
+    pub governance: &'a RepositoryGovernanceState,
+    pub consumer_profile: &'a ConsumerIntegrityProfile,
+    pub profile_identity: &'a ProfileIdentity,
+    pub evaluation_context_identity: &'a EvaluationContextIdentity,
+    pub ri_scope: &'a [PathBuf],
+    pub attempt: &'a AttemptId,
+}
+
+impl ResolvedCheckPlan {
+    pub fn subject(&self) -> CheckSubjectView<'_>;
+    pub fn validations(
+        &self,
+    ) -> impl ExactSizeIterator<Item = ValidationPlanView<'_>> + '_;
+}
+
+pub enum InstanceResolutionState {
+    ResolvedWithObligations,
+    ResolvedZeroInstances,
+    InstanceResolutionFailed,
+}
+
+pub struct ValidationPlanView<'a> {
+    declared: &'a ValidationDefinition,
+    canonical: &'a RuntimeValidation,
+    position: usize,
+}
+
+impl ValidationPlanView<'_> {
+    pub fn validation_id(&self) -> &str;
+    pub fn canonical_position(&self) -> usize;
+    pub fn prerequisites(&self) -> &BTreeSet<String>;
+    pub fn resolution(&self) -> InstanceResolutionState;
+    pub fn obligations(
+        &self,
+    ) -> impl ExactSizeIterator<Item = ObligationPlanView<'_>> + '_;
+}
+
+pub struct ObligationPosition {
+    pub validation_position: usize,
+    pub instance_index: u64,
+    pub plan_position: usize,
+}
+
+pub enum ObligationPlanView<'a> {
+    Executable(ExecutableObligationView<'a>),
+    MissingRealization(UnlaunchableObligationView<'a>),
+    KnownUnlaunchable(UnlaunchableObligationView<'a>),
+}
+
+pub struct ExecutableObligationView<'a> {
+    pub key: ObligationKey,
+    pub position: ObligationPosition,
+    pub effective_root: &'a Path,
+    pub working_directory: &'a Path,
+    pub declared_environment_id: &'a str,
+    pub program: &'a str,
+    pub arguments: EffectiveArgumentsView<'a>,
+    pub process_environment: &'a BTreeMap<String, String>,
+    pub profile_identity: &'a ProfileIdentity,
+    pub evaluation_context_identity: &'a EvaluationContextIdentity,
+}
+
+pub struct EffectiveArgumentsView<'a> {
+    pub prefix_tail: &'a [String],
+    pub realized_arguments: &'a [String],
+}
+
+pub struct UnlaunchableObligationView<'a> {
+    pub key: ObligationKey,
+    pub position: ObligationPosition,
+    pub declared_environment_id: &'a str,
+    pub canonical: &'a RuntimeCommandObligation,
+}
+
+pub struct CompletedProcess {
+    pub process_started: bool,
+    pub exit_success: bool,
+    pub exit_code: Option<String>,
+    pub capture_metadata: CaptureReference,
+    pub effect_lifetime_closed: Box<dyn EffectLifetimeClosed>,
+}
+
+pub trait EffectLifetimeClosed {
+    fn attempt(&self) -> &AttemptId;
+    fn obligation(&self) -> &ObligationKey;
+    fn generation(&self) -> &ProtectedGeneration;
+}
+
+pub enum ProcessStartKnowledge {
+    DefinitivelyExcluded,
+    PotentiallyOccurred,
+}
+
+pub enum HostAbortReason {
+    CoherenceLost,
+    AdmissionRevoked,
+    EffectBindingInvalid,
+    ProcessStartIndeterminate,
+    ProcessCompletionIndeterminate,
+    DescendantEffectsUncontained,
+    HostObservationUnavailable,
+}
+
+pub struct HostAbort {
+    pub reason: HostAbortReason,
+    pub process_start: ProcessStartKnowledge,
+    pub attempt: AttemptId,
+}
+
+pub enum CoherenceClass {
+    ExclusiveWorkspace,
+    VersionedWorkspace,
+}
+
+pub struct RootBindingView<'a> {
+    pub requested_root: &'a Path,
+    pub effective_root: &'a Path,
+    pub protected_subject: &'a ProtectedSubjectIdentity,
+    pub generation: &'a ProtectedGeneration,
+}
+
+pub struct CoherenceEvidenceView<'a> {
+    pub effective_root: &'a Path,
+    pub root_binding: RootBindingView<'a>,
+    pub class: CoherenceClass,
+    pub protected_subject: &'a ProtectedSubjectIdentity,
+    pub generation: &'a ProtectedGeneration,
+    pub coverage: &'a dyn ProtectedCoverage,
+}
+
+pub enum RequiredCoverage<'a> {
+    GovernanceAndRepositoryState,
+    RiScope(&'a [PathBuf]),
+}
+
+pub trait ProtectedCoverage {
+    fn covers(&self, required: RequiredCoverage<'_>) -> bool;
+}
+
+pub enum CoherenceCheckpoint {
+    BeforeRgs,
+    BeforeRealization,
+    AfterRealization,
+    BeforePlanAdmission,
+    BeforeEachLaunch,
+    AfterEachEffectLifetime,
+    BeforeRequiredRiCapture,
+    AfterFinalRiObservation,
 }
 ```
 
-`CheckSubject` binds the exact protected root, RGS observation and concrete provenance, actual consumer profile, evaluation context and their distinct identities. `ResolvedCheckPlan` owns the canonical `RealizedIntegrityProfile`; it does not rerun a selector algorithm in the API. An `AdmittedPlan` binds this subject, immutable plan, host-issued invocation permit, active coherence workspace, exact effective process effects and ReceiptBudget. Authority-bearing fields are private and cannot be decoded from agent JSON. The host supplies an enforceable OS/substrate launch capability to the single canonical engine execution path, not a second runner or evaluator.
+The Rust-shaped signatures above are future boundary contracts with method bodies omitted, not compilable implementations or existing exports. `CheckSubject` is the private owner of the immutable values borrowed by `CheckSubjectView`, including the actual EvaluationContext used in realization, not only its identity. `ResolvedCheckPlan` retains its private `subject` and canonical `RealizedIntegrityProfile`; no second plan becomes authoritative. View values are read-only borrows derived from those same objects and their original consumer declarations. Fabricating a view does not mint a plan or permit.
+
+`request_path` preserves the decoded request spelling. `requested_root` is its canonically resolved authorized worktree root; `effective_root` is the root actually observed and used for execution. `RootBindingView` binds both to one host-protected subject and generation. They must be identical unless the authorized host actually establishes their protected-workspace relationship. A relocated workspace is never inferred from path similarity. Public RGS provenance and reference hashing use the actual effective root; expected-observation comparison retains its existing domain rules, without silently equating different roots. The borrowed RGS exposes the exact observation and concrete provenance; the profile/context identities and canonical RI scope remain separate.
+
+`AttemptId` is the 32-octet admitted invocation identity defined in Section 8. `CaptureReference` identifies capture metadata for exactly that attempt and obligation, not an arbitrary output path. `ProtectedSubjectIdentity` and `ProtectedGeneration` are opaque host-owned in-process identity values for the actual protected subject and observation/evaluation generation; no byte encoding, cryptographic proof or public token authority is implied. `EffectLifetimeClosed` and `ProtectedCoverage` are interfaces implemented by a trusted host using actual substrate mechanisms. Their values are not deserialized from public JSON or local realization files, and metadata construction alone establishes no host property.
+
+`validations()` exhaustively follows the original profile's canonical order, including validations that may later be skipped. `canonical_position` is zero-based in that order; declared prerequisites come from the corresponding original `ValidationDefinition`, not an inferred dependency graph. The three resolution classes are respectively `RESOLVED_WITH_OBLIGATIONS`, `RESOLVED_ZERO_INSTANCES`, and `INSTANCE_RESOLUTION_FAILED`: complete resolution with a nonempty ordered obligation vector, successful empty `for_each`, and canonical `resolution_failed`. Failure is never rewritten as successful empty resolution. For `INSTANCE_RESOLUTION_FAILED`, the canonical obligation vector is empty and the resolution failure remains explicit; never fabricate placeholder commands or admit a partially resolved subset.
+
+Within successful resolution, `EXECUTABLE`, `MISSING_REALIZATION` and `KNOWN_UNLAUNCHABLE` are admission-view classifications, not RI statuses. An absent realization under the original declared environment ID is `MISSING_REALIZATION`. A provided realization whose canonical prefix is empty is `KNOWN_UNLAUNCHABLE`; neither view fabricates a program or environment. Other concrete obligations are `EXECUTABLE` launch candidates, not predictions of successful OS execution; a later proven launch failure still preserves canonical uncertainty. These classifications read the same retained context and realized obligation, without selecting or expanding again. Otherwise authorized missing realizations and proven launch failures retain `UNDETERMINED`, `executed=false`; failed instance resolution retains canonical `UNDETERMINED`; successfully resolved zero instances retain `SATISFIED`. Existing prerequisites, stop policy and drift handling still apply and may prevent execution.
+
+`declared_environment_id` is read from `consumer_profile.validations[ValidationId].command.environment`, never guessed from the realized executable. Executable program is exactly `command_prefix[0]`; the full effective argument vector is `command_prefix[1..]` followed by realized obligation arguments. `EffectiveArgumentsView` exposes those two immutable slices as one ordered virtual concatenation: all `prefix_tail` elements followed by all `realized_arguments` elements, with no insertion, selection or reordering. Keys and position metadata are exact derived copies, not mutable access to the plan. The effective process environment is the complete explicit map, with ambient environment cleared; working directory is the exact effective repository root, matching the canonical executor. There is no ambient argument, environment or cwd substitution. `plan_position` follows the flattened canonical obligation order, including non-executable entries; `instance_index` is zero-based within its validation, with checked wire conversion.
+
+The host must inspect every potential executable effect before issuing a permit, including later effects whose prerequisites may eventually fail. A privileged host must establish and bind the actual executable it will launch, not just a mutable filename or command name. Failure to establish required executable identity refuses the whole plan before any validator starts; it is not permission to substitute a tool. Proven unlaunchability is distinct from uncertainty about executable substitution. The permit binds the exact immutable plan and one attempt. Only the engine sequences per-obligation launch and consumes each obligation key at most once. An `AdmittedPlan` binds that private plan, permit, workspace, exact effects and ReceiptBudget; no agent-constructible value grants authority.
 
 ### 7.2 Required transitions and guarded dispatch
 
-1. Authorize repository access before protected disclosure. Acquire a sufficient coherent workspace **before the first RGS observation**. Its protection covers relevant governance sources, repository state and the finally resolved RI scope through the last required RI observation.
+1. Create the engine-owned attempt identity at invocation entry, before host calls; pass it into repository authorization and retain its binding through workspace acquisition, plan admission, effects and capture. The identity is not a permit. Authorize repository access before protected disclosure. Acquire a sufficient coherent workspace **before the first RGS observation**. Its protection covers relevant governance sources, repository state and the finally resolved RI scope through the last required RI observation.
 2. Load canonical RGS, resolve optional observation comparison, admit the actual full profile, and obtain host-controlled realizations. Use `realize_consumer_profile()` as the sole instance/argument resolver. Guard observation and resolution stages as well as evaluation.
 3. Resolve the complete plan and establish the conservative complete-receipt budget. Reserve required capture/custody resources before effects.
 4. Admit every potential executable obligation, including later obligations that may eventually be skipped by prerequisites: exact root, profile/context, ValidationId, instance ordinal, program, prefix arguments, resolved arguments, process environment, working directory, coherence guard and required resource permissions. A forbidden later effect rejects the entire attempt before any validator starts. Do not remove or reorder consumer membership.
 5. Before every launch verify permit validity, expected obligation identity/ordinal, that it has not already launched, effective command/environment, protected root, coherence guard and executable substitution resistance. A mutable executable path or command-name allowlist alone does not establish privileged integrity. `EvaluationContextIdentity` excludes effective prefix/environment values and is neither admission nor attestation.
 6. Preserve engine-owned prerequisite handling, captures, obligation status, aggregation, state relation and verdict. Finalize a single canonical receipt only after completion and valid capture/custody metadata.
 
-`CoherenceCheckpoint` covers pre-observation, realization, plan admission, each pre-launch and required RI capture/final observation. A guarded state capture has the boundary `Result<Result<RepositoryState, StateCaptureError>, HostAbort>`: inner capture failure preserves ordinary RI semantics; outer host interruption stops the attempt without a completed verdict. The engine alone maps `ProcessObservation` into existing status/start/exit observations. Unknown launch status is never ProvenNotStarted. No fourth RI status is introduced.
+The engine-owned invocation state initializes `effects_possible=false`. It changes permanently to true once any process has started or might have started, and never returns to false. `Launch::ProvenNotStarted` requires definitive absence of start; uncertain start instead yields `HostAbort` with `PotentiallyOccurred`. Earlier obligations' effects remain possible even when a later launch is definitively excluded. No automatic retry is allowed.
+
+`CompletedProcess` requires `process_started=true`, known principal termination, truthful success/optional numeric-exit facts, and a same-invocation capture reference. `exit_code` preserves the canonical engine's `ExitStatus::code().map(|code| code.to_string())` representation (an i32 decimal or None), not arbitrary diagnostic text. `EffectLifetimeClosed` denotes an established host-enforced condition, not a caller-supplied boolean authorization. `wait_and_capture()` may return it only after relevant descendants have finished or are effectively contained, no remaining process can invalidate the claimed state outside the admitted boundary, and the coherence lease remains valid. The engine verifies attempt/obligation/generation binding and checks `AFTER_EACH_EFFECT_LIFETIME` **before the next required RI capture and before the next obligation**. Parent exit and pipe closure alone are insufficient. Partial stream capture is permitted when process completion and effect closure are independently established. Failure to establish closure returns `DESCENDANT_EFFECTS_UNCONTAINED` or another accurate HostAbort, with effects possible; no universal validator timeout is added.
+
+Stable internal abort reason names are `COHERENCE_LOST`, `ADMISSION_REVOKED`, `EFFECT_BINDING_INVALID`, `PROCESS_START_INDETERMINATE`, `PROCESS_COMPLETION_INDETERMINATE`, `DESCENDANT_EFFECTS_UNCONTAINED`, `HOST_OBSERVATION_UNAVAILABLE`. They are internal diagnostics, not new public codes or RI verdicts. `HostAbort` binds the attempt and whether the interrupted process start is definitively excluded or potentially occurred. The engine combines this fact monotonically with earlier effects. Before any possible execution effects, established absence permits pre-execution `admission_refused/execution_guarantee_unavailable`; admission policy refusals retain their specific permitted codes. After possible effects, any host interruption yields `execution_incomplete`, `effects_possible:true`, the actual admitted attempt ID and no completed IntegrityResult. Guard loss uses `host_guard_lost_after_start`; other interruptions use the existing `execution_incomplete` code. Missing responses prove neither non-start nor quiescence.
+
+The host supplies process facts; only the engine classifies them: successful exit is `SATISFIED`; an explicitly configured nonzero undetermined exit code is `UNDETERMINED`; another unsuccessful exit, including unavailable numeric exit code, is `VIOLATED`; proven start failure is `UNDETERMINED`, `executed=false`. A guarded state capture has boundary `Result<Result<RepositoryState, StateCaptureError>, HostAbort>`: ordinary inner capture failure retains canonical RI observation semantics under a valid guard; outer HostAbort interrupts without a completed verdict. HostAbort is never converted into ProcessOutcome. No new RI status is introduced.
 
 The mandatory extension is one shared evaluation/aggregation core: canonical `realize_consumer_profile()` remains authoritative and is covered by the guard; existing `evaluate()` remains available through an adapter; guarded and existing evaluation share aggregation. HostAbort is not converted into ordinary ProcessOutcome. Actual repository drift continues to produce the engine's existing consequences. In particular realization A, baseline B, final B may yield NOT_EQUAL and coherence halt despite equal baseline/final public digests; the façade MUST preserve that result, never recalculate state relation.
 
 ### 7.3 Coherence, local use and interruptions
 
-The only admitted property classes for completed qualified checks are `exclusive_workspace` and `versioned_workspace`. They are host-established properties, not agent mode flags. They must keep required observations and the evaluated state unambiguous while retaining ordinary drift detection, including effects of the validator itself. Endpoint equality alone, editable same-user configuration and ordinary mutable checkout access establish neither property. No sufficient basis gives `admission_refused/execution_guarantee_unavailable` before the first validator. No universal VM, remote server, vendor or arbitrary global execution timeout is required.
+A host acquires an enforceable coherence capability **before loading RGS**, not after comparing endpoint hashes. `CoherenceEvidenceView` exposes its effective root, bound requested/effective-root relationship, coherence class, protected subject identity, protected observation/evaluation generation and coverage. `ensure_active()` is an enforcement checkpoint on the live host capability, not acceptance of a class string or an independently verifiable security proof.
 
-Direct local CLI uses the invoking OS identity, without elevation or a sandbox promise. `--local-context-file` supplies only nonprivileged realizations; it cannot establish coherence or protected custody by assertion. Its existing typed schema remains controlling. Default locations remain `$XDG_CONFIG_HOME/proto-ring/local-context.json` (otherwise `$HOME/.config/proto-ring/local-context.json`) on Unix and `%APPDATA%\proto-ring\local-context.json` on Windows. The declared repository must resolve to the same root. A missing default file supplies no realizations; malformed configuration gives `controlled_failure/local_context_invalid` before effects. Even correctly parsed local configuration does not waive coherence admission; ordinary same-user mutable checkout mode cannot claim a qualified completed check without a host-established basis.
+`exclusive_workspace` prevents uncontrolled external writers from changing contract-relevant state during evaluation while keeping validator-produced mutations visible to normal engine drift detection. `versioned_workspace` binds governance observations, selector resolution, validator reads and RI observations to one coherent protected generation or equivalent versioned view. Its mutable evaluation branch must expose validator-produced modifications to the RI evaluator; an immutable snapshot that hides their effects is not conforming.
+
+`require_coverage(GovernanceAndRepositoryState)` must succeed before the first RGS access. Initial protection must be sufficient for all relevant governance inputs and RepositoryState dimensions even though the full RI scope is unresolved; a host can protect a sufficient whole worktree domain rather than guess a future selector expansion. Metadata-only coverage assertions are insufficient. Each actual authoritative governance read must remain inside that protection. After canonical realization, `require_coverage(RiScope(actual_scope))` checks the actual canonical RI scope before plan admission and before effects. Inadequate coverage causes refusal; never continue a qualified evaluation through uncovered reads or effects.
+
+The API consumes this evidence in-process and requires validity for the same subject/generation through the invocation. Mandatory checkpoints are `BEFORE_RGS`, `BEFORE_REALIZATION`, `AFTER_REALIZATION`, `BEFORE_PLAN_ADMISSION`, `BEFORE_EACH_LAUNCH`, `AFTER_EACH_EFFECT_LIFETIME`, `BEFORE_REQUIRED_RI_CAPTURE`, `AFTER_FINAL_RI_OBSERVATION`, corresponding to the Rust enum above. Checkpoint failure invokes the monotonic effects/abort rules, not ordinary capture failure. A receipt records the asserted class under the declared host trust/custody boundary; it is not independent cryptographic proof that the host enforced it.
+
+An ordinary same-user mutable checkout establishes neither class automatically. Without an actually compliant host workspace, direct local checking returns `admission_refused/execution_guarantee_unavailable`, before any validator starts. There is no silent unqualified ordinary-capture PASS. A controlled local host may acquire either property through real OS/substrate mechanisms; v1 mandates no vendor, VM, remote server or universal timeout. `discover`, `inspect` and `explain` remain non-executing observations.
+
+Direct local CLI uses the invoking OS identity, without elevation or a sandbox promise. `--local-context-file` supplies only nonprivileged realizations; it cannot establish coherence or protected custody by assertion. Its typed schema governs shape. Every `environment_id` in `realizations` must additionally be unique by exact Rust string equality: case-sensitive, no Unicode normalization, trimming or alias inference. Reject both identical and conflicting duplicate-ID entries with `controlled_failure/local_context_invalid`, `effects_possible:false`, before map construction and before the first executable effect. Never deduplicate or select first/last wins. JSON Schema `uniqueItems` cannot enforce selected-property uniqueness; `conformance/local_context_controls.py` checks this candidate rule separately, without executing the API. Default locations remain `$XDG_CONFIG_HOME/proto-ring/local-context.json` (otherwise `$HOME/.config/proto-ring/local-context.json`) on Unix and `%APPDATA%\proto-ring\local-context.json` on Windows. The declared repository must resolve to the same root. A missing default file supplies no realizations; malformed configuration gives `controlled_failure/local_context_invalid` before effects. Even correctly parsed local configuration does not waive coherence admission; ordinary same-user mutable checkout mode cannot claim a qualified completed check without a host-established basis.
 
 Delegated privileged invocation is through an independently controlled Rust host. Public JSON/CLI has no privileged switch or file. The host must actually protect repository, realizations, executables, credentials, dispatch and asserted guards from the untrusted agent/process. Agent-requested prefixes, opaque context identities, environment values and boolean flags cannot grant permission.
 
-Guard loss after any possible launch gives `execution_incomplete`, `effects_possible:true`, no completed RI verdict, and no automatic retry. Proven absence of all effects permits pre-execution refusal without a verdict; missing responses never prove absence. Relevant descendants must have terminated or be effectively contained before a qualified completed evaluation. Parent exit and pipe closure do not prove this. Conversely, incomplete collection of a retained pipe need not invalidate a verdict where the host independently establishes that descendants cannot modify the governed state.
+Guard loss after any possible launch gives `execution_incomplete`, the actual non-null admitted attempt ID, `effects_possible:true`, no completed RI verdict and no automatic retry. Proven absence of all execution effects permits pre-execution refusal without a verdict. Relevant descendant effects must be finished or effectively contained after **each** obligation, before the next RI capture or obligation, not merely before final receipt publication. Parent exit and pipe closure prove neither condition; incomplete pipe collection may remain partial when completion and effect closure are independently established.
 
 ## 8. One canonical receipt, capacity admission and custody
 
-Each admitted attempt receives a random 32-octet identifier before commands; serialized as lowercase hex64. Identical-state attempts have distinct IDs. IDs are not access capabilities or content digests. A CheckReceipt exists only after canonical engine completion and publication under the declared custody policy. It exposes exactly one engine IntegrityResult projection: PASS/NON_PASS, full ordered validations and obligations, SATISFIED/VIOLATED/UNDETERMINED, executed and exit-code observations, exact profile/context bindings, baseline/final references, state_relation and state_coherence_halt. Instance indices are zero-based per ValidationId and canonical u64 decimal strings. Never recompute a verdict in receipt storage.
+Each check invocation receives an engine-owned random 32-octet attempt identifier at entry, before workspace acquisition or commands; serialized as lowercase hex64. A subsequently admitted attempt retains that same identifier. Identical-state attempts have distinct IDs. IDs are not access capabilities or content digests. A CheckReceipt exists only after canonical engine completion and publication under the declared custody policy. It exposes exactly one engine IntegrityResult projection: PASS/NON_PASS, full ordered validations and obligations, SATISFIED/VIOLATED/UNDETERMINED, executed and exit-code observations, exact profile/context bindings, baseline/final references, state_relation and state_coherence_halt. Instance indices are zero-based per ValidationId and canonical u64 decimal strings. Never recompute a verdict in receipt storage.
 
 The receipt additionally carries RGS observation and flattened `rgs_provenance`, concrete `ri_scope_paths` and distinct RI scope digest, host-established `coherence_basis` (`exclusive_workspace` or `versioned_workspace`), and `custody` (`local_user_controlled` or `host_enforced`). Its governance observation must record `host_established`, not ordinary_capture as proof of qualified checking. RGS and RI path scopes may differ and MUST NOT be substituted for one another.
 
@@ -275,7 +470,7 @@ The receipt additionally carries RGS observation and flattened `rgs_provenance`,
 
 Pre-execution bounded receipt admission is mandatory. After full canonical realization, ReceiptBudget establishes a conservative upper bound on the complete encoded UTF-8 JSON response, including the envelope, all validations and concrete obligations, maximum serialized statuses and exit codes, exact escaped identifiers, all reference/identity fields, concrete RGS and RI provenance, capture policy, maximum capture metadata and JSON structural overhead. Raw stdout/stderr bytes are not embedded. Size accounting uses checked arithmetic; unknown/unbounded fields require refusal, not a guessed bound. No new global execution timeout or profile-membership limit is imposed.
 
-If a safe bound cannot be established or exceeds **16,777,216 bytes**, return `controlled_failure/response_too_large`, `effects_possible:false` before the first validator. The host admits this budget with the entire effect plan and reserves required resources. An unexpected post-effect bound/serialization failure gives an incomplete attempt with actual effects uncertainty, not a truncated completed receipt or an automatic rerun. No sixth operation or receipt pagination exists in v1.
+If a safe bound cannot be established or exceeds **16,777,216 bytes**, return `controlled_failure/response_too_large`, `effects_possible:false` before the first validator. The host admits this budget with the entire effect plan and reserves required resources. An unexpected post-effect bound/serialization failure gives `execution_incomplete` with the actual admitted attempt ID and monotonic `effects_possible:true`, not a truncated completed receipt or an automatic rerun. No sixth operation or receipt pagination exists in v1.
 
 ### 8.2 Same-execution output capture
 
@@ -315,7 +510,7 @@ Reserve before the first validator. Finalize once after canonical result and cap
 
 Local storage remains `$XDG_STATE_HOME/proto-ring/receipts` (otherwise `$HOME/.local/state/proto-ring/receipts`) on Unix and `%LOCALAPPDATA%\proto-ring\receipts` on Windows, outside the evaluated worktree. Refuse admission if safe resource reservation is unavailable. Use restrictive host-native permissions, reject traversal and symlink/reparse-point substitutions. Defaults remain retention target **604800 seconds**, global output quota **1 GiB**, per-stream tail **64 MiB**, read maximum **64 KiB**. Quota loss before publication is explicitly partial/unavailable; after publication, output expiry is explicit `output_expired`. Retained-byte SHA-256 identifies recorded bytes under custody assumptions, not truth or same-user tamper resistance.
 
-Stage captures, complete RI, finalize capture metadata and atomically publish one finalized manifest before emitting result. Serialize that same finalized object; do not independently compute another receipt. Durability claims require relevant host fsync/durability mechanisms, not rename alone. Crash/finalization failure after possible effects yields an incomplete attempt with attempt ID and truthful effects uncertainty if a response can be emitted. Silence from a dead process never proves no launch. No recovery/replay of indeterminate attempts is specified in v1.
+Stage captures, complete RI, finalize capture metadata and atomically publish one finalized manifest before emitting result. Serialize that same finalized object; do not independently compute another receipt. Durability claims require relevant host fsync/durability mechanisms, not rename alone. Crash/finalization failure after possible effects yields `execution_incomplete`, the actual admitted non-null attempt ID and `effects_possible:true` if a response can be emitted. If persistence fails while absence of all execution effects is established, use `controlled_failure/receipt_persistence_failed`, `effects_possible:false`, instead. Silence from a dead process never proves no launch. No recovery/replay of indeterminate attempts is specified in v1.
 
 ## 9. Total output-range semantics
 
@@ -364,7 +559,7 @@ The JSON Schema Draft 2020-12 documents in `schemas/` describe **syntactic** sha
 
 **Not expressible solely in JSON Schema:** raw duplicate-key rejection, canonical Base64 pad bits, OS native path validity, `u64` maximum, unique/map key ordering for tagged StructuredValue, relationship of request/response selectors to exactly the published result, RGS component required-presence rules, RI validation order/prerequisite semantics, token computation, host admission, actual executable provenance, RI result aggregation, output capture completeness and absence of effects. Each needs explicit executable conformance/hostile tests.
 
-`conformance/identity-vectors.json` holds frozen deterministic known-answer public-reference hashing vectors, including native path, word-width and byte-order boundaries (the checker reports the actual total); `conformance/schema-cases.json` contains **illustrative schema shape** cases; `conformance/semantic-cases.json` retains A01–A31, adds A32–A62 and explicit guard/identifier/registry cases, all marked semantic_review_required and qualified:false. The executable schema cases declare their request/response/local target explicitly; duplicate keys are rejected before map construction. Discovery schemas are checked for exact canonical derivation and local reference closure. These inventories list unresolved **runtime acceptance tests**, not successful executions. No shape-case pass is evidence of canonical engine semantics or successful hostile review. The current regression reference is the qualified Rust engine and its applicable **1,153 language-neutral conformance vectors across 29 active responsibilities**. Preservation of the legacy 16-operation `proto-ring-compat` transport on current `main` is **not** a new-public-API gate. Downstream consumer repinning remains separately consumer-authorized.
+`conformance/identity-vectors.json` holds frozen deterministic known-answer public-reference hashing vectors, including native path, word-width and byte-order boundaries (the checker reports the actual total); `conformance/schema-cases.json` contains **illustrative schema shape** cases; `conformance/semantic-cases.json` preserves A01–A70 and adds A71–A87 for exact error attribution, host views, effect lifetime, coherence, local-ID collisions and interruption metadata. All remain semantic_review_required and qualified:false. `test_error_attribution.py` contains an independent fixed matrix oracle and checks canonical and advertised schemas across allowed and forbidden combinations. `local-context-cases.json` separately declares exact-ID uniqueness results: duplicate-ID documents are schema-shape-valid but rejected by the candidate semantic control. These Python controls do not execute the API or qualify a host. The executable schema cases declare their request/response/local target explicitly; duplicate keys are rejected before map construction. Discovery schemas are checked for exact canonical derivation and local reference closure. These inventories list unresolved **runtime acceptance tests**, not successful executions. No shape-case pass is evidence of canonical engine semantics or successful hostile review. The current regression reference is the qualified Rust engine and its applicable **1,153 language-neutral conformance vectors across 29 active responsibilities**. Preservation of the legacy 16-operation `proto-ring-compat` transport on current `main` is **not** a new-public-API gate. Downstream consumer repinning remains separately consumer-authorized.
 
 ## 12. Required hostile review and acceptance gate
 

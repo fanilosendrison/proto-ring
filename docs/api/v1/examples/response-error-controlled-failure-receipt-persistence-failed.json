@@ -7,6 +7,6 @@
     "stage": null,
     "detail": null,
     "attempt_id": null,
-    "effects_possible": null
+    "effects_possible": false
   }
 }
