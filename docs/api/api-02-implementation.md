@@ -237,6 +237,15 @@ follows it. Encoding is bounded before the first stdout write. A complete
 inspection/explanation that cannot fit returns `response_too_large`, never a
 summary or truncated success. There is one JSON response, without stdout logs.
 The canonical schema enforces operation/outcome/code combinations before emission.
+After bounded serialization establishes the byte budget, validation uses a JSON
+value produced from that exact immutable typed candidate, rather than reparsing
+its bytes with a hidden parser-depth limit. Overflow validates only the small
+replacement response. Recursive opaque configurations retain every descendant;
+80-level sequence and mapping fixtures exercise the depth amplification caused
+by wire tags through Rust, JSON and both CLI adapters. This bounded evidence does
+not establish arbitrary-depth runtime support: loading, projection, serialization,
+value construction, schema traversal and destruction still consume finite stack
+and memory. No new configuration-depth limit is introduced by this correction.
 
 Exit 0 means normal structured processing, including controlled failures; exit 2
 means an invalid request; exit 70 means internal processing or I/O could not be
@@ -256,6 +265,7 @@ evidence references, not changes to the accepted scenarios' qualification flags.
 | Section 12 B; A28 | Native codec and framed references | `native-path-codec.rs`, `observation-identities.rs`, private codec/reference vectors and `cli/equivalence.rs`: exact actual-root/native arguments and synthetic platform cases are separate. |
 | A22 | Repository/scope reference domain separation | `qualification/loading-boundaries.rs` distinguishes real roots/scopes and rejects expected-observation input on inspect. Actual check admission/incomparable-observation handling remains API-03; A22 is not fully qualified here. |
 | A19, A32 | Complete shared typed projectors and bounded encoder | `inspection/completeness.rs`, `inspection/components.rs`, `transport/bounds.rs`: empty keys, huge signed integers, every declaration, real boundary-size mappings, all 256 RI validations/order and explicit overflow. |
+| A19, A32; deep opaque configuration | Shared recursive projections and typed-candidate schema validation after bounded serialization | `deep-configuration.rs`: real 80-level sequence/mapping configurations, inspect all/model/capability and explain capability, complete Rust/JSON/CLI equality and exact provenance; `response-validation.rs` and the exhaustive matrix retain invalid-code rejection and replacement validation. This is finite-depth evidence, not arbitrary-depth qualification. |
 | A23 | Direct engine role and precedence consultation | `explanation/authority.rs`: five role outcomes, direct/transitive edges, reverse/incomparable queries and unknown/empty responsibilities. |
 | A29 and protocol | Duplicate-safe decoding and syntax-only adapters | `transport/strict-decoding.rs`, `transport/request-adversaries.rs`, `cli/grammar.rs`: nested duplicates, exact bytes/types/version, unknown fields and attribution. |
 | A33–A36 | Shared capability/validation/binding/object declarations | `inspection/subjects.rs`, `explanation/declarations.rs`: exact IDs/targets and equality to complete views; validation retains the full profile reference. |
