@@ -127,7 +127,7 @@ The coherent read-only public API is separately owned by
 [Issue #28](https://github.com/fanilosendrison/proto-ring/issues/28) and is not
 implemented by this interface.
 
-The [API-01 public API v1 contract](docs/api/v1/README.md) is formally accepted at source `a1b27ca1e21423973a5557415488e4fcd535d01a`, following an exact-source independent hostile **GO** and the [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924). The new public API is **not implemented yet** or available for execution. API-02/API-03 implement the accepted contract; API-04 qualifies the resulting runtime interface. Existing implemented mechanisms described below are unchanged.
+The [API-01 public API v1 contract](docs/api/v1/README.md) is formally accepted at source `a1b27ca1e21423973a5557415488e4fcd535d01a`, following an exact-source independent hostile **GO** and the [owner acceptance decision](https://github.com/fanilosendrison/proto-ring/issues/134#issuecomment-6637682924). The nonexecuting `proto-ring-api` library and `proto-ring` binary are available as an **API-02 development build**; the full v1 execution/output services and integrated runtime qualification remain incomplete. The [API-02 implementation guide](docs/api/api-02-implementation.md) documents discovery, inspection, explanation, JSON/CLI access and explicit missing-API-03 failures. API-03 and API-04 retain their implementation and qualification boundaries. Existing mechanisms described below are unchanged.
 
 The release build command is:
 
