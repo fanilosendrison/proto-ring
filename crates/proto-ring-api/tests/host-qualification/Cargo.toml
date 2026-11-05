@@ -1,0 +1,23 @@
+[workspace]
+resolver = "3"
+
+[package]
+name = "api03-host-qualification"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+publish = false
+
+[dependencies]
+proto-ring-api = { path = "../.." }
+proto-ring-engine = { path = "../../../proto-ring-engine" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+sha2 = "=0.11.1"
+tempfile = "=3.27.0"
+# Existing workspace-locked OS constants for safe nonblocking/no-follow readiness reads.
+libc = "=0.2.190"
+
+[[bin]]
+name = "api03-host-qualification"
+path = "src/main.rs"
