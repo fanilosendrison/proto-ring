@@ -42,6 +42,7 @@ struct Runtime {
     cgroup_version: String,
     security: Vec<String>,
     default_runtime: String,
+    logging_drivers: Vec<String>,
     // Docker's version-specific auxiliary runtime descriptors remain provider data.
     runtimes: BTreeMap<String, serde_json::Value>,
 }
@@ -118,7 +119,7 @@ pub fn capture_runtime(d: &mut Docker) -> Result<()> {
     let version=d.command("version",&["version","--format",r#"{"client":{{json .Client.Version}},"server":{{json .Server.Version}},"api":{{json .Server.APIVersion}},"os":{{json .Server.Os}},"architecture":{{json .Server.Arch}}}"#])?;
     let _: Version = serde_json::from_slice(&version)?;
     d.evidence.bytes("runtime-version.json", &version)?;
-    let info=d.command("runtime",&["info","--format",r#"{"server":{{json .ServerVersion}},"kernel":{{json .KernelVersion}},"os":{{json .OperatingSystem}},"architecture":{{json .Architecture}},"cgroup_driver":{{json .CgroupDriver}},"cgroup_version":{{json .CgroupVersion}},"security":{{json .SecurityOptions}},"default_runtime":{{json .DefaultRuntime}},"runtimes":{{json .Runtimes}}}"#])?;
+    let info=d.command("runtime",&["info","--format",r#"{"server":{{json .ServerVersion}},"kernel":{{json .KernelVersion}},"os":{{json .OperatingSystem}},"architecture":{{json .Architecture}},"cgroup_driver":{{json .CgroupDriver}},"cgroup_version":{{json .CgroupVersion}},"security":{{json .SecurityOptions}},"default_runtime":{{json .DefaultRuntime}},"logging_drivers":{{json .Plugins.Log}},"runtimes":{{json .Runtimes}}}"#])?;
     let _: Runtime = serde_json::from_slice(&info)?;
     d.evidence.bytes("runtime-info.json", &info)?;
     d.evidence.bytes("runtime.txt", &info)
@@ -186,6 +187,10 @@ pub fn runtime(root: &Path) -> Result<()> {
     ensure(
         r.security.iter().any(|s| s.starts_with("name=seccomp")) && text(&r.default_runtime),
         "runtime security inventory incomplete",
+    )?;
+    ensure(
+        r.logging_drivers.iter().any(|name| name == "local"),
+        "required Docker local logging facility unavailable",
     )?;
     let selected = r
         .runtimes

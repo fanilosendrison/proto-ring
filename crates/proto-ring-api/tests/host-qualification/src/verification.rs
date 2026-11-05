@@ -217,6 +217,11 @@ pub fn container_policy(value: &Value, expected: &Value) -> Result<()> {
         h["NetworkMode"] != "host" && h["SecurityOpt"] == serde_json::json!(["no-new-privileges"]),
         "forbidden namespace/security policy",
     )?;
+    ensure(
+        h["LogConfig"]
+            == serde_json::json!({"Type":"local","Config":{"max-size":"1m","max-file":"1"}}),
+        "lossless bounded logging policy not applied",
+    )?;
     ensure(v["Image"] == policy::CONFIG, "unexpected image")?;
     for (name, required) in [
         ("Privileged", serde_json::json!(false)),

@@ -425,10 +425,55 @@ issue permits or execute an actual admitted RI service.
 
 ## Campaign results and invalidation
 
-No campaign has run. H01–H08 are `NOT_RUN`; cleanup is `UNVERIFIED` and the host
-basis is not established. R1 must judge exact source/effects before publication A;
-R2 must judge exact execution evidence and the frozen report candidate before
-publication B. A GO on an insufficient report does not qualify the host.
+The first real attempt is
+[run 42097959515](https://github.com/fanilosendrison/proto-ring/actions/runs/42097959515),
+attempt 1, job `127492884826`, source
+`283e7ee5a096ab313b26714fcf0ee0ac7440b441` / tree
+`a9126b09200b3c081e2eb28a1b60eb09859c8cea`, published through
+[PR150](https://github.com/fanilosendrison/proto-ring/pull/150). It is **NOT_QUALIFIED**:
+H07's byte check failed, and remaining H07/H08 cases were not run. The controller
+recorded preceding H01–H06 subcases as PASS; those observations are retained for
+independent evidence review, not promoted to a completed host basis here.
+
+Artifact `13449350358` was recovered through the exact run metadata, SHA-256
+`5176add901769d625f80b3ab4c55c27bbbf1855ac6bd6334d2ebebca466592f9`.
+All 647 ZIP members and both complete inventories were verified; the campaign
+inventory covers 625 entries. Runner image `20261101.360.1`, Docker `28.0.4` and
+the exact candidate/config digests were observed. Source checks remained valid.
+The program's observed exit was 23, but `docker logs` returned UTF-8 replacement
+bytes `ef bf bd` instead of the fixture's `ff`/`fe`. The actual container logging
+configuration was `json-file`. Thus the exercised capture path did not preserve
+arbitrary bytes. This is a measured instrument/transport limitation, not a
+universal Docker/Linux failure. Cleanup and absence of owned containers/networks
+were observed; no automatic campaign retry occurred. The attempt and its original
+conclusion remain preserved.
+
+### Bounded capture correction requiring fresh review and campaign
+
+The revised instrument selects Docker's maintained `local` logging driver **per
+owned container**, with `max-size=1m` and `max-file=1`. No daemon configuration,
+installation, privilege, image or host change is authorized. Runtime inventory
+must show that facility available, and actual inspected `LogConfig` must match.
+All announced fixture streams are far below the rotation boundary; equality
+checks still reject lost or altered bytes. This is not the 64 MiB RI retention
+qualification or a policy for real consumer validators.
+
+The method reference is Docker's local-driver documentation at
+`docker/docs@16e452c8eaea26cec842cbf1065037fb2015001f`,
+`content/manuals/engine/logging/drivers/local.md`. Its per-container configuration
+is used; the daemon's private log files are never read directly. The inspected
+implementation reference is `moby/moby@6430e49a55babd9b8f4d08e70ecb2b68900770fe`
+(tag `v28.0.4`), `daemon/logger/local/local.go` and
+`api/types/plugins/logdriver/entry.proto`: lines are stored as protobuf bytes and
+copied without a string conversion. That source evidence supports a new bounded
+hypothesis, not runtime success. H07's original stdout/stderr and exit expectations
+are unchanged; `binary-logging-policy.rs` rejects the old/replacement-byte path,
+missing facility and absent bounds.
+
+A new exact-source adapted R1 GO and separately attributed campaign are required
+before relying on this correction. Prior results cannot be transplanted onto it.
+R2 must judge the real evidence and frozen report candidate before publication B.
+A GO on an insufficient report does not qualify the host.
 
 Final conclusions are restricted to `QUALIFIED_SCOPED_HOST_BASIS`, `PARTIAL`,
 `UNAVAILABLE` or `NOT_QUALIFIED`. The positive conclusion requires every mandatory

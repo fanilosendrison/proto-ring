@@ -26,7 +26,7 @@ pub(super) fn observations(b: &Bundle) {
     put(
         &b.root,
         "runtime-info.json",
-        &json!({"server":"28.0.4","kernel":"6.8.0-synthetic","os":"Ubuntu24.04 synthetic","architecture":"x86_64","cgroup_driver":"systemd","cgroup_version":"2","security":["name=seccomp,profile=builtin"],"default_runtime":"runc","runtimes":{"runc":{"path":"runc"}}}),
+        &json!({"server":"28.0.4","kernel":"6.8.0-synthetic","os":"Ubuntu24.04 synthetic","architecture":"x86_64","cgroup_driver":"systemd","cgroup_version":"2","security":["name=seccomp,profile=builtin"],"default_runtime":"runc","logging_drivers":["json-file","local"],"runtimes":{"runc":{"path":"runc"}}}),
     );
     fs::copy(b.root.join("runtime-info.json"), b.root.join("runtime.txt")).unwrap();
     let binary = b"SYNTHETIC interpreter bytes, never executed\n";

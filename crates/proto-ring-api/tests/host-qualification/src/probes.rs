@@ -45,19 +45,35 @@ fn record(
 pub fn run(campaign: &mut Campaign, docker: &mut Docker, subject: &Subject) -> Result<()> {
     let e = docker.evidence.clone();
     record(campaign, &e, "H01/runner", runner(&e))?;
-    let setup = docker.prepare();
-    if let Err(error) = setup {
-        campaign
-            .cases
-            .get_mut("H01/image")
-            .ok_or("image case absent")?
-            .status = Status::Unavailable;
-        campaign
-            .cases
-            .get_mut("H01/image")
-            .ok_or("image case absent")?
-            .reason = error.to_string();
-        return Err(error);
+    for (case, action) in [
+        (
+            "H01/runtime",
+            Docker::prepare_runtime as fn(&mut Docker) -> Result<()>,
+        ),
+        ("H01/image", Docker::prepare_image),
+    ] {
+        if let Err(error) = action(docker) {
+            let outcome = campaign.cases.get_mut(case).ok_or("setup case absent")?;
+            outcome.status = Status::Unavailable;
+            outcome.reason = error.to_string();
+            return Err(error);
+        }
+        if case == "H01/runtime" {
+            let info = verification::json(&e.root, "runtime-info.json")?;
+            record(
+                campaign,
+                &e,
+                case,
+                Ok(vec![equal(
+                    json!(
+                        info["logging_drivers"]
+                            .as_array()
+                            .is_some_and(|v| v.contains(&json!("local")))
+                    ),
+                    json!(true),
+                )]),
+            )?;
+        }
     }
     let image = verification::json(&e.root, "image.json")?;
     record(
@@ -69,20 +85,6 @@ pub fn run(campaign: &mut Campaign, docker: &mut Docker, subject: &Subject) -> R
             equal(image[0]["Architecture"].clone(), json!("amd64")),
             equal(image[0]["Os"].clone(), json!("linux")),
         ]),
-    )?;
-    record(
-        campaign,
-        &e,
-        "H01/runtime",
-        Ok(vec![equal(
-            json!(
-                docker
-                    .user
-                    .split(':')
-                    .all(|id| id.parse::<u32>().is_ok_and(|id| id != 0))
-            ),
-            json!(true),
-        )]),
     )?;
     // Cover the whole standalone subject and real Git administration before RGS.
     record(
