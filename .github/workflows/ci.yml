@@ -74,6 +74,11 @@ jobs:
       - name: Check Rust formatting
         run: cargo fmt --all -- --check
 
+      - name: Lint Rust engine configurations
+        run: |
+          cargo clippy -p proto-ring-engine --lib --locked -- -D warnings
+          cargo clippy -p proto-ring-engine --all-targets --all-features --locked -- -D warnings
+
       - name: Lint Rust workspace
         run: |
           cargo clippy \
