@@ -219,7 +219,7 @@ pub fn container_policy(value: &Value, expected: &Value) -> Result<()> {
     )?;
     ensure(
         h["LogConfig"]
-            == serde_json::json!({"Type":"local","Config":{"max-size":"1m","max-file":"1"}}),
+            == serde_json::json!({"Type":"local","Config":{"max-size":"1m","max-file":"1","compress":"false"}}),
         "lossless bounded logging policy not applied",
     )?;
     ensure(v["Image"] == policy::CONFIG, "unexpected image")?;

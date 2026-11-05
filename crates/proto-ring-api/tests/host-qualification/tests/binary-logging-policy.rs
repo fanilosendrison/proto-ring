@@ -42,6 +42,26 @@ fn missing_local_facility_is_not_skipped() {
     reject(&b, "required Docker local logging facility unavailable");
 }
 #[test]
+fn one_file_logger_requires_explicitly_disabled_compression() {
+    for setting in [None, Some("true")] {
+        let b = Bundle::new();
+        b.edit("simple-created.json", |v| {
+            if let Some(value) = setting {
+                v[0]["HostConfig"]["LogConfig"]["Config"]["compress"] = json!(value);
+            } else {
+                v[0]["HostConfig"]["LogConfig"]["Config"]
+                    .as_object_mut()
+                    .unwrap()
+                    .remove("compress");
+            }
+        });
+        reject(
+            &b,
+            "H06/simple: launch policy: lossless bounded logging policy not applied",
+        );
+    }
+}
+#[test]
 fn utf8_replacement_does_not_change_expected_fixture_bytes() {
     let b = Bundle::new();
     std::fs::write(
