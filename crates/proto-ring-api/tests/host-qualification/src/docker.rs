@@ -138,6 +138,8 @@ impl Docker {
             "max-size=1m",
             "--log-opt",
             "max-file=1",
+            "--log-opt",
+            "compress=false",
             "--tmpfs",
             "/tmp:rw,nosuid,nodev,noexec,size=16m,mode=1777",
             "--workdir",

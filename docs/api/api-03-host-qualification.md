@@ -451,7 +451,7 @@ conclusion remain preserved.
 ### Bounded capture correction requiring fresh review and campaign
 
 The revised instrument selects Docker's maintained `local` logging driver **per
-owned container**, with `max-size=1m` and `max-file=1`. No daemon configuration,
+owned container**, with `max-size=1m`, `max-file=1` and `compress=false`. No daemon configuration,
 installation, privilege, image or host change is authorized. Runtime inventory
 must show that facility available, and actual inspected `LogConfig` must match.
 All announced fixture streams are far below the rotation boundary; equality
@@ -469,6 +469,26 @@ copied without a string conversion. That source evidence supports a new bounded
 hypothesis, not runtime success. H07's original stdout/stderr and exit expectations
 are unchanged; `binary-logging-policy.rs` rejects the old/replacement-byte path,
 missing facility and absent bounds.
+
+The second distinct attempt,
+[run 42104128029](https://github.com/fanilosendrison/proto-ring/actions/runs/42104128029),
+attempt 1/job `127514358227`, used source
+`a9e0b8bb70ac46ff8625213af788c3547827803a` / tree
+`b2b09d805e4fd242541f92803ab5870ee1d6a4d0`, published through
+[PR151](https://github.com/fanilosendrison/proto-ring/pull/151) after adapted R1 GO.
+It is also **NOT_QUALIFIED**: the daemon rejected logging initialization before
+the policy program started, because compression defaults to enabled and cannot be
+combined with a one-file limit. Cleanup/owned-resource absence were observed.
+Artifact `13451065989`, SHA-256
+`62be3dbd8444b2b2818a369645540387b97dbd56343380e39958241e08e78781`,
+was retrieved with all 137 ZIP members and its complete 115-entry campaign
+inventory verified. No result is transplanted onto a later source.
+
+The explicit `compress=false` option corrects that determined incompatibility
+without enlarging storage bounds. The exact Moby `v28.0.4` reference's
+`daemon/logger/local/config.go::validateConfig` confirms the constraint.
+`binary-logging-policy.rs` rejects omitted or enabled compression with the fixed
+one-file policy. It is still an unexecuted correction until a new campaign runs.
 
 A new exact-source adapted R1 GO and separately attributed campaign are required
 before relying on this correction. Prior results cannot be transplanted onto it.
