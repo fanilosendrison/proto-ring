@@ -3,45 +3,60 @@ use std::path::Path;
 use std::process::{Command, Stdio};
 
 use super::model::{ObligationResult, ObligationStatus, RuntimeCommandObligation};
+use super::observations::{Completion, ProcessObservation};
 
-pub(super) struct ProcessOutcome {
-    status: ObligationStatus,
-    exit_code: Option<String>,
-    executed: bool,
-}
-impl ProcessOutcome {
-    #[cfg(feature = "conformance-internal")]
-    pub(super) fn started(&self) -> bool {
-        self.executed
-    }
-
-    pub(super) fn into_result(self, obligation: &RuntimeCommandObligation) -> ObligationResult {
-        ObligationResult {
-            id: obligation.validation_id.clone(),
-            status: self.status,
-            exit_code: self.exit_code,
-            executed: self.executed,
+/// Single engine classification of facts, shared by ordinary and guarded execution.
+pub(super) fn classify(
+    observation: ProcessObservation,
+    obligation: &RuntimeCommandObligation,
+) -> ObligationResult {
+    match observation {
+        ProcessObservation::NotStarted => ObligationResult::undetermined(obligation),
+        ProcessObservation::Completed(facts) => {
+            let status = if facts.exit_success {
+                ObligationStatus::Satisfied
+            } else if facts
+                .exit_code
+                .as_ref()
+                .is_some_and(|code| obligation.undetermined_exit_codes.contains(code))
+            {
+                ObligationStatus::Undetermined
+            } else {
+                ObligationStatus::Violated
+            };
+            ObligationResult {
+                id: obligation.validation_id.clone(),
+                status,
+                exit_code: facts.exit_code,
+                executed: true,
+            }
         }
     }
 }
 
-pub(super) fn execute(repository: &Path, obligation: &RuntimeCommandObligation) -> ProcessOutcome {
+pub(super) fn execute(
+    repository: &Path,
+    obligation: &RuntimeCommandObligation,
+) -> ProcessObservation {
     execute_with_ambient(repository, obligation, &BTreeMap::new())
 }
 
+/// Historical ordinary synchronous runner, not a qualified host implementation.
+/// A status() error can originate in waiting, not only spawning. Its compatibility
+/// fallback is retained but must never be promoted to contractual ProvenNotStarted.
 pub(super) fn execute_with_ambient(
     repository: &Path,
     obligation: &RuntimeCommandObligation,
     ambient_seed: &BTreeMap<String, String>,
-) -> ProcessOutcome {
+) -> ProcessObservation {
     let Some(program) = obligation.command_prefix.first() else {
-        return undetermined_start();
+        return ProcessObservation::NotStarted;
     };
     let Some(environment) = &obligation.process_environment else {
-        return undetermined_start();
+        return ProcessObservation::NotStarted;
     };
     let mut command = Command::new(program);
-    // The conformance seed models inherited variables; env_clear must erase it and real ambient data.
+    // The conformance seed models inherited variables; env_clear erases it and real ambient data.
     command
         .envs(ambient_seed)
         .env_clear()
@@ -54,30 +69,10 @@ pub(super) fn execute_with_ambient(
         .stderr(Stdio::null());
     let status = match command.status() {
         Ok(status) => status,
-        Err(_) => return undetermined_start(),
+        Err(_) => return ProcessObservation::NotStarted,
     };
-    let exit_code = status.code().map(|code| code.to_string());
-    let semantic_status = if status.success() {
-        ObligationStatus::Satisfied
-    } else if exit_code
-        .as_ref()
-        .is_some_and(|code| obligation.undetermined_exit_codes.contains(code))
-    {
-        ObligationStatus::Undetermined
-    } else {
-        ObligationStatus::Violated
-    };
-    ProcessOutcome {
-        status: semantic_status,
-        exit_code,
-        executed: true,
-    }
-}
-
-fn undetermined_start() -> ProcessOutcome {
-    ProcessOutcome {
-        status: ObligationStatus::Undetermined,
-        exit_code: None,
-        executed: false,
-    }
+    ProcessObservation::Completed(Completion {
+        exit_success: status.success(),
+        exit_code: status.code().map(|code| code.to_string()),
+    })
 }

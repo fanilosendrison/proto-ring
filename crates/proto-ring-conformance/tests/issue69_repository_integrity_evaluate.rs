@@ -69,7 +69,13 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
         "crates/proto-ring-conformance/src/rust_candidate/repository_integrity_evaluation.rs",
     ))
     .unwrap();
-    let implementation = format!("{module}{model}{selectors}{evaluation}{execution}{adapter}");
+    let realization = fs::read_to_string(engine_root.join("realization.rs")).unwrap();
+    let backend = fs::read_to_string(engine_root.join("backend.rs")).unwrap();
+    let control = fs::read_to_string(engine_root.join("control.rs")).unwrap();
+    let observations = fs::read_to_string(engine_root.join("observations.rs")).unwrap();
+    let cores = format!("{evaluation}{realization}{backend}");
+    let implementation =
+        format!("{module}{model}{selectors}{cores}{execution}{control}{observations}{adapter}");
 
     assert_eq!(execution.matches("Command::new").count(), 1);
     for required in [
@@ -92,7 +98,7 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
     for required in [
         "repository_state::capture",
         "repository_state::discover_repository_paths",
-        "discover(&root, &[])",
+        "backend.discover(root, &[])",
         "EvaluationCapturePhase::Baseline",
         "EvaluationCapturePhase::PreObligation",
         "EvaluationCapturePhase::PostObligation",
@@ -107,7 +113,7 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
         "StateRelation::NotEqual",
     ] {
         assert!(
-            evaluation.contains(required),
+            cores.contains(required),
             "missing evaluation boundary: {required}"
         );
     }
@@ -118,7 +124,7 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
         "matches.sort_by_key",
         "SelectorKind::Path => vec![PathBuf::from",
     ] {
-        assert!(format!("{evaluation}{selectors}").contains(required));
+        assert!(format!("{realization}{selectors}").contains(required));
     }
     for required in [
         "proto-ring evaluation-context opaque identity",
@@ -150,8 +156,8 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
     assert!(module.contains("#[cfg(feature = \"conformance-internal\")]"));
     assert!(module.contains("pub enum CapturePhase"));
     assert!(!adapter.contains("captures =="));
-    assert_eq!(evaluation.matches("discover(&root").count(), 1);
-    assert!(!evaluation.contains("Command::new"));
+    assert_eq!(realization.matches("backend.discover(root").count(), 1);
+    assert!(!cores.contains("Command::new"));
     assert!(!selectors.contains("glob::"));
 
     let governance_state_root =
@@ -173,6 +179,10 @@ fn issue69_wave_a_source_boundaries_are_explicit() {
         "crates/proto-ring-engine/src/repository_integrity/selectors.rs",
         "crates/proto-ring-engine/src/repository_integrity/evaluate.rs",
         "crates/proto-ring-engine/src/repository_integrity/execution.rs",
+        "crates/proto-ring-engine/src/repository_integrity/realization.rs",
+        "crates/proto-ring-engine/src/repository_integrity/backend.rs",
+        "crates/proto-ring-engine/src/repository_integrity/control.rs",
+        "crates/proto-ring-engine/src/repository_integrity/observations.rs",
         "crates/proto-ring-conformance/src/rust_candidate.rs",
         "crates/proto-ring-conformance/src/rust_candidate/repository_integrity_evaluation.rs",
         "crates/proto-ring-conformance/tests/issue69_repository_integrity_evaluate.rs",

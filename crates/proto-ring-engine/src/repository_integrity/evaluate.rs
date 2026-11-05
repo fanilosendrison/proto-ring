@@ -1,160 +1,18 @@
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
-use crate::repository_state::{self, RepositoryState, RepositoryStateIdentity, StateCaptureError};
-
-use super::execution::{self, ProcessOutcome};
-use super::model::{
-    ConsumerIntegrityProfile, EvaluationCapturePhase, EvaluationContext, EvaluationContextIdentity,
-    IntegrityProfile, IntegrityResult, IntegrityVerdict, ObligationResult, ObligationStatus,
-    RealizedIntegrityProfile, RepositoryPathsMode, RuntimeCommandObligation, RuntimeValidation,
-    StateRelation, ValidationInstances, ValidationResult, evaluation_context_identity,
+use super::backend::{
+    Backend, CapturePhase, ObligationPosition, Ordinary, infallible, ordinary_control,
 };
-use super::selectors::{path_to_posix, select_repository_paths};
-use super::{RepositoryIntegrityError, failure};
-
-pub fn realize_consumer_profile(
-    repository: &Path,
-    profile: &ConsumerIntegrityProfile,
-    context: &EvaluationContext,
-) -> Result<RealizedIntegrityProfile, RepositoryIntegrityError> {
-    realize_with(
-        repository,
-        profile,
-        context,
-        repository_state::capture,
-        repository_state::discover_repository_paths,
-    )
-}
-
-pub(super) fn realize_with<C, D>(
-    repository: &Path,
-    profile: &ConsumerIntegrityProfile,
-    context: &EvaluationContext,
-    mut capture: C,
-    mut discover: D,
-) -> Result<RealizedIntegrityProfile, RepositoryIntegrityError>
-where
-    C: FnMut(&Path, &[PathBuf]) -> Result<RepositoryState, StateCaptureError>,
-    D: FnMut(&Path, &[PathBuf]) -> Result<Vec<PathBuf>, StateCaptureError>,
-{
-    let root = repository_state::resolve_worktree_root(repository)
-        .map_err(|error| failure(format!("cannot resolve evaluation repository: {error}")))?;
-    if root != profile.repository {
-        return Err(failure(
-            "evaluation repository differs from profile repository",
-        ));
-    }
-    let context_identity = evaluation_context_identity(profile, context)?;
-    let literal_paths: BTreeSet<_> = profile
-        .validations
-        .values()
-        .flat_map(|definition| match &definition.instances {
-            ValidationInstances::RepositoryPaths { selectors, .. } => selectors
-                .iter()
-                .filter(|selector| selector.kind == super::model::SelectorKind::Path)
-                .map(|selector| PathBuf::from(&selector.value))
-                .collect(),
-            ValidationInstances::Single => Vec::new(),
-        })
-        .collect();
-    let has_path_instances = profile.validations.values().any(|definition| {
-        matches!(
-            definition.instances,
-            ValidationInstances::RepositoryPaths { .. }
-        )
-    });
-    let literal_scope: Vec<_> = literal_paths.iter().cloned().collect();
-    let (repository_paths, resolution_state_identity, discovery_failed) = if has_path_instances {
-        match capture(&root, &literal_scope).and_then(|before| {
-            let paths = discover(&root, &[])?;
-            capture(&root, &literal_scope).map(|after| (before, paths, after))
-        }) {
-            Ok((before, paths, after)) if before.identity == after.identity => {
-                (paths, Some(after.identity), false)
-            }
-            _ => (Vec::new(), None, true),
-        }
-    } else {
-        (Vec::new(), None, false)
-    };
-    let mut governed_paths = literal_paths;
-    let mut validations = Vec::with_capacity(profile.order.len());
-    for validation_id in &profile.order {
-        let definition = profile
-            .validations
-            .get(validation_id)
-            .ok_or_else(|| failure("profile order references absent validation"))?;
-        let argument_sets = match &definition.instances {
-            ValidationInstances::Single => Some(vec![definition.command.arguments.clone()]),
-            ValidationInstances::RepositoryPaths { mode, .. } if discovery_failed => None,
-            ValidationInstances::RepositoryPaths { mode, .. } => {
-                match select_repository_paths(&definition.instances, &repository_paths) {
-                    Ok(selected) => {
-                        governed_paths.extend(selected.iter().cloned());
-                        let selected_text = selected
-                            .iter()
-                            .map(|path| {
-                                path_to_posix(path)
-                                    .ok_or_else(|| failure("selected path is not UTF-8"))
-                            })
-                            .collect::<Result<Vec<_>, _>>()?;
-                        Some(match mode {
-                            RepositoryPathsMode::AppendAll => {
-                                let mut arguments = definition.command.arguments.clone();
-                                arguments.extend(selected_text);
-                                vec![arguments]
-                            }
-                            RepositoryPathsMode::ForEach => selected_text
-                                .into_iter()
-                                .map(|path| {
-                                    let mut arguments = definition.command.arguments.clone();
-                                    arguments.push(path);
-                                    arguments
-                                })
-                                .collect(),
-                        })
-                    }
-                    Err(_) => None,
-                }
-            }
-        };
-        let realization = context.realizations.get(&definition.command.environment);
-        let obligations = argument_sets
-            .as_ref()
-            .map(|sets| {
-                sets.iter()
-                    .map(|arguments| RuntimeCommandObligation {
-                        validation_id: validation_id.clone(),
-                        command_prefix: realization
-                            .map(|item| item.command_prefix.clone())
-                            .unwrap_or_default(),
-                        arguments: arguments.clone(),
-                        undetermined_exit_codes: definition.command.undetermined_exit_codes.clone(),
-                        process_environment: realization
-                            .map(|item| item.process_environment.clone()),
-                    })
-                    .collect()
-            })
-            .unwrap_or_default();
-        validations.push(RuntimeValidation {
-            id: validation_id.clone(),
-            prerequisites: definition.prerequisites.clone(),
-            obligations,
-            resolution_failed: argument_sets.is_none(),
-        });
-    }
-    Ok(RealizedIntegrityProfile {
-        profile: IntegrityProfile {
-            continue_after_non_satisfied: profile.continue_after_non_satisfied,
-            validations,
-            identity: profile.identity.clone(),
-            governed_paths: governed_paths.into_iter().collect(),
-            resolution_state_identity,
-        },
-        evaluation_context_identity: context_identity,
-    })
-}
+use super::control::{AttemptControl, CoherenceCheckpoint, GuardedEvaluation, HostAbort};
+use super::execution;
+use super::model::{
+    EvaluationCapturePhase, EvaluationContextIdentity, IntegrityProfile, IntegrityResult,
+    IntegrityVerdict, ObligationResult, ObligationStatus, RuntimeCommandObligation,
+    RuntimeValidation, StateRelation, ValidationResult,
+};
+use super::observations::{Launch, ProcessObservation};
+use crate::repository_state::{self, RepositoryState, RepositoryStateIdentity, StateCaptureError};
 
 pub fn evaluate(
     repository: &Path,
@@ -175,7 +33,7 @@ pub(super) fn evaluate_with<C, E>(
     profile: &IntegrityProfile,
     evaluation_context_identity: EvaluationContextIdentity,
     mut capture: C,
-    mut execute: E,
+    execute: E,
 ) -> IntegrityResult
 where
     C: FnMut(
@@ -183,16 +41,129 @@ where
         &Path,
         &[PathBuf],
     ) -> Result<RepositoryState, StateCaptureError>,
-    E: FnMut(&Path, &RuntimeCommandObligation) -> ProcessOutcome,
+    E: FnMut(&Path, &RuntimeCommandObligation) -> ProcessObservation,
 {
-    let baseline = match capture(
-        EvaluationCapturePhase::Baseline,
+    let mut backend = Ordinary {
+        capture: |phase: CapturePhase, root: &Path, scope: &[PathBuf]| {
+            let phase = match phase {
+                CapturePhase::Baseline => EvaluationCapturePhase::Baseline,
+                CapturePhase::PreObligation => EvaluationCapturePhase::PreObligation,
+                CapturePhase::PostObligation => EvaluationCapturePhase::PostObligation,
+                // This adapter evaluates only: discovery phases are never requested.
+                CapturePhase::BeforeDiscovery | CapturePhase::AfterDiscovery => {
+                    return Err(StateCaptureError::new(
+                        "discovery capture requested during evaluation",
+                    ));
+                }
+            };
+            capture(phase, root, scope)
+        },
+        discover: repository_state::discover_repository_paths,
+        execute,
+    };
+    infallible(evaluate_core(
+        repository,
+        profile,
+        evaluation_context_identity,
+        &mut backend,
+        &mut ordinary_control(),
+    ))
+}
+
+/// Guarded implementation boundary, not a public API-01 checking service.
+pub fn evaluate_guarded<B: Backend<Abort = HostAbort>>(
+    repository: &Path,
+    profile: &IntegrityProfile,
+    identity: EvaluationContextIdentity,
+    backend: &mut B,
+    control: &mut AttemptControl,
+) -> GuardedEvaluation {
+    match evaluate_core(repository, profile, identity, backend, control) {
+        Ok(result) => GuardedEvaluation::Completed { result },
+        Err(reason) => GuardedEvaluation::Interrupted {
+            reason,
+            effects_possible: control.effects_possible(),
+        },
+    }
+}
+
+pub(super) fn evaluate_core<B: Backend>(
+    repository: &Path,
+    profile: &IntegrityProfile,
+    evaluation_context_identity: EvaluationContextIdentity,
+    backend: &mut B,
+    control: &mut AttemptControl,
+) -> Result<IntegrityResult, B::Abort> {
+    let result = evaluate_observations(
+        repository,
+        profile,
+        evaluation_context_identity,
+        backend,
+        control,
+    )?;
+    // The sole completion boundary also covers all ordinary early returns.
+    // It observes the last required attempt, not an invented final capture.
+    control.observe::<_, B>(backend.checkpoint(CoherenceCheckpoint::AfterFinalRiObservation))?;
+    Ok(result)
+}
+
+fn required_capture<B: Backend>(
+    backend: &mut B,
+    control: &mut AttemptControl,
+    phase: CapturePhase,
+    root: &Path,
+    scope: &[PathBuf],
+) -> Result<Result<RepositoryState, StateCaptureError>, B::Abort> {
+    control.observe::<_, B>(backend.checkpoint(CoherenceCheckpoint::BeforeRequiredRiCapture))?;
+    control.observe::<_, B>(backend.capture(phase, root, scope))
+}
+
+fn execute_obligation<B: Backend>(
+    backend: &mut B,
+    control: &mut AttemptControl,
+    repository: &Path,
+    position: ObligationPosition,
+    obligation: &RuntimeCommandObligation,
+) -> Result<ObligationResult, B::Abort> {
+    if obligation.command_prefix.is_empty() || obligation.process_environment.is_none() {
+        return Ok(execution::classify(
+            ProcessObservation::NotStarted,
+            obligation,
+        ));
+    }
+    control.observe::<_, B>(backend.checkpoint(CoherenceCheckpoint::BeforeEachLaunch))?;
+    let observation =
+        match control.observe::<_, B>(backend.launch(repository, position, obligation))? {
+            Launch::NotStarted => ProcessObservation::NotStarted,
+            Launch::Started(process) => {
+                control.started(); // Must precede a wait that can abort.
+                let completion = control.observe::<_, B>(backend.complete(process, position))?;
+                control.observe::<_, B>(
+                    backend.checkpoint(CoherenceCheckpoint::AfterEachEffectLifetime),
+                )?;
+                ProcessObservation::Completed(completion)
+            }
+        };
+    Ok(execution::classify(observation, obligation))
+}
+
+fn evaluate_observations<B: Backend>(
+    repository: &Path,
+    profile: &IntegrityProfile,
+    evaluation_context_identity: EvaluationContextIdentity,
+    backend: &mut B,
+    control: &mut AttemptControl,
+) -> Result<IntegrityResult, B::Abort> {
+    let baseline = match required_capture(
+        backend,
+        control,
+        CapturePhase::Baseline,
         repository,
         &profile.governed_paths,
-    ) {
+    )? {
         Ok(state) => state.identity,
         Err(_) => {
-            return completed_result(
+            return Ok(completed_result(
                 profile,
                 evaluation_context_identity,
                 None,
@@ -200,7 +171,7 @@ where
                 StateRelation::Unavailable,
                 skipped_validations(&profile.validations),
                 true,
-            );
+            ));
         }
     };
     if profile
@@ -208,7 +179,7 @@ where
         .as_ref()
         .is_some_and(|identity| identity != &baseline)
     {
-        return completed_result(
+        return Ok(completed_result(
             profile,
             evaluation_context_identity,
             Some(baseline.clone()),
@@ -216,7 +187,7 @@ where
             StateRelation::NotEqual,
             skipped_validations(&profile.validations),
             true,
-        );
+        ));
     }
     let mut aggregate_by_id = BTreeMap::new();
     let mut validation_results = Vec::with_capacity(profile.validations.len());
@@ -224,7 +195,7 @@ where
     let mut relation = StateRelation::Equal;
     let mut coherence_halted = false;
     let mut policy_stopped = false;
-    for validation in &profile.validations {
+    for (validation_position, validation) in profile.validations.iter().enumerate() {
         let result = if coherence_halted || policy_stopped {
             ValidationResult::skipped(validation)
         } else if validation.resolution_failed {
@@ -239,12 +210,14 @@ where
             ValidationResult::skipped(validation)
         } else {
             let mut obligations = Vec::with_capacity(validation.obligations.len());
-            for obligation in &validation.obligations {
-                let before = match capture(
-                    EvaluationCapturePhase::PreObligation,
+            for (instance, obligation) in validation.obligations.iter().enumerate() {
+                let before = match required_capture(
+                    backend,
+                    control,
+                    CapturePhase::PreObligation,
                     repository,
                     &profile.governed_paths,
-                ) {
+                )? {
                     Ok(state) => state.identity,
                     Err(_) => {
                         relation = StateRelation::Unavailable;
@@ -261,12 +234,23 @@ where
                     obligations.push(ObligationResult::undetermined(obligation));
                     break;
                 }
-                let mut obligation_result = execute(repository, obligation).into_result(obligation);
-                match capture(
-                    EvaluationCapturePhase::PostObligation,
+                let mut obligation_result = execute_obligation(
+                    backend,
+                    control,
+                    repository,
+                    ObligationPosition {
+                        validation: validation_position,
+                        instance,
+                    },
+                    obligation,
+                )?;
+                match required_capture(
+                    backend,
+                    control,
+                    CapturePhase::PostObligation,
                     repository,
                     &profile.governed_paths,
-                ) {
+                )? {
                     Err(_) => {
                         obligation_result.status = ObligationStatus::Undetermined;
                         relation = StateRelation::Unavailable;
@@ -306,7 +290,7 @@ where
         }
         validation_results.push(result);
     }
-    completed_result(
+    Ok(completed_result(
         profile,
         evaluation_context_identity,
         Some(baseline),
@@ -314,7 +298,7 @@ where
         relation,
         validation_results,
         coherence_halted,
-    )
+    ))
 }
 
 fn skipped_validations(validations: &[RuntimeValidation]) -> Vec<ValidationResult> {
