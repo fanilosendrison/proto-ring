@@ -1,14 +1,28 @@
+#[doc(hidden)]
+pub mod backend;
+#[doc(hidden)]
+pub mod control;
 mod evaluate;
+#[doc(hidden)]
+pub mod observations;
+mod realization;
+
 mod execution;
 mod identity;
 mod load;
 mod model;
 mod selectors;
+#[cfg(test)]
+mod tests;
 
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 
-pub use evaluate::{evaluate, realize_consumer_profile};
+#[doc(hidden)]
+pub use control::GuardedEvaluation;
+pub use evaluate::evaluate;
+#[doc(hidden)]
+pub use evaluate::evaluate_guarded;
 pub use load::load;
 pub use model::{
     CommandBinding, ConsumerIntegrityProfile, EvaluationContext, EvaluationContextIdentity,
@@ -17,6 +31,9 @@ pub use model::{
     RepositoryPathsMode, RuntimeCommandObligation, RuntimeValidation, SelectorKind, StateRelation,
     ValidationDefinition, ValidationEnvironmentRealization, ValidationInstances, ValidationResult,
 };
+pub use realization::realize_consumer_profile;
+#[doc(hidden)]
+pub use realization::realize_guarded;
 
 #[cfg(feature = "conformance-internal")]
 #[doc(hidden)]
@@ -101,7 +118,7 @@ pub mod conformance_internal {
     where
         D: FnMut(&Path, &[PathBuf]) -> Result<Vec<PathBuf>, StateCaptureError>,
     {
-        evaluate::realize_with(
+        super::realization::realize_with(
             repository,
             profile,
             context,

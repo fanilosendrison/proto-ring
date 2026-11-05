@@ -89,6 +89,9 @@ jobs:
             -- \
             -D warnings
 
+      - name: Test normal engine configuration
+        run: cargo test -p proto-ring-engine --all-targets --no-default-features --locked
+
       - name: Test Rust workspace
         run: |
           cargo test \
@@ -154,6 +157,9 @@ jobs:
 
       - name: Test Portable Pattern Rust port
         run: cargo test -p proto-ring-conformance --test issue64_portable_pattern --locked
+
+      - name: Test guarded RI component
+        run: cargo test -p proto-ring-conformance --test api03-ri-core --locked
 
       - name: Test Issue 133 Repository Integrity observation
         run: cargo test -p proto-ring-conformance --test issue133_repository_integrity_observation --locked
