@@ -300,11 +300,15 @@ path, includes API tests in the existing Windows job, and runs accepted API-01
 controls in the Python matrix. Permissions remain read-only. Python stays a
 validation/fixture dependency, not a runtime dependency of the public binary.
 
-The normal engine configuration currently emits three warnings tracked by
-[Issue #140](https://github.com/fanilosendrison/proto-ring/issues/140). This is a
-known independent defect, not a clean-lint claim, suppression or waiver of the
-canonical all-feature workspace gate. The API-only strict command uses
-`--no-deps`; the engine sources remain unchanged.
+At the API-02 qualification source
+`46ec80d6c3b5af962f3b376912afbf6683509abb`, the normal engine configuration
+emitted three warnings recorded in
+[Issue #140](https://github.com/fanilosendrison/proto-ring/issues/140).
+That historical failure is not retrospectively a passing result.
+The workflow checks the engine through separate normal-production and
+all-feature strict Clippy invocations, in addition to the workspace gate.
+The API-only `--no-deps` lint is complementary and does not substitute for
+either engine check. The API-02 delivery itself left engine sources unchanged.
 
 Local validation uses the pinned toolchain and a fresh worktree-local test venv:
 
@@ -316,6 +320,8 @@ export PROTO_RING_PYTHON="$PWD/target/dev-venv/bin/python"
 export PYTHONDONTWRITEBYTECODE=1
 cargo test -p proto-ring-api --all-targets --no-default-features --locked
 cargo fmt --all -- --check
+cargo clippy -p proto-ring-engine --lib --locked -- -D warnings
+cargo clippy -p proto-ring-engine --all-targets --all-features --locked -- -D warnings
 cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 cargo test --workspace --all-targets --all-features --locked
 cargo test --workspace --doc --locked
