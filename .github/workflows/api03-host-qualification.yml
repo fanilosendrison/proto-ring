@@ -1,0 +1,125 @@
+name: API03 bounded host qualification
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact independently reviewed main source SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api03-host-qualification
+  cancel-in-progress: false
+
+jobs:
+  qualification:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_TARGET_DIR: ${{ github.workspace }}/target/host-qualification
+      HARNESS_MANIFEST: crates/proto-ring-api/tests/host-qualification/Cargo.toml
+      EXPECTED_SHA: ${{ inputs.expected_sha }}
+
+    steps:
+      - name: Checkout event source without credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Verify source before build or probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          evidence="$RUNNER_TEMP/api03-host-evidence"
+          mkdir "$evidence"
+          printf '%s\n' 'H01=NOT_RUN H02=NOT_RUN H03=NOT_RUN H04=NOT_RUN H05=NOT_RUN H06=NOT_RUN H07=NOT_RUN H08=NOT_RUN CLEANUP=UNVERIFIED' > "$evidence/initial-state.txt"
+          [[ "$EXPECTED_SHA" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          test "$GITHUB_WORKFLOW_SHA" = "$EXPECTED_SHA"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          git diff --exit-code
+          source_roots=(Cargo.toml Cargo.lock rust-toolchain.toml
+            crates/proto-ring-api crates/proto-ring-engine docs/api/v1
+            .github/workflows/api03-host-qualification.yml
+            docs/api/api-03-host-qualification.md)
+          git ls-tree -r "$EXPECTED_SHA" -- "${source_roots[@]}" > "$evidence/source-tree.txt"
+          while IFS= read -r -d '' path; do
+            test ! -L "$path"
+            test "$(git hash-object -- "$path")" = "$(git rev-parse "$EXPECTED_SHA:$path")"
+          done < <(git ls-files -z -- "${source_roots[@]}")
+          printf 'source=%s\ntree=%s\nrun=%s\nattempt=%s\n' \
+            "$GITHUB_SHA" "$(git rev-parse HEAD^{tree})" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" > "$evidence/identity.txt"
+
+      - name: Verify repository toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustc --version
+          cargo --version
+          test "$(rustc --version | awk '{print $2}')" = 1.99.0
+
+      - name: Offline harness controls and build
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo fmt --manifest-path "$HARNESS_MANIFEST" --all -- --check
+          cargo clippy --manifest-path "$HARNESS_MANIFEST" --all-targets --locked -- -D warnings
+          cargo test --manifest-path "$HARNESS_MANIFEST" --all-targets --locked
+          cargo build --manifest-path "$HARNESS_MANIFEST" --locked
+
+      - name: Fixed inert campaign with reduced controller environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir "$RUNNER_TEMP/api03-git-home"
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP/api03-git-home" \
+            GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null \
+            RUNNER_TEMP="$RUNNER_TEMP" RUNNER_OS="$RUNNER_OS" RUNNER_ARCH="$RUNNER_ARCH" \
+            ImageOS="$ImageOS" ImageVersion="$ImageVersion" \
+            GITHUB_SHA="$GITHUB_SHA" GITHUB_WORKFLOW_SHA="$GITHUB_WORKFLOW_SHA" \
+            GITHUB_REF="$GITHUB_REF" GITHUB_EVENT_NAME="$GITHUB_EVENT_NAME" \
+            GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
+            GITHUB_RUN_ID="$GITHUB_RUN_ID" GITHUB_RUN_ATTEMPT="$GITHUB_RUN_ATTEMPT" \
+            "$CARGO_TARGET_DIR/debug/api03-host-qualification" campaign "$EXPECTED_SHA"
+
+      - name: Always attempt owned-resource cleanup
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          binary="$CARGO_TARGET_DIR/debug/api03-host-qualification"
+          if test -x "$binary"; then
+            "$binary" cleanup
+          else
+            printf '%s\n' 'CLEANUP=UNVERIFIED: controller unavailable; no campaign authorized' > "$RUNNER_TEMP/api03-host-evidence/cleanup-unavailable.txt"
+            exit 1
+          fi
+
+      - name: Verify complete attributed campaign evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$CARGO_TARGET_DIR/debug/api03-host-qualification" verify \
+            "$RUNNER_TEMP/api03-host-evidence/campaign" \
+            "$EXPECTED_SHA" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" "$GITHUB_WORKSPACE"
+
+      - name: Preserve available evidence including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: api03-host-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/api03-host-evidence/
+          if-no-files-found: error
+          retention-days: 14
