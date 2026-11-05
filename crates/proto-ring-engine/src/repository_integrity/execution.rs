@@ -10,6 +10,7 @@ pub(super) struct ProcessOutcome {
     executed: bool,
 }
 impl ProcessOutcome {
+    #[cfg(feature = "conformance-internal")]
     pub(super) fn started(&self) -> bool {
         self.executed
     }

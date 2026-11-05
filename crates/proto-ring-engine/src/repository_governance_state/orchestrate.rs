@@ -34,11 +34,12 @@ fn load_internal(
         .map_err(|error| state_failure(error.to_string()))?;
 
     let discovery = compose::compose(&root)?;
-    let mut discovery_scope = scope::observation_scope(&root, &discovery)?;
+    let discovery_scope = scope::observation_scope(&root, &discovery)?;
     #[cfg(feature = "conformance-internal")]
-    if let Some(replacement) = controls.discovery_scope {
-        discovery_scope = replacement.to_vec();
-    }
+    let discovery_scope = match controls.discovery_scope {
+        Some(replacement) => replacement.to_vec(),
+        None => discovery_scope,
+    };
 
     let initial_state = repository_state::capture(&root, &discovery_scope)
         .map_err(|error| state_failure(error.to_string()))?;
@@ -48,11 +49,12 @@ fn load_internal(
     }
 
     let authoritative = compose::compose(&root)?;
-    let mut authoritative_scope = scope::observation_scope(&root, &authoritative)?;
+    let authoritative_scope = scope::observation_scope(&root, &authoritative)?;
     #[cfg(feature = "conformance-internal")]
-    if let Some(replacement) = controls.authoritative_scope {
-        authoritative_scope = replacement.to_vec();
-    }
+    let authoritative_scope = match controls.authoritative_scope {
+        Some(replacement) => replacement.to_vec(),
+        None => authoritative_scope,
+    };
 
     if discovery_scope != authoritative_scope {
         return Err(failure(
