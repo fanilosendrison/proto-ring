@@ -2,7 +2,7 @@ use api03_host_qualification::{evidence::Campaign, verification};
 use serde_json::{Value, json};
 use std::fs;
 fn fixture() -> (Value, Value) {
-    let actual:Value=serde_json::from_str(r#"[{"Image":"sha256:141fe9b385f3bb6d618c07ace1836c0b3c72bf525566ac3eb13cd1f405069877","Config":{"User":"1001:1001","WorkingDir":"/subject","Cmd":["python3","probe.py"],"Env":["LANG=C"]},"HostConfig":{"Privileged":false,"ReadonlyRootfs":true,"PidsLimit":64,"Memory":536870912,"NanoCpus":1000000000,"PidMode":"","IpcMode":"private","CapDrop":["ALL"],"CapAdd":null,"SecurityOpt":["no-new-privileges"],"Devices":null,"DeviceRequests":null,"PortBindings":{},"NetworkMode":"none"},"Mounts":[{"Source":"/owned/subject","Destination":"/subject","RW":true,"Type":"bind"}]}]"#).unwrap();
+    let actual:Value=serde_json::from_str(r#"[{"Image":"sha256:141fe9b385f3bb6d618c07ace1836c0b3c72bf525566ac3eb13cd1f405069877","Config":{"User":"1001:1001","WorkingDir":"/subject","Cmd":["python3","probe.py"],"Env":["LANG=C"]},"HostConfig":{"Privileged":false,"ReadonlyRootfs":true,"LogConfig":{"Type":"local","Config":{"max-size":"1m","max-file":"1"}},"PidsLimit":64,"Memory":536870912,"NanoCpus":1000000000,"PidMode":"","IpcMode":"private","CapDrop":["ALL"],"CapAdd":null,"SecurityOpt":["no-new-privileges"],"Devices":null,"DeviceRequests":null,"PortBindings":{},"NetworkMode":"none"},"Mounts":[{"Source":"/owned/subject","Destination":"/subject","RW":true,"Type":"bind"}]}]"#).unwrap();
     let expected:Value=serde_json::from_str(r#"{"network":"none","user":"1001:1001","cwd":"/subject","argv":["python3","probe.py"],"env":["LANG=C"],"mounts":[{"source":"/owned/subject","destination":"/subject","rw":true,"type":"bind"}]}"#).unwrap();
     (actual, expected)
 }

@@ -53,8 +53,11 @@ impl Docker {
             Command::new("docker").args(arguments),
         )?)
     }
-    pub fn prepare(&mut self) -> Result<()> {
+    pub fn prepare_runtime(&mut self) -> Result<()> {
         crate::environment_evidence::capture_runtime(self)?;
+        crate::environment_evidence::runtime(&self.evidence.root)
+    }
+    pub fn prepare_image(&mut self) -> Result<()> {
         self.command(
             "pull",
             &["pull", "--platform", "linux/amd64", policy::IMAGE],
@@ -129,6 +132,12 @@ impl Docker {
             "1",
             "--ipc",
             "private",
+            "--log-driver",
+            "local",
+            "--log-opt",
+            "max-size=1m",
+            "--log-opt",
+            "max-file=1",
             "--tmpfs",
             "/tmp:rw,nosuid,nodev,noexec,size=16m,mode=1777",
             "--workdir",
