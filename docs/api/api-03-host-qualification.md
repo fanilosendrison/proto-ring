@@ -12,9 +12,12 @@ version: "0.1.0"
 
 ## Status and authority
 
-**NOT_YET_QUALIFIED.** This document freezes an experimental protocol for
+**QUALIFIED_SCOPED_HOST_BASIS** is the bounded report conclusion from the third
+attributed campaign below, subject to the exact-source R2/publication receipt.
+No issue completion or production API qualification follows without those gates.
+This document records the frozen experimental protocol and evidence for
 [Issue #143](https://github.com/fanilosendrison/proto-ring/issues/143).
-No campaign result, API-03 service, public CheckHost, public HostAbort,
+No API-03 service, public CheckHost, public HostAbort,
 CheckReceipt or host-established API observation is supplied by this document.
 The accepted [API-01 contract](v1/proto-ring-api-01-v1-spec.md), especially
 sections 7–9, and the generic RepositoryState, RepositoryGovernanceState and
@@ -494,6 +497,119 @@ A new exact-source adapted R1 GO and separately attributed campaign are required
 before relying on this correction. Prior results cannot be transplanted onto it.
 R2 must judge the real evidence and frozen report candidate before publication B.
 A GO on an insufficient report does not qualify the host.
+
+### Third campaign: complete scoped evidence
+
+The complete campaign is
+[run 42108368179](https://github.com/fanilosendrison/proto-ring/actions/runs/42108368179),
+attempt **1**, job **127529125375**, event `workflow_dispatch`, ref `main`.
+`PROBE_SOURCE_SHA=71f503ff537ddd7fccf2caa089aaa14d683a091e`, source/workflow tree
+`4ab103b08281a3d1167b03d4929a38e9112a9740`. Publication through
+[PR152](https://github.com/fanilosendrison/proto-ring/pull/152) retained exactly the
+adapted R1-reviewed tree; source and workflow SHA comparison passed before build
+and effects. The adapted review report SHA-256 is
+`45e9fbd24a82e40536ba154e4457794afd4fcd91cd5475c76352c8f1712a4a1d`;
+RPC stream SHA-256 is
+`e6f80b54c10356209c6c71a5117bce1ca6c1e5e7d60f56268f5850e4ff4d5630`.
+Pi 0.84.2 / multi-login 0.3.2 / `openai-codex-1/gpt-6.1-sol` / effective `high`
+was observed before and after that independent read-only invocation.
+
+Actual environment: GitHub-hosted Ubuntu 24.04 x64, runner image
+`20261101.360.1`, Linux `7.0.0-1017-azure`, Docker client/server **28.0.4**, API
+**1.48**, cgroup v2/systemd and available `local` driver. UID:GID **1001:1001**.
+The exact candidate manifest digest and expected config digest were observed,
+with `linux/amd64`. Every container's inspected logger was `local`,
+`max-size=1m`, `max-file=1`, `compress=false`; the fixed capability, namespace,
+rootfs, privilege, environment, mount and fixture resource policy remained applied.
+All 132 offline harness tests and strict build/lint controls passed in this job
+before the campaign. This is not a general output-load or resource-exhaustion test.
+
+Artifact **13452184308**, name `api03-host-42108368179-1`, was attributed through
+run/job/attempt metadata, not name similarity. Archive SHA-256:
+`372ee5eed785d65b74130511bf17ff0bf8fc488613ac83afee3d1b9466717c5a`.
+All **962** ZIP members passed bounded path/type/collision checks before extraction.
+The campaign's **940-entry** inventory and the separate fallback-cleanup inventory
+were checked completely. Campaign inventory SHA-256:
+`c95fef5ddf6438766183a6e903038849ef3946edf24d9acc124a26e74f665dc3`.
+The authorized private archive retains all three attempts, original ZIPs, metadata,
+member inventories, raw bytes, job logs and review receipts. Remote retention is
+finite: this artifact expires **2026-11-19T21:00:43Z**; the archive is not dependent
+on permanent Actions availability. Private paths and review traces are not committed.
+
+The same standalone acceptance kernel was run on the recovered campaign, using
+its exact source commit's Git objects, and exited **0**. No validator or Docker
+process was rerun for evidence retrieval. All **28 mandatory subcases** are PASS;
+source inventory covers **459** exact Git-derived files and both source checkpoints
+remain valid. Tables below summarize verified observations; detailed piece names
+are relative to the artifact's `campaign/` directory.
+
+| Probe | Result | Evidence and boundary |
+| ----- | ------ | --------------------- |
+| H01 | PASS | `runner.json`, `kernel.json`, `runtime-version.json`, `runtime-info.json`, `image.json`, `policy-*`, `image-interpreter.*`, and each `*-created.json`: actual platform, available mechanisms, exact image/interpreter and inspected fixed envelope. |
+| H02 | PASS | `governance-mutation.json`, `untracked-mutation.json`, exact `*-before.bin`/`*-after.bin`, canonical public provenance and before/after reference comparisons: governed and untracked writes visible after closed effects, same root/scope domain; no raw internal identity exposure. |
+| H03 | PASS | `writer-positive-*` changes exact bytes; `writer-denied-*` observes real existing target, EROFS and unchanged controller-read bytes under read-only subject binding. No claim against a same-user host shell. |
+| H04 | PASS | `canonical-scopes.json`, `subject-root-identity.json`, `positive-git-identities.json`, `positive-git-coverage.json`: real standalone `.git`, HEAD/index/config/object/ref coverage, four canonical governance paths and RI scope `target`; distinct external Git/common-dir, alias and replaced-linkage cases are rejected as protected. |
+| H05 | PASS | `*-launch.json`/`*-created.json`, protected source inventory, `policy-logs.stdout`, `image-interpreter.*`, program/control denial plus writable positive: effective image/program/interpreter/argv/cwd/environment/mount correspondence. Image dependencies and trusted interpreter remain explicit assumptions. |
+| H06 | PASS | `simple-*`, both `descendant-*-rendezvous.json`, `*-live.json`, `*-top.txt`, `*-capability.json`, terminal/wait/stream records: children alive with inherited stream/open writer before principal release; exact container, host/namespace/birth/descriptor binding and observed stopped PID perimeter before subsequent canonical observation. Forced namespace closure is not normal child/validator success. |
+| H07 | PASS | `output-logs.stdout` is `61706930332d7374646f757400ff0a`; stderr is `61706930332d737464657272fe0a`; independent process exit 23 and transport records agree. Evidence sacrificial target refuses writes while positive writes succeed. This does not qualify 64 MiB tails, quotas or receipts. |
+| H08 | PASS | `guard-loss.json`: actual root device/inode replacement, protection latched false and next protected capture refused; `network.json`, listener readiness and `network-before/denied/after-*`: same ready local endpoint reachable before/after, connect-stage ENETUNREACH under network none. No Internet endpoint tested. |
+
+The subject's canonical governance scope is exactly `AGENTS.md`, `authority.md`,
+`bindings.md`, `integrity.md`; the pure canonical RI realization produces `target`.
+No consumer validations execute. Equality/change uses the canonical API/engine,
+never an artisanal repository-state digest. Public observations remain
+`ordinary_capture`; no CheckReceipt or `host_established` DTO is manufactured.
+
+Eighteen newly owned containers and one internal network were observed and removed.
+Their full IDs and campaign labels are retained in creation/runtime/controller
+records. Removal was followed by successful empty container/network re-listing;
+the fallback always-step independently observed absence and did not upgrade process
+completion. No owned probe perimeter remained. `CLEANUP_VERIFIED=YES`; the artifact
+and private archive survived cleanup. Sequential namespace/PID values may be reused;
+none is treated as a globally unique identity independently of campaign/container
+and birth/capability observations.
+
+### Scoped conclusion and integration limits
+
+`HOST_BASIS=QUALIFIED_SCOPED_HOST_BASIS` describes the mechanisms actually exercised
+by this source, runner build, image/config, kernel/runtime and controlled fixture
+boundary. It supplies a demonstrated integration basis, not the API-03 integration.
+Mandatory source-bound R2, publication and CI receipts remain separate acceptance
+gates; the report itself does not assert a future review or its own future commit.
+`REPORT_SOURCE_SHA` and R2's reviewed base/tree are attributed by the publishing PR;
+they need not equal the probe source SHA.
+
+The basis depends on a trusted hosted VM administrator, kernel/daemon/runtime,
+controller/build/source, canonical tools and protected outside-subject evidence.
+Untrusted processes are confined actors without controller shell, credentials or
+Docker control. This does not resist an administrator or controller-equivalent
+same-user actor. It does not automatically protect the local checkout, qualify all
+Linux/Docker, implement public check/output services, qualify ReceiptCustodian or
+prove absence of ABA from equal hashes.
+
+API-01 integration remains to wire actual mechanisms to the eight checkpoints:
+protect the whole subject/Git domain before RGS; check canonical scope after pure
+realization; bind immutable program/env/root/mount/attempt admission at each launch;
+require established effect closure before each following capture; preserve guard
+validity through final required observation. These experiments do not issue a
+production permit, complete admitted plan or RI verdict.
+
+- **#145:** integrate protected acquisition, whole-Git/scope coverage, actual root
+  generation and executable/environment/mount binding with #144's canonical hooks.
+- **#146:** integrate actual start/wait/capture and descendant-effect closure in the
+  existing executor. Only finite fixture bytes are demonstrated here; large-tail,
+  backpressure and interruption semantics remain its work.
+- **#147:** use the demonstrated access separation for evidence under real custody
+  policy; reservation, atomic receipt finalization, durability, retention/quota and
+  authorization are not qualified here.
+- **#148:** exercise one actual admitted integrated path and its refusals only once
+  those components exist. #136/#137 acceptance remains independent and incomplete.
+
+Changed runner/kernel/runtime/image, log backend/bounds, program/source, external
+Git dependency, uncovered path, substituted root/mount, uncontained process or lost
+protected evidence invalidates reliance until re-established by the appropriate
+source review and attributed execution. The first two failures demonstrate why
+neither source GO nor a convenient logging default is a runtime qualification.
 
 Final conclusions are restricted to `QUALIFIED_SCOPED_HOST_BASIS`, `PARTIAL`,
 `UNAVAILABLE` or `NOT_QUALIFIED`. The positive conclusion requires every mandatory
